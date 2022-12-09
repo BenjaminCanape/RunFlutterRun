@@ -43,17 +43,6 @@ class TimerScreen extends HookConsumerWidget {
             child: Center(
               child: TimerText(),
             )),
-        Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              buildFloatingButton(
-                  context, timerViewModel, "reset", leftButtonPressed),
-              buildFloatingButton(
-                  context,
-                  timerViewModel,
-                  timerViewModel.isTimerRunning() ? "pause" : "start",
-                  rightButtonPressed),
-            ]),
       ],
     );
   }

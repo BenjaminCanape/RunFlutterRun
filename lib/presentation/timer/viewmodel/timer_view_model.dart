@@ -17,7 +17,7 @@ class TimerViewModel extends StateNotifier<TimerState> {
   TimerViewModel(this.ref) : super(TimerState.initial());
 
   void startTimer() {
-    bool isRunning = stopwatch.elapsedMilliseconds > 0;
+    bool isRunning = hasTimerStarted();
     stopwatch.start();
     state = state.copyWith(isRunning: true);
     timer = Timer.periodic(new Duration(seconds: 1), updateTime);
@@ -27,6 +27,10 @@ class TimerViewModel extends StateNotifier<TimerState> {
     } else {
       ref.read(locationViewModelProvider.notifier).resumeLocationStream();
     }
+  }
+
+  bool hasTimerStarted() {
+    return stopwatch.elapsedMilliseconds > 0;
   }
 
   bool isTimerRunning() {
