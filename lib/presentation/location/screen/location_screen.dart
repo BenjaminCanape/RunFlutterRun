@@ -11,9 +11,11 @@ class LocationScreen extends HookConsumerWidget {
     final state = ref.watch(locationViewModelProvider);
 
     return Center(
-      child: Text(
+        child: Column(children: [
+      Text('Voici votre position:'),
+      Text(
           'Latitude: ${state.currentPosition != null ? state.currentPosition?.latitude.toString() : '0'},'
           ' Longitude: ${state.currentPosition != null ? state.currentPosition?.longitude.toString() : '0'}'),
-    );
+    ]));
   }
 }

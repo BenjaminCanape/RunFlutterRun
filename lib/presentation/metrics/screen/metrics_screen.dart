@@ -10,9 +10,14 @@ class MetricsScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(metricsViewModelProvider);
 
+    var textStyle = TextStyle(fontSize: 30.0);
+
     return Center(
-      child: Text(
-          '${double.parse(state.distance.toStringAsFixed(2))} Km - ${double.parse(state.globalSpeed.toStringAsFixed(2))} Km/h'),
-    );
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+      Text('${double.parse(state.distance.toStringAsFixed(2))} Km',
+          style: textStyle),
+      Text('${double.parse(state.globalSpeed.toStringAsFixed(2))} Km/h',
+          style: textStyle)
+    ]));
   }
 }

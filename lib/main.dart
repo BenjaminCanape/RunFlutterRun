@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:run_run_run/presentation/metrics/screen/metrics_screen.dart';
 import 'package:run_run_run/presentation/timer/widgets/timer_pause.dart';
@@ -16,6 +17,13 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  //late GoogleMapController mapController;
+  //final LatLng _center = const LatLng(45.521563, -122.677433);
+
+  /*void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }*/
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,9 +37,23 @@ class MyApp extends StatelessWidget {
         body: SafeArea(
           child: Column(
             children: const [
-              MetricsScreen(),
-              LocationScreen(),
+              /*SizedBox(
+              height: 500,
+              child: 
+              GoogleMap(
+                  onMapCreated: _onMapCreated,
+                  initialCameraPosition: CameraPosition(
+                    target: _center,
+                    zoom: 11.0,
+                  ),
+                ),
+              ),*/
               TimerScreen(),
+              MetricsScreen(),
+              SizedBox(
+                height: 100,
+              ),
+              LocationScreen(),
             ],
           ),
         ),
