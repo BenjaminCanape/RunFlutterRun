@@ -25,6 +25,7 @@ class TimerViewModel extends StateNotifier<TimerState> {
       ref.read(locationViewModelProvider.notifier).startGettingLocation();
       ref.read(textToSpeechService).sayGoodLuck();
     } else {
+      ref.read(textToSpeechService).sayResume();
       ref.read(locationViewModelProvider.notifier).resumeLocationStream();
     }
   }
@@ -39,14 +40,17 @@ class TimerViewModel extends StateNotifier<TimerState> {
 
   void resetTimer() {
     state = TimerState.initial();
+    stopwatch.stop();
     stopwatch.reset();
     timer?.cancel();
     ref.read(locationViewModelProvider.notifier).cancelLocationStream();
     ref.read(metricsViewModelProvider.notifier).reset();
     state = state.copyWith(isRunning: false);
+    ref.read(textToSpeechService).sayCongrats();
   }
 
   void stopTimer() {
+    ref.read(textToSpeechService).sayPause();
     stopwatch.stop();
     timer?.cancel();
     ref.read(locationViewModelProvider.notifier).stopLocationStream();
