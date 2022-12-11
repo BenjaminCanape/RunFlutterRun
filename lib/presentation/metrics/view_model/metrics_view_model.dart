@@ -23,11 +23,12 @@ class MetricsViewModel extends StateNotifier<MetricsState> {
 
     int lastDistanceInteger = state.distance.toInt();
 
-    var distance = distanceInKmBetweenCoordinates(
-        location.lastPosition?.latitude,
-        location.lastPosition?.longitude,
-        location.currentPosition?.latitude,
-        location.currentPosition?.longitude);
+    var distance = state.distance +
+        distanceInKmBetweenCoordinates(
+            location.lastPosition?.latitude,
+            location.lastPosition?.longitude,
+            location.currentPosition?.latitude,
+            location.currentPosition?.longitude);
 
     var globalSpeed = distance / (timer.getTimerInMs() / 3600000);
 

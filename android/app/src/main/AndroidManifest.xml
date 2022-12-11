@@ -3,12 +3,11 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="run_run_run"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-                         <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="KEY"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -8,8 +8,11 @@ final textToSpeechService = Provider.autoDispose((ref) {
 class TextToSpeech {
   FlutterTts flutterTts = FlutterTts();
 
-  Future sayGoodLuck() async {
+  Future init() async {
     await flutterTts.setLanguage("fr-FR");
+  }
+
+  Future sayGoodLuck() async {
     await flutterTts.speak("C'est parti, bon courage");
   }
 

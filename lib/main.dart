@@ -1,84 +1,43 @@
 import 'package:flutter/material.dart';
-//import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_run_run/presentation/metrics/screen/metrics_screen.dart';
-import 'package:run_run_run/presentation/timer/widgets/timer_pause.dart';
-import 'package:run_run_run/presentation/timer/widgets/timer_start.dart';
-
-import 'presentation/location/screen/location_screen.dart';
-import 'presentation/timer/screen/timer_screen.dart';
+import 'package:run_run_run/presentation/common/textToSpeech/text_to_speech.dart';
+import 'package:run_run_run/presentation/home/screen/home_screen.dart';
+import 'package:run_run_run/presentation/sum_up/screen/sum_up_screen.dart';
 
 void main() {
   runApp(
-    const ProviderScope(child: MaterialApp(home: MyApp())),
+    const ProviderScope(child: MyApp()),
   );
 }
 
-class MyApp extends StatelessWidget {
+final myAppProvider = Provider.autoDispose((ref) {
+  return MyAppViewModel(ref);
+});
+
+class MyAppViewModel {
+  late Ref ref;
+
+  MyAppViewModel(this.ref) {
+    ref.read(textToSpeechService).init();
+  }
+}
+
+class MyApp extends HookConsumerWidget {
   const MyApp({super.key});
 
-  //late GoogleMapController mapController;
-  //final LatLng _center = const LatLng(45.521563, -122.677433);
-
-  /*void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }*/
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final provider = ref.read(myAppProvider);
+
     return MaterialApp(
-      title: 'Run Flutter Run',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        bottomSheetTheme:
-            const BottomSheetThemeData(backgroundColor: Colors.transparent),
-      ),
-      home: Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: const [
-              /*SizedBox(
-              height: 500,
-              child: 
-              GoogleMap(
-                  onMapCreated: _onMapCreated,
-                  initialCameraPosition: CameraPosition(
-                    target: _center,
-                    zoom: 11.0,
-                  ),
-                ),
-              ),*/
-              TimerScreen(),
-              MetricsScreen(),
-              SizedBox(
-                height: 100,
-              ),
-              LocationScreen(),
-            ],
-          ),
+        initialRoute: '/',
+        routes: {'/sumup': (context) => const SumUpScreen()},
+        title: 'Run Flutter Run',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          bottomSheetTheme:
+              const BottomSheetThemeData(backgroundColor: Colors.transparent),
         ),
-        floatingActionButton: const TimerStart(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: BottomAppBar(
-          shape: const CircularNotchedRectangle(),
-          notchMargin: 4.0,
-          color: Colors.blue,
-          child: IconTheme(
-              data:
-                  IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-              child: Row(
-                children: <Widget>[
-                  IconButton(
-                    tooltip: 'Home',
-                    icon: const Icon(Icons.run_circle),
-                    onPressed: () {},
-                  ),
-                  const Spacer(),
-                  const TimerPause(),
-                ],
-              )),
-        ),
-      ),
-    );
+        home: const HomeScreen());
   }
 }

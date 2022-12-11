@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:run_run_run/presentation/common/textToSpeech/text_to_speech.dart';
 import 'package:run_run_run/presentation/location/view_model/location_view_model.dart';
-import 'package:run_run_run/presentation/metrics/view_model/metrics_view_model.dart';
 import 'package:run_run_run/presentation/timer/viewmodel/timer_state.dart';
 
 final timerViewModelProvider =
@@ -22,7 +22,6 @@ class TimerViewModel extends StateNotifier<TimerState> {
     state = state.copyWith(isRunning: true);
     timer = Timer.periodic(new Duration(seconds: 1), updateTime);
     if (isRunning == false) {
-      ref.read(locationViewModelProvider.notifier).startGettingLocation();
       ref.read(textToSpeechService).sayGoodLuck();
     } else {
       ref.read(textToSpeechService).sayResume();
@@ -40,16 +39,20 @@ class TimerViewModel extends StateNotifier<TimerState> {
 
   void resetTimer() {
     state = TimerState.initial();
+  }
+
+  void stopTimer(BuildContext context) {
     stopwatch.stop();
     stopwatch.reset();
     timer?.cancel();
     ref.read(locationViewModelProvider.notifier).cancelLocationStream();
-    ref.read(metricsViewModelProvider.notifier).reset();
     state = state.copyWith(isRunning: false);
     ref.read(textToSpeechService).sayCongrats();
+
+    Navigator.pushNamed(context, '/sumup');
   }
 
-  void stopTimer() {
+  void pauseTimer() {
     ref.read(textToSpeechService).sayPause();
     stopwatch.stop();
     timer?.cancel();

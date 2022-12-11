@@ -19,7 +19,7 @@ class TimerPause extends HookConsumerWidget {
             : Icons.play_arrow),
         onPressed: () {
           timerViewModel.isTimerRunning() == true
-              ? timerViewModel.stopTimer()
+              ? timerViewModel.pauseTimer()
               : timerViewModel.startTimer();
         },
       );

@@ -6,31 +6,6 @@ import '../widgets/timer_text.dart';
 class TimerScreen extends HookConsumerWidget {
   const TimerScreen({Key? key}) : super(key: key);
 
-  void leftButtonPressed(BuildContext context, TimerViewModel timerViewModel) {
-    timerViewModel.resetTimer();
-  }
-
-  void rightButtonPressed(BuildContext context, TimerViewModel timerViewModel) {
-    if (timerViewModel.isTimerRunning()) {
-      timerViewModel.stopTimer();
-    } else {
-      timerViewModel.startTimer();
-    }
-  }
-
-  Widget buildFloatingButton(
-      BuildContext context,
-      TimerViewModel timerViewModel,
-      String text,
-      void Function(BuildContext context, TimerViewModel timerViewModel)
-          callback) {
-    TextStyle roundTextStyle =
-        const TextStyle(fontSize: 16.0, color: Colors.white);
-    return FloatingActionButton(
-        onPressed: () => callback(context, timerViewModel),
-        child: Text(text, style: roundTextStyle));
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(timerViewModelProvider);
