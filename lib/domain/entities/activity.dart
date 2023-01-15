@@ -1,0 +1,27 @@
+import 'package:equatable/equatable.dart';
+
+import 'location.dart';
+
+class Activity extends Equatable {
+  final String id;
+  final String startDatetime;
+  final String endDatetime;
+  final double distance;
+  final double speed;
+  final double time;
+
+  final Iterable<Location> locations;
+
+  const Activity(
+      {required this.id,
+      required this.startDatetime,
+      required this.endDatetime,
+      required this.distance,
+      required this.speed,
+      required this.time,
+      required this.locations});
+
+  @override
+  List<Object?> get props =>
+      [id, startDatetime, endDatetime, distance, speed, time];
+}

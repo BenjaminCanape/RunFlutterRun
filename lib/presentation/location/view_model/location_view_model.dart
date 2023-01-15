@@ -25,6 +25,7 @@ class LocationViewModel extends StateNotifier<LocationState> {
 
   Future<void> startGettingLocation() async {
     final metricsProvider = ref.read(metricsViewModelProvider.notifier);
+
     await Geolocator.requestPermission();
     _positionStream = _positionStream ??
         Geolocator.getPositionStream().listen((Position position) {
