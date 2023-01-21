@@ -19,7 +19,7 @@ class TimerViewModel extends StateNotifier<TimerState> {
   void startTimer() {
     bool isRunning = hasTimerStarted();
     stopwatch.start();
-    state = state.copyWith(isRunning: true);
+    state = state.copyWith(startDatetime: DateTime.now(), isRunning: true);
     timer = Timer.periodic(new Duration(seconds: 1), updateTime);
     if (isRunning == false) {
       ref.read(textToSpeechService).sayGoodLuck();

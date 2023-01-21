@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:run_run_run/presentation/sum_up/view_model/sum_up_view_model.dart';
 import 'package:run_run_run/presentation/timer/viewmodel/timer_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -12,7 +13,7 @@ class SumUpScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(timerViewModelProvider);
+    final state = ref.watch(sumUpViewModelProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -28,7 +29,7 @@ class SumUpScreen extends HookConsumerWidget {
           ],
         ),
       ),
-      floatingActionButton: const SaveButton(),
+      floatingActionButton: SaveButton(disabled: state.isSaving),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),

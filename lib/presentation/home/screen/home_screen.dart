@@ -38,7 +38,9 @@ class HomeScreen extends HookConsumerWidget {
                 IconButton(
                   tooltip: 'Home',
                   icon: const Icon(Icons.run_circle),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/activity_list');
+                  },
                 ),
                 const Spacer(),
                 const TimerPause(),

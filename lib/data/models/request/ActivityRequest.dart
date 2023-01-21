@@ -2,8 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:run_run_run/data/models/request/LocationRequest.dart';
 
 class ActivityRequest extends Equatable {
-  final String startDatetime;
-  final String endDatetime;
+  final DateTime startDatetime;
+  final DateTime endDatetime;
   final double distance;
 
   final Iterable<LocationRequest> locations;
@@ -19,10 +19,10 @@ class ActivityRequest extends Equatable {
 
   Map<String, dynamic> toMap() {
     final queryParameters = {
-      'startDatetime': startDatetime,
-      'endDatetime': endDatetime,
+      'startDatetime': startDatetime.toIso8601String(),
+      'endDatetime': endDatetime.toIso8601String(),
       'distance': distance,
-      'locations': locations
+      'locations': []
     };
     return queryParameters;
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_run_run/presentation/activity_list/screen/activity_list_screen.dart';
 import 'package:run_run_run/presentation/common/textToSpeech/text_to_speech.dart';
 import 'package:run_run_run/presentation/home/screen/home_screen.dart';
 import 'package:run_run_run/presentation/sum_up/screen/sum_up_screen.dart';
@@ -31,7 +32,10 @@ class MyApp extends HookConsumerWidget {
 
     return MaterialApp(
         initialRoute: '/',
-        routes: {'/sumup': (context) => const SumUpScreen()},
+        routes: {
+          '/sumup': (context) => const SumUpScreen(),
+          '/activity_list': (context) => const ActivityListScreen()
+        },
         title: 'Run Flutter Run',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

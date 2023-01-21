@@ -9,19 +9,18 @@ import 'package:run_run_run/data/models/response/activity.dart';
 final remoteApiProvider = Provider<RemoteApi>((ref) => RemoteApi());
 
 class RemoteApi {
-  static const String url = 'https://runbackendrun.onrender.com/api/activity';
+  static const String url = 'https://runbackendrun.onrender.com/api/activity/';
 
   Future<List<ActivityResponse>> getActivities() async {
     // Appel WS
     try {
-      final response = await Dio().get('$url/all');
+      final response = await Dio().get('${url}all');
 
       // Récupérer réponse
       if (response.statusCode == 200) {
-        final data = Map<String, dynamic>.from(response.data);
-        final results = List<Map<String, dynamic>>.from(data['results']);
-        if (results.isNotEmpty) {
-          return results.map((e) => ActivityResponse.fromMap(e)).toList();
+        final data = List<dynamic>.from(response.data);
+        if (data.isNotEmpty) {
+          return data.map((e) => ActivityResponse.fromMap(e)).toList();
         }
       }
       return [];
@@ -40,10 +39,8 @@ class RemoteApi {
 
       // Récupérer réponse
       if (response.statusCode == 200) {
-        final data = Map<String, dynamic>.from(response.data);
-        final result = Map<String, dynamic>.from(data['results']);
-        if (result.isNotEmpty) {
-          return ActivityResponse.fromMap(result);
+        if (response.data.isNotEmpty) {
+          return ActivityResponse.fromMap(response.data);
         }
       }
       throw const Failure(message: 'Activity not found');
@@ -76,14 +73,12 @@ class RemoteApi {
   Future<ActivityResponse> addActivity(ActivityRequest request) async {
     // Appel WS
     try {
-      final response = await Dio().post(url, queryParameters: request.toMap());
+      final response = await Dio().post(url, data: request.toMap());
 
       // Récupérer réponse
       if (response.statusCode == 200) {
-        final data = Map<String, dynamic>.from(response.data);
-        final result = Map<String, dynamic>.from(data['results']);
-        if (result.isNotEmpty) {
-          return ActivityResponse.fromMap(result);
+        if (response.data.isNotEmpty) {
+          return ActivityResponse.fromMap(response.data);
         }
       }
       throw const Failure(message: 'Activity not created');
@@ -98,14 +93,12 @@ class RemoteApi {
   Future<ActivityResponse> editActivity(ActivityRequest request) async {
     // Appel WS
     try {
-      final response = await Dio().get(url, queryParameters: request.toMap());
+      final response = await Dio().put(url, data: request.toMap());
 
       // Récupérer réponse
       if (response.statusCode == 200) {
-        final data = Map<String, dynamic>.from(response.data);
-        final result = Map<String, dynamic>.from(data['results']);
-        if (result.isNotEmpty) {
-          return ActivityResponse.fromMap(result);
+        if (response.data.isNotEmpty) {
+          return ActivityResponse.fromMap(response.data);
         }
       }
       throw const Failure(message: 'Activity not found');

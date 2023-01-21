@@ -1,4 +1,6 @@
 class TimerState {
+  final DateTime startDatetime;
+
   final int hours;
   final int minutes;
   final int secondes;
@@ -9,16 +11,26 @@ class TimerState {
       {required this.hours,
       required this.minutes,
       required this.secondes,
-      required this.isRunning});
+      required this.isRunning,
+      required this.startDatetime});
 
   factory TimerState.initial() {
-    return const TimerState(
-        hours: 0, minutes: 0, secondes: 0, isRunning: false);
+    return TimerState(
+        startDatetime: DateTime.now(),
+        hours: 0,
+        minutes: 0,
+        secondes: 0,
+        isRunning: false);
   }
 
   TimerState copyWith(
-      {int? hours, int? minutes, int? secondes, bool? isRunning}) {
+      {DateTime? startDatetime,
+      int? hours,
+      int? minutes,
+      int? secondes,
+      bool? isRunning}) {
     return TimerState(
+        startDatetime: startDatetime ?? this.startDatetime,
         hours: hours ?? this.hours,
         minutes: minutes ?? this.minutes,
         secondes: secondes ?? this.secondes,

@@ -4,8 +4,8 @@ import 'location.dart';
 
 class Activity extends Equatable {
   final String id;
-  final String startDatetime;
-  final String endDatetime;
+  final DateTime startDatetime;
+  final DateTime endDatetime;
   final double distance;
   final double speed;
   final double time;

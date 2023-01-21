@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class Location extends Equatable {
   final String id;
-  final String datetime;
+  final DateTime datetime;
   final double latitude;
   final double longitude;
 

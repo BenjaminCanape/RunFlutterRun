@@ -6,8 +6,8 @@ import '../../../domain/entities/activity.dart';
 
 class ActivityResponse extends Equatable {
   final String id;
-  final String startDatetime;
-  final String endDatetime;
+  final DateTime startDatetime;
+  final DateTime endDatetime;
   final double distance;
   final double speed;
   final double time;
@@ -29,12 +29,13 @@ class ActivityResponse extends Equatable {
 
   factory ActivityResponse.fromMap(Map<String, dynamic> map) {
     return ActivityResponse(
-        id: map['id'] ?? '',
-        startDatetime: map['startDatetime'] ?? '',
-        endDatetime: map['endDatetime'] ?? '',
-        distance: map['distance'] ?? '',
-        speed: map['speed'] ?? '',
-        time: map['time'] ?? '',
+        id: map['id'].toString(),
+        startDatetime: DateTime.parse(map['startDatetime']),
+        endDatetime: DateTime.parse(map['endDatetime']),
+        distance: map['distance'].toDouble(),
+        speed:
+            map['speed'] is String ? double.parse(map['speed']) : map['speed'],
+        time: map['time'].toDouble(),
         locations: List<LocationResponse>.from(map['locations'] ?? []));
   }
 

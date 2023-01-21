@@ -3,7 +3,7 @@ import 'package:run_run_run/domain/entities/location.dart';
 
 class LocationResponse extends Equatable {
   final String id;
-  final String datetime;
+  final DateTime datetime;
   final double latitude;
   final double longitude;
 
@@ -19,7 +19,7 @@ class LocationResponse extends Equatable {
   factory LocationResponse.fromMap(Map<String, dynamic> map) {
     return LocationResponse(
         id: map['id'] ?? '',
-        datetime: map['datetime'] ?? '',
+        datetime: DateTime.parse(map['datetime']),
         latitude: map['latitude'] ?? '',
         longitude: map['longitude'] ?? '');
   }
