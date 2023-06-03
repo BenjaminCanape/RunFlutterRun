@@ -1,11 +1,17 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:run_run_run/presentation/metrics/view_model/metrics_state.dart';
 import 'package:run_run_run/presentation/timer/viewmodel/timer_view_model.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../common/textToSpeech/text_to_speech.dart';
 import '../../location/view_model/location_view_model.dart';
+
+final contextProvider =
+    Provider<BuildContext>((ref) => throw UnimplementedError());
 
 final metricsViewModelProvider =
     StateNotifierProvider.autoDispose<MetricsViewModel, MetricsState>(
@@ -13,7 +19,6 @@ final metricsViewModelProvider =
 
 class MetricsViewModel extends StateNotifier<MetricsState> {
   final Ref ref;
-
   MetricsViewModel(this.ref) : super(MetricsState.initial());
 
   void updateMetrics() {
@@ -36,8 +41,10 @@ class MetricsViewModel extends StateNotifier<MetricsState> {
 
     int newDistanceInteger = state.distance.toInt();
     if (newDistanceInteger != lastDistanceInteger) {
-      textToSpeech.say("$newDistanceInteger kilomètres");
-      textToSpeech.say("${state.globalSpeed} kilomètres heures");
+      var translate = AppLocalizations.of(ref.read(contextProvider));
+      textToSpeech.say("$newDistanceInteger ${translate.kilometers}");
+      textToSpeech.say(
+          "${state.globalSpeed} ${translate.kilometers} ${translate.hours}");
     }
   }
 

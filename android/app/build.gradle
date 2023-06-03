@@ -23,12 +23,13 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply plugin: 'com.android.internal.version-check'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 33
     ndkVersion flutter.ndkVersion
-
+    namespace 'canape.benjamin.runflutterrun'
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

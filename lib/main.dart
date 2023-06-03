@@ -1,9 +1,15 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:run_run_run/presentation/activity_list/screen/activity_list_screen.dart';
 import 'package:run_run_run/presentation/common/textToSpeech/text_to_speech.dart';
 import 'package:run_run_run/presentation/home/screen/home_screen.dart';
 import 'package:run_run_run/presentation/sum_up/screen/sum_up_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'l10n/support_locale.dart';
 
 void main() {
   runApp(
@@ -19,7 +25,7 @@ class MyAppViewModel {
   late Ref ref;
 
   MyAppViewModel(this.ref) {
-    ref.read(textToSpeechService).init();
+    ref.read(textToSpeechService).init(context);
   }
 }
 
@@ -42,6 +48,13 @@ class MyApp extends HookConsumerWidget {
           bottomSheetTheme:
               const BottomSheetThemeData(backgroundColor: Colors.transparent),
         ),
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: L10n.support,
         home: const HomeScreen());
   }
 }

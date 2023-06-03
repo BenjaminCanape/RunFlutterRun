@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../domain/entities/activity.dart';
 
@@ -12,10 +13,10 @@ class ActivityItem extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(children: [
       Text(
-        'Le ${DateFormat('dd/MM/yyyy à kk:mm').format(activity.startDatetime)}:',
+        '${AppLocalizations.of(context).date_pronoun} ${DateFormat('dd/MM/yyyy à kk:mm').format(activity.startDatetime)}:',
       ),
       Text(
-        'Distance: ${activity.distance.toStringAsFixed(2)} km  - Vitesse: ${activity.speed.toStringAsFixed(2)} km/h',
+        '${AppLocalizations.of(context).distance}: ${activity.distance.toStringAsFixed(2)} km  - ${AppLocalizations.of(context).speed}: ${activity.speed.toStringAsFixed(2)} km/h',
       )
     ]);
   }

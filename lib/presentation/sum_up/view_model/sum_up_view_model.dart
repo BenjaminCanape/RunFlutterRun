@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:run_run_run/data/models/request/ActivityRequest.dart';
@@ -22,7 +24,7 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
   late Ref ref;
 
   SumUpViewModel(this.ref) : super(SumUpState.initial()) {
-    ref.read(textToSpeechService).say("Résumé de l'activité");
+    ref.read(textToSpeechService).sayActivitySumUp();
   }
 
   void save(BuildContext context) {
