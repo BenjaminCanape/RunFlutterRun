@@ -33,7 +33,7 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
         minutes: ref.read(timerViewModelProvider).minutes,
         seconds: ref.read(timerViewModelProvider).secondes));
 
-    //var locations = ref.read(locationViewModelProvider).savedPositions;
+    var locations = ref.read(locationViewModelProvider).savedPositions;
 
     ref
         .read(activityRepositoryProvider)
@@ -41,7 +41,7 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
             startDatetime: startDatetime,
             endDatetime: endDatetime,
             distance: ref.read(metricsViewModelProvider).distance,
-            locations: []))
+            locations: locations))
         .then((value) {
       ref.read(timerViewModelProvider.notifier).resetTimer();
       ref.read(locationViewModelProvider.notifier).resetSavedPositions();

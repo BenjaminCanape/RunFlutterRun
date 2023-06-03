@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:run_run_run/data/models/request/LocationRequest.dart';
 import 'package:run_run_run/presentation/location/view_model/location_state.dart';
 import 'package:run_run_run/presentation/metrics/view_model/metrics_view_model.dart';
 import 'package:run_run_run/presentation/timer/viewmodel/timer_view_model.dart';
@@ -40,11 +41,20 @@ class LocationViewModel extends StateNotifier<LocationState> {
               ref.read(timerViewModelProvider.notifier).hasTimerStarted()) {
             metricsProvider.updateMetrics();
 
-            List<LatLng> positions = List.from(state.savedPositions);
-            positions.add(LatLng(position.latitude, position.longitude));
+            List<LocationRequest> positions = List.from(state.savedPositions);
+            positions.add(LocationRequest(
+                datetime: DateTime.now(),
+                latitude: position.latitude,
+                longitude: position.longitude));
             state = state.copyWith(savedPositions: positions);
           }
         });
+  }
+
+  List<LatLng> savedPositionsLatLng() {
+    return state.savedPositions
+        .map((position) => LatLng(position.latitude, position.longitude))
+        .toList();
   }
 
   void resetSavedPositions() {

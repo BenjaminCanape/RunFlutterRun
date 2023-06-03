@@ -1,10 +1,11 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:run_run_run/data/models/request/LocationRequest.dart';
 
 class LocationState {
   final Position? currentPosition;
   final Position? lastPosition;
-  final List<LatLng> savedPositions;
+  final List<LocationRequest> savedPositions;
 
   const LocationState(
       {this.currentPosition, this.lastPosition, required this.savedPositions});
@@ -16,7 +17,7 @@ class LocationState {
   LocationState copyWith(
       {Position? currentPosition,
       Position? lastPosition,
-      List<LatLng>? savedPositions}) {
+      List<LocationRequest>? savedPositions}) {
     return LocationState(
         currentPosition: currentPosition ?? this.currentPosition,
         lastPosition: lastPosition ?? this.lastPosition,

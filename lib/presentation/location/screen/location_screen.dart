@@ -46,7 +46,7 @@ class LocationScreen extends HookConsumerWidget {
               PolylineLayer(
                 polylines: [
                   Polyline(
-                      points: state.savedPositions,
+                      points: provider.savedPositionsLatLng(),
                       strokeWidth: 4,
                       color: Colors.red),
                 ],

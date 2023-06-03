@@ -6,7 +6,7 @@ class ActivityRequest extends Equatable {
   final DateTime endDatetime;
   final double distance;
 
-  final Iterable<LocationRequest> locations;
+  final List<LocationRequest> locations;
 
   const ActivityRequest(
       {required this.startDatetime,
@@ -15,14 +15,14 @@ class ActivityRequest extends Equatable {
       required this.locations});
 
   @override
-  List<Object?> get props => [startDatetime, endDatetime, distance];
+  List<Object?> get props => [startDatetime, endDatetime, distance, locations];
 
   Map<String, dynamic> toMap() {
     final queryParameters = {
       'startDatetime': startDatetime.toIso8601String(),
       'endDatetime': endDatetime.toIso8601String(),
       'distance': distance,
-      'locations': []
+      'locations': locations.map((location) => location.toMap()).toList()
     };
     return queryParameters;
   }

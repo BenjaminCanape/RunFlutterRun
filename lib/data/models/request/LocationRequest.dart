@@ -12,4 +12,13 @@ class LocationRequest extends Equatable {
 
   @override
   List<Object?> get props => [datetime, latitude, longitude];
+
+  Map<String, dynamic> toMap() {
+    final queryParameters = {
+      'datetime': datetime.toIso8601String(),
+      'latitude': latitude,
+      'longitude': longitude
+    };
+    return queryParameters;
+  }
 }
