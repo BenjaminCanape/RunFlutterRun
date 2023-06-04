@@ -1,9 +1,6 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:run_run_run/data/models/request/ActivityRequest.dart';
-import 'package:run_run_run/data/models/request/LocationRequest.dart';
 import 'package:run_run_run/data/repository/activity_repository_impl.dart';
 import 'package:run_run_run/presentation/common/textToSpeech/text_to_speech.dart';
 import 'package:run_run_run/presentation/location/view_model/location_view_model.dart';

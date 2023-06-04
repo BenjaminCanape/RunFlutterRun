@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:run_run_run/presentation/sum_up/view_model/sum_up_view_model.dart';
-import 'package:run_run_run/presentation/timer/viewmodel/timer_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../location/screen/location_screen.dart';

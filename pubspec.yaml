@@ -20,7 +20,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.5 <3.0.0'
+  sdk: '>3.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -34,19 +34,21 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   geolocator: ^9.0.2
-  intl: ^0.17.0
+  intl: ^0.18.0
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_tts: ^3.6.2
-  hooks_riverpod: ^2.1.1
+  hooks_riverpod: ^2.3.6
   flutter_hooks: ^0.18.5+1
-  flutter_map: ^3.0.0
+  flutter_map: ^4.0.0
   latlong2: ^0.8.1
   equatable: ^2.0.5
-  dio: ^4.0.6
+  dio: ^5.1.2
+  stack_trace: ^1.11.0
+  flutter_riverpod: ^2.3.6
 
 dev_dependencies:
   flutter_test:

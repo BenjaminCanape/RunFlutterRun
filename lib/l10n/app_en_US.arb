@@ -1,0 +1,14 @@
+{
+  "@@locale": "en_US",
+  "activity_sumup": "Activity Sumup",
+  "good_luck": "Let start, good luck",
+  "pause_activity": "Activity paused",
+  "resume_activity": "Activity resumed",
+  "congrats": "End of activity. Congratulations.",
+  "activity_list": " Activity list",
+  "date_pronoun": "On",
+  "distance": "Distance",
+  "speed": "Speed",
+  "kilometers": "kilometers",
+  "hours": "hours"
+}
