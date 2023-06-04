@@ -3,6 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:run_run_run/presentation/activity_list/view_model/activity_list_view_model.dart';
 import 'package:run_run_run/presentation/activity_list/widgets/activity_item.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../widgets/back_to_home_button.dart';
 
 class ActivityListScreen extends HookConsumerWidget {
@@ -16,7 +18,7 @@ class ActivityListScreen extends HookConsumerWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Text("Liste des activités:"),
+            Text(AppLocalizations.of(context).activity_list),
             Expanded(
               child: GridView.count(
                 // Create a grid with 2 columns. If you change the scrollDirection to

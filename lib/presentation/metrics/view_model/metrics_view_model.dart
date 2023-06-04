@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_run_run/main.dart';
 import 'package:run_run_run/presentation/metrics/view_model/metrics_state.dart';
 import 'package:run_run_run/presentation/timer/viewmodel/timer_view_model.dart';
-
 import '../../common/textToSpeech/text_to_speech.dart';
 import '../../location/view_model/location_view_model.dart';
 
@@ -16,7 +16,7 @@ class MetricsViewModel extends StateNotifier<MetricsState> {
 
   MetricsViewModel(this.ref) : super(MetricsState.initial());
 
-  void updateMetrics() {
+  Future<void> updateMetrics() async {
     final location = ref.read(locationViewModelProvider);
     final timer = ref.read(timerViewModelProvider.notifier);
     final textToSpeech = ref.read(textToSpeechService);
@@ -36,8 +36,10 @@ class MetricsViewModel extends StateNotifier<MetricsState> {
 
     int newDistanceInteger = state.distance.toInt();
     if (newDistanceInteger != lastDistanceInteger) {
-      textToSpeech.say("$newDistanceInteger kilomètres");
-      textToSpeech.say("${state.globalSpeed} kilomètres heures");
+      final l10nConf = await ref.read(myAppProvider).getl10nConf();
+      textToSpeech.say("$newDistanceInteger ${l10nConf.kilometers}");
+      textToSpeech
+          .say("${state.globalSpeed} ${l10nConf.kilometers} ${l10nConf.hours}");
     }
   }
 

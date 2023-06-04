@@ -8,7 +8,9 @@ class TimerScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // ignore: unused_local_variable
     final state = ref.watch(timerViewModelProvider);
+    // ignore: unused_local_variable
     final timerViewModel = ref.watch(timerViewModelProvider.notifier);
 
     return Column(

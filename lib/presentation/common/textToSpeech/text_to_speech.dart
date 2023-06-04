@@ -1,31 +1,44 @@
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_run_run/main.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'dart:ui' as ui;
 
-final textToSpeechService = Provider.autoDispose((ref) {
-  return TextToSpeech();
+final textToSpeechService = Provider((ref) {
+  return TextToSpeech(ref);
 });
 
 class TextToSpeech {
+  late dynamic ref;
+  late AppLocalizations translate;
   FlutterTts flutterTts = FlutterTts();
 
+  TextToSpeech(this.ref);
+
   Future init() async {
-    await flutterTts.setLanguage("fr-FR");
+    var lang = ui.window.locale.languageCode;
+    await flutterTts.setLanguage(lang);
+    translate = await ref.read(myAppProvider).getl10nConf();
   }
 
   Future sayGoodLuck() async {
-    await flutterTts.speak("C'est parti, bon courage");
+    await flutterTts.speak(translate.good_luck);
+  }
+
+  Future sayActivitySumUp() async {
+    await flutterTts.speak(translate.activity_sumup);
   }
 
   Future sayPause() async {
-    await flutterTts.speak("L'activité est en pause");
+    await flutterTts.speak(translate.pause_activity);
   }
 
   Future sayResume() async {
-    await flutterTts.speak("Reprise de l'activité");
+    await flutterTts.speak(translate.resume_activity);
   }
 
   Future sayCongrats() async {
-    await flutterTts.speak("Fin de l'activité. Félicitations");
+    await flutterTts.speak(translate.congrats);
   }
 
   Future say(String text) async {

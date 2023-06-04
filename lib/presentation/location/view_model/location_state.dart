@@ -1,5 +1,4 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:run_run_run/data/models/request/LocationRequest.dart';
 
 class LocationState {
