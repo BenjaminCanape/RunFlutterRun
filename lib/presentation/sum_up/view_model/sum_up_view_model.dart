@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_run_run/data/models/request/ActivityRequest.dart';
-import 'package:run_run_run/data/repository/activity_repository_impl.dart';
-import 'package:run_run_run/presentation/common/textToSpeech/text_to_speech.dart';
-import 'package:run_run_run/presentation/location/view_model/location_view_model.dart';
-import 'package:run_run_run/presentation/sum_up/view_model/sum_up_state.dart';
-import 'package:run_run_run/presentation/timer/viewmodel/timer_view_model.dart';
 
+import '../../../data/models/request/ActivityRequest.dart';
+import '../../../data/repository/activity_repository_impl.dart';
+import '../../common/textToSpeech/text_to_speech.dart';
+import '../../location/view_model/location_view_model.dart';
 import '../../metrics/view_model/metrics_view_model.dart';
+import '../../timer/viewmodel/timer_view_model.dart';
+import 'sum_up_state.dart';
 
 final sumUpViewModel = Provider.autoDispose((ref) {
   return SumUpViewModel(ref);

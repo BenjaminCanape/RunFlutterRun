@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:run_run_run/data/models/request/LocationRequest.dart';
+
+import 'LocationRequest.dart';
 
 class ActivityRequest extends Equatable {
   final DateTime startDatetime;

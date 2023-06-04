@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
-import 'package:run_run_run/data/models/response/location.dart';
-import 'package:run_run_run/domain/entities/location.dart';
 
 import '../../../domain/entities/activity.dart';
+import '../../../domain/entities/location.dart';
+import 'location.dart';
 
 class ActivityResponse extends Equatable {
   final String id;

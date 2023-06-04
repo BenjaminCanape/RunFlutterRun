@@ -10,5 +10,6 @@
   "distance": "Distance",
   "speed": "Speed",
   "kilometers": "kilometers",
-  "hours": "hours"
+  "hours": "hours",
+  "hours_pronoun": "at"
 }

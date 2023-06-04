@@ -10,5 +10,6 @@
   "distance": "Distance",
   "speed": "Vitesse",
   "kilometers": "kilomètres",
-  "hours": "heures"
+  "hours": "heures",
+  "hours_pronoun": "à"
 }

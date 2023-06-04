@@ -2,9 +2,10 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_run_run/core/error.dart';
-import 'package:run_run_run/data/models/request/ActivityRequest.dart';
-import 'package:run_run_run/data/models/response/activity.dart';
+
+import '../../core/error.dart';
+import '../models/request/ActivityRequest.dart';
+import '../models/response/activity.dart';
 
 final remoteApiProvider = Provider<RemoteApi>((ref) => RemoteApi());
 

@@ -1,5 +1,5 @@
-import 'package:run_run_run/data/models/request/ActivityRequest.dart';
-import 'package:run_run_run/domain/entities/activity.dart';
+import '../../data/models/request/ActivityRequest.dart';
+import '../entities/activity.dart';
 
 abstract class ActivityRepository {
   Future<List<Activity>> getActivities();

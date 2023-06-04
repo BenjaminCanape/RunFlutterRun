@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:run_run_run/presentation/timer/viewmodel/timer_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../viewmodel/timer_view_model.dart';
 import '../widgets/timer_text.dart';
 
 class TimerScreen extends HookConsumerWidget {

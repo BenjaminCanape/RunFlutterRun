@@ -1,14 +1,16 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_run_run/presentation/activity_list/screen/activity_list_screen.dart';
-import 'package:run_run_run/presentation/common/textToSpeech/text_to_speech.dart';
-import 'package:run_run_run/presentation/home/screen/home_screen.dart';
-import 'package:run_run_run/presentation/sum_up/screen/sum_up_screen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'l10n/support_locale.dart';
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
-import 'dart:ui' as ui;
+
+import 'l10n/support_locale.dart';
+import 'presentation/activity_list/screen/activity_list_screen.dart';
+import 'presentation/common/textToSpeech/text_to_speech.dart';
+import 'presentation/home/screen/home_screen.dart';
+import 'presentation/sum_up/screen/sum_up_screen.dart';
 
 void main() {
   runApp(
@@ -21,24 +23,17 @@ void main() {
   };
 }
 
-final navigatorKeyProvider = Provider<GlobalKey<NavigatorState>>((ref) {
-  return GlobalKey<NavigatorState>();
-});
-
-final providerContainer = ProviderContainer();
-
 final myAppProvider = Provider((ref) {
   return MyAppViewModel(ref);
 });
 
 class MyAppViewModel {
   late Ref ref;
-  late BuildContext context;
+
   MyAppViewModel(this.ref);
 
-  void init(BuildContext currentContext) async {
+  void init() {
     ref.read(textToSpeechService).init();
-    context = currentContext;
   }
 
   Future<AppLocalizations> getl10nConf() async {
@@ -54,7 +49,7 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.read(myAppProvider);
-    provider.init(context);
+    provider.init();
 
     return MaterialApp(
         initialRoute: '/',

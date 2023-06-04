@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_run_run/presentation/activity_list/view_model/activity_list_view_model.dart';
-import 'package:run_run_run/presentation/activity_list/widgets/activity_item.dart';
+import '../view_model/activity_list_view_model.dart';
+import '../widgets/activity_item.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

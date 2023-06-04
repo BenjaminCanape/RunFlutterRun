@@ -1,11 +1,12 @@
 import 'dart:math';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_run_run/main.dart';
-import 'package:run_run_run/presentation/metrics/view_model/metrics_state.dart';
-import 'package:run_run_run/presentation/timer/viewmodel/timer_view_model.dart';
+
+import '../../../main.dart';
 import '../../common/textToSpeech/text_to_speech.dart';
 import '../../location/view_model/location_view_model.dart';
+import '../../timer/viewmodel/timer_view_model.dart';
+import 'metrics_state.dart';
 
 final metricsViewModelProvider =
     StateNotifierProvider.autoDispose<MetricsViewModel, MetricsState>(

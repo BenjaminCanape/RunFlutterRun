@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_run_run/data/repository/activity_repository_impl.dart';
-import 'package:run_run_run/presentation/activity_list/view_model/activitie_list_state.dart';
+
+import '../../../data/repository/activity_repository_impl.dart';
+import 'activitie_list_state.dart';
 
 final activityListViewModelProvider =
     StateNotifierProvider.autoDispose<ActivityListViewModel, ActivityListState>(

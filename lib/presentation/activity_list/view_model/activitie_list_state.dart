@@ -1,4 +1,4 @@
-import 'package:run_run_run/domain/entities/activity.dart';
+import '../../../domain/entities/activity.dart';
 
 class ActivityListState {
   final List<Activity> activities;

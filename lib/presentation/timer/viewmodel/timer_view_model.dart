@@ -2,9 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_run_run/presentation/common/textToSpeech/text_to_speech.dart';
-import 'package:run_run_run/presentation/location/view_model/location_view_model.dart';
-import 'package:run_run_run/presentation/timer/viewmodel/timer_state.dart';
+
+import '../../common/textToSpeech/text_to_speech.dart';
+import '../../location/view_model/location_view_model.dart';
+import 'timer_state.dart';
 
 final timerViewModelProvider =
     StateNotifierProvider.autoDispose<TimerViewModel, TimerState>(

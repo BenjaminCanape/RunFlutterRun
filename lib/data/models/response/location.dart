@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:run_run_run/domain/entities/location.dart';
+
+import '../../../domain/entities/location.dart';
 
 class LocationResponse extends Equatable {
   final String id;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_run_run/presentation/sum_up/view_model/sum_up_view_model.dart';
+import '../view_model/sum_up_view_model.dart';
 
 class SaveButton extends HookConsumerWidget {
   final bool disabled;

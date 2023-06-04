@@ -10,7 +10,7 @@ class MetricsScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(metricsViewModelProvider);
 
-    var textStyle = TextStyle(fontSize: 30.0);
+    var textStyle = const TextStyle(fontSize: 30.0);
 
     return Center(
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
