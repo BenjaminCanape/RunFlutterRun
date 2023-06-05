@@ -1,15 +1,15 @@
 {
   "@@locale": "en",
-  "activity_sumup": "Activity Sumup",
-  "good_luck": "Let start, good luck",
-  "pause_activity": "Activity paused",
-  "resume_activity": "Activity resumed",
-  "congrats": "End of activity. Congratulations.",
   "activity_list": " Activity list",
+  "activity_sumup": "Activity Sumup",
+  "congrats": "End of activity. Congratulations.",
   "date_pronoun": "On",
   "distance": "Distance",
-  "speed": "Speed",
-  "kilometers": "kilometers",
+  "good_luck": "Let start, good luck",
   "hours": "hours",
-  "hours_pronoun": "at"
+  "hours_pronoun": "at",
+  "kilometers": "kilometers",
+  "pause_activity": "Activity paused",
+  "resume_activity": "Activity resumed",
+  "speed": "Speed"
 }

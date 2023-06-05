@@ -1,15 +1,15 @@
 {
   "@@locale": "fr_FR",
-  "activity_sumup": "Résumé de l'activité",
-  "good_luck": "C'est parti, bon courage",
-  "pause_activity": "L'activité est en pause",
-  "resume_activity": "Reprise de l'activité",
-  "congrats": "Fin de l'activité. Félicitations",
   "activity_list": "Liste des activités",
+  "activity_sumup": "Résumé de l'activité",
+  "congrats": "Fin de l'activité. Félicitations",
   "date_pronoun": "Le",
   "distance": "Distance",
-  "speed": "Vitesse",
-  "kilometers": "kilomètres",
+  "good_luck": "C'est parti, bon courage",
   "hours": "heures",
-  "hours_pronoun": "à"
+  "hours_pronoun": "à",
+  "kilometers": "kilomètres",
+  "pause_activity": "L'activité est en pause",
+  "resume_activity": "Reprise de l'activité",
+  "speed": "Vitesse"
 }
