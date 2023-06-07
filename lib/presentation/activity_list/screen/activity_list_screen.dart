@@ -17,21 +17,18 @@ class ActivityListScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-          leadingWidth: 0,
+          leadingWidth: 40,
+          leading: const Icon(
+            Icons.list,
+            color: Colors.grey,
+          ),
           backgroundColor: Colors.white,
           titleTextStyle: TextStyle(
               color: Colors.grey.shade800,
               fontSize: 22,
               fontWeight: FontWeight.bold),
-          title: Row(
-            children: [
-              const Icon(
-                Icons.list,
-                color: Colors.grey,
-              ),
-              Text(AppLocalizations.of(context).activity_list.toUpperCase())
-            ],
-          )),
+          title:
+              Text(AppLocalizations.of(context).activity_list.toUpperCase())),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : SafeArea(

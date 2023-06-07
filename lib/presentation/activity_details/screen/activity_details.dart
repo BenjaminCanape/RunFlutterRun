@@ -31,7 +31,11 @@ class ActivityDetails extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-          leadingWidth: 0,
+          leadingWidth: 40,
+          leading: const Icon(
+            Icons.run_circle_outlined,
+            color: Colors.grey,
+          ),
           backgroundColor: Colors.white,
           titleTextStyle: TextStyle(
               color: Colors.grey.shade800,
@@ -39,10 +43,6 @@ class ActivityDetails extends HookConsumerWidget {
               fontWeight: FontWeight.bold),
           title: Row(
             children: [
-              const Icon(
-                Icons.run_circle_outlined,
-                color: Colors.grey,
-              ),
               Text(
                 AppLocalizations.of(context).running.toUpperCase(),
               ),
