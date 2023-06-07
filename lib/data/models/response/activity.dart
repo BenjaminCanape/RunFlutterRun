@@ -36,7 +36,10 @@ class ActivityResponse extends Equatable {
         speed:
             map['speed'] is String ? double.parse(map['speed']) : map['speed'],
         time: map['time'].toDouble(),
-        locations: List<LocationResponse>.from(map['locations'] ?? []));
+        locations: List<LocationResponse>.from(
+            (map['locations'] as List<dynamic>)
+                .map((dynamic item) => LocationResponse.fromMap(item))
+                .toList()));
   }
 
   Activity toEntity() {
@@ -47,10 +50,12 @@ class ActivityResponse extends Equatable {
         distance: distance,
         speed: speed,
         time: time,
-        locations: locations.map((location) => Location(
-            id: location.id,
-            datetime: location.datetime,
-            latitude: location.latitude,
-            longitude: location.longitude)));
+        locations: locations
+            .map((location) => Location(
+                id: location.id,
+                datetime: location.datetime,
+                latitude: location.latitude,
+                longitude: location.longitude))
+            .toList());
   }
 }

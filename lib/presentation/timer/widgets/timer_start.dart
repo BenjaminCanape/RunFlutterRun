@@ -13,6 +13,7 @@ class TimerStart extends HookConsumerWidget {
     final timerViewModel = ref.watch(timerViewModelProvider.notifier);
 
     return FloatingActionButton(
+      backgroundColor: Colors.teal.shade800,
       elevation: 4.0,
       child: Icon(timerViewModel.hasTimerStarted() == true
           ? Icons.stop

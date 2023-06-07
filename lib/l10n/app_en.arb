@@ -11,5 +11,6 @@
   "kilometers": "kilometers",
   "pause_activity": "Activity paused",
   "resume_activity": "Activity resumed",
+  "running": "Running",
   "speed": "Speed"
 }

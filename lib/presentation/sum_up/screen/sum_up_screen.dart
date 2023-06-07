@@ -15,19 +15,29 @@ class SumUpScreen extends HookConsumerWidget {
     final state = ref.watch(sumUpViewModelProvider);
 
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Text(AppLocalizations.of(context).activity_sumup),
-            TimerScreen(),
-            MetricsScreen(),
-            const SizedBox(
-              height: 10,
+      appBar: AppBar(
+          leadingWidth: 0,
+          backgroundColor: Colors.white,
+          titleTextStyle: TextStyle(
+              color: Colors.grey.shade800,
+              fontSize: 24,
+              fontWeight: FontWeight.bold),
+          title:
+              Text(AppLocalizations.of(context).activity_sumup.toUpperCase())),
+      body: state.isSaving
+          ? const Center(child: CircularProgressIndicator())
+          : SafeArea(
+              child: Column(
+                children: [
+                  TimerScreen(),
+                  MetricsScreen(),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  LocationScreen(),
+                ],
+              ),
             ),
-            LocationScreen(),
-          ],
-        ),
-      ),
       floatingActionButton: SaveButton(disabled: state.isSaving),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(

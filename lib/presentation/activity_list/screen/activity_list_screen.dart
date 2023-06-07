@@ -13,39 +13,55 @@ class ActivityListScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var activities = ref.watch(activityListViewModelProvider).activities;
+    var isLoading = ref.watch(activityListViewModelProvider).isLoading;
 
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Text(AppLocalizations.of(context).activity_list),
-            Expanded(
-              child: GridView.count(
-                // Create a grid with 2 columns. If you change the scrollDirection to
-                // horizontal, this produces 2 rows.
-                crossAxisCount: 1,
-                // Generate 100 widgets that display their index in the List.
-                children: List.generate(activities.length, (index) {
-                  return ActivityItem(activity: activities[index]);
-                }),
+      appBar: AppBar(
+          leadingWidth: 0,
+          backgroundColor: Colors.white,
+          titleTextStyle: TextStyle(
+              color: Colors.grey.shade800,
+              fontSize: 22,
+              fontWeight: FontWeight.bold),
+          title: Row(
+            children: [
+              const Icon(
+                Icons.list,
+                color: Colors.grey,
+              ),
+              Text(AppLocalizations.of(context).activity_list.toUpperCase())
+            ],
+          )),
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SafeArea(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: activities.length,
+                      itemBuilder: (context, index) {
+                        return ActivityItem(activity: activities[index]);
+                      },
+                    ),
+                  )
+                ],
               ),
             ),
-          ],
-        ),
-      ),
       floatingActionButton: const BackToHomeButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 4.0,
-        color: Colors.blue,
+        color: Colors.teal.shade400,
         child: IconTheme(
             data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
             child: Row(
               children: <Widget>[
                 IconButton(
                   tooltip: 'Home',
-                  icon: const Icon(Icons.run_circle),
+                  icon: const Icon(Icons.list_outlined),
+                  color: Colors.teal.shade100,
                   onPressed: () {},
                 ),
                 const Spacer(),

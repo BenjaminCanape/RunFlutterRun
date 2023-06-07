@@ -19,10 +19,11 @@ class LocationResponse extends Equatable {
 
   factory LocationResponse.fromMap(Map<String, dynamic> map) {
     return LocationResponse(
-        id: map['id'] ?? '',
-        datetime: DateTime.parse(map['datetime']),
-        latitude: map['latitude'] ?? '',
-        longitude: map['longitude'] ?? '');
+      id: map['id'].toString(),
+      datetime: DateTime.parse(map['datetime']),
+      latitude: map['latitude'] ?? '',
+      longitude: map['longitude'] ?? '',
+    );
   }
 
   Location toEntity() {

@@ -14,6 +14,7 @@ class TimerPause extends HookConsumerWidget {
 
     if (timerViewModel.hasTimerStarted()) {
       return IconButton(
+        color: Colors.teal.shade800,
         tooltip: timerViewModel.isTimerRunning() == true ? 'Pause' : 'Resume',
         icon: Icon(timerViewModel.isTimerRunning() == true
             ? Icons.pause

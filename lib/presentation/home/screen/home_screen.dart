@@ -30,14 +30,15 @@ class HomeScreen extends HookConsumerWidget {
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 4.0,
-        color: Colors.blue,
+        color: Colors.teal.shade400,
         child: IconTheme(
             data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
             child: Row(
               children: <Widget>[
                 IconButton(
                   tooltip: 'Home',
-                  icon: const Icon(Icons.run_circle),
+                  icon: const Icon(Icons.list_outlined),
+                  color: Colors.teal.shade100,
                   onPressed: () {
                     Navigator.pushNamed(context, '/activity_list');
                   },
