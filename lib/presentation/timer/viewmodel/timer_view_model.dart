@@ -73,10 +73,20 @@ class TimerViewModel extends StateNotifier<TimerState> {
     state = state.copyWith(hours: hours, minutes: minutes, secondes: secondes);
   }
 
-  String getFormattedTime() {
-    String hoursFormatted = state.hours.toString().padLeft(2, '0');
-    String minFormatted = state.minutes.toString().padLeft(2, '0');
-    String secFormatted = state.secondes.toString().padLeft(2, '0');
+  String getFormattedTime([int? timeInMs]) {
+    var hours = state.hours;
+    var minutes = state.minutes;
+    var seconds = state.secondes;
+
+    if (timeInMs != null) {
+      hours = convertMillisToHours(timeInMs);
+      minutes = convertMillisToMinutes(timeInMs, hours);
+      seconds = convertMillisToSeconds(timeInMs, hours, minutes);
+    }
+
+    String hoursFormatted = hours.toString().padLeft(2, '0');
+    String minFormatted = minutes.toString().padLeft(2, '0');
+    String secFormatted = seconds.toString().padLeft(2, '0');
 
     String formattedTime = state.hours > 0
         ? '$hoursFormatted:$minFormatted:$secFormatted'

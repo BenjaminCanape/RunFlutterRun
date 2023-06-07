@@ -7,6 +7,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:run_run_run/presentation/activity_details/view_model/activity_details_view_model.dart';
 import 'package:run_run_run/presentation/activity_details/widgets/remove_alert.dart';
 import 'package:run_run_run/presentation/activity_list/widgets/back_to_home_button.dart';
+import 'package:run_run_run/presentation/timer/widgets/timer_text.dart';
 
 import '../../../domain/entities/activity.dart';
 import '../../common/utils/map_math.dart';
@@ -79,7 +80,15 @@ class ActivityDetails extends HookConsumerWidget {
                   ),
                   Column(
                     children: <Widget>[
-                      const Center(child: Text('', style: timerTextStyle)),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Center(
+                        child: TimerText(timeInMs: activity.time.toInt()),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
                       Center(
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

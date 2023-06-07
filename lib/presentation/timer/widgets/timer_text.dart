@@ -4,7 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../viewmodel/timer_view_model.dart';
 
 class TimerText extends HookConsumerWidget {
-  const TimerText({super.key});
+  final int? timeInMs;
+
+  const TimerText({Key? key, this.timeInMs}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -15,6 +17,10 @@ class TimerText extends HookConsumerWidget {
     const TextStyle timerTextStyle =
         TextStyle(fontSize: 60.0, fontFamily: "Open Sans");
 
-    return Text(timerViewModel.getFormattedTime(), style: timerTextStyle);
+    return Text(
+        timeInMs != null
+            ? timerViewModel.getFormattedTime(timeInMs)
+            : timerViewModel.getFormattedTime(),
+        style: timerTextStyle);
   }
 }
