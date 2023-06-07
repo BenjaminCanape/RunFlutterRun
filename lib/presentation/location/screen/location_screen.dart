@@ -28,32 +28,31 @@ class LocationScreen extends HookConsumerWidget {
       ),
     ];
 
-    return Column(children: [
-      SizedBox(
-          height: 500,
-          child: FlutterMap(
-            mapController: provider.mapController,
-            options: MapOptions(
-              center: LatLng(state.currentPosition?.latitude ?? 0,
-                  state.currentPosition?.longitude ?? 0),
-              zoom: 17,
-            ),
-            children: [
-              TileLayer(
-                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    return Expanded(
+        child: SizedBox(
+            height: 500,
+            child: FlutterMap(
+              mapController: provider.mapController,
+              options: MapOptions(
+                center: LatLng(state.currentPosition?.latitude ?? 0,
+                    state.currentPosition?.longitude ?? 0),
+                zoom: 17,
               ),
-              MarkerLayer(markers: markers),
-              PolylineLayer(
-                polylines: [
-                  Polyline(
-                      points: provider.savedPositionsLatLng(),
-                      strokeWidth: 4,
-                      color: Colors.red),
-                ],
-              ),
-            ],
-            nonRotatedChildren: [],
-          ))
-    ]);
+              children: [
+                TileLayer(
+                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                ),
+                MarkerLayer(markers: markers),
+                PolylineLayer(
+                  polylines: [
+                    Polyline(
+                        points: provider.savedPositionsLatLng(),
+                        strokeWidth: 4,
+                        color: Colors.blueGrey),
+                  ],
+                ),
+              ],
+              nonRotatedChildren: [],
+            )));
   }
 }

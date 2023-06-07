@@ -26,9 +26,6 @@ class ActivityDetails extends HookConsumerWidget {
     var center = getCenterOfMap(points);
     var zoomLevel = getZoomLevel(points, center);
 
-    const TextStyle timerTextStyle =
-        TextStyle(fontSize: 60.0, fontFamily: "Open Sans");
-
     const TextStyle textStyle = const TextStyle(fontSize: 30.0);
 
     return Scaffold(
@@ -105,8 +102,8 @@ class ActivityDetails extends HookConsumerWidget {
                 ]),
               ),
             ),
-            Column(children: [
-              SizedBox(
+            Expanded(
+              child: SizedBox(
                   height: 500,
                   child: FlutterMap(
                     mapController: provider.mapController,
@@ -186,7 +183,7 @@ class ActivityDetails extends HookConsumerWidget {
                     ],
                     nonRotatedChildren: const [],
                   )),
-            ])
+            )
           ],
         ),
       ),
