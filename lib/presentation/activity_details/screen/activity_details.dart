@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:run_run_run/presentation/activity_details/view_model/activity_details_view_model.dart';
 import 'package:run_run_run/presentation/activity_details/widgets/remove_alert.dart';
 import 'package:run_run_run/presentation/activity_list/widgets/back_to_home_button.dart';
@@ -106,12 +107,71 @@ class ActivityDetails extends HookConsumerWidget {
                         urlTemplate:
                             'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                       ),
+                      activity.locations.isNotEmpty
+                          ? MarkerLayer(
+                              markers: [
+                                Marker(
+                                    width: 80.0,
+                                    height: 80.0,
+                                    point: LatLng(
+                                        activity.locations.first.latitude,
+                                        activity.locations.first.longitude),
+                                    builder: (ctx) => Container(
+                                          child: Column(
+                                            children: [
+                                              IconButton(
+                                                icon: const Icon(
+                                                    Icons.location_on),
+                                                color: Colors.green.shade700,
+                                                iconSize: 40.0,
+                                                onPressed: () {
+                                                  // Action à effectuer lorsque le marqueur est cliqué
+                                                },
+                                              ),
+                                              Text(
+                                                  '${AppLocalizations.of(context).start}',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold))
+                                            ],
+                                          ),
+                                        )),
+                                if (activity.locations.length > 1)
+                                  Marker(
+                                      width: 80.0,
+                                      height: 80.0,
+                                      point: LatLng(
+                                          activity.locations.last.latitude,
+                                          activity.locations.last.longitude),
+                                      builder: (ctx) => Container(
+                                              child: Column(
+                                            children: [
+                                              IconButton(
+                                                icon: const Icon(
+                                                    Icons.location_on),
+                                                color: Colors.red,
+                                                iconSize: 40.0,
+                                                onPressed: () {
+                                                  // Action à effectuer lorsque le marqueur est cliqué
+                                                },
+                                              ),
+                                              Text(
+                                                '${AppLocalizations.of(context).end}',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            ],
+                                          )))
+                              ],
+                            )
+                          : const MarkerLayer(),
                       PolylineLayer(
                         polylines: [
                           Polyline(
                               points: points,
                               strokeWidth: 4,
-                              color: Colors.red),
+                              color: Colors.blueGrey),
                         ],
                       ),
                     ],

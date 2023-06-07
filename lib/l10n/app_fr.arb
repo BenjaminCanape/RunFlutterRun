@@ -5,6 +5,7 @@
   "congrats": "Fin de l'activité. Félicitations",
   "date_pronoun": "Le",
   "distance": "Distance",
+  "end": "Fin",
   "good_luck": "C'est parti, bon courage",
   "hours": "heures",
   "hours_pronoun": "à",
@@ -12,5 +13,6 @@
   "pause_activity": "L'activité est en pause",
   "resume_activity": "Reprise de l'activité",
   "running": "Course à pied",
-  "speed": "Vitesse"
+  "speed": "Vitesse",
+  "start": "Début"
 }

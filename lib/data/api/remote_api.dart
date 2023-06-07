@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -72,7 +73,7 @@ class RemoteApi {
   Future<String> removeActivity(String id) async {
     // Appel WS
     try {
-      final response = await dio.delete(url, queryParameters: {id: id});
+      final response = await dio.delete(url, data: {id: id});
 
       // Récupérer réponse
       if (response.statusCode == 200) {
