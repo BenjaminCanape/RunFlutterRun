@@ -49,6 +49,7 @@ dependencies:
   dio: ^5.1.2
   stack_trace: ^1.11.0
   flutter_riverpod: ^2.3.6
+  dio_smart_retry: ^5.0.0
 
 dev_dependencies:
   flutter_test:

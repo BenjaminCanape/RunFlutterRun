@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../core/error.dart';
@@ -11,11 +12,26 @@ final remoteApiProvider = Provider<RemoteApi>((ref) => RemoteApi());
 
 class RemoteApi {
   static const String url = 'https://runbackendrun.onrender.com/api/activity/';
+  var dio = Dio();
+
+  RemoteApi() {
+    dio.interceptors.add(RetryInterceptor(
+      dio: dio,
+      retries: 5,
+      retryDelays: const [
+        Duration(seconds: 1),
+        Duration(seconds: 2),
+        Duration(seconds: 5),
+        Duration(seconds: 5),
+        Duration(seconds: 10),
+      ],
+    ));
+  }
 
   Future<List<ActivityResponse>> getActivities() async {
     // Appel WS
     try {
-      final response = await Dio().get('${url}all');
+      final response = await dio.get('${url}all');
 
       // Récupérer réponse
       if (response.statusCode == 200) {
@@ -36,7 +52,7 @@ class RemoteApi {
   Future<ActivityResponse> getActivityById(String id) async {
     // Appel WS
     try {
-      final response = await Dio().get(url, queryParameters: {id: id});
+      final response = await dio.get(url + id);
 
       // Récupérer réponse
       if (response.statusCode == 200) {
@@ -56,7 +72,7 @@ class RemoteApi {
   Future<String> removeActivity(String id) async {
     // Appel WS
     try {
-      final response = await Dio().delete(url, queryParameters: {id: id});
+      final response = await dio.delete(url, queryParameters: {id: id});
 
       // Récupérer réponse
       if (response.statusCode == 200) {
@@ -74,7 +90,7 @@ class RemoteApi {
   Future<ActivityResponse> addActivity(ActivityRequest request) async {
     // Appel WS
     try {
-      final response = await Dio().post(url, data: request.toMap());
+      final response = await dio.post(url, data: request.toMap());
 
       // Récupérer réponse
       if (response.statusCode == 200) {
@@ -94,7 +110,7 @@ class RemoteApi {
   Future<ActivityResponse> editActivity(ActivityRequest request) async {
     // Appel WS
     try {
-      final response = await Dio().put(url, data: request.toMap());
+      final response = await dio.put(url, data: request.toMap());
 
       // Récupérer réponse
       if (response.statusCode == 200) {
