@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:run_run_run/domain/entities/activity.dart';
 import 'package:run_run_run/presentation/activity_details/view_model/activitie_details_state.dart';
+import 'package:run_run_run/presentation/activity_list/screen/activity_list_screen.dart';
 import 'package:run_run_run/presentation/activity_list/view_model/activity_list_view_model.dart';
 
 import '../../../data/repository/activity_repository_impl.dart';
@@ -35,12 +36,26 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
     ref
         .read(activityRepositoryProvider)
         .removeActivity(id: activity.id)
-        .then((value) => {
-              ref
-                  .read(activityListViewModelProvider)
-                  .activities
-                  .remove(activity),
-              Navigator.pop(context)
-            });
+        .then((value) {
+      Activity activityWithoutLocations = Activity(
+          id: activity.id,
+          distance: activity.distance,
+          speed: activity.speed,
+          startDatetime: activity.startDatetime,
+          endDatetime: activity.endDatetime,
+          time: activity.time,
+          locations: List.empty());
+
+      ref
+          .read(activityListViewModelProvider)
+          .activities
+          .remove(activityWithoutLocations);
+
+      Navigator.pop(context);
+      Navigator.pop(context);
+
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const ActivityListScreen()));
+    });
   }
 }

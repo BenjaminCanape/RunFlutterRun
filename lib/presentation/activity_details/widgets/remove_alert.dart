@@ -8,27 +8,20 @@ import '../view_model/activity_details_view_model.dart';
 class RemoveAlert extends HookConsumerWidget {
   final Activity activity;
 
-  bool isLoading = false;
-
   RemoveAlert({Key? key, required this.activity}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // ignore: unused_local_variable
-    final state = ref.watch(activityDetailsViewModelProvider);
+    final state = ref.read(activityDetailsViewModelProvider);
     final provider = ref.read(activityDetailsViewModelProvider.notifier);
 
     return AlertDialog(
-        title: isLoading
-            ? const CircularProgressIndicator()
-            : Text('${AppLocalizations.of(context).ask_activity_removal}'),
+        title: Text('${AppLocalizations.of(context).ask_activity_removal}'),
         actions: [
           TextButton(
               onPressed: () {
-                if (isLoading == false) {
-                  isLoading = true;
-                  provider.removeActivity(activity, context);
-                }
+                provider.removeActivity(activity, context);
               },
               child: Text('${AppLocalizations.of(context).delete}')),
           TextButton(

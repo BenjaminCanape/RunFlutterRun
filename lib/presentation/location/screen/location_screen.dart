@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:run_run_run/presentation/common/utils/map_math.dart';
 
 import '../view_model/location_view_model.dart';
 
@@ -13,6 +14,10 @@ class LocationScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(locationViewModelProvider);
     final provider = ref.watch(locationViewModelProvider.notifier);
+
+    var points = provider.savedPositionsLatLng();
+    var center = getCenterOfMap(points);
+    var zoomLevel = getZoomLevel(points, center);
 
     final markers = <Marker>[
       Marker(
@@ -34,9 +39,11 @@ class LocationScreen extends HookConsumerWidget {
             child: FlutterMap(
               mapController: provider.mapController,
               options: MapOptions(
-                center: LatLng(state.currentPosition?.latitude ?? 0,
-                    state.currentPosition?.longitude ?? 0),
-                zoom: 17,
+                center: points.isNotEmpty
+                    ? center
+                    : LatLng(state.currentPosition?.latitude ?? 0,
+                        state.currentPosition?.longitude ?? 0),
+                zoom: zoomLevel,
               ),
               children: [
                 TileLayer(

@@ -74,8 +74,8 @@ class RemoteApi {
   Future<String> removeActivity(String id) async {
     // Appel WS
     try {
-      final response = await dio.delete(url,
-          data: {id: int.parse(id)}, queryParameters: {id: int.parse(id)});
+      final response =
+          await dio.delete(url, queryParameters: {'id': int.parse(id)});
 
       // Récupérer réponse
       if (response.statusCode == 200) {

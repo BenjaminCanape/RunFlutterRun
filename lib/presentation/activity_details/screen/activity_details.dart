@@ -71,7 +71,7 @@ class ActivityDetails extends HookConsumerWidget {
                   Row(
                     children: [
                       Text(
-                        '${AppLocalizations.of(context).date_pronoun} ${DateFormat('dd/MM/yyyy').format(activity.startDatetime)} ${AppLocalizations.of(context).hours_pronoun} ${DateFormat('kk:mm').format(activity.startDatetime)}',
+                        '${AppLocalizations.of(context).date_pronoun} ${DateFormat('dd/MM/yyyy').format(activity.startDatetime)} ${AppLocalizations.of(context).hours_pronoun} ${DateFormat('HH:mm').format(activity.startDatetime)}',
                       ),
                     ],
                   ),
