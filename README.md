@@ -1,17 +1,10 @@
-# run_run_run
+# Run Flutter Run
 
-A new Flutter project.
+A clone of Runtastic mobile app
 
-## Getting Started
+## Functionnalities
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# RunFlutterRun
+Register your runs with this app.
+You will be able to see the map of your run, 
+It will tell the distance and speed every km and at the end of the run.
+You will be able to see a list of all your activities afterward with all the details you add at the sum up after your run
