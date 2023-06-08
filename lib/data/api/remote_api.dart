@@ -16,6 +16,7 @@ class RemoteApi {
   var dio = Dio();
 
   RemoteApi() {
+    dio.options.connectTimeout = const Duration(seconds: 2);
     dio.interceptors.add(RetryInterceptor(
       dio: dio,
       retries: 5,
@@ -73,7 +74,8 @@ class RemoteApi {
   Future<String> removeActivity(String id) async {
     // Appel WS
     try {
-      final response = await dio.delete(url, data: {id: id});
+      final response = await dio.delete(url,
+          data: {id: int.parse(id)}, queryParameters: {id: int.parse(id)});
 
       // Récupérer réponse
       if (response.statusCode == 200) {
