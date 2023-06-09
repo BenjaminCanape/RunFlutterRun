@@ -1,14 +1,14 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../api/remote_api.dart';
+import 'package:run_run_run/data/api/activity_api.dart';
 import '../models/request/ActivityRequest.dart';
 import '../../domain/entities/activity.dart';
 import '../../domain/repository/activity_repository.dart';
 
 final activityRepositoryProvider = Provider<ActivityRepository>(
-    (ref) => ActivityRepositoryImpl(ref.read(remoteApiProvider)));
+    (ref) => ActivityRepositoryImpl(ref.read(activityApiProvider)));
 
 class ActivityRepositoryImpl extends ActivityRepository {
-  final RemoteApi _remoteApi;
+  final ActivityApi _remoteApi;
 
   ActivityRepositoryImpl(this._remoteApi);
 
