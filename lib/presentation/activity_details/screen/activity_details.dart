@@ -6,11 +6,11 @@ import 'package:latlong2/latlong.dart';
 
 import '../../../domain/entities/activity.dart';
 import '../../common/widgets/buttons/back_to_home_button.dart';
-import '../../common/utils/map_math.dart';
+import '../../common/widgets/date/date.dart';
+import '../../common/widgets/location/widgets/location_map.dart';
 import '../../common/widgets/metrics/widgets/metrics.dart';
 import '../../common/widgets/timer/widgets/timer_text.dart';
 import '../view_model/activity_details_view_model.dart';
-import '../../common/widgets/date/date.dart';
 import '../widgets/remove_alert.dart';
 
 class ActivityDetails extends HookConsumerWidget {
@@ -23,9 +23,50 @@ class ActivityDetails extends HookConsumerWidget {
     final state = ref.watch(activityDetailsViewModelProvider);
     final provider = ref.read(activityDetailsViewModelProvider.notifier);
 
-    var points = provider.savedPositionsLatLng(activity);
-    var center = getCenterOfMap(points);
-    var zoomLevel = getZoomLevel(points, center);
+    List<LatLng> points = provider.savedPositionsLatLng(activity);
+    List<Marker> markers = [];
+
+    if (activity.locations.isNotEmpty) {
+      markers.add(Marker(
+          width: 80.0,
+          height: 80.0,
+          point: LatLng(activity.locations.first.latitude,
+              activity.locations.first.longitude),
+          builder: (ctx) => Column(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.location_on),
+                    color: Colors.green.shade700,
+                    iconSize: 40.0,
+                    onPressed: () {},
+                  ),
+                  Text(AppLocalizations.of(context).start,
+                      style: const TextStyle(fontWeight: FontWeight.bold))
+                ],
+              )));
+
+      if (activity.locations.length > 1) {
+        markers.add(Marker(
+            width: 80.0,
+            height: 80.0,
+            point: LatLng(activity.locations.last.latitude,
+                activity.locations.last.longitude),
+            builder: (ctx) => Column(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.location_on),
+                      color: Colors.red,
+                      iconSize: 40.0,
+                      onPressed: () {},
+                    ),
+                    Text(
+                      AppLocalizations.of(context).end,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    )
+                  ],
+                )));
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -86,83 +127,7 @@ class ActivityDetails extends HookConsumerWidget {
                 ]),
               ),
             ),
-            Expanded(
-              child: SizedBox(
-                  height: 500,
-                  child: FlutterMap(
-                    mapController: provider.mapController,
-                    options: MapOptions(center: center, zoom: zoomLevel),
-                    nonRotatedChildren: const [],
-                    children: [
-                      TileLayer(
-                        urlTemplate:
-                            'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                      ),
-                      activity.locations.isNotEmpty
-                          ? MarkerLayer(
-                              markers: [
-                                Marker(
-                                    width: 80.0,
-                                    height: 80.0,
-                                    point: LatLng(
-                                        activity.locations.first.latitude,
-                                        activity.locations.first.longitude),
-                                    builder: (ctx) => Column(
-                                          children: [
-                                            IconButton(
-                                              icon:
-                                                  const Icon(Icons.location_on),
-                                              color: Colors.green.shade700,
-                                              iconSize: 40.0,
-                                              onPressed: () {},
-                                            ),
-                                            Text(
-                                                AppLocalizations.of(context)
-                                                    .start,
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold))
-                                          ],
-                                        )),
-                                if (activity.locations.length > 1)
-                                  Marker(
-                                      width: 80.0,
-                                      height: 80.0,
-                                      point: LatLng(
-                                          activity.locations.last.latitude,
-                                          activity.locations.last.longitude),
-                                      builder: (ctx) => Column(
-                                            children: [
-                                              IconButton(
-                                                icon: const Icon(
-                                                    Icons.location_on),
-                                                color: Colors.red,
-                                                iconSize: 40.0,
-                                                onPressed: () {},
-                                              ),
-                                              Text(
-                                                AppLocalizations.of(context)
-                                                    .end,
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
-                                            ],
-                                          ))
-                              ],
-                            )
-                          : const MarkerLayer(),
-                      PolylineLayer(
-                        polylines: [
-                          Polyline(
-                              points: points,
-                              strokeWidth: 4,
-                              color: Colors.blueGrey),
-                        ],
-                      ),
-                    ],
-                  )),
-            )
+            LocationMap(points: points, markers: markers),
           ],
         ),
       ),

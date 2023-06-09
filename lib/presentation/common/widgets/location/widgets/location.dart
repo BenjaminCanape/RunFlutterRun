@@ -4,8 +4,8 @@ import 'package:flutter_map/plugin_api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 
-import '../../../utils/map_math.dart';
 import '../view_model/location_view_model.dart';
+import 'location_map.dart';
 
 class Location extends HookConsumerWidget {
   const Location({Key? key}) : super(key: key);
@@ -16,8 +16,6 @@ class Location extends HookConsumerWidget {
     final provider = ref.watch(locationViewModelProvider.notifier);
 
     var points = provider.savedPositionsLatLng();
-    var center = getCenterOfMap(points);
-    var zoomLevel = getZoomLevel(points, center);
 
     final markers = <Marker>[
       Marker(
@@ -33,33 +31,6 @@ class Location extends HookConsumerWidget {
       ),
     ];
 
-    return Expanded(
-        child: SizedBox(
-            height: 500,
-            child: FlutterMap(
-              mapController: provider.mapController,
-              options: MapOptions(
-                center: points.isNotEmpty
-                    ? center
-                    : LatLng(state.currentPosition?.latitude ?? 0,
-                        state.currentPosition?.longitude ?? 0),
-                zoom: zoomLevel,
-              ),
-              nonRotatedChildren: const [],
-              children: [
-                TileLayer(
-                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                ),
-                MarkerLayer(markers: markers),
-                PolylineLayer(
-                  polylines: [
-                    Polyline(
-                        points: provider.savedPositionsLatLng(),
-                        strokeWidth: 4,
-                        color: Colors.blueGrey),
-                  ],
-                ),
-              ],
-            )));
+    return LocationMap(points: points, markers: markers);
   }
 }
