@@ -8,6 +8,7 @@ import 'package:latlong2/latlong.dart';
 import '../../../domain/entities/activity.dart';
 import '../../activity_list/widgets/back_to_home_button.dart';
 import '../../common/utils/map_math.dart';
+import '../../metrics/screen/metrics_screen.dart';
 import '../../timer/widgets/timer_text.dart';
 import '../view_model/activity_details_view_model.dart';
 import '../widgets/remove_alert.dart';
@@ -86,17 +87,8 @@ class ActivityDetails extends HookConsumerWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      Center(
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                            Text(
-                                '${double.parse(activity.distance.toStringAsFixed(2))} Km',
-                                style: textStyle),
-                            Text(
-                                '${double.parse(activity.speed.toStringAsFixed(2))} Km/h',
-                                style: textStyle)
-                          ]))
+                      MetricsScreen(
+                          distance: activity.distance, speed: activity.speed),
                     ],
                   )
                 ]),
