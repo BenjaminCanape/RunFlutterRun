@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../domain/entities/activity.dart';
+import '../../activity_details/widgets/date.dart';
 import '../view_model/activity_list_view_model.dart';
 
 class ActivityItem extends HookConsumerWidget {
@@ -36,9 +36,7 @@ class ActivityItem extends HookConsumerWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              '${AppLocalizations.of(context).date_pronoun} ${DateFormat('dd/MM/yyyy').format(activity.startDatetime)} ${AppLocalizations.of(context).hours_pronoun} ${DateFormat('HH:mm').format(activity.startDatetime)}',
-            ),
+            Date(date: activity.startDatetime),
             Text(
               '${AppLocalizations.of(context).distance}: ${activity.distance.toStringAsFixed(2)} km  - ${AppLocalizations.of(context).speed}: ${activity.speed.toStringAsFixed(2)} km/h',
             )

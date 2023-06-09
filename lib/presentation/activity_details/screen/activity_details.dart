@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../domain/entities/activity.dart';
@@ -11,6 +10,7 @@ import '../../common/utils/map_math.dart';
 import '../../metrics/screen/metrics_screen.dart';
 import '../../timer/widgets/timer_text.dart';
 import '../view_model/activity_details_view_model.dart';
+import '../widgets/date.dart';
 import '../widgets/remove_alert.dart';
 
 class ActivityDetails extends HookConsumerWidget {
@@ -26,8 +26,6 @@ class ActivityDetails extends HookConsumerWidget {
     var points = provider.savedPositionsLatLng(activity);
     var center = getCenterOfMap(points);
     var zoomLevel = getZoomLevel(points, center);
-
-    const TextStyle textStyle = TextStyle(fontSize: 30.0);
 
     return Scaffold(
       appBar: AppBar(
@@ -69,13 +67,7 @@ class ActivityDetails extends HookConsumerWidget {
             Card(
               child: ListTile(
                 subtitle: Column(children: [
-                  Row(
-                    children: [
-                      Text(
-                        '${AppLocalizations.of(context).date_pronoun} ${DateFormat('dd/MM/yyyy').format(activity.startDatetime)} ${AppLocalizations.of(context).hours_pronoun} ${DateFormat('HH:mm').format(activity.startDatetime)}',
-                      ),
-                    ],
-                  ),
+                  Date(date: activity.startDatetime),
                   Column(
                     children: <Widget>[
                       const SizedBox(
