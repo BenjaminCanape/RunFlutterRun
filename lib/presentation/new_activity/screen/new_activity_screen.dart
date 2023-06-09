@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_run_run/presentation/timer/viewmodel/timer_view_model.dart';
-import 'package:run_run_run/presentation/timer/widgets/timer_pause.dart';
 
 import '../../location/screen/location_screen.dart';
 import '../../metrics/screen/metrics_screen.dart';
 import '../../timer/screen/timer_screen.dart';
+import '../../timer/viewmodel/timer_view_model.dart';
+import '../../timer/widgets/timer_pause.dart';
 import '../../timer/widgets/timer_start.dart';
 
 class NewActivityScreen extends HookConsumerWidget {
@@ -19,12 +19,12 @@ class NewActivityScreen extends HookConsumerWidget {
     var isRunning = ref.watch(timerViewModelProvider).isRunning;
 
     return Scaffold(
-      body: SafeArea(
+      body: const SafeArea(
         child: Column(
           children: [
-            const TimerScreen(),
-            const MetricsScreen(),
-            const SizedBox(
+            TimerScreen(),
+            MetricsScreen(),
+            SizedBox(
               height: 10,
             ),
             LocationScreen(),
@@ -34,14 +34,11 @@ class NewActivityScreen extends HookConsumerWidget {
       floatingActionButton: timerProvider.hasTimerStarted()
           ? const Stack(
               children: [
-                // Premier bouton d'action flottant
                 Positioned(
                   bottom: 16,
                   right: 80,
                   child: TimerPause(),
                 ),
-
-                // Deuxième bouton d'action flottant
                 Positioned(
                   bottom: 16,
                   left: 80,

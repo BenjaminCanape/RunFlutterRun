@@ -30,7 +30,7 @@ class ActivityItem extends HookConsumerWidget {
           subtitle:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(
-              '${AppLocalizations.of(context).running}'.toUpperCase(),
+              AppLocalizations.of(context).running.toUpperCase(),
               textAlign: TextAlign.start,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,

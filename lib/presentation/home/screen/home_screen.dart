@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_run_run/presentation/activity_list/screen/activity_list_screen.dart';
-import 'package:run_run_run/presentation/home/view_model/home_view_model.dart';
-import 'package:run_run_run/presentation/new_activity/screen/new_activity_screen.dart';
+
+import '../../activity_list/screen/activity_list_screen.dart';
+import '../../new_activity/screen/new_activity_screen.dart';
+import '../view_model/home_view_model.dart';
 
 enum Tabs { home, list }
 

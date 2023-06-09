@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.run_run_run">
+    package="com.example.run_flutter_run">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="run_run_run"
+        android:label="Run Flutter Run"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

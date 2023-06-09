@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_run_run/presentation/home/view_model/home_state.dart';
+
+import 'home_state.dart';
 
 final homeViewModelProvider =
     StateNotifierProvider.autoDispose<HomeViewModel, HomeState>(
@@ -8,7 +9,7 @@ final homeViewModelProvider =
 class HomeViewModel extends StateNotifier<HomeState> {
   Ref ref;
 
-  HomeViewModel(this.ref) : super(HomeState.initial()) {}
+  HomeViewModel(this.ref) : super(HomeState.initial());
 
   getCurrentIndex() {
     return state.currentIndex;

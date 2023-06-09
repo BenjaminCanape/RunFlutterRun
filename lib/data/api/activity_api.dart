@@ -1,11 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:run_run_run/data/api/remote_api.dart';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+
 import '../../core/error.dart';
 import '../models/request/ActivityRequest.dart';
 import '../models/response/activity.dart';
+import 'remote_api.dart';
 
 const String url = 'https://runbackendrun.onrender.com/api/activity/';
 
@@ -15,11 +16,9 @@ class ActivityApi extends RemoteApi {
   ActivityApi() : super(url);
 
   Future<List<ActivityResponse>> getActivities() async {
-    // Appel WS
     try {
       final response = await dio.get('${url}all');
 
-      // Récupérer réponse
       if (response.statusCode == 200) {
         final data = List<dynamic>.from(response.data);
         if (data.isNotEmpty) {
@@ -36,11 +35,9 @@ class ActivityApi extends RemoteApi {
   }
 
   Future<ActivityResponse> getActivityById(String id) async {
-    // Appel WS
     try {
       final response = await dio.get(url + id);
 
-      // Récupérer réponse
       if (response.statusCode == 200) {
         if (response.data.isNotEmpty) {
           return ActivityResponse.fromMap(response.data);
@@ -56,12 +53,10 @@ class ActivityApi extends RemoteApi {
   }
 
   Future<String> removeActivity(String id) async {
-    // Appel WS
     try {
       final response =
           await dio.delete(url, queryParameters: {'id': int.parse(id)});
 
-      // Récupérer réponse
       if (response.statusCode == 200) {
         return response.data;
       }
@@ -75,11 +70,9 @@ class ActivityApi extends RemoteApi {
   }
 
   Future<ActivityResponse> addActivity(ActivityRequest request) async {
-    // Appel WS
     try {
       final response = await dio.post(url, data: request.toMap());
 
-      // Récupérer réponse
       if (response.statusCode == 200) {
         if (response.data.isNotEmpty) {
           return ActivityResponse.fromMap(response.data);
@@ -95,11 +88,9 @@ class ActivityApi extends RemoteApi {
   }
 
   Future<ActivityResponse> editActivity(ActivityRequest request) async {
-    // Appel WS
     try {
       final response = await dio.put(url, data: request.toMap());
 
-      // Récupérer réponse
       if (response.statusCode == 200) {
         if (response.data.isNotEmpty) {
           return ActivityResponse.fromMap(response.data);

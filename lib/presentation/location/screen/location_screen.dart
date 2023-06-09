@@ -3,12 +3,12 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:run_run_run/presentation/common/utils/map_math.dart';
 
+import '../../common/utils/map_math.dart';
 import '../view_model/location_view_model.dart';
 
 class LocationScreen extends HookConsumerWidget {
-  LocationScreen({Key? key}) : super(key: key);
+  const LocationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,6 +45,7 @@ class LocationScreen extends HookConsumerWidget {
                         state.currentPosition?.longitude ?? 0),
                 zoom: zoomLevel,
               ),
+              nonRotatedChildren: const [],
               children: [
                 TileLayer(
                   urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -59,7 +60,6 @@ class LocationScreen extends HookConsumerWidget {
                   ],
                 ),
               ],
-              nonRotatedChildren: [],
             )));
   }
 }

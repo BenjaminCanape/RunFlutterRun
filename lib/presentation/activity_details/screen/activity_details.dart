@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:run_run_run/presentation/activity_details/view_model/activity_details_view_model.dart';
-import 'package:run_run_run/presentation/activity_details/widgets/remove_alert.dart';
-import 'package:run_run_run/presentation/activity_list/widgets/back_to_home_button.dart';
-import 'package:run_run_run/presentation/timer/widgets/timer_text.dart';
 
 import '../../../domain/entities/activity.dart';
+import '../../activity_list/widgets/back_to_home_button.dart';
 import '../../common/utils/map_math.dart';
+import '../../timer/widgets/timer_text.dart';
+import '../view_model/activity_details_view_model.dart';
+import '../widgets/remove_alert.dart';
 
 class ActivityDetails extends HookConsumerWidget {
   final Activity activity;
@@ -26,7 +26,7 @@ class ActivityDetails extends HookConsumerWidget {
     var center = getCenterOfMap(points);
     var zoomLevel = getZoomLevel(points, center);
 
-    const TextStyle textStyle = const TextStyle(fontSize: 30.0);
+    const TextStyle textStyle = TextStyle(fontSize: 30.0);
 
     return Scaffold(
       appBar: AppBar(
@@ -77,13 +77,13 @@ class ActivityDetails extends HookConsumerWidget {
                   ),
                   Column(
                     children: <Widget>[
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       Center(
                         child: TimerText(timeInMs: activity.time.toInt()),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       Center(
@@ -108,6 +108,7 @@ class ActivityDetails extends HookConsumerWidget {
                   child: FlutterMap(
                     mapController: provider.mapController,
                     options: MapOptions(center: center, zoom: zoomLevel),
+                    nonRotatedChildren: const [],
                     children: [
                       TileLayer(
                         urlTemplate:
@@ -122,25 +123,22 @@ class ActivityDetails extends HookConsumerWidget {
                                     point: LatLng(
                                         activity.locations.first.latitude,
                                         activity.locations.first.longitude),
-                                    builder: (ctx) => Container(
-                                          child: Column(
-                                            children: [
-                                              IconButton(
-                                                icon: const Icon(
-                                                    Icons.location_on),
-                                                color: Colors.green.shade700,
-                                                iconSize: 40.0,
-                                                onPressed: () {
-                                                  // Action à effectuer lorsque le marqueur est cliqué
-                                                },
-                                              ),
-                                              Text(
-                                                  '${AppLocalizations.of(context).start}',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold))
-                                            ],
-                                          ),
+                                    builder: (ctx) => Column(
+                                          children: [
+                                            IconButton(
+                                              icon:
+                                                  const Icon(Icons.location_on),
+                                              color: Colors.green.shade700,
+                                              iconSize: 40.0,
+                                              onPressed: () {},
+                                            ),
+                                            Text(
+                                                AppLocalizations.of(context)
+                                                    .start,
+                                                style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold))
+                                          ],
                                         )),
                                 if (activity.locations.length > 1)
                                   Marker(
@@ -149,26 +147,24 @@ class ActivityDetails extends HookConsumerWidget {
                                       point: LatLng(
                                           activity.locations.last.latitude,
                                           activity.locations.last.longitude),
-                                      builder: (ctx) => Container(
-                                              child: Column(
+                                      builder: (ctx) => Column(
                                             children: [
                                               IconButton(
                                                 icon: const Icon(
                                                     Icons.location_on),
                                                 color: Colors.red,
                                                 iconSize: 40.0,
-                                                onPressed: () {
-                                                  // Action à effectuer lorsque le marqueur est cliqué
-                                                },
+                                                onPressed: () {},
                                               ),
                                               Text(
-                                                '${AppLocalizations.of(context).end}',
-                                                style: TextStyle(
+                                                AppLocalizations.of(context)
+                                                    .end,
+                                                style: const TextStyle(
                                                     fontWeight:
                                                         FontWeight.bold),
                                               )
                                             ],
-                                          )))
+                                          ))
                               ],
                             )
                           : const MarkerLayer(),
@@ -181,7 +177,6 @@ class ActivityDetails extends HookConsumerWidget {
                         ],
                       ),
                     ],
-                    nonRotatedChildren: const [],
                   )),
             )
           ],

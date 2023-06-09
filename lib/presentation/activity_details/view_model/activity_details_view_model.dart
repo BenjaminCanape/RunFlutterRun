@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:run_run_run/domain/entities/activity.dart';
-import 'package:run_run_run/presentation/activity_details/view_model/activitie_details_state.dart';
-import 'package:run_run_run/presentation/activity_list/view_model/activity_list_view_model.dart';
-import 'package:run_run_run/presentation/home/screen/home_screen.dart';
-import 'package:run_run_run/presentation/home/view_model/home_view_model.dart';
 
 import '../../../data/repository/activity_repository_impl.dart';
+import '../../../domain/entities/activity.dart';
+import '../../activity_list/view_model/activity_list_view_model.dart';
+import '../../home/screen/home_screen.dart';
+import '../../home/view_model/home_view_model.dart';
+import 'activitie_details_state.dart';
 
 final activityDetailsViewModelProvider = StateNotifierProvider.autoDispose<
     ActivityDetailsViewModel,

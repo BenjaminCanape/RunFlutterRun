@@ -1,8 +1,9 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_run_run/data/api/activity_api.dart';
-import '../models/request/ActivityRequest.dart';
+
 import '../../domain/entities/activity.dart';
 import '../../domain/repository/activity_repository.dart';
+import '../api/activity_api.dart';
+import '../models/request/ActivityRequest.dart';
 
 final activityRepositoryProvider = Provider<ActivityRepository>(
     (ref) => ActivityRepositoryImpl(ref.read(activityApiProvider)));

@@ -26,12 +26,12 @@ class SumUpScreen extends HookConsumerWidget {
               Text(AppLocalizations.of(context).activity_sumup.toUpperCase())),
       body: state.isSaving
           ? const Center(child: CircularProgressIndicator())
-          : SafeArea(
+          : const SafeArea(
               child: Column(
                 children: [
                   TimerScreen(),
                   MetricsScreen(),
-                  const SizedBox(
+                  SizedBox(
                     height: 10,
                   ),
                   LocationScreen(),

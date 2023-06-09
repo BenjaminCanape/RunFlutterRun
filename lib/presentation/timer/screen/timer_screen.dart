@@ -14,9 +14,9 @@ class TimerScreen extends HookConsumerWidget {
     // ignore: unused_local_variable
     final timerViewModel = ref.watch(timerViewModelProvider.notifier);
 
-    return Column(
+    return const Column(
       children: <Widget>[
-        const SizedBox(
+        SizedBox(
             height: 200.0,
             child: Center(
               child: TimerText(),

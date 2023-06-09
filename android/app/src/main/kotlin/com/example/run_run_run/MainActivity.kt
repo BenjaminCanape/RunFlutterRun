@@ -1,4 +1,4 @@
-package com.example.run_run_run
+package com.example.run_flutter_run
 
 import io.flutter.embedding.android.FlutterActivity
 
