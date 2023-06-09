@@ -51,6 +51,7 @@ dependencies:
   flutter_riverpod: ^2.3.6
   dio_smart_retry: ^5.0.0
   shared_preferences: ^2.1.2
+  wakelock: ^0.6.2
 
 dev_dependencies:
   flutter_test:

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:wakelock/wakelock.dart';
 
 import '../../common/textToSpeech/text_to_speech.dart';
 import '../../location/view_model/location_view_model.dart';
@@ -24,6 +25,7 @@ class TimerViewModel extends StateNotifier<TimerState> {
     timer = Timer.periodic(const Duration(seconds: 1), updateTime);
     if (isRunning == false) {
       ref.read(textToSpeechService).sayGoodLuck();
+      Wakelock.enable();
     } else {
       ref.read(textToSpeechService).sayResume();
       ref.read(locationViewModelProvider.notifier).resumeLocationStream();
@@ -49,7 +51,7 @@ class TimerViewModel extends StateNotifier<TimerState> {
     ref.read(locationViewModelProvider.notifier).cancelLocationStream();
     state = state.copyWith(isRunning: false);
     ref.read(textToSpeechService).sayCongrats();
-
+    Wakelock.disable();
     Navigator.pushNamed(context, '/sumup');
   }
 
