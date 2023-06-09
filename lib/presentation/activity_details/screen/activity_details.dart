@@ -188,25 +188,7 @@ class ActivityDetails extends HookConsumerWidget {
         ),
       ),
       floatingActionButton: const BackToHomeButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 4.0,
-        color: Colors.teal.shade400,
-        child: IconTheme(
-            data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-            child: Row(
-              children: <Widget>[
-                IconButton(
-                  tooltip: 'Home',
-                  icon: const Icon(Icons.list_outlined),
-                  color: Colors.teal.shade100,
-                  onPressed: () {},
-                ),
-                const Spacer(),
-              ],
-            )),
-      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

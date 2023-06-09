@@ -5,8 +5,6 @@ import '../widgets/activity_item.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../widgets/back_to_home_button.dart';
-
 class ActivityListScreen extends HookConsumerWidget {
   const ActivityListScreen({Key? key}) : super(key: key);
 
@@ -45,26 +43,6 @@ class ActivityListScreen extends HookConsumerWidget {
                 ],
               ),
             ),
-      floatingActionButton: const BackToHomeButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 4.0,
-        color: Colors.teal.shade400,
-        child: IconTheme(
-            data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-            child: Row(
-              children: <Widget>[
-                IconButton(
-                  tooltip: 'Home',
-                  icon: const Icon(Icons.list_outlined),
-                  color: Colors.teal.shade100,
-                  onPressed: () {},
-                ),
-                const Spacer(),
-              ],
-            )),
-      ),
     );
   }
 }

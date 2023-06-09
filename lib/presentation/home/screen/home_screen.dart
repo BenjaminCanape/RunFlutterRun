@@ -1,53 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_run_run/presentation/activity_list/screen/activity_list_screen.dart';
+import 'package:run_run_run/presentation/home/view_model/home_view_model.dart';
+import 'package:run_run_run/presentation/new_activity/screen/new_activity_screen.dart';
 
-import '../../location/screen/location_screen.dart';
-import '../../metrics/screen/metrics_screen.dart';
-import '../../timer/screen/timer_screen.dart';
-import '../../timer/widgets/timer_pause.dart';
-import '../../timer/widgets/timer_start.dart';
+enum Tabs { home, list }
 
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var state = ref.watch(homeViewModelProvider);
+    // ignore: unused_local_variable
+    var provider = ref.watch(homeViewModelProvider.notifier);
+    int currentIndex = state.currentIndex;
+
+    List<Widget> tabs = [const NewActivityScreen(), const ActivityListScreen()];
+
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            TimerScreen(),
-            MetricsScreen(),
-            SizedBox(
-              height: 10,
-            ),
-            LocationScreen(),
+        body: SafeArea(child: tabs[currentIndex]),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentIndex,
+          onTap: (value) =>
+              ref.read(homeViewModelProvider.notifier).setCurrentIndex(value),
+          showSelectedLabels: false,
+          selectedItemColor: Colors.teal.shade700,
+          showUnselectedLabels: false,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(icon: Icon(Icons.list), label: 'List')
           ],
-        ),
-      ),
-      floatingActionButton: const TimerStart(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 4.0,
-        color: Colors.teal.shade400,
-        child: IconTheme(
-            data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-            child: Row(
-              children: <Widget>[
-                IconButton(
-                  tooltip: 'Home',
-                  icon: const Icon(Icons.list_outlined),
-                  color: Colors.teal.shade100,
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/activity_list');
-                  },
-                ),
-                const Spacer(),
-                const TimerPause(),
-              ],
-            )),
-      ),
-    );
+        ));
   }
 }
