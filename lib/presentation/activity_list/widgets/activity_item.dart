@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../domain/entities/activity.dart';
-import '../../activity_details/widgets/date.dart';
+import '../../common/widgets/date/date.dart';
 import '../view_model/activity_list_view_model.dart';
 
 class ActivityItem extends HookConsumerWidget {

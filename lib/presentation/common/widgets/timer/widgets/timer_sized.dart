@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../viewmodel/timer_view_model.dart';
-import '../widgets/timer_text.dart';
+import 'timer_text.dart';
 
-class TimerScreen extends HookConsumerWidget {
-  const TimerScreen({Key? key}) : super(key: key);
+class TimerSized extends HookConsumerWidget {
+  const TimerSized({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

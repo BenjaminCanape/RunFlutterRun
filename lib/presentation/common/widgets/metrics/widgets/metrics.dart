@@ -3,11 +3,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../view_model/metrics_view_model.dart';
 
-class MetricsScreen extends HookConsumerWidget {
+class Metrics extends HookConsumerWidget {
   final double? speed;
   final double? distance;
 
-  const MetricsScreen({Key? key, this.speed, this.distance}) : super(key: key);
+  const Metrics({Key? key, this.speed, this.distance}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

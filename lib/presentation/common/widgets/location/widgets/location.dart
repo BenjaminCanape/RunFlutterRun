@@ -4,11 +4,11 @@ import 'package:flutter_map/plugin_api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 
-import '../../common/utils/map_math.dart';
+import '../../../utils/map_math.dart';
 import '../view_model/location_view_model.dart';
 
-class LocationScreen extends HookConsumerWidget {
-  const LocationScreen({Key? key}) : super(key: key);
+class Location extends HookConsumerWidget {
+  const Location({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

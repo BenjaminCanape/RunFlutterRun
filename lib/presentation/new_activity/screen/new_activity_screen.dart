@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../common/widgets/timer/widgets/timer_sized.dart';
 
-import '../../location/screen/location_screen.dart';
-import '../../metrics/screen/metrics_screen.dart';
-import '../../timer/screen/timer_screen.dart';
-import '../../timer/viewmodel/timer_view_model.dart';
-import '../../timer/widgets/timer_pause.dart';
-import '../../timer/widgets/timer_start.dart';
+import '../../common/widgets/location/widgets/location.dart';
+import '../../common/widgets/metrics/widgets/metrics.dart';
+import '../../common/widgets/timer/viewmodel/timer_view_model.dart';
+import '../../common/widgets/timer/widgets/timer_pause.dart';
+import '../../common/widgets/timer/widgets/timer_start.dart';
 
 class NewActivityScreen extends HookConsumerWidget {
   const NewActivityScreen({Key? key}) : super(key: key);
@@ -22,12 +22,12 @@ class NewActivityScreen extends HookConsumerWidget {
       body: const SafeArea(
         child: Column(
           children: [
-            TimerScreen(),
-            MetricsScreen(),
+            TimerSized(),
+            Metrics(),
             SizedBox(
               height: 10,
             ),
-            LocationScreen(),
+            Location(),
           ],
         ),
       ),

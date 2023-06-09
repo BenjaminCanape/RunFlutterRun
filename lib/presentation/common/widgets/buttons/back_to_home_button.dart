@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../view_model/activity_list_view_model.dart';
+import '../../../activity_list/view_model/activity_list_view_model.dart';
 
 class BackToHomeButton extends HookConsumerWidget {
   const BackToHomeButton({super.key});

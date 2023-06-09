@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../main.dart';
-import '../../common/textToSpeech/text_to_speech.dart';
+import '../../../../../main.dart';
+import '../../../textToSpeech/text_to_speech.dart';
 import '../../location/view_model/location_view_model.dart';
 import '../../timer/viewmodel/timer_view_model.dart';
 import 'metrics_state.dart';

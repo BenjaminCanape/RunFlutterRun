@@ -5,12 +5,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../domain/entities/activity.dart';
-import '../../activity_list/widgets/back_to_home_button.dart';
+import '../../common/widgets/buttons/back_to_home_button.dart';
 import '../../common/utils/map_math.dart';
-import '../../metrics/screen/metrics_screen.dart';
-import '../../timer/widgets/timer_text.dart';
+import '../../common/widgets/metrics/widgets/metrics.dart';
+import '../../common/widgets/timer/widgets/timer_text.dart';
 import '../view_model/activity_details_view_model.dart';
-import '../widgets/date.dart';
+import '../../common/widgets/date/date.dart';
 import '../widgets/remove_alert.dart';
 
 class ActivityDetails extends HookConsumerWidget {
@@ -79,7 +79,7 @@ class ActivityDetails extends HookConsumerWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      MetricsScreen(
+                      Metrics(
                           distance: activity.distance, speed: activity.speed),
                     ],
                   )

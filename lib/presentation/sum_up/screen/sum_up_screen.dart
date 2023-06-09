@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../common/widgets/timer/widgets/timer_sized.dart';
+import '../../common/widgets/location/widgets/location.dart';
+import '../../common/widgets/metrics/widgets/metrics.dart';
 import '../view_model/sum_up_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../location/screen/location_screen.dart';
-import '../../metrics/screen/metrics_screen.dart';
-import '../../timer/screen/timer_screen.dart';
 import '../widgets/save_button.dart';
 
 class SumUpScreen extends HookConsumerWidget {
@@ -29,12 +29,12 @@ class SumUpScreen extends HookConsumerWidget {
           : const SafeArea(
               child: Column(
                 children: [
-                  TimerScreen(),
-                  MetricsScreen(),
+                  TimerSized(),
+                  Metrics(),
                   SizedBox(
                     height: 10,
                   ),
-                  LocationScreen(),
+                  Location(),
                 ],
               ),
             ),

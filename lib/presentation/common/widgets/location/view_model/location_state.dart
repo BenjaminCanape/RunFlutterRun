@@ -1,6 +1,6 @@
 import 'package:geolocator/geolocator.dart';
 
-import '../../../data/models/request/LocationRequest.dart';
+import '../../../../../data/models/request/LocationRequest.dart';
 
 class LocationState {
   final Position? currentPosition;
