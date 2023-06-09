@@ -43,7 +43,7 @@ class SumUpScreen extends HookConsumerWidget {
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 4.0,
-        color: Colors.blue,
+        color: Colors.teal.shade400,
         child: IconTheme(
             data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
             child: Row(

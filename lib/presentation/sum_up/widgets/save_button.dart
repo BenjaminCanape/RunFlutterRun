@@ -12,6 +12,7 @@ class SaveButton extends HookConsumerWidget {
     final provider = ref.read(sumUpViewModelProvider.notifier);
 
     return FloatingActionButton(
+      backgroundColor: Colors.teal.shade800,
       elevation: 4.0,
       onPressed: disabled
           ? null
