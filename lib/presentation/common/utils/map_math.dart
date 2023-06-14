@@ -43,6 +43,6 @@ double getZoomLevel(List<LatLng> points, LatLng center) {
     double scale = radiusElevated / 500;
     zoomLevel = 16 - (log(scale) / log(2));
   }
-  zoomLevel = num.parse(zoomLevel.toStringAsFixed(2)).toDouble();
+  zoomLevel = num.parse(zoomLevel.toStringAsFixed(2)).toDouble() - 0.25;
   return zoomLevel;
 }
