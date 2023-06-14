@@ -38,9 +38,9 @@ class MetricsViewModel extends StateNotifier<MetricsState> {
     int newDistanceInteger = state.distance.toInt();
     if (newDistanceInteger != lastDistanceInteger) {
       final l10nConf = await ref.read(myAppProvider).getl10nConf();
-      textToSpeech.say("$newDistanceInteger ${l10nConf.kilometers}");
-      textToSpeech
-          .say("${state.globalSpeed} ${l10nConf.kilometers} ${l10nConf.hours}");
+      await textToSpeech.say("$newDistanceInteger ${l10nConf.kilometers}");
+      textToSpeech.say(
+          "${double.parse(state.globalSpeed.toStringAsFixed(2))} ${l10nConf.kilometers} ${l10nConf.hours}");
     }
   }
 
