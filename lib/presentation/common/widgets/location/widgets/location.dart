@@ -24,8 +24,8 @@ class Location extends HookConsumerWidget {
         point: LatLng(state.currentPosition?.latitude ?? 0,
             state.currentPosition?.longitude ?? 0),
         builder: (ctx) => const Icon(
-          Icons.place,
-          size: 50,
+          Icons.run_circle_sharp,
+          size: 30,
           color: Colors.red,
         ),
       ),

@@ -35,13 +35,11 @@ class ActivityDetails extends HookConsumerWidget {
           builder: (ctx) => Column(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.location_on),
+                    icon: const Icon(Icons.location_on_rounded),
                     color: Colors.green.shade700,
-                    iconSize: 40.0,
+                    iconSize: 35.0,
                     onPressed: () {},
                   ),
-                  Text(AppLocalizations.of(context).start,
-                      style: const TextStyle(fontWeight: FontWeight.bold))
                 ],
               )));
 
@@ -54,14 +52,10 @@ class ActivityDetails extends HookConsumerWidget {
             builder: (ctx) => Column(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.location_on),
+                      icon: const Icon(Icons.location_on_rounded),
                       color: Colors.red,
-                      iconSize: 40.0,
+                      iconSize: 35.0,
                       onPressed: () {},
-                    ),
-                    Text(
-                      AppLocalizations.of(context).end,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
                     )
                   ],
                 )));
