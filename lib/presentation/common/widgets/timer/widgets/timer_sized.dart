@@ -17,7 +17,7 @@ class TimerSized extends HookConsumerWidget {
     return const Column(
       children: <Widget>[
         SizedBox(
-            height: 200.0,
+            height: 125,
             child: Center(
               child: TimerText(),
             )),

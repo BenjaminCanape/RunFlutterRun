@@ -5,6 +5,7 @@
   "ask_activity_removal": "Confirmer la suppression",
   "cancel": "Annuler",
   "congrats": "Fin de l'activité. Félicitations",
+  "cycling": "Vélo",
   "date_pronoun": "Le",
   "delete": "Supprimer",
   "distance": "Distance",
@@ -17,5 +18,6 @@
   "resume_activity": "Reprise de l'activité",
   "running": "Course à pied",
   "speed": "Vitesse",
-  "start": "Début"
+  "start": "Début",
+  "walking": "Marche"
 }

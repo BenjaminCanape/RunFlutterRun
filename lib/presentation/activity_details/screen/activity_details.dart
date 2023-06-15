@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../../../data/models/enum/activity_type.dart';
 import '../../../domain/entities/activity.dart';
 import '../../common/widgets/buttons/back_to_home_button.dart';
 import '../../common/widgets/date/date.dart';
@@ -77,7 +78,9 @@ class ActivityDetails extends HookConsumerWidget {
           title: Row(
             children: [
               Text(
-                AppLocalizations.of(context).running.toUpperCase(),
+                translateActivityTypeValue(
+                        AppLocalizations.of(context), activity.type)
+                    .toUpperCase(),
               ),
               const Spacer(),
               IconButton(

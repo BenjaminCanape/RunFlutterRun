@@ -5,6 +5,7 @@
   "ask_activity_removal": "Are you sure to delete this activity",
   "cancel": "Cancel",
   "congrats": "End of activity. Congratulations.",
+  "cycling": "Cycling",
   "date_pronoun": "On",
   "delete": "Delete",
   "distance": "Distance",
@@ -17,5 +18,6 @@
   "resume_activity": "Activity resumed",
   "running": "Running",
   "speed": "Speed",
-  "start": "Start"
+  "start": "Start",
+  "walking": "Walking"
 }

@@ -25,6 +25,10 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
     ref.read(textToSpeechService).sayActivitySumUp();
   }
 
+  void setType(ActivityType type) {
+    state = state.copyWith(type: type);
+  }
+
   void save(BuildContext context) {
     state = state.copyWith(isSaving: true);
     var startDatetime = ref.read(timerViewModelProvider).startDatetime;
@@ -38,7 +42,7 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
     ref
         .read(activityRepositoryProvider)
         .addActivity(ActivityRequest(
-            type: ActivityType.running,
+            type: state.type,
             startDatetime: startDatetime,
             endDatetime: endDatetime,
             distance: ref.read(metricsViewModelProvider).distance,

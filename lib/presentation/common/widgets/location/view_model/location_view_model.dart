@@ -31,23 +31,25 @@ class LocationViewModel extends StateNotifier<LocationState> {
     await Geolocator.requestPermission();
     _positionStream = _positionStream ??
         Geolocator.getPositionStream().listen((Position position) {
-          state = state.copyWith(
-              currentPosition: position,
-              lastPosition: state.currentPosition ?? position);
+          if (mounted) {
+            state = state.copyWith(
+                currentPosition: position,
+                lastPosition: state.currentPosition ?? position);
 
-          mapController?.move(
-              LatLng(position.latitude, position.longitude), 17);
+            mapController?.move(
+                LatLng(position.latitude, position.longitude), 17);
 
-          if (ref.read(timerViewModelProvider.notifier).isTimerRunning() &&
-              ref.read(timerViewModelProvider.notifier).hasTimerStarted()) {
-            metricsProvider.updateMetrics();
+            if (ref.read(timerViewModelProvider.notifier).isTimerRunning() &&
+                ref.read(timerViewModelProvider.notifier).hasTimerStarted()) {
+              metricsProvider.updateMetrics();
 
-            List<LocationRequest> positions = List.from(state.savedPositions);
-            positions.add(LocationRequest(
-                datetime: DateTime.now(),
-                latitude: position.latitude,
-                longitude: position.longitude));
-            state = state.copyWith(savedPositions: positions);
+              List<LocationRequest> positions = List.from(state.savedPositions);
+              positions.add(LocationRequest(
+                  datetime: DateTime.now(),
+                  latitude: position.latitude,
+                  longitude: position.longitude));
+              state = state.copyWith(savedPositions: positions);
+            }
           }
         });
   }

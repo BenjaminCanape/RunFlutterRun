@@ -23,7 +23,7 @@ class ActivityRequest extends Equatable {
 
   Map<String, dynamic> toMap() {
     final queryParameters = {
-      'type': type.name,
+      'type': type.name.toUpperCase(),
       'startDatetime': startDatetime.toIso8601String(),
       'endDatetime': endDatetime.toIso8601String(),
       'distance': distance,
