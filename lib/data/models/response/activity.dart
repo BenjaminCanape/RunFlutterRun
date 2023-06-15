@@ -2,10 +2,12 @@ import 'package:equatable/equatable.dart';
 
 import '../../../domain/entities/activity.dart';
 import '../../../domain/entities/location.dart';
+import '../enum/activity_type.dart';
 import 'location.dart';
 
 class ActivityResponse extends Equatable {
   final String id;
+  final ActivityType type;
   final DateTime startDatetime;
   final DateTime endDatetime;
   final double distance;
@@ -16,6 +18,7 @@ class ActivityResponse extends Equatable {
 
   const ActivityResponse(
       {required this.id,
+      required this.type,
       required this.startDatetime,
       required this.endDatetime,
       required this.distance,
@@ -25,11 +28,17 @@ class ActivityResponse extends Equatable {
 
   @override
   List<Object?> get props =>
-      [id, startDatetime, endDatetime, distance, speed, time];
+      [id, type, startDatetime, endDatetime, distance, speed, time];
 
   factory ActivityResponse.fromMap(Map<String, dynamic> map) {
+    ActivityType? activityType;
+    if (map['type'] != null && map['type'].toString().isNotEmpty) {
+      activityType = ActivityType.values.firstWhere((type) =>
+          type.toString().split('.').last == map['type'].toLowerCase());
+    }
     return ActivityResponse(
         id: map['id'].toString(),
+        type: activityType ?? ActivityType.running,
         startDatetime: DateTime.parse(map['startDatetime']),
         endDatetime: DateTime.parse(map['endDatetime']),
         distance: map['distance'].toDouble(),
@@ -45,6 +54,7 @@ class ActivityResponse extends Equatable {
   Activity toEntity() {
     return Activity(
         id: id,
+        type: type,
         startDatetime: startDatetime,
         endDatetime: endDatetime,
         distance: distance,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/data/models/enum/activity_type.dart';
 
 import '../../../data/models/request/ActivityRequest.dart';
 import '../../../data/repository/activity_repository_impl.dart';
@@ -37,6 +38,7 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
     ref
         .read(activityRepositoryProvider)
         .addActivity(ActivityRequest(
+            type: ActivityType.running,
             startDatetime: startDatetime,
             endDatetime: endDatetime,
             distance: ref.read(metricsViewModelProvider).distance,

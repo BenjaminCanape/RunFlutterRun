@@ -1,9 +1,11 @@
 import 'package:equatable/equatable.dart';
 
+import '../../data/models/enum/activity_type.dart';
 import 'location.dart';
 
 class Activity extends Equatable {
   final String id;
+  final ActivityType type;
   final DateTime startDatetime;
   final DateTime endDatetime;
   final double distance;
@@ -14,6 +16,7 @@ class Activity extends Equatable {
 
   const Activity(
       {required this.id,
+      required this.type,
       required this.startDatetime,
       required this.endDatetime,
       required this.distance,
@@ -23,5 +26,5 @@ class Activity extends Equatable {
 
   @override
   List<Object?> get props =>
-      [id, startDatetime, endDatetime, distance, speed, time];
+      [id, type, startDatetime, endDatetime, distance, speed, time];
 }

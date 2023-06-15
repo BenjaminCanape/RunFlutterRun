@@ -1,8 +1,9 @@
 import 'package:equatable/equatable.dart';
-
+import '../enum/activity_type.dart';
 import 'LocationRequest.dart';
 
 class ActivityRequest extends Equatable {
+  final ActivityType type;
   final DateTime startDatetime;
   final DateTime endDatetime;
   final double distance;
@@ -10,16 +11,19 @@ class ActivityRequest extends Equatable {
   final List<LocationRequest> locations;
 
   const ActivityRequest(
-      {required this.startDatetime,
+      {required this.type,
+      required this.startDatetime,
       required this.endDatetime,
       required this.distance,
       required this.locations});
 
   @override
-  List<Object?> get props => [startDatetime, endDatetime, distance, locations];
+  List<Object?> get props =>
+      [type, startDatetime, endDatetime, distance, locations];
 
   Map<String, dynamic> toMap() {
     final queryParameters = {
+      'type': type.name,
       'startDatetime': startDatetime.toIso8601String(),
       'endDatetime': endDatetime.toIso8601String(),
       'distance': distance,

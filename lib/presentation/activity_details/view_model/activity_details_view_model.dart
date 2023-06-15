@@ -40,6 +40,7 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
         .then((value) {
       Activity activityWithoutLocations = Activity(
           id: activity.id,
+          type: activity.type,
           distance: activity.distance,
           speed: activity.speed,
           startDatetime: activity.startDatetime,
