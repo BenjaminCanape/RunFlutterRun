@@ -52,6 +52,8 @@ dependencies:
   dio_smart_retry: ^5.0.0
   shared_preferences: ^2.1.2
   wakelock: ^0.6.2
+  flutter_secure_storage: ^8.0.0
+  email_validator: ^2.1.17
 
 dev_dependencies:
   flutter_test:

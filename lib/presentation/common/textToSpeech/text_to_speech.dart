@@ -17,33 +17,33 @@ class TextToSpeech {
 
   TextToSpeech(this.ref);
 
-  Future init() async {
+  Future<void> init() async {
     var lang = ui.window.locale.languageCode;
     await flutterTts.setLanguage(lang);
-    translate = await ref.read(myAppProvider).getl10nConf();
+    translate = await ref.read(myAppProvider).getLocalizedConf();
   }
 
-  Future sayGoodLuck() async {
+  Future<void> sayGoodLuck() async {
     await flutterTts.speak(translate.good_luck);
   }
 
-  Future sayActivitySumUp() async {
+  Future<void> sayActivitySumUp() async {
     await flutterTts.speak(translate.activity_sumup);
   }
 
-  Future sayPause() async {
+  Future<void> sayPause() async {
     await flutterTts.speak(translate.pause_activity);
   }
 
-  Future sayResume() async {
+  Future<void> sayResume() async {
     await flutterTts.speak(translate.resume_activity);
   }
 
-  Future sayCongrats() async {
+  Future<void> sayCongrats() async {
     await flutterTts.speak(translate.congrats);
   }
 
-  Future say(String text) async {
+  Future<void> say(String text) async {
     await flutterTts.speak(text);
   }
 }

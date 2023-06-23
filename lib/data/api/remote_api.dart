@@ -1,15 +1,16 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RemoteApi {
   late String url;
-  var dio = Dio();
+  late Dio dio;
   late SharedPreferences prefs;
 
   RemoteApi(this.url) {
+    dio = Dio();
+
     dio.options.connectTimeout = const Duration(seconds: 2);
 
     dio.interceptors.add(RetryInterceptor(
@@ -27,26 +28,27 @@ class RemoteApi {
     initCache();
   }
 
-  void initCache() async {
+  Future<void> initCache() async {
     prefs = await SharedPreferences.getInstance();
 
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
-        String cacheKey = options.uri.toString();
+        final cacheKey = options.uri.toString();
 
-        String? cachedResponse = prefs.getString(cacheKey);
+        final cachedResponse = prefs.getString(cacheKey);
 
         if (options.method == 'GET' && cachedResponse != null) {
-          int cacheTimestamp = prefs.getInt('$cacheKey:timestamp') ?? 0;
+          final cacheTimestamp = prefs.getInt('$cacheKey:timestamp') ?? 0;
 
-          int currentTimestamp = DateTime.now().millisecondsSinceEpoch;
-          int expirationDuration = 24 * 60 * 60 * 1000;
+          final currentTimestamp = DateTime.now().millisecondsSinceEpoch;
+          final expirationDuration = const Duration(days: 1).inMilliseconds;
 
           if (currentTimestamp - cacheTimestamp <= expirationDuration) {
             handler.resolve(Response(
-                data: jsonDecode(cachedResponse),
-                statusCode: 200,
-                requestOptions: options));
+              data: jsonDecode(cachedResponse),
+              statusCode: 200,
+              requestOptions: options,
+            ));
             return;
           } else {
             prefs.remove(cacheKey);
@@ -64,15 +66,36 @@ class RemoteApi {
         handler.next(options);
       },
       onResponse: (response, handler) async {
-        String cacheKey = response.requestOptions.uri.toString();
-        String jsonResponse = jsonEncode(response.data);
+        final cacheKey = response.requestOptions.uri.toString();
+        final jsonResponse = jsonEncode(response.data);
         await prefs.setString(cacheKey, jsonResponse);
 
-        int currentTimestamp = DateTime.now().millisecondsSinceEpoch;
+        final currentTimestamp = DateTime.now().millisecondsSinceEpoch;
         await prefs.setInt('$cacheKey:timestamp', currentTimestamp);
 
         handler.next(response);
       },
+      onError: (DioError error, ErrorInterceptorHandler handler) async {
+        print(error);
+        if (error.response?.statusCode == 401) {
+          await handleUnauthorizedError();
+        }
+        handler.next(error);
+      },
     ));
+  }
+
+  Future<void> setJwt() async {
+    final prefs = await SharedPreferences.getInstance();
+    final jwt = prefs.getString('jwt');
+    if (jwt != null) {
+      dio.options.headers['Authorization'] = 'Bearer $jwt';
+    }
+  }
+
+  Future<void> handleUnauthorizedError() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('jwt');
+    //SystemNavigator.pop();
   }
 }

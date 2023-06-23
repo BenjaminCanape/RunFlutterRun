@@ -25,11 +25,19 @@ class Metrics extends HookConsumerWidget {
     }
 
     return Center(
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-      Text('${double.parse(distanceToDisplay.toStringAsFixed(2))} Km',
-          style: textStyle),
-      Text('${double.parse(speedToDisplay.toStringAsFixed(2))} Km/h',
-          style: textStyle)
-    ]));
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text(
+            '${distanceToDisplay.toStringAsFixed(2)} Km',
+            style: textStyle,
+          ),
+          Text(
+            '${speedToDisplay.toStringAsFixed(2)} Km/h',
+            style: textStyle,
+          ),
+        ],
+      ),
+    );
   }
 }

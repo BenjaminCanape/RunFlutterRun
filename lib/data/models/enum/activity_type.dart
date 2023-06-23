@@ -10,20 +10,16 @@ extension StringExtension on ActivityType {
 
 String translateActivityTypeValue(
     AppLocalizations localization, ActivityType type) {
-  var translated = {
-    "running": localization.running,
-    "walking": localization.walking,
-    "cycling": localization.cycling,
+  final translated = {
+    ActivityType.running.name: localization.running,
+    ActivityType.walking.name: localization.walking,
+    ActivityType.cycling.name: localization.cycling,
   };
 
-  var defaultValue = translated.entries.isNotEmpty
-      ? translated.entries.first.value
-      : 'running';
+  final defaultValue =
+      translated.isNotEmpty ? translated.values.first : localization.running;
 
-  var translatedValue = translated.entries
-      .firstWhere((element) => element.key == type.name,
-          orElse: () => MapEntry("", defaultValue))
-      .value;
+  final translatedValue = translated[type.name] ?? defaultValue;
 
   return translatedValue;
 }

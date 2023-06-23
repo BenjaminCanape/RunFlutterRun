@@ -12,18 +12,18 @@ import 'location_state.dart';
 
 final locationViewModelProvider =
     StateNotifierProvider.autoDispose<LocationViewModel, LocationState>(
-        (ref) => LocationViewModel(ref));
+  (ref) => LocationViewModel(ref),
+);
 
 class LocationViewModel extends StateNotifier<LocationState> {
-  Ref ref;
+  final Ref ref;
   MapController? mapController;
+  StreamSubscription<Position>? _positionStream;
 
   LocationViewModel(this.ref) : super(LocationState.initial()) {
     mapController = MapController();
     startGettingLocation();
   }
-
-  StreamSubscription? _positionStream;
 
   Future<void> startGettingLocation() async {
     final metricsProvider = ref.read(metricsViewModelProvider.notifier);
@@ -31,23 +31,26 @@ class LocationViewModel extends StateNotifier<LocationState> {
     await Geolocator.requestPermission();
     _positionStream = _positionStream ??
         Geolocator.getPositionStream().listen((Position position) {
-          if (mounted) {
+          if (mounted && mapController != null) {
             state = state.copyWith(
-                currentPosition: position,
-                lastPosition: state.currentPosition ?? position);
+              currentPosition: position,
+              lastPosition: state.currentPosition ?? position,
+            );
 
             mapController?.move(
                 LatLng(position.latitude, position.longitude), 17);
 
-            if (ref.read(timerViewModelProvider.notifier).isTimerRunning() &&
-                ref.read(timerViewModelProvider.notifier).hasTimerStarted()) {
+            final timerProvider = ref.read(timerViewModelProvider.notifier);
+            if (timerProvider.isTimerRunning() &&
+                timerProvider.hasTimerStarted()) {
               metricsProvider.updateMetrics();
 
-              List<LocationRequest> positions = List.from(state.savedPositions);
+              final positions = [...state.savedPositions];
               positions.add(LocationRequest(
-                  datetime: DateTime.now(),
-                  latitude: position.latitude,
-                  longitude: position.longitude));
+                datetime: DateTime.now(),
+                latitude: position.latitude,
+                longitude: position.longitude,
+              ));
               state = state.copyWith(savedPositions: positions);
             }
           }

@@ -1,7 +1,5 @@
 import 'dart:math';
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import '../../../../../main.dart';
 import '../../../textToSpeech/text_to_speech.dart';
 import '../../location/view_model/location_view_model.dart';
@@ -14,22 +12,25 @@ final metricsViewModelProvider =
 
 class MetricsViewModel extends StateNotifier<MetricsState> {
   final Ref ref;
+  late TextToSpeech textToSpeech;
 
-  MetricsViewModel(this.ref) : super(MetricsState.initial());
+  MetricsViewModel(this.ref) : super(MetricsState.initial()) {
+    textToSpeech = TextToSpeech(ref);
+  }
 
   Future<void> updateMetrics() async {
     final location = ref.read(locationViewModelProvider);
     final timer = ref.read(timerViewModelProvider.notifier);
-    final textToSpeech = ref.read(textToSpeechService);
 
     int lastDistanceInteger = state.distance.toInt();
 
     var distance = state.distance +
         distanceInKmBetweenCoordinates(
-            location.lastPosition?.latitude,
-            location.lastPosition?.longitude,
-            location.currentPosition?.latitude,
-            location.currentPosition?.longitude);
+          location.lastPosition?.latitude,
+          location.lastPosition?.longitude,
+          location.currentPosition?.latitude,
+          location.currentPosition?.longitude,
+        );
 
     var globalSpeed = distance / (timer.getTimerInMs() / 3600000);
 
@@ -37,10 +38,11 @@ class MetricsViewModel extends StateNotifier<MetricsState> {
 
     int newDistanceInteger = state.distance.toInt();
     if (newDistanceInteger != lastDistanceInteger) {
-      final l10nConf = await ref.read(myAppProvider).getl10nConf();
+      final l10nConf = await ref.read(myAppProvider).getLocalizedConf();
       await textToSpeech.say("$newDistanceInteger ${l10nConf.kilometers}");
       textToSpeech.say(
-          "${double.parse(state.globalSpeed.toStringAsFixed(2))} ${l10nConf.kilometers} ${l10nConf.hours}");
+        "${state.globalSpeed.toStringAsFixed(2)} ${l10nConf.kilometers} ${l10nConf.hours}",
+      );
     }
   }
 
@@ -48,15 +50,20 @@ class MetricsViewModel extends StateNotifier<MetricsState> {
     state = MetricsState.initial();
   }
 
-  double degreesToRadians(degrees) {
+  double degreesToRadians(double degrees) {
     return degrees * pi / 180;
   }
 
-  double distanceInKmBetweenCoordinates(lat1, lon1, lat2, lon2) {
-    var earthRadiusKm = 6371;
+  double distanceInKmBetweenCoordinates(
+    double? lat1,
+    double? lon1,
+    double? lat2,
+    double? lon2,
+  ) {
+    var earthRadiusKm = 6371.0;
 
-    var dLat = degreesToRadians(lat2 - lat1);
-    var dLon = degreesToRadians(lon2 - lon1);
+    var dLat = degreesToRadians(lat2! - lat1!);
+    var dLon = degreesToRadians(lon2! - lon1!);
 
     lat1 = degreesToRadians(lat1);
     lat2 = degreesToRadians(lat2);

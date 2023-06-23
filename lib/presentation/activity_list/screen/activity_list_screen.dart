@@ -15,18 +15,21 @@ class ActivityListScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-          leadingWidth: 40,
-          leading: const Icon(
-            Icons.list,
-            color: Colors.grey,
-          ),
-          backgroundColor: Colors.white,
-          titleTextStyle: TextStyle(
-              color: Colors.grey.shade800,
-              fontSize: 22,
-              fontWeight: FontWeight.bold),
-          title:
-              Text(AppLocalizations.of(context).activity_list.toUpperCase())),
+        leadingWidth: 40,
+        leading: const Icon(
+          Icons.list,
+          color: Colors.grey,
+        ),
+        backgroundColor: Colors.white,
+        titleTextStyle: TextStyle(
+          color: Colors.grey.shade800,
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+        ),
+        title: Text(
+          AppLocalizations.of(context).activity_list.toUpperCase(),
+        ),
+      ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : SafeArea(
@@ -39,7 +42,7 @@ class ActivityListScreen extends HookConsumerWidget {
                         return ActivityItem(activity: activities[index]);
                       },
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../activity_list/view_model/activity_list_view_model.dart';
 
 class BackToHomeButton extends HookConsumerWidget {
-  const BackToHomeButton({super.key});
+  const BackToHomeButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

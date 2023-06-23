@@ -4,12 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../viewmodel/timer_view_model.dart';
 
 class TimerPause extends HookConsumerWidget {
-  const TimerPause({super.key});
+  const TimerPause({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ignore: unused_local_variable
-    final state = ref.watch(timerViewModelProvider);
     final timerViewModel = ref.watch(timerViewModelProvider.notifier);
 
     if (timerViewModel.hasTimerStarted()) {
@@ -20,9 +18,11 @@ class TimerPause extends HookConsumerWidget {
             ? Icons.pause
             : Icons.play_arrow),
         onPressed: () {
-          timerViewModel.isTimerRunning() == true
-              ? timerViewModel.pauseTimer()
-              : timerViewModel.startTimer();
+          if (timerViewModel.isTimerRunning()) {
+            timerViewModel.pauseTimer();
+          } else {
+            timerViewModel.startTimer();
+          }
         },
       );
     }

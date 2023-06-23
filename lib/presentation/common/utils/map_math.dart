@@ -3,16 +3,14 @@ import 'dart:math';
 import 'package:latlong2/latlong.dart';
 
 LatLng getCenterOfMap(List<LatLng> points) {
-  double sumLat = 0.0;
-  double sumLng = 0.0;
-
-  for (LatLng coordinate in points) {
-    sumLat += coordinate.latitude;
-    sumLng += coordinate.longitude;
+  if (points.isEmpty) {
+    return LatLng(0, 0);
   }
 
-  double centerLat = sumLat / points.length;
-  double centerLng = sumLng / points.length;
+  final sum = points.reduce((value, element) => LatLng(
+      value.latitude + element.latitude, value.longitude + element.longitude));
+  final centerLat = sum.latitude / points.length;
+  final centerLng = sum.longitude / points.length;
 
   return LatLng(centerLat, centerLng);
 }
@@ -25,7 +23,7 @@ double getRadius(List<LatLng> points, LatLng center) {
   double maxDistance = 0.0;
 
   for (LatLng coordinate in points) {
-    double distance = getDistance(center, coordinate);
+    final distance = getDistance(center, coordinate);
     if (distance > maxDistance) {
       maxDistance = distance;
     }
@@ -35,14 +33,14 @@ double getRadius(List<LatLng> points, LatLng center) {
 }
 
 double getZoomLevel(List<LatLng> points, LatLng center) {
-  var radius = getRadius(points, center);
+  final radius = getRadius(points, center);
 
   double zoomLevel = 11;
   if (radius > 0) {
-    double radiusElevated = radius + radius / 2;
-    double scale = radiusElevated / 500;
+    final radiusElevated = radius + radius / 2;
+    final scale = radiusElevated / 500;
     zoomLevel = 16 - (log(scale) / log(2));
   }
-  zoomLevel = num.parse(zoomLevel.toStringAsFixed(2)).toDouble() - 0.25;
+  zoomLevel = double.parse(zoomLevel.toStringAsFixed(2)) - 0.25;
   return zoomLevel;
 }

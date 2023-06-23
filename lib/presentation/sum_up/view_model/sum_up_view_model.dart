@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/data/models/enum/activity_type.dart';
+import '../../../data/models/enum/activity_type.dart';
 
 import '../../../data/models/request/ActivityRequest.dart';
 import '../../../data/repository/activity_repository_impl.dart';
@@ -35,7 +35,7 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
     var endDatetime = startDatetime.add(Duration(
         hours: ref.read(timerViewModelProvider).hours,
         minutes: ref.read(timerViewModelProvider).minutes,
-        seconds: ref.read(timerViewModelProvider).secondes));
+        seconds: ref.read(timerViewModelProvider).seconds));
 
     var locations = ref.read(locationViewModelProvider).savedPositions;
 

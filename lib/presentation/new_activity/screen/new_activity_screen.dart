@@ -13,26 +13,23 @@ class NewActivityScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var timerProvider = ref.watch(timerViewModelProvider.notifier);
-
+    final timerViewModel = ref.watch(timerViewModelProvider.notifier);
     // ignore: unused_local_variable
-    var isRunning = ref.watch(timerViewModelProvider).isRunning;
+    final isRunning = ref.watch(timerViewModelProvider).isRunning;
 
     return Scaffold(
-      body: const SafeArea(
+      body: SafeArea(
         child: Column(
-          children: [
+          children: const [
             TimerSized(),
             Metrics(),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Location(),
           ],
         ),
       ),
-      floatingActionButton: timerProvider.hasTimerStarted()
-          ? const Stack(
+      floatingActionButton: timerViewModel.hasTimerStarted()
+          ? Stack(
               children: [
                 Positioned(
                   bottom: 16,

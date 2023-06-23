@@ -10,12 +10,14 @@ import 'timer_state.dart';
 
 final timerViewModelProvider =
     StateNotifierProvider.autoDispose<TimerViewModel, TimerState>(
-        (ref) => TimerViewModel(ref));
+  (ref) => TimerViewModel(ref),
+);
 
 class TimerViewModel extends StateNotifier<TimerState> {
   final Ref ref;
   Timer? timer;
   Stopwatch stopwatch = Stopwatch();
+
   TimerViewModel(this.ref) : super(TimerState.initial());
 
   void startTimer() {
@@ -23,7 +25,7 @@ class TimerViewModel extends StateNotifier<TimerState> {
     stopwatch.start();
     state = state.copyWith(startDatetime: DateTime.now(), isRunning: true);
     timer = Timer.periodic(const Duration(seconds: 1), updateTime);
-    if (isRunning == false) {
+    if (!isRunning) {
       ref.read(textToSpeechService).sayGoodLuck();
       Wakelock.enable();
     } else {
@@ -71,14 +73,14 @@ class TimerViewModel extends StateNotifier<TimerState> {
     int timerInMs = stopwatch.elapsedMilliseconds;
     int hours = convertMillisToHours(timerInMs);
     int minutes = convertMillisToMinutes(timerInMs, hours);
-    int secondes = convertMillisToSeconds(timerInMs, hours, minutes);
-    state = state.copyWith(hours: hours, minutes: minutes, secondes: secondes);
+    int seconds = convertMillisToSeconds(timerInMs, hours, minutes);
+    state = state.copyWith(hours: hours, minutes: minutes, seconds: seconds);
   }
 
   String getFormattedTime([int? timeInMs]) {
-    var hours = state.hours;
-    var minutes = state.minutes;
-    var seconds = state.secondes;
+    int hours = state.hours;
+    int minutes = state.minutes;
+    int seconds = state.seconds;
 
     if (timeInMs != null) {
       hours = convertMillisToHours(timeInMs);
@@ -87,12 +89,12 @@ class TimerViewModel extends StateNotifier<TimerState> {
     }
 
     String hoursFormatted = hours.toString().padLeft(2, '0');
-    String minFormatted = minutes.toString().padLeft(2, '0');
-    String secFormatted = seconds.toString().padLeft(2, '0');
+    String minutesFormatted = minutes.toString().padLeft(2, '0');
+    String secondsFormatted = seconds.toString().padLeft(2, '0');
 
-    String formattedTime = state.hours > 0
-        ? '$hoursFormatted:$minFormatted:$secFormatted'
-        : '$minFormatted:$secFormatted';
+    String formattedTime = hours > 0
+        ? '$hoursFormatted:$minutesFormatted:$secondsFormatted'
+        : '$minutesFormatted:$secondsFormatted';
 
     return formattedTime;
   }
@@ -101,13 +103,13 @@ class TimerViewModel extends StateNotifier<TimerState> {
     return ms ~/ 3600000;
   }
 
-  int convertMillisToMinutes(int ms, int hoursToSubstract) {
-    return (ms - (hoursToSubstract * 3600000)) ~/ 60000;
+  int convertMillisToMinutes(int ms, int hoursToSubtract) {
+    return (ms - (hoursToSubtract * 3600000)) ~/ 60000;
   }
 
   int convertMillisToSeconds(
-      int ms, int hoursToSubstract, int minutesToSubstract) {
-    return (ms - (hoursToSubstract * 3600000 + minutesToSubstract * 60000)) ~/
+      int ms, int hoursToSubtract, int minutesToSubtract) {
+    return (ms - (hoursToSubtract * 3600000 + minutesToSubtract * 60000)) ~/
         1000;
   }
 }

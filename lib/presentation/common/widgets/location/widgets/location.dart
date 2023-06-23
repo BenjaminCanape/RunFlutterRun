@@ -13,9 +13,9 @@ class Location extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(locationViewModelProvider);
-    final provider = ref.watch(locationViewModelProvider.notifier);
+    final provider = ref.read(locationViewModelProvider.notifier);
 
-    var points = provider.savedPositionsLatLng();
+    final points = provider.savedPositionsLatLng();
 
     final markers = <Marker>[
       Marker(

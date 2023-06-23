@@ -14,29 +14,31 @@ class ActivityRepositoryImpl extends ActivityRepository {
   ActivityRepositoryImpl(this._remoteApi);
 
   @override
-  Future<List<Activity>> getActivities() {
-    return _remoteApi
-        .getActivities()
-        .then((value) => value.map((e) => e.toEntity()).toList());
+  Future<List<Activity>> getActivities() async {
+    final activityResponses = await _remoteApi.getActivities();
+    return activityResponses.map((response) => response.toEntity()).toList();
   }
 
   @override
-  Future<Activity> getActivityById({required String id}) {
-    return _remoteApi.getActivityById(id).then((value) => value.toEntity());
+  Future<Activity> getActivityById({required String id}) async {
+    final activityResponse = await _remoteApi.getActivityById(id);
+    return activityResponse.toEntity();
   }
 
   @override
-  Future<String> removeActivity({required String id}) {
-    return _remoteApi.removeActivity(id).then((value) => value);
+  Future<String> removeActivity({required String id}) async {
+    return await _remoteApi.removeActivity(id);
   }
 
   @override
-  Future<Activity> addActivity(ActivityRequest request) {
-    return _remoteApi.addActivity(request).then((value) => value.toEntity());
+  Future<Activity> addActivity(ActivityRequest request) async {
+    final activityResponse = await _remoteApi.addActivity(request);
+    return activityResponse.toEntity();
   }
 
   @override
-  Future<Activity> editActivity(ActivityRequest request) {
-    return _remoteApi.editActivity(request).then((value) => value.toEntity());
+  Future<Activity> editActivity(ActivityRequest request) async {
+    final activityResponse = await _remoteApi.editActivity(request);
+    return activityResponse.toEntity();
   }
 }

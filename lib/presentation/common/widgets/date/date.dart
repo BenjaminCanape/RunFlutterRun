@@ -10,8 +10,12 @@ class Date extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final appLocalizations = AppLocalizations.of(context);
+    final formattedDate = DateFormat('dd/MM/yyyy').format(date);
+    final formattedTime = DateFormat('HH:mm').format(date);
+
     return Text(
-      '${AppLocalizations.of(context).date_pronoun} ${DateFormat('dd/MM/yyyy').format(date)} ${AppLocalizations.of(context).hours_pronoun} ${DateFormat('HH:mm').format(date)}',
+      '${appLocalizations.date_pronoun} $formattedDate ${appLocalizations.hours_pronoun} $formattedTime',
     );
   }
 }
