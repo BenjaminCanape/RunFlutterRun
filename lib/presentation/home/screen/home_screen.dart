@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../activity_list/screen/activity_list_screen.dart';
 import '../../new_activity/screen/new_activity_screen.dart';
+import '../../settings/screen/settings_screen.dart';
 import '../view_model/home_view_model.dart';
 
 enum Tabs { home, list }
@@ -17,7 +18,11 @@ class HomeScreen extends HookConsumerWidget {
     var provider = ref.watch(homeViewModelProvider.notifier);
     int currentIndex = state.currentIndex;
 
-    List<Widget> tabs = [const NewActivityScreen(), const ActivityListScreen()];
+    List<Widget> tabs = [
+      const NewActivityScreen(),
+      const ActivityListScreen(),
+      const SettingsScreen()
+    ];
 
     return Scaffold(
         body: SafeArea(child: tabs[currentIndex]),
@@ -30,7 +35,9 @@ class HomeScreen extends HookConsumerWidget {
           showUnselectedLabels: false,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.list), label: 'List')
+            BottomNavigationBarItem(icon: Icon(Icons.list), label: 'List'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.settings), label: 'Settings')
           ],
         ));
   }

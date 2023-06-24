@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
+import 'package:run_flutter_run/core/jwt_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RemoteApi {
@@ -86,16 +87,14 @@ class RemoteApi {
   }
 
   Future<void> setJwt() async {
-    final prefs = await SharedPreferences.getInstance();
-    final jwt = prefs.getString('jwt');
+    final jwt = await JwtUtils.getJwt();
     if (jwt != null) {
       dio.options.headers['Authorization'] = 'Bearer $jwt';
     }
   }
 
   Future<void> handleUnauthorizedError() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('jwt');
+    await JwtUtils.removeJwt();
     //SystemNavigator.pop();
   }
 }

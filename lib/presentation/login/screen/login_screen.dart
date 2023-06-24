@@ -15,8 +15,6 @@ class LoginScreen extends HookConsumerWidget {
     final state = ref.watch(loginViewModelProvider);
     final provider = ref.watch(loginViewModelProvider.notifier);
 
-    provider.checkJWT(context);
-
     return Scaffold(
         appBar: AppBar(
           leadingWidth: 40,

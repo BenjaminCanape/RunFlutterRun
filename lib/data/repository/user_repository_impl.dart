@@ -23,4 +23,9 @@ class UserRepositoryImpl extends UserRepository {
   Future<String> login(LoginRequest request) async {
     return _remoteApi.login(request);
   }
+
+  @override
+  Future<void> logout() async {
+    return _remoteApi.logout();
+  }
 }

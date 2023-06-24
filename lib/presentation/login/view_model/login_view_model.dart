@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:run_flutter_run/core/jwt_storage.dart';
 
 import '../../../data/models/request/LoginRequest.dart';
 import '../../../data/repository/user_repository_impl.dart';
@@ -25,18 +25,6 @@ class LoginViewModel extends StateNotifier<LoginState> {
     state = state.copyWith(password: password);
   }
 
-  void checkJWT(BuildContext context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? jwt = prefs.getString('jwt');
-
-    if (jwt != null) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
-    }
-  }
-
   Future<void> submitForm(BuildContext context) async {
     if (state.formKey.currentState!.validate()) {
       state.formKey.currentState!.save();
@@ -51,8 +39,7 @@ class LoginViewModel extends StateNotifier<LoginState> {
 
       try {
         final jwt = await userRepository.login(loginRequest);
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('jwt', jwt);
+        await JwtUtils.setJwt(jwt);
 
         state = state.copyWith(isLogging: false);
 

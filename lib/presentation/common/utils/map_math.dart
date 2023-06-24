@@ -7,7 +7,8 @@ LatLng getCenterOfMap(List<LatLng> points) {
     return LatLng(0, 0);
   }
 
-  final sum = points.reduce((value, element) => LatLng(
+  final copiedPoints = List<LatLng>.from(points);
+  final sum = copiedPoints.reduce((value, element) => LatLng(
       value.latitude + element.latitude, value.longitude + element.longitude));
   final centerLat = sum.latitude / points.length;
   final centerLng = sum.longitude / points.length;

@@ -34,6 +34,7 @@ class LocationMap extends HookConsumerWidget {
                     state.currentPosition?.longitude ?? 0),
             zoom: zoomLevel,
           ),
+          nonRotatedChildren: const [],
           children: [
             TileLayer(
               urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -42,10 +43,7 @@ class LocationMap extends HookConsumerWidget {
             PolylineLayer(
               polylines: [
                 Polyline(
-                  points: points,
-                  strokeWidth: 4,
-                  color: Colors.blueGrey,
-                ),
+                    points: points, strokeWidth: 4, color: Colors.blueGrey),
               ],
             ),
           ],

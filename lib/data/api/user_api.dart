@@ -52,4 +52,21 @@ class UserApi extends RemoteApi {
       throw const Failure(message: 'Please check your connection.');
     }
   }
+
+  Future<void> logout() async {
+    try {
+      await setJwt();
+      final response = await dio.post('${apiUrl}private/user/logout');
+
+      if (response.statusCode == 200) {
+        return;
+      }
+      throw const Failure(message: 'Logout failed');
+    } on DioError catch (err) {
+      throw Failure(
+          message: err.response?.statusMessage ?? 'Something went wrong!');
+    } on SocketException {
+      throw const Failure(message: 'Please check your connection.');
+    }
+  }
 }
