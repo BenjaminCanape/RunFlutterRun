@@ -18,7 +18,7 @@ class SettingsScreen extends HookConsumerWidget {
       appBar: AppBar(
         leadingWidth: 40,
         leading: const Icon(
-          Icons.list,
+          Icons.settings,
           color: Colors.grey,
         ),
         backgroundColor: Colors.white,

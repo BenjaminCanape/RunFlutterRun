@@ -3,15 +3,16 @@ import 'dart:math';
 import 'package:latlong2/latlong.dart';
 
 LatLng getCenterOfMap(List<LatLng> points) {
-  if (points.isEmpty) {
-    return LatLng(0, 0);
+  double sumLat = 0.0;
+  double sumLng = 0.0;
+
+  for (LatLng coordinate in points) {
+    sumLat += coordinate.latitude;
+    sumLng += coordinate.longitude;
   }
 
-  final copiedPoints = List<LatLng>.from(points);
-  final sum = copiedPoints.reduce((value, element) => LatLng(
-      value.latitude + element.latitude, value.longitude + element.longitude));
-  final centerLat = sum.latitude / points.length;
-  final centerLng = sum.longitude / points.length;
+  double centerLat = sumLat / points.length;
+  double centerLng = sumLng / points.length;
 
   return LatLng(centerLat, centerLng);
 }
