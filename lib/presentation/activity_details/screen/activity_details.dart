@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:run_flutter_run/presentation/common/ui/activity.dart';
 
 import '../../../data/models/enum/activity_type.dart';
 import '../../../domain/entities/activity.dart';
@@ -66,8 +67,8 @@ class ActivityDetails extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
           leadingWidth: 40,
-          leading: const Icon(
-            Icons.run_circle_outlined,
+          leading: Icon(
+            getActivityTypeIcon(activity),
             color: Colors.grey,
           ),
           backgroundColor: Colors.white,

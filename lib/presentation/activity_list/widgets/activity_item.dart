@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../data/models/enum/activity_type.dart';
 import '../../../domain/entities/activity.dart';
+import '../../common/ui/activity.dart';
 import '../../common/widgets/date/date.dart';
 import '../view_model/activity_list_view_model.dart';
 
@@ -23,8 +24,8 @@ class ActivityItem extends HookConsumerWidget {
       },
       child: Card(
         child: ListTile(
-          leading: const Icon(
-            Icons.run_circle_rounded,
+          leading: Icon(
+            getActivityTypeIcon(activity),
             color: Colors.blueGrey,
           ),
           subtitle: Column(
