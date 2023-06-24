@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../common/widgets/location/view_model/location_view_model.dart';
 import '../../common/widgets/location/widgets/location.dart';
 import '../../common/widgets/metrics/widgets/metrics.dart';
 import '../../common/widgets/timer/viewmodel/timer_view_model.dart';
@@ -16,6 +17,7 @@ class NewActivityScreen extends HookConsumerWidget {
     final timerViewModel = ref.watch(timerViewModelProvider.notifier);
     // ignore: unused_local_variable
     final isRunning = ref.watch(timerViewModelProvider).isRunning;
+    ref.read(locationViewModelProvider.notifier).startGettingLocation();
 
     return Scaffold(
       body: SafeArea(

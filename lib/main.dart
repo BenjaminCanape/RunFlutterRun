@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/data/api/remote_api.dart';
 import 'package:run_flutter_run/presentation/home/screen/home_screen.dart';
 import 'package:run_flutter_run/presentation/login/screen/login_screen.dart';
 import 'package:run_flutter_run/presentation/registration/screen/registration_screen.dart';
@@ -88,7 +89,9 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.read(myAppProvider);
+
     provider.init();
+    RemoteApi.initialize(context);
 
     return FutureBuilder<String?>(
       future: provider.getJwt(),

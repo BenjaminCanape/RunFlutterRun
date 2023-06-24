@@ -28,4 +28,9 @@ class UserRepositoryImpl extends UserRepository {
   Future<void> logout() async {
     return _remoteApi.logout();
   }
+
+  @override
+  Future<void> delete() async {
+    return _remoteApi.delete();
+  }
 }

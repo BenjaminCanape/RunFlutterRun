@@ -69,4 +69,21 @@ class UserApi extends RemoteApi {
       throw const Failure(message: 'Please check your connection.');
     }
   }
+
+  Future<void> delete() async {
+    try {
+      await setJwt();
+      final response = await dio.delete('${apiUrl}private/user');
+
+      if (response.statusCode == 200) {
+        return;
+      }
+      throw const Failure(message: 'Delete failed');
+    } on DioError catch (err) {
+      throw Failure(
+          message: err.response?.statusMessage ?? 'Something went wrong!');
+    } on SocketException {
+      throw const Failure(message: 'Please check your connection.');
+    }
+  }
 }

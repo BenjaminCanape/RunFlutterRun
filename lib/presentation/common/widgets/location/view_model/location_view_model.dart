@@ -20,9 +20,7 @@ class LocationViewModel extends StateNotifier<LocationState> {
   MapController mapController = MapController();
   StreamSubscription<Position>? _positionStream;
 
-  LocationViewModel(this.ref) : super(LocationState.initial()) {
-    startGettingLocation();
-  }
+  LocationViewModel(this.ref) : super(LocationState.initial()) {}
 
   Future<void> startGettingLocation() async {
     final metricsProvider = ref.read(metricsViewModelProvider.notifier);

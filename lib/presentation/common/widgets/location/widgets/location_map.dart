@@ -16,8 +16,8 @@ class LocationMap extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(locationViewModelProvider);
     final provider = ref.read(locationViewModelProvider.notifier);
+    final state = ref.watch(locationViewModelProvider);
 
     final center = getCenterOfMap(points);
     final zoomLevel = getZoomLevel(points, center);

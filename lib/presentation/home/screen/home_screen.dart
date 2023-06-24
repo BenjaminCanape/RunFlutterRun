@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/presentation/common/widgets/location/view_model/location_view_model.dart';
 
 import '../../activity_list/screen/activity_list_screen.dart';
 import '../../new_activity/screen/new_activity_screen.dart';
@@ -28,8 +29,10 @@ class HomeScreen extends HookConsumerWidget {
         body: SafeArea(child: tabs[currentIndex]),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
-          onTap: (value) =>
-              ref.read(homeViewModelProvider.notifier).setCurrentIndex(value),
+          onTap: (value) {
+            ref.read(locationViewModelProvider.notifier).cancelLocationStream();
+            ref.read(homeViewModelProvider.notifier).setCurrentIndex(value);
+          },
           showSelectedLabels: false,
           selectedItemColor: Colors.teal.shade700,
           showUnselectedLabels: false,
