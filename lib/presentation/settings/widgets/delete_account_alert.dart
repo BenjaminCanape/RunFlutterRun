@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/presentation/settings/view_model/settings_view_model.dart';
+
+import '../view_model/settings_view_model.dart';
 
 class DeleteAccountAlert extends HookConsumerWidget {
   const DeleteAccountAlert({Key? key}) : super(key: key);

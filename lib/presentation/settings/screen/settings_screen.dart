@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:run_flutter_run/presentation/settings/view_model/settings_view_model.dart';
-import 'package:run_flutter_run/presentation/settings/widgets/delete_account_alert.dart';
-
 import '../../common/ui/form.dart';
+import '../view_model/settings_view_model.dart';
+import '../widgets/delete_account_alert.dart';
 
 class SettingsScreen extends HookConsumerWidget {
   const SettingsScreen({Key? key}) : super(key: key);

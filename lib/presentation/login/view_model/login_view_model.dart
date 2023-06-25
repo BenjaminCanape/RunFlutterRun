@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/core/jwt_storage.dart';
 
+import '../../../core/jwt_storage.dart';
 import '../../../data/models/request/LoginRequest.dart';
 import '../../../data/repository/user_repository_impl.dart';
 import '../../../main.dart';
@@ -26,9 +26,10 @@ class LoginViewModel extends StateNotifier<LoginState> {
     state = state.copyWith(password: password);
   }
 
-  Future<void> submitForm(BuildContext context) async {
-    if (state.formKey.currentState!.validate()) {
-      state.formKey.currentState!.save();
+  Future<void> submitForm(
+      BuildContext context, GlobalKey<FormState> formKey) async {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
 
       state = state.copyWith(isLogging: true);
 
@@ -56,12 +57,12 @@ class LoginViewModel extends StateNotifier<LoginState> {
           builder: (context) {
             return AlertDialog(
               title: const Text('Error'),
-              content: const Text('An error occurred during login.'),
+              content: Text(error.toString()),
               actions: <Widget>[
                 TextButton(
                   child: const Text('OK'),
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.pop(context);
                   },
                 ),
               ],

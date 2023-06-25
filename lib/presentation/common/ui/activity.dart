@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:run_flutter_run/domain/entities/activity.dart';
 
 import '../../../data/models/enum/activity_type.dart';
+import '../../../domain/entities/activity.dart';
 
 IconData getActivityTypeIcon(Activity activity) {
   switch (activity.type) {

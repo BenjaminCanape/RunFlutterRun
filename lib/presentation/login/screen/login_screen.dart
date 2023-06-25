@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../common/ui/form.dart';
 import '../../common/validators/validators.dart';
 import '../view_model/login_view_model.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 class LoginScreen extends HookConsumerWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,7 +48,7 @@ class LoginScreen extends HookConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Form(
-                        key: state.formKey,
+                        key: formKey,
                         child: Column(
                           children: [
                             TextFormField(
@@ -74,7 +75,7 @@ class LoginScreen extends HookConsumerWidget {
                             ElevatedButton(
                               style: buttonStyle,
                               onPressed: () {
-                                provider.submitForm(context);
+                                provider.submitForm(context, formKey);
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,

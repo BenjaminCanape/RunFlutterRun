@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-
 class LoginState {
-  final GlobalKey<FormState> formKey;
   final String username;
   final String password;
   final bool isLogging;
@@ -9,7 +6,6 @@ class LoginState {
   const LoginState({
     required this.username,
     required this.password,
-    required this.formKey,
     required this.isLogging,
   });
 
@@ -17,7 +13,6 @@ class LoginState {
     return LoginState(
       username: '',
       password: '',
-      formKey: GlobalKey<FormState>(),
       isLogging: false,
     );
   }
@@ -25,13 +20,11 @@ class LoginState {
   LoginState copyWith({
     String? username,
     String? password,
-    GlobalKey<FormState>? formKey,
     bool? isLogging,
   }) {
     return LoginState(
       username: username ?? this.username,
       password: password ?? this.password,
-      formKey: formKey ?? this.formKey,
       isLogging: isLogging ?? this.isLogging,
     );
   }

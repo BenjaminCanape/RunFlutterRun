@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/presentation/common/widgets/location/view_model/location_view_model.dart';
+import '../../common/widgets/location/view_model/location_view_model.dart';
 
 import '../../activity_list/screen/activity_list_screen.dart';
 import '../../new_activity/screen/new_activity_screen.dart';

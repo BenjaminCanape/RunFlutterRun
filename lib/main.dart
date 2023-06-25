@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/presentation/home/screen/home_screen.dart';
-import 'package:run_flutter_run/presentation/login/screen/login_screen.dart';
-import 'package:run_flutter_run/presentation/registration/screen/registration_screen.dart';
+import 'presentation/home/screen/home_screen.dart';
+import 'presentation/login/screen/login_screen.dart';
+import 'presentation/registration/screen/registration_screen.dart';
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
 import 'core/jwt_storage.dart';
@@ -59,8 +59,8 @@ class MyApp extends HookConsumerWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/register': (context) => const RegistrationScreen(),
-        '/login': (context) => const LoginScreen(),
+        '/register': (context) => RegistrationScreen(),
+        '/login': (context) => LoginScreen(),
         '/sumup': (context) => const SumUpScreen(),
         '/activity_list': (context) => const ActivityListScreen()
       },
@@ -102,7 +102,7 @@ class MyApp extends HookConsumerWidget {
         } else if (snapshot.hasData && snapshot.data != null) {
           return buildMaterialApp(const HomeScreen());
         } else {
-          return buildMaterialApp(const LoginScreen());
+          return buildMaterialApp(LoginScreen());
         }
       },
     );

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/main.dart';
 
 import '../../../data/repository/activity_repository_impl.dart';
 import '../../../domain/entities/activity.dart';
+import '../../../main.dart';
 import '../../activity_details/screen/activity_details.dart';
 import 'activitie_list_state.dart';
 

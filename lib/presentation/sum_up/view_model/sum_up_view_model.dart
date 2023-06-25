@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/main.dart';
+import '../../../main.dart';
 import '../../../data/models/enum/activity_type.dart';
 
 import '../../../data/models/request/ActivityRequest.dart';

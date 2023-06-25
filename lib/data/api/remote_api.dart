@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
-import 'package:run_flutter_run/core/jwt_storage.dart';
+import '../../core/jwt_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main.dart';

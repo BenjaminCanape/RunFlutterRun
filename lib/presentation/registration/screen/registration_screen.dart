@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/presentation/common/validators/validators.dart';
-import 'package:run_flutter_run/presentation/registration/view_model/registration_view_model.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../common/ui/form.dart';
+import '../../common/validators/validators.dart';
+import '../view_model/registration_view_model.dart';
 
 class RegistrationScreen extends HookConsumerWidget {
-  const RegistrationScreen({Key? key}) : super(key: key);
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  RegistrationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,7 +39,7 @@ class RegistrationScreen extends HookConsumerWidget {
               child: Padding(
               padding: const EdgeInsets.all(20),
               child: Form(
-                key: state.formKey,
+                key: formKey,
                 child: Column(
                   children: [
                     TextFormField(
@@ -72,7 +73,7 @@ class RegistrationScreen extends HookConsumerWidget {
                     ElevatedButton(
                       style: buttonStyle,
                       onPressed: () {
-                        provider.submitForm(context);
+                        provider.submitForm(context, formKey);
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.min,

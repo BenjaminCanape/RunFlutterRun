@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/main.dart';
 import 'package:wakelock/wakelock.dart';
 
+import '../../../../../main.dart';
 import '../../../textToSpeech/text_to_speech.dart';
 import '../../location/view_model/location_view_model.dart';
 import 'timer_state.dart';

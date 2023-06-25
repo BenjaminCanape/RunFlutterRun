@@ -27,9 +27,10 @@ class RegistrationViewModel extends StateNotifier<RegistrationState> {
     state = state.copyWith(checkPassword: password);
   }
 
-  Future<void> submitForm(BuildContext context) async {
-    if (state.formKey.currentState!.validate()) {
-      state.formKey.currentState!.save();
+  Future<void> submitForm(
+      BuildContext context, GlobalKey<FormState> formKey) async {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
 
       state = state.copyWith(isLogging: true);
 
@@ -57,7 +58,7 @@ class RegistrationViewModel extends StateNotifier<RegistrationState> {
                 TextButton(
                   child: const Text('OK'),
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.pop(context);
                   },
                 ),
               ],
