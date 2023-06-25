@@ -14,5 +14,7 @@ You will be able to see a list of all your activities afterward with all the det
 Install Flutter and then:
 
 . flutter pub get
+
 . flutter gen-l10n
+
 . flutter run
