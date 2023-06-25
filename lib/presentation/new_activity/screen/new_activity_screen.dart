@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../common/widgets/location/view_model/location_view_model.dart';
 import '../../common/widgets/location/widgets/location.dart';
 import '../../common/widgets/metrics/widgets/metrics.dart';
 import '../../common/widgets/timer/viewmodel/timer_view_model.dart';
@@ -13,26 +14,24 @@ class NewActivityScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var timerProvider = ref.watch(timerViewModelProvider.notifier);
-
+    final timerViewModel = ref.watch(timerViewModelProvider.notifier);
     // ignore: unused_local_variable
-    var isRunning = ref.watch(timerViewModelProvider).isRunning;
+    final isRunning = ref.watch(timerViewModelProvider).isRunning;
+    ref.read(locationViewModelProvider.notifier).startGettingLocation();
 
     return Scaffold(
-      body: const SafeArea(
+      body: SafeArea(
         child: Column(
-          children: [
+          children: const [
             TimerSized(),
             Metrics(),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Location(),
           ],
         ),
       ),
-      floatingActionButton: timerProvider.hasTimerStarted()
-          ? const Stack(
+      floatingActionButton: timerViewModel.hasTimerStarted()
+          ? Stack(
               children: [
                 Positioned(
                   bottom: 16,

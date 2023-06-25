@@ -14,15 +14,16 @@ class Activity extends Equatable {
 
   final Iterable<Location> locations;
 
-  const Activity(
-      {required this.id,
-      required this.type,
-      required this.startDatetime,
-      required this.endDatetime,
-      required this.distance,
-      required this.speed,
-      required this.time,
-      required this.locations});
+  const Activity({
+    required this.id,
+    required this.type,
+    required this.startDatetime,
+    required this.endDatetime,
+    required this.distance,
+    required this.speed,
+    required this.time,
+    required this.locations,
+  });
 
   @override
   List<Object?> get props =>

@@ -10,7 +10,8 @@ class MetricsState {
 
   MetricsState copyWith({double? distance, double? globalSpeed}) {
     return MetricsState(
-        distance: distance ?? this.distance,
-        globalSpeed: globalSpeed ?? this.globalSpeed);
+      distance: distance ?? this.distance,
+      globalSpeed: globalSpeed ?? this.globalSpeed,
+    );
   }
 }

@@ -16,37 +16,39 @@ class LocationMap extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.read(locationViewModelProvider);
     final provider = ref.read(locationViewModelProvider.notifier);
+    final state = ref.watch(locationViewModelProvider);
 
-    var center = getCenterOfMap(points);
-    var zoomLevel = getZoomLevel(points, center);
+    final center = getCenterOfMap(points);
+    final zoomLevel = getZoomLevel(points, center);
 
     return Expanded(
-        child: SizedBox(
-            height: 500,
-            child: FlutterMap(
-              mapController: provider.mapController,
-              options: MapOptions(
-                center: points.isNotEmpty
-                    ? center
-                    : LatLng(state.currentPosition?.latitude ?? 0,
-                        state.currentPosition?.longitude ?? 0),
-                zoom: zoomLevel,
-              ),
-              nonRotatedChildren: const [],
-              children: [
-                TileLayer(
-                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                ),
-                MarkerLayer(markers: markers),
-                PolylineLayer(
-                  polylines: [
-                    Polyline(
-                        points: points, strokeWidth: 4, color: Colors.blueGrey),
-                  ],
-                ),
+      child: SizedBox(
+        height: 500,
+        child: FlutterMap(
+          mapController: provider.mapController,
+          options: MapOptions(
+            center: points.isNotEmpty
+                ? center
+                : LatLng(state.currentPosition?.latitude ?? 0,
+                    state.currentPosition?.longitude ?? 0),
+            zoom: zoomLevel,
+          ),
+          nonRotatedChildren: const [],
+          children: [
+            TileLayer(
+              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            ),
+            MarkerLayer(markers: markers),
+            PolylineLayer(
+              polylines: [
+                Polyline(
+                    points: points, strokeWidth: 4, color: Colors.blueGrey),
               ],
-            )));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

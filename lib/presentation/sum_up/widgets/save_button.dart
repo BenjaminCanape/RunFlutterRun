@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../view_model/sum_up_view_model.dart';
 
 class SaveButton extends HookConsumerWidget {
@@ -17,7 +18,7 @@ class SaveButton extends HookConsumerWidget {
       onPressed: disabled
           ? null
           : () {
-              provider.save(context);
+              provider.save();
             },
       child: const Icon(Icons.save),
     );

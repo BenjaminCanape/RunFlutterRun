@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../viewmodel/timer_view_model.dart';
 
 class TimerStart extends HookConsumerWidget {
-  const TimerStart({super.key});
+  const TimerStart({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,7 +22,7 @@ class TimerStart extends HookConsumerWidget {
           : Icons.play_arrow),
       onPressed: () {
         timerViewModel.hasTimerStarted() == true
-            ? timerViewModel.stopTimer(context)
+            ? timerViewModel.stopTimer()
             : timerViewModel.startTimer();
       },
     );

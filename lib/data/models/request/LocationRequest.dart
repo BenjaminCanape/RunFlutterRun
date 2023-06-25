@@ -5,20 +5,20 @@ class LocationRequest extends Equatable {
   final double latitude;
   final double longitude;
 
-  const LocationRequest(
-      {required this.datetime,
-      required this.latitude,
-      required this.longitude});
+  const LocationRequest({
+    required this.datetime,
+    required this.latitude,
+    required this.longitude,
+  });
 
   @override
   List<Object?> get props => [datetime, latitude, longitude];
 
   Map<String, dynamic> toMap() {
-    final queryParameters = {
+    return {
       'datetime': datetime.toIso8601String(),
       'latitude': latitude,
-      'longitude': longitude
+      'longitude': longitude,
     };
-    return queryParameters;
   }
 }

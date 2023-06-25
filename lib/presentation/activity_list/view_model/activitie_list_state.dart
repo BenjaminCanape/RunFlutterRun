@@ -12,7 +12,8 @@ class ActivityListState {
 
   ActivityListState copyWith({List<Activity>? activities, bool? isLoading}) {
     return ActivityListState(
-        activities: activities ?? this.activities,
-        isLoading: isLoading ?? this.isLoading);
+      activities: activities ?? this.activities,
+      isLoading: isLoading ?? this.isLoading,
+    );
   }
 }

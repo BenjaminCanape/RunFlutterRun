@@ -5,6 +5,7 @@ import 'package:latlong2/latlong.dart';
 
 import '../../../data/repository/activity_repository_impl.dart';
 import '../../../domain/entities/activity.dart';
+import '../../../main.dart';
 import '../../activity_list/view_model/activity_list_view_model.dart';
 import '../../home/screen/home_screen.dart';
 import '../../home/view_model/home_view_model.dart';
@@ -22,8 +23,8 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
     mapController = MapController();
   }
 
-  void backToHome(BuildContext context) {
-    Navigator.pop(context);
+  void backToHome() {
+    navigatorKey.currentState?.pop();
   }
 
   List<LatLng> savedPositionsLatLng(Activity activity) {
@@ -33,7 +34,7 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
     return points;
   }
 
-  void removeActivity(Activity activity, BuildContext context) {
+  void removeActivity(Activity activity) {
     ref
         .read(activityRepositoryProvider)
         .removeActivity(id: activity.id)
@@ -53,11 +54,11 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
           .activities
           .remove(activityWithoutLocations);
 
-      Navigator.pop(context);
-      Navigator.pop(context);
+      navigatorKey.currentState?.pop();
+      navigatorKey.currentState?.pop();
       ref.read(homeViewModelProvider.notifier).setCurrentIndex(Tabs.list.index);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      navigatorKey.currentState?.pushReplacement(
+          MaterialPageRoute(builder: (context) => const HomeScreen()));
     });
   }
 }

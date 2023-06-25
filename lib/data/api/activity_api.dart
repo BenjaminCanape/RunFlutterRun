@@ -8,25 +8,30 @@ import '../models/request/ActivityRequest.dart';
 import '../models/response/activity.dart';
 import 'remote_api.dart';
 
-const String url = 'https://runbackendrun.onrender.com/api/activity/';
+const String apiUrl =
+    'https://runbackendrun.onrender.com/api/private/activity/';
 
 final activityApiProvider = Provider<ActivityApi>((ref) => ActivityApi());
 
 class ActivityApi extends RemoteApi {
-  ActivityApi() : super(url);
+  ActivityApi() : super(apiUrl) {}
 
   Future<List<ActivityResponse>> getActivities() async {
     try {
-      final response = await dio.get('${url}all');
+      await setJwt();
+      final response = await dio.get('${apiUrl}all');
 
       if (response.statusCode == 200) {
-        final data = List<dynamic>.from(response.data);
+        final data = List<Map<String, dynamic>>.from(response.data);
         if (data.isNotEmpty) {
           return data.map((e) => ActivityResponse.fromMap(e)).toList();
         }
       }
       return [];
     } on DioError catch (err) {
+      if (err.response?.statusCode == 401) {
+        handleUnauthorizedError();
+      }
       throw Failure(
           message: err.response?.statusMessage ?? 'Something went wrong!');
     } on SocketException {
@@ -36,7 +41,8 @@ class ActivityApi extends RemoteApi {
 
   Future<ActivityResponse> getActivityById(String id) async {
     try {
-      final response = await dio.get(url + id);
+      await setJwt();
+      final response = await dio.get('$apiUrl$id');
 
       if (response.statusCode == 200) {
         if (response.data.isNotEmpty) {
@@ -45,6 +51,9 @@ class ActivityApi extends RemoteApi {
       }
       throw const Failure(message: 'Activity not found');
     } on DioError catch (err) {
+      if (err.response?.statusCode == 401) {
+        handleUnauthorizedError();
+      }
       throw Failure(
           message: err.response?.statusMessage ?? 'Something went wrong!');
     } on SocketException {
@@ -54,14 +63,18 @@ class ActivityApi extends RemoteApi {
 
   Future<String> removeActivity(String id) async {
     try {
+      await setJwt();
       final response =
-          await dio.delete(url, queryParameters: {'id': int.parse(id)});
+          await dio.delete(apiUrl, queryParameters: {'id': int.parse(id)});
 
       if (response.statusCode == 200) {
-        return response.data;
+        return response.data.toString();
       }
       throw const Failure(message: 'Remove activity failed');
     } on DioError catch (err) {
+      if (err.response?.statusCode == 401) {
+        handleUnauthorizedError();
+      }
       throw Failure(
           message: err.response?.statusMessage ?? 'Something went wrong!');
     } on SocketException {
@@ -71,7 +84,8 @@ class ActivityApi extends RemoteApi {
 
   Future<ActivityResponse> addActivity(ActivityRequest request) async {
     try {
-      final response = await dio.post(url, data: request.toMap());
+      await setJwt();
+      final response = await dio.post(apiUrl, data: request.toMap());
 
       if (response.statusCode == 200) {
         if (response.data.isNotEmpty) {
@@ -80,6 +94,9 @@ class ActivityApi extends RemoteApi {
       }
       throw const Failure(message: 'Activity not created');
     } on DioError catch (err) {
+      if (err.response?.statusCode == 401) {
+        handleUnauthorizedError();
+      }
       throw Failure(
           message: err.response?.statusMessage ?? 'Something went wrong!');
     } on SocketException {
@@ -89,7 +106,8 @@ class ActivityApi extends RemoteApi {
 
   Future<ActivityResponse> editActivity(ActivityRequest request) async {
     try {
-      final response = await dio.put(url, data: request.toMap());
+      await setJwt();
+      final response = await dio.put(apiUrl, data: request.toMap());
 
       if (response.statusCode == 200) {
         if (response.data.isNotEmpty) {
@@ -98,6 +116,9 @@ class ActivityApi extends RemoteApi {
       }
       throw const Failure(message: 'Activity not found');
     } on DioError catch (err) {
+      if (err.response?.statusCode == 401) {
+        handleUnauthorizedError();
+      }
       throw Failure(
           message: err.response?.statusMessage ?? 'Something went wrong!');
     } on SocketException {

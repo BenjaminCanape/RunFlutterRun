@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../data/repository/activity_repository_impl.dart';
 import '../../../domain/entities/activity.dart';
+import '../../../main.dart';
 import '../../activity_details/screen/activity_details.dart';
 import 'activitie_list_state.dart';
 
@@ -34,12 +35,12 @@ class ActivityListViewModel extends StateNotifier<ActivityListState> {
     return await getDetails(activity.id);
   }
 
-  void backToHome(BuildContext context) {
-    Navigator.pop(context);
+  void backToHome() {
+    navigatorKey.currentState?.pop();
   }
 
-  void goToActivity(NavigatorState nav, Activity activityDetails) {
-    nav.push(
+  void goToActivity(Activity activityDetails) {
+    navigatorKey.currentState?.push(
       MaterialPageRoute(
           builder: (context) => ActivityDetails(activity: activityDetails)),
     );

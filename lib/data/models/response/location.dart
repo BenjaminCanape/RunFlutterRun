@@ -8,14 +8,20 @@ class LocationResponse extends Equatable {
   final double latitude;
   final double longitude;
 
-  const LocationResponse(
-      {required this.id,
-      required this.datetime,
-      required this.latitude,
-      required this.longitude});
+  const LocationResponse({
+    required this.id,
+    required this.datetime,
+    required this.latitude,
+    required this.longitude,
+  });
 
   @override
-  List<Object?> get props => [id, datetime, latitude, longitude];
+  List<Object?> get props => [
+        id,
+        datetime,
+        latitude,
+        longitude,
+      ];
 
   factory LocationResponse.fromMap(Map<String, dynamic> map) {
     return LocationResponse(
@@ -28,6 +34,10 @@ class LocationResponse extends Equatable {
 
   Location toEntity() {
     return Location(
-        id: id, datetime: datetime, latitude: latitude, longitude: longitude);
+      id: id,
+      datetime: datetime,
+      latitude: latitude,
+      longitude: longitude,
+    );
   }
 }
