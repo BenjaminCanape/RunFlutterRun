@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../data/models/request/LoginRequest.dart';
 import '../../../data/repository/user_repository_impl.dart';
+import '../../../main.dart';
 import 'registration_state.dart';
 
 final registrationViewModelProvider =
@@ -41,7 +42,7 @@ class RegistrationViewModel extends StateNotifier<RegistrationState> {
       try {
         await userRepository.register(loginRequest);
         state = state.copyWith(isLogging: false);
-        Navigator.pop(context);
+        navigatorKey.currentState?.pop();
       } catch (error) {
         // Handle login error
         state = state.copyWith(isLogging: false);

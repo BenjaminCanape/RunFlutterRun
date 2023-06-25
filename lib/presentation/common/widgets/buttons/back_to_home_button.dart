@@ -15,7 +15,7 @@ class BackToHomeButton extends HookConsumerWidget {
       elevation: 4.0,
       child: const Icon(Icons.arrow_back),
       onPressed: () {
-        provider.backToHome(context);
+        provider.backToHome();
       },
     );
   }

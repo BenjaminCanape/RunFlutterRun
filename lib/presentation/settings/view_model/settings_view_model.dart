@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/main.dart';
 import 'package:run_flutter_run/presentation/settings/view_model/settings_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,16 +16,16 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
 
   SettingsViewModel(this.ref) : super(SettingsState.initial());
 
-  void logout(BuildContext context) async {
+  void logout() async {
     await ref.read(userRepositoryProvider).logout();
     await JwtUtils.removeJwt();
-    Navigator.pushReplacementNamed(context, "/login");
+    navigatorKey.currentState?.pushReplacementNamed("/login");
   }
 
-  void deleteAccount(BuildContext context) async {
+  void deleteAccount() async {
     await ref.read(userRepositoryProvider).delete();
     await clearStorage();
-    Navigator.pushReplacementNamed(context, "/login");
+    navigatorKey.currentState?.pushReplacementNamed("/login");
   }
 
   Future<void> clearStorage() async {

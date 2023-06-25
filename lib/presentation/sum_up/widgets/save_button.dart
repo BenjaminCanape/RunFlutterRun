@@ -18,7 +18,7 @@ class SaveButton extends HookConsumerWidget {
       onPressed: disabled
           ? null
           : () {
-              provider.save(context);
+              provider.save();
             },
       child: const Icon(Icons.save),
     );

@@ -22,7 +22,7 @@ class TimerStart extends HookConsumerWidget {
           : Icons.play_arrow),
       onPressed: () {
         timerViewModel.hasTimerStarted() == true
-            ? timerViewModel.stopTimer(context)
+            ? timerViewModel.stopTimer()
             : timerViewModel.startTimer();
       },
     );

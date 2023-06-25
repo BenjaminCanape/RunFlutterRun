@@ -1,15 +1,15 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
-import 'package:flutter/widgets.dart';
 import 'package:run_flutter_run/core/jwt_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../main.dart';
 
 class RemoteApi {
   late String url;
   late Dio dio;
   late SharedPreferences prefs;
-  static late BuildContext? context;
 
   RemoteApi(this.url) {
     dio = Dio();
@@ -29,10 +29,6 @@ class RemoteApi {
     ));
 
     initCache();
-  }
-
-  static void initialize(BuildContext context) {
-    context = context;
   }
 
   Future<void> initCache() async {
@@ -101,8 +97,6 @@ class RemoteApi {
 
   Future<void> handleUnauthorizedError() async {
     await JwtUtils.removeJwt();
-    if (context != null) {
-      Navigator.pushReplacementNamed(context!, '/login');
-    }
+    navigatorKey.currentState?.pushReplacementNamed('/login');
   }
 }

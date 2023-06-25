@@ -41,7 +41,7 @@ class SettingsScreen extends HookConsumerWidget {
                     const SizedBox(height: 40),
                     ElevatedButton(
                       style: buttonStyle,
-                      onPressed: () => provider.logout(context),
+                      onPressed: () => provider.logout(),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

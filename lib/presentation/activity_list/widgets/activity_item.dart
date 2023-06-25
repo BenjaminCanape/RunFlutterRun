@@ -15,12 +15,11 @@ class ActivityItem extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var provider = ref.read(activityListViewModelProvider.notifier);
-    var navigator = Navigator.of(context);
 
     return InkWell(
       onTap: () async {
         var activityDetails = await provider.getActivityDetails(activity);
-        provider.goToActivity(navigator, activityDetails);
+        provider.goToActivity(activityDetails);
       },
       child: Card(
         child: ListTile(

@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/main.dart';
 import 'package:wakelock/wakelock.dart';
 
 import '../../../textToSpeech/text_to_speech.dart';
@@ -46,7 +46,7 @@ class TimerViewModel extends StateNotifier<TimerState> {
     state = TimerState.initial();
   }
 
-  void stopTimer(BuildContext context) {
+  void stopTimer() {
     stopwatch.stop();
     stopwatch.reset();
     timer?.cancel();
@@ -54,7 +54,7 @@ class TimerViewModel extends StateNotifier<TimerState> {
     state = state.copyWith(isRunning: false);
     ref.read(textToSpeechService).sayCongrats();
     Wakelock.disable();
-    Navigator.pushNamed(context, '/sumup');
+    navigatorKey.currentState?.pushNamed('/sumup');
   }
 
   void pauseTimer() {

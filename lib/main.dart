@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/data/api/remote_api.dart';
 import 'package:run_flutter_run/presentation/home/screen/home_screen.dart';
 import 'package:run_flutter_run/presentation/login/screen/login_screen.dart';
 import 'package:run_flutter_run/presentation/registration/screen/registration_screen.dart';
@@ -15,6 +14,8 @@ import 'l10n/support_locale.dart';
 import 'presentation/activity_list/screen/activity_list_screen.dart';
 import 'presentation/common/textToSpeech/text_to_speech.dart';
 import 'presentation/sum_up/screen/sum_up_screen.dart';
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
   runApp(
@@ -63,6 +64,7 @@ class MyApp extends HookConsumerWidget {
         '/sumup': (context) => const SumUpScreen(),
         '/activity_list': (context) => const ActivityListScreen()
       },
+      navigatorKey: navigatorKey,
       title: 'Run Flutter Run',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -91,7 +93,6 @@ class MyApp extends HookConsumerWidget {
     final provider = ref.read(myAppProvider);
 
     provider.init();
-    RemoteApi.initialize(context);
 
     return FutureBuilder<String?>(
       future: provider.getJwt(),

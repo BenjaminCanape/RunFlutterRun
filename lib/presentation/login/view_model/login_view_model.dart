@@ -4,6 +4,7 @@ import 'package:run_flutter_run/core/jwt_storage.dart';
 
 import '../../../data/models/request/LoginRequest.dart';
 import '../../../data/repository/user_repository_impl.dart';
+import '../../../main.dart';
 import '../../home/screen/home_screen.dart';
 import 'login_state.dart';
 
@@ -43,8 +44,7 @@ class LoginViewModel extends StateNotifier<LoginState> {
 
         state = state.copyWith(isLogging: false);
 
-        Navigator.pushReplacement(
-          context,
+        navigatorKey.currentState?.pushReplacement(
           MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
       } catch (error) {

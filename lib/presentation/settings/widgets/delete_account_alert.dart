@@ -17,7 +17,7 @@ class DeleteAccountAlert extends HookConsumerWidget {
         actions: [
           TextButton(
               onPressed: () {
-                provider.deleteAccount(context);
+                provider.deleteAccount();
               },
               child: Text(AppLocalizations.of(context).delete)),
           TextButton(

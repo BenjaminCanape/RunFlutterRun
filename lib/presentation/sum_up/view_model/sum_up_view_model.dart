@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/main.dart';
 import '../../../data/models/enum/activity_type.dart';
 
 import '../../../data/models/request/ActivityRequest.dart';
@@ -29,7 +29,7 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
     state = state.copyWith(type: type);
   }
 
-  void save(BuildContext context) {
+  void save() {
     state = state.copyWith(isSaving: true);
     var startDatetime = ref.read(timerViewModelProvider).startDatetime;
     var endDatetime = startDatetime.add(Duration(
@@ -54,7 +54,7 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
       ref.read(locationViewModelProvider.notifier).startGettingLocation();
 
       state = state.copyWith(isSaving: false);
-      Navigator.pop(context);
+      navigatorKey.currentState?.pop();
     });
   }
 }

@@ -21,7 +21,7 @@ class RemoveAlert extends HookConsumerWidget {
         actions: [
           TextButton(
               onPressed: () {
-                provider.removeActivity(activity, context);
+                provider.removeActivity(activity);
               },
               child: Text(AppLocalizations.of(context).delete)),
           TextButton(
