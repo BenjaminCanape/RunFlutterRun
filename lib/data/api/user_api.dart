@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -15,15 +14,13 @@ final userApiProvider = Provider<UserApi>((ref) => UserApi());
 class UserApi extends RemoteApi {
   UserApi() : super(apiUrl);
 
-  Future<Int> createUser(LoginRequest request) async {
+  Future<int> createUser(LoginRequest request) async {
     try {
       final response =
           await dio.post('${apiUrl}user/register', data: request.toMap());
 
       if (response.statusCode == 200) {
-        if (response.data.isNotEmpty) {
-          return response.data;
-        }
+        return response.data;
       }
       throw const Failure(message: 'User not created');
     } on DioError catch (err) {

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/repository/user_repository.dart';
@@ -15,7 +13,7 @@ class UserRepositoryImpl extends UserRepository {
   UserRepositoryImpl(this._remoteApi);
 
   @override
-  Future<Int> register(LoginRequest request) async {
+  Future<int> register(LoginRequest request) async {
     return _remoteApi.createUser(request);
   }
 

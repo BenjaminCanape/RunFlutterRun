@@ -53,7 +53,7 @@ class RegistrationViewModel extends StateNotifier<RegistrationState> {
           builder: (context) {
             return AlertDialog(
               title: const Text('Error'),
-              content: const Text('An error occurred during registration'),
+              content: Text(error.toString()),
               actions: <Widget>[
                 TextButton(
                   child: const Text('OK'),
