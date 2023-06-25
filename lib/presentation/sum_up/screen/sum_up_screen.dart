@@ -62,7 +62,7 @@ class SumUpScreen extends HookConsumerWidget {
                 ],
               ),
             ),
-      floatingActionButton: const SaveButton(disabled: false),
+      floatingActionButton: SaveButton(disabled: state.isSaving),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

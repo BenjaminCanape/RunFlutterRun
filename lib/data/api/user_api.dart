@@ -60,6 +60,9 @@ class UserApi extends RemoteApi {
       }
       throw const Failure(message: 'Logout failed');
     } on DioError catch (err) {
+      if (err.response?.statusCode == 401) {
+        handleUnauthorizedError();
+      }
       throw Failure(
           message: err.response?.statusMessage ?? 'Something went wrong!');
     } on SocketException {
@@ -77,6 +80,9 @@ class UserApi extends RemoteApi {
       }
       throw const Failure(message: 'Delete failed');
     } on DioError catch (err) {
+      if (err.response?.statusCode == 401) {
+        handleUnauthorizedError();
+      }
       throw Failure(
           message: err.response?.statusMessage ?? 'Something went wrong!');
     } on SocketException {
