@@ -43,7 +43,6 @@ class LoginViewModel extends StateNotifier<LoginState> {
 
       try {
         final LoginResponse response = await userRepository.login(loginRequest);
-        print(response);
         await JwtUtils.setJwt(response.token);
         await RefreshTokenUtils.setRefreshToken(response.refreshToken);
 

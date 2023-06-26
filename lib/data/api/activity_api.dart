@@ -31,7 +31,6 @@ class ActivityApi extends RemoteApi {
     } on DioError catch (err) {
       if (err.response?.statusCode == 401) {
         Response? response = await handleUnauthorizedError(err, {}, {});
-        print(response.toString());
         final data = List<Map<String, dynamic>>.from(response?.data);
         if (data.isNotEmpty) {
           return data.map((e) => ActivityResponse.fromMap(e)).toList();
@@ -58,7 +57,6 @@ class ActivityApi extends RemoteApi {
     } on DioError catch (err) {
       if (err.response?.statusCode == 401) {
         Response? response = await handleUnauthorizedError(err, {}, {});
-        print(response.toString());
         if (response?.statusCode == 200) {
           if (response?.data.isNotEmpty) {
             return ActivityResponse.fromMap(response?.data);
@@ -86,7 +84,6 @@ class ActivityApi extends RemoteApi {
       if (err.response?.statusCode == 401) {
         Response? response =
             await handleUnauthorizedError(err, {}, {'id': int.parse(id)});
-        print(response.toString());
         if (response!.statusCode == 200) {
           return response.data.toString();
         }

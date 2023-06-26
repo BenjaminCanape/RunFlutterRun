@@ -102,13 +102,8 @@ class RemoteApi {
       String jwt = await refreshToken();
       await JwtUtils.setJwt(jwt);
       try {
-        //print(error.toString());
         var headers = error.requestOptions.headers;
         headers['Authorization'] = 'Bearer $jwt';
-        print(error.requestOptions.headers);
-        print(error.requestOptions.method);
-        print(error.requestOptions.contentType);
-        print(error.requestOptions.responseType);
         return await dio.request(
           queryParameters: queryParams,
           data: data,
@@ -132,12 +127,9 @@ class RemoteApi {
   Future<String> refreshToken() async {
     try {
       String? refreshToken = await RefreshTokenUtils.getRefreshToken();
-      print(refreshToken);
-      print('${apiUrl}user/refreshToken');
       final response = await dio
           .post('${apiUrl}user/refreshToken', data: {'token': refreshToken});
 
-      print(response.toString());
       if (response.statusCode == 200) {
         if (response.data.isNotEmpty) {
           return response.data['token'];

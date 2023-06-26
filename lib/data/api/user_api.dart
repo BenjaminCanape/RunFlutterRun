@@ -39,7 +39,6 @@ class UserApi extends RemoteApi {
 
       if (response.statusCode == 200) {
         if (response.data.isNotEmpty) {
-          print(response.data);
           return LoginResponse.fromMap(response.data);
         }
       }
