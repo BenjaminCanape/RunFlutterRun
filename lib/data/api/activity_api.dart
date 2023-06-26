@@ -30,7 +30,12 @@ class ActivityApi extends RemoteApi {
       return [];
     } on DioError catch (err) {
       if (err.response?.statusCode == 401) {
-        handleUnauthorizedError();
+        Response? response = await handleUnauthorizedError(err, {}, {});
+        print(response.toString());
+        final data = List<Map<String, dynamic>>.from(response?.data);
+        if (data.isNotEmpty) {
+          return data.map((e) => ActivityResponse.fromMap(e)).toList();
+        }
       }
       throw Failure(
           message: err.response?.statusMessage ?? 'Something went wrong!');
@@ -52,7 +57,13 @@ class ActivityApi extends RemoteApi {
       throw const Failure(message: 'Activity not found');
     } on DioError catch (err) {
       if (err.response?.statusCode == 401) {
-        handleUnauthorizedError();
+        Response? response = await handleUnauthorizedError(err, {}, {});
+        print(response.toString());
+        if (response?.statusCode == 200) {
+          if (response?.data.isNotEmpty) {
+            return ActivityResponse.fromMap(response?.data);
+          }
+        }
       }
       throw Failure(
           message: err.response?.statusMessage ?? 'Something went wrong!');
@@ -73,7 +84,12 @@ class ActivityApi extends RemoteApi {
       throw const Failure(message: 'Remove activity failed');
     } on DioError catch (err) {
       if (err.response?.statusCode == 401) {
-        handleUnauthorizedError();
+        Response? response =
+            await handleUnauthorizedError(err, {}, {'id': int.parse(id)});
+        print(response.toString());
+        if (response!.statusCode == 200) {
+          return response.data.toString();
+        }
       }
       throw Failure(
           message: err.response?.statusMessage ?? 'Something went wrong!');
@@ -95,7 +111,13 @@ class ActivityApi extends RemoteApi {
       throw const Failure(message: 'Activity not created');
     } on DioError catch (err) {
       if (err.response?.statusCode == 401) {
-        handleUnauthorizedError();
+        Response? response =
+            await handleUnauthorizedError(err, request.toMap(), {});
+        if (response != null &&
+            response.data != null &&
+            response.data.isNotEmpty) {
+          return ActivityResponse.fromMap(response.data);
+        }
       }
       throw Failure(
           message: err.response?.statusMessage ?? 'Something went wrong!');
@@ -117,7 +139,13 @@ class ActivityApi extends RemoteApi {
       throw const Failure(message: 'Activity not found');
     } on DioError catch (err) {
       if (err.response?.statusCode == 401) {
-        handleUnauthorizedError();
+        Response? response =
+            await handleUnauthorizedError(err, request.toMap(), {});
+        if (response?.statusCode == 200) {
+          if (response?.data.isNotEmpty) {
+            return ActivityResponse.fromMap(response?.data);
+          }
+        }
       }
       throw Failure(
           message: err.response?.statusMessage ?? 'Something went wrong!');

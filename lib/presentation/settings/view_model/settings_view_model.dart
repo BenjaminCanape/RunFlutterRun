@@ -2,6 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/jwt_storage.dart';
+import '../../../core/refresh_token_utils.dart';
 import '../../../data/repository/user_repository_impl.dart';
 import '../../../main.dart';
 import 'settings_state.dart';
@@ -19,6 +20,7 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
   void logout() async {
     await ref.read(userRepositoryProvider).logout();
     await JwtUtils.removeJwt();
+    await RefreshTokenUtils.removeRefreshToken();
     navigatorKey.currentState?.pushReplacementNamed("/login");
   }
 

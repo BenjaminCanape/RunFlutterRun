@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/error.dart';
 import '../models/request/LoginRequest.dart';
+import '../models/response/LoginResponse.dart';
 import 'remote_api.dart';
 
 const String apiUrl = 'https://runbackendrun.onrender.com/api/';
@@ -31,14 +32,15 @@ class UserApi extends RemoteApi {
     }
   }
 
-  Future<String> login(LoginRequest request) async {
+  Future<LoginResponse> login(LoginRequest request) async {
     try {
       final response = await dio.post('${apiUrl}user/login',
           queryParameters: request.toMap());
 
       if (response.statusCode == 200) {
         if (response.data.isNotEmpty) {
-          return response.data["token"].toString();
+          print(response.data);
+          return LoginResponse.fromMap(response.data);
         }
       }
       throw const Failure(message: 'Login failed');
@@ -61,7 +63,10 @@ class UserApi extends RemoteApi {
       throw const Failure(message: 'Logout failed');
     } on DioError catch (err) {
       if (err.response?.statusCode == 401) {
-        handleUnauthorizedError();
+        Response? response = await handleUnauthorizedError(err, {}, {});
+        if (response?.statusCode == 200) {
+          return;
+        }
       }
       throw Failure(
           message: err.response?.statusMessage ?? 'Something went wrong!');
@@ -81,7 +86,10 @@ class UserApi extends RemoteApi {
       throw const Failure(message: 'Delete failed');
     } on DioError catch (err) {
       if (err.response?.statusCode == 401) {
-        handleUnauthorizedError();
+        Response? response = await handleUnauthorizedError(err, {}, {});
+        if (response?.statusCode == 200) {
+          return;
+        }
       }
       throw Failure(
           message: err.response?.statusMessage ?? 'Something went wrong!');

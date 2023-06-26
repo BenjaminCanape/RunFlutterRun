@@ -1,10 +1,14 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:dio_smart_retry/dio_smart_retry.dart';
+import 'package:run_flutter_run/core/refresh_token_utils.dart';
+import '../../core/error.dart';
 import '../../core/jwt_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main.dart';
+
+const String apiUrl = 'https://runbackendrun.onrender.com/api/';
 
 class RemoteApi {
   late String url;
@@ -16,7 +20,7 @@ class RemoteApi {
 
     dio.options.connectTimeout = const Duration(seconds: 2);
 
-    dio.interceptors.add(RetryInterceptor(
+    /*dio.interceptors.add(RetryInterceptor(
       dio: dio,
       retries: 5,
       retryDelays: const [
@@ -26,7 +30,7 @@ class RemoteApi {
         Duration(seconds: 5),
         Duration(seconds: 10),
       ],
-    ));
+    ));*/
 
     initCache();
   }
@@ -79,10 +83,6 @@ class RemoteApi {
         handler.next(response);
       },
       onError: (DioError error, ErrorInterceptorHandler handler) async {
-        print(error);
-        if (error.response?.statusCode == 401) {
-          await handleUnauthorizedError();
-        }
         handler.next(error);
       },
     ));
@@ -95,8 +95,60 @@ class RemoteApi {
     }
   }
 
-  Future<void> handleUnauthorizedError() async {
-    await JwtUtils.removeJwt();
-    navigatorKey.currentState?.pushReplacementNamed('/login');
+  Future<Response?> handleUnauthorizedError(DioError error,
+      Map<String, dynamic>? data, Map<String, dynamic>? queryParams) async {
+    try {
+      await JwtUtils.removeJwt();
+      String jwt = await refreshToken();
+      await JwtUtils.setJwt(jwt);
+      try {
+        //print(error.toString());
+        var headers = error.requestOptions.headers;
+        headers['Authorization'] = 'Bearer $jwt';
+        print(error.requestOptions.headers);
+        print(error.requestOptions.method);
+        print(error.requestOptions.contentType);
+        print(error.requestOptions.responseType);
+        return await dio.request(
+          queryParameters: queryParams,
+          data: data,
+          error.requestOptions.path,
+          options: Options(
+            method: error.requestOptions.method,
+            headers: headers,
+            contentType: error.requestOptions.contentType,
+            responseType: error.requestOptions.responseType,
+          ),
+        );
+      } on DioError catch (_) {
+        navigatorKey.currentState?.pushReplacementNamed('/login');
+      }
+    } on DioError {
+      navigatorKey.currentState?.pushReplacementNamed('/login');
+    }
+    return null;
+  }
+
+  Future<String> refreshToken() async {
+    try {
+      String? refreshToken = await RefreshTokenUtils.getRefreshToken();
+      print(refreshToken);
+      print('${apiUrl}user/refreshToken');
+      final response = await dio
+          .post('${apiUrl}user/refreshToken', data: {'token': refreshToken});
+
+      print(response.toString());
+      if (response.statusCode == 200) {
+        if (response.data.isNotEmpty) {
+          return response.data['token'];
+        }
+      }
+      throw const Failure(message: 'RefreshToken failed');
+    } on DioError catch (err) {
+      throw Failure(
+          message: err.response?.statusMessage ?? 'Something went wrong!');
+    } on SocketException {
+      throw const Failure(message: 'Please check your connection.');
+    }
   }
 }
