@@ -8,8 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main.dart';
 
-const String apiUrl = 'https://runbackendrun.onrender.com/api/';
-
 class RemoteApi {
   late String url;
   late Dio dio;
@@ -112,6 +110,7 @@ class RemoteApi {
   Future<String> refreshToken() async {
     try {
       String? refreshToken = await RefreshTokenUtils.getRefreshToken();
+      const String apiUrl = 'https://runbackendrun.onrender.com/api/';
       final response = await dio
           .post('${apiUrl}user/refreshToken', data: {'token': refreshToken});
 
@@ -126,6 +125,58 @@ class RemoteApi {
           message: err.response?.statusMessage ?? 'Something went wrong!');
     } on SocketException {
       throw const Failure(message: 'Please check your connection.');
+    }
+  }
+}
+
+class ApiHelper {
+  static const String apiUrl = 'https://runbackendrun.onrender.com/api/';
+
+  static Future<Response?> makeRequest(
+    String url,
+    String method, {
+    Map<String, dynamic>? data,
+    Map<String, dynamic>? queryParams,
+  }) async {
+    final remoteApi = RemoteApi(url);
+    await remoteApi.setJwt();
+
+    try {
+      Response? response;
+      switch (method) {
+        case 'GET':
+          response = await remoteApi.dio.get(
+            url,
+            queryParameters: queryParams,
+          );
+          break;
+        case 'POST':
+          response = await remoteApi.dio.post(
+            url,
+            data: data,
+            queryParameters: queryParams,
+          );
+          break;
+        case 'PUT':
+          response = await remoteApi.dio.put(
+            url,
+            data: data,
+            queryParameters: queryParams,
+          );
+          break;
+        case 'DELETE':
+          response = await remoteApi.dio.delete(
+            url,
+            queryParameters: queryParams,
+          );
+          break;
+      }
+      return response;
+    } on DioError catch (error) {
+      if (error.response?.statusCode == 401) {
+        return remoteApi.handleUnauthorizedError(error, data, queryParams);
+      }
+      throw Failure(message: error.toString());
     }
   }
 }
