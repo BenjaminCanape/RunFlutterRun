@@ -1,6 +1,5 @@
-import 'package:run_flutter_run/data/models/response/LoginResponse.dart';
-
 import '../../data/models/request/LoginRequest.dart';
+import '../../data/models/response/LoginResponse.dart';
 
 abstract class UserRepository {
   Future<int> register(LoginRequest request);

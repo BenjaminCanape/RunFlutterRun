@@ -35,7 +35,8 @@ class LoginScreen extends HookConsumerWidget {
         ),
         body: state.isLogging
             ? const Center(child: CircularProgressIndicator())
-            : Column(children: [
+            : SingleChildScrollView(
+                child: Column(children: [
                 const SizedBox(height: 20),
                 Icon(
                   Icons.run_circle,
@@ -52,6 +53,7 @@ class LoginScreen extends HookConsumerWidget {
                         child: Column(
                           children: [
                             TextFormField(
+                              style: textFormFieldStyle,
                               cursorColor: Colors.teal.shade800,
                               decoration: createInputDecorative(
                                   AppLocalizations.of(context).email),
@@ -62,6 +64,7 @@ class LoginScreen extends HookConsumerWidget {
                               },
                             ),
                             TextFormField(
+                              style: textFormFieldStyle,
                               decoration: createInputDecorative(
                                   AppLocalizations.of(context).password),
                               obscureText: true,
@@ -86,6 +89,7 @@ class LoginScreen extends HookConsumerWidget {
                                 ],
                               ),
                             ),
+                            const SizedBox(height: 20),
                             ElevatedButton(
                               style: buttonStyle,
                               onPressed: () {
@@ -107,6 +111,6 @@ class LoginScreen extends HookConsumerWidget {
                     ],
                   ),
                 )
-              ]));
+              ])));
   }
 }

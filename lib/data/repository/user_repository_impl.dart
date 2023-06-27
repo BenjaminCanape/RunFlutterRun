@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/data/models/response/LoginResponse.dart';
+import '../models/response/LoginResponse.dart';
 
 import '../../domain/repository/user_repository.dart';
 import '../api/user_api.dart';
