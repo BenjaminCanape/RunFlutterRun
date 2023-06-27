@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../models/response/LoginResponse.dart';
 
 import '../../domain/repository/user_repository.dart';
 import '../api/user_api.dart';
@@ -18,7 +19,7 @@ class UserRepositoryImpl extends UserRepository {
   }
 
   @override
-  Future<String> login(LoginRequest request) async {
+  Future<LoginResponse> login(LoginRequest request) async {
     return _remoteApi.login(request);
   }
 

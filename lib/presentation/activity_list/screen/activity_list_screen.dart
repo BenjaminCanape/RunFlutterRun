@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../view_model/activity_list_view_model.dart';
 import '../widgets/activity_item.dart';
-
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ActivityListScreen extends HookConsumerWidget {
   const ActivityListScreen({Key? key}) : super(key: key);

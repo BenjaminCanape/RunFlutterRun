@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../data/models/enum/activity_type.dart';
-import '../../common/widgets/timer/widgets/timer_sized.dart';
 import '../../common/widgets/location/widgets/location.dart';
 import '../../common/widgets/metrics/widgets/metrics.dart';
+import '../../common/widgets/timer/widgets/timer_sized.dart';
 import '../view_model/sum_up_view_model.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/save_button.dart';
 
 class SumUpScreen extends HookConsumerWidget {

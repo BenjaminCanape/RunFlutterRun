@@ -26,7 +26,7 @@ class ActivityRepositoryImpl extends ActivityRepository {
   }
 
   @override
-  Future<String> removeActivity({required String id}) async {
+  Future<String?> removeActivity({required String id}) async {
     return await _remoteApi.removeActivity(id);
   }
 

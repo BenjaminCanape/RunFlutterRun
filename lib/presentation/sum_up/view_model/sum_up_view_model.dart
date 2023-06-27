@@ -1,9 +1,9 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../../main.dart';
-import '../../../data/models/enum/activity_type.dart';
 
+import '../../../data/models/enum/activity_type.dart';
 import '../../../data/models/request/ActivityRequest.dart';
 import '../../../data/repository/activity_repository_impl.dart';
+import '../../../main.dart';
 import '../../common/textToSpeech/text_to_speech.dart';
 import '../../common/widgets/location/view_model/location_view_model.dart';
 import '../../common/widgets/metrics/view_model/metrics_view_model.dart';

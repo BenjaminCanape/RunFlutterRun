@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/jwt_storage.dart';
+import '../../../core/refresh_token_utils.dart';
 import '../../../data/models/request/LoginRequest.dart';
+import '../../../data/models/response/LoginResponse.dart';
 import '../../../data/repository/user_repository_impl.dart';
 import '../../../main.dart';
 import '../../home/screen/home_screen.dart';
@@ -40,8 +42,9 @@ class LoginViewModel extends StateNotifier<LoginState> {
       );
 
       try {
-        final jwt = await userRepository.login(loginRequest);
-        await JwtUtils.setJwt(jwt);
+        final LoginResponse response = await userRepository.login(loginRequest);
+        await JwtUtils.setJwt(response.token);
+        await RefreshTokenUtils.setRefreshToken(response.refreshToken);
 
         state = state.copyWith(isLogging: false);
 

@@ -52,9 +52,7 @@ class SettingsScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Colors.red.shade600)),
+                      style: createButtonStyle(Colors.red.shade600),
                       onPressed: () => showDialog(
                           context: context,
                           builder: (context) {

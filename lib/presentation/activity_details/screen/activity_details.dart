@@ -3,10 +3,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import '../../common/ui/activity.dart';
 
 import '../../../data/models/enum/activity_type.dart';
 import '../../../domain/entities/activity.dart';
+import '../../common/ui/activity.dart';
 import '../../common/widgets/buttons/back_to_home_button.dart';
 import '../../common/widgets/date/date.dart';
 import '../../common/widgets/location/widgets/location_map.dart';
