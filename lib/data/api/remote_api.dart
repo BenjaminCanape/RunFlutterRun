@@ -17,21 +17,6 @@ class RemoteApi {
 
   RemoteApi(this.url) {
     dio = Dio();
-
-    dio.options.connectTimeout = const Duration(seconds: 2);
-
-    /*dio.interceptors.add(RetryInterceptor(
-      dio: dio,
-      retries: 5,
-      retryDelays: const [
-        Duration(seconds: 1),
-        Duration(seconds: 2),
-        Duration(seconds: 5),
-        Duration(seconds: 5),
-        Duration(seconds: 10),
-      ],
-    ));*/
-
     initCache();
   }
 

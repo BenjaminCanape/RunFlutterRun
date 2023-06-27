@@ -14,7 +14,7 @@ const String apiUrl =
 final activityApiProvider = Provider<ActivityApi>((ref) => ActivityApi());
 
 class ActivityApi extends RemoteApi {
-  ActivityApi() : super(apiUrl) {}
+  ActivityApi() : super(apiUrl);
 
   Future<List<ActivityResponse>> getActivities() async {
     try {
@@ -28,18 +28,22 @@ class ActivityApi extends RemoteApi {
         }
       }
       return [];
-    } on DioError catch (err) {
-      if (err.response?.statusCode == 401) {
-        Response? response = await handleUnauthorizedError(err, {}, {});
-        final data = List<Map<String, dynamic>>.from(response?.data);
-        if (data.isNotEmpty) {
-          return data.map((e) => ActivityResponse.fromMap(e)).toList();
+    } catch (err) {
+      if (err is DioError) {
+        if (err.response?.statusCode == 401) {
+          final response = await handleUnauthorizedError(err, {}, {});
+          final data = List<Map<String, dynamic>>.from(response?.data ?? []);
+          if (data.isNotEmpty) {
+            return data.map((e) => ActivityResponse.fromMap(e)).toList();
+          }
         }
+        throw Failure(
+            message: err.response?.statusMessage ?? 'Something went wrong!');
+      } else if (err is SocketException) {
+        throw const Failure(message: 'Please check your connection.');
+      } else {
+        rethrow;
       }
-      throw Failure(
-          message: err.response?.statusMessage ?? 'Something went wrong!');
-    } on SocketException {
-      throw const Failure(message: 'Please check your connection.');
     }
   }
 
@@ -54,44 +58,54 @@ class ActivityApi extends RemoteApi {
         }
       }
       throw const Failure(message: 'Activity not found');
-    } on DioError catch (err) {
-      if (err.response?.statusCode == 401) {
-        Response? response = await handleUnauthorizedError(err, {}, {});
-        if (response?.statusCode == 200) {
-          if (response?.data.isNotEmpty) {
-            return ActivityResponse.fromMap(response?.data);
+    } catch (err) {
+      if (err is DioError) {
+        if (err.response?.statusCode == 401) {
+          final response = await handleUnauthorizedError(err, {}, {});
+          if (response?.statusCode == 200) {
+            if (response?.data.isNotEmpty) {
+              return ActivityResponse.fromMap(response?.data);
+            }
           }
         }
+        throw Failure(
+            message: err.response?.statusMessage ?? 'Something went wrong!');
+      } else if (err is SocketException) {
+        throw const Failure(message: 'Please check your connection.');
+      } else {
+        rethrow;
       }
-      throw Failure(
-          message: err.response?.statusMessage ?? 'Something went wrong!');
-    } on SocketException {
-      throw const Failure(message: 'Please check your connection.');
     }
   }
 
   Future<String> removeActivity(String id) async {
     try {
       await setJwt();
-      final response =
-          await dio.delete(apiUrl, queryParameters: {'id': int.parse(id)});
+      final response = await dio.delete(
+        apiUrl,
+        queryParameters: {'id': int.parse(id)},
+      );
 
       if (response.statusCode == 200) {
         return response.data.toString();
       }
       throw const Failure(message: 'Remove activity failed');
-    } on DioError catch (err) {
-      if (err.response?.statusCode == 401) {
-        Response? response =
-            await handleUnauthorizedError(err, {}, {'id': int.parse(id)});
-        if (response!.statusCode == 200) {
-          return response.data.toString();
+    } catch (err) {
+      if (err is DioError) {
+        if (err.response?.statusCode == 401) {
+          final response =
+              await handleUnauthorizedError(err, {}, {'id': int.parse(id)});
+          if (response?.statusCode == 200) {
+            return response!.data.toString();
+          }
         }
+        throw Failure(
+            message: err.response?.statusMessage ?? 'Something went wrong!');
+      } else if (err is SocketException) {
+        throw const Failure(message: 'Please check your connection.');
+      } else {
+        rethrow;
       }
-      throw Failure(
-          message: err.response?.statusMessage ?? 'Something went wrong!');
-    } on SocketException {
-      throw const Failure(message: 'Please check your connection.');
     }
   }
 
@@ -106,20 +120,24 @@ class ActivityApi extends RemoteApi {
         }
       }
       throw const Failure(message: 'Activity not created');
-    } on DioError catch (err) {
-      if (err.response?.statusCode == 401) {
-        Response? response =
-            await handleUnauthorizedError(err, request.toMap(), {});
-        if (response != null &&
-            response.data != null &&
-            response.data.isNotEmpty) {
-          return ActivityResponse.fromMap(response.data);
+    } catch (err) {
+      if (err is DioError) {
+        if (err.response?.statusCode == 401) {
+          final response =
+              await handleUnauthorizedError(err, request.toMap(), {});
+          if (response != null &&
+              response.data != null &&
+              response.data.isNotEmpty) {
+            return ActivityResponse.fromMap(response.data);
+          }
         }
+        throw Failure(
+            message: err.response?.statusMessage ?? 'Something went wrong!');
+      } else if (err is SocketException) {
+        throw const Failure(message: 'Please check your connection.');
+      } else {
+        rethrow;
       }
-      throw Failure(
-          message: err.response?.statusMessage ?? 'Something went wrong!');
-    } on SocketException {
-      throw const Failure(message: 'Please check your connection.');
     }
   }
 
@@ -134,20 +152,24 @@ class ActivityApi extends RemoteApi {
         }
       }
       throw const Failure(message: 'Activity not found');
-    } on DioError catch (err) {
-      if (err.response?.statusCode == 401) {
-        Response? response =
-            await handleUnauthorizedError(err, request.toMap(), {});
-        if (response?.statusCode == 200) {
-          if (response?.data.isNotEmpty) {
-            return ActivityResponse.fromMap(response?.data);
+    } catch (err) {
+      if (err is DioError) {
+        if (err.response?.statusCode == 401) {
+          final response =
+              await handleUnauthorizedError(err, request.toMap(), {});
+          if (response?.statusCode == 200) {
+            if (response?.data.isNotEmpty) {
+              return ActivityResponse.fromMap(response?.data);
+            }
           }
         }
+        throw Failure(
+            message: err.response?.statusMessage ?? 'Something went wrong!');
+      } else if (err is SocketException) {
+        throw const Failure(message: 'Please check your connection.');
+      } else {
+        rethrow;
       }
-      throw Failure(
-          message: err.response?.statusMessage ?? 'Something went wrong!');
-    } on SocketException {
-      throw const Failure(message: 'Please check your connection.');
     }
   }
 }

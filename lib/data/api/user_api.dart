@@ -24,11 +24,15 @@ class UserApi extends RemoteApi {
         return response.data;
       }
       throw const Failure(message: 'User not created');
-    } on DioError catch (err) {
-      throw Failure(
-          message: err.response?.statusMessage ?? 'Something went wrong!');
-    } on SocketException {
-      throw const Failure(message: 'Please check your connection.');
+    } catch (err) {
+      if (err is DioError) {
+        throw Failure(
+            message: err.response?.statusMessage ?? 'Something went wrong!');
+      } else if (err is SocketException) {
+        throw const Failure(message: 'Please check your connection.');
+      } else {
+        rethrow;
+      }
     }
   }
 
@@ -37,17 +41,19 @@ class UserApi extends RemoteApi {
       final response = await dio.post('${apiUrl}user/login',
           queryParameters: request.toMap());
 
-      if (response.statusCode == 200) {
-        if (response.data.isNotEmpty) {
-          return LoginResponse.fromMap(response.data);
-        }
+      if (response.statusCode == 200 && response.data.isNotEmpty) {
+        return LoginResponse.fromMap(response.data);
       }
       throw const Failure(message: 'Login failed');
-    } on DioError catch (err) {
-      throw Failure(
-          message: err.response?.statusMessage ?? 'Something went wrong!');
-    } on SocketException {
-      throw const Failure(message: 'Please check your connection.');
+    } catch (err) {
+      if (err is DioError) {
+        throw Failure(
+            message: err.response?.statusMessage ?? 'Something went wrong!');
+      } else if (err is SocketException) {
+        throw const Failure(message: 'Please check your connection.');
+      } else {
+        rethrow;
+      }
     }
   }
 
@@ -60,17 +66,21 @@ class UserApi extends RemoteApi {
         return;
       }
       throw const Failure(message: 'Logout failed');
-    } on DioError catch (err) {
-      if (err.response?.statusCode == 401) {
-        Response? response = await handleUnauthorizedError(err, {}, {});
-        if (response?.statusCode == 200) {
-          return;
+    } catch (err) {
+      if (err is DioError) {
+        if (err.response?.statusCode == 401) {
+          final response = await handleUnauthorizedError(err, {}, {});
+          if (response?.statusCode == 200) {
+            return;
+          }
         }
+        throw Failure(
+            message: err.response?.statusMessage ?? 'Something went wrong!');
+      } else if (err is SocketException) {
+        throw const Failure(message: 'Please check your connection.');
+      } else {
+        rethrow;
       }
-      throw Failure(
-          message: err.response?.statusMessage ?? 'Something went wrong!');
-    } on SocketException {
-      throw const Failure(message: 'Please check your connection.');
     }
   }
 
@@ -83,17 +93,21 @@ class UserApi extends RemoteApi {
         return;
       }
       throw const Failure(message: 'Delete failed');
-    } on DioError catch (err) {
-      if (err.response?.statusCode == 401) {
-        Response? response = await handleUnauthorizedError(err, {}, {});
-        if (response?.statusCode == 200) {
-          return;
+    } catch (err) {
+      if (err is DioError) {
+        if (err.response?.statusCode == 401) {
+          final response = await handleUnauthorizedError(err, {}, {});
+          if (response?.statusCode == 200) {
+            return;
+          }
         }
+        throw Failure(
+            message: err.response?.statusMessage ?? 'Something went wrong!');
+      } else if (err is SocketException) {
+        throw const Failure(message: 'Please check your connection.');
+      } else {
+        rethrow;
       }
-      throw Failure(
-          message: err.response?.statusMessage ?? 'Something went wrong!');
-    } on SocketException {
-      throw const Failure(message: 'Please check your connection.');
     }
   }
 }
