@@ -11,8 +11,8 @@ class SettingsScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.read(settingsViewModelProvider);
-    final provider = ref.read(settingsViewModelProvider.notifier);
+    final state = ref.watch(settingsViewModelProvider);
+    final provider = ref.watch(settingsViewModelProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -39,8 +39,8 @@ class SettingsScreen extends HookConsumerWidget {
                   children: [
                     const SizedBox(height: 40),
                     ElevatedButton(
-                      style: buttonStyle,
-                      onPressed: () => provider.logout(),
+                      style: UIFormUtils.buttonStyle,
+                      onPressed: () => provider.logoutUser(),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -52,7 +52,7 @@ class SettingsScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
-                      style: createButtonStyle(Colors.red.shade600),
+                      style: UIFormUtils.createButtonStyle(Colors.red.shade600),
                       onPressed: () => showDialog(
                           context: context,
                           builder: (context) {

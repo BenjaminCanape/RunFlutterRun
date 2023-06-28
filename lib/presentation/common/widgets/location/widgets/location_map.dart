@@ -3,8 +3,8 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:run_flutter_run/presentation/common/utils/map_math.dart';
 
-import '../../../utils/map_math.dart';
 import '../view_model/location_view_model.dart';
 
 class LocationMap extends HookConsumerWidget {
@@ -19,8 +19,8 @@ class LocationMap extends HookConsumerWidget {
     final provider = ref.read(locationViewModelProvider.notifier);
     final state = ref.watch(locationViewModelProvider);
 
-    final center = getCenterOfMap(points);
-    final zoomLevel = getZoomLevel(points, center);
+    final center = MapUtils.getCenterOfMap(points);
+    final zoomLevel = MapUtils.getZoomLevel(points, center);
 
     return Expanded(
       child: SizedBox(

@@ -17,54 +17,58 @@ class SumUpScreen extends HookConsumerWidget {
     final state = ref.watch(sumUpViewModelProvider);
     final provider = ref.watch(sumUpViewModelProvider.notifier);
     ActivityType selectedType = state.type;
-    List<ActivityType> types = ActivityType.values;
 
     return Scaffold(
       appBar: AppBar(
-          leadingWidth: 0,
-          backgroundColor: Colors.white,
-          titleTextStyle: TextStyle(
-              color: Colors.grey.shade800,
-              fontSize: 24,
-              fontWeight: FontWeight.bold),
-          title:
-              Text(AppLocalizations.of(context).activity_sumup.toUpperCase())),
+        leadingWidth: 0,
+        backgroundColor: Colors.white,
+        titleTextStyle: TextStyle(
+          color: Colors.grey.shade800,
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+        title: Text(
+          AppLocalizations.of(context).activity_sumup.toUpperCase(),
+        ),
+      ),
       body: state.isSaving
           ? const Center(child: CircularProgressIndicator())
           : SafeArea(
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  DropdownButton<ActivityType>(
-                    value: selectedType,
-                    items: types.map((ActivityType value) {
-                      return DropdownMenuItem<ActivityType>(
-                        value: value,
-                        child: Text(
-                          translateActivityTypeValue(
-                              AppLocalizations.of(context), value),
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (ActivityType? newValue) {
-                      if (newValue != null) {
-                        provider.setType(newValue);
-                      }
-                    },
-                  ),
+                  const SizedBox(height: 10),
+                  buildActivityTypeDropdown(context, selectedType, provider),
                   const TimerSized(),
                   const Metrics(),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   const Location(),
                 ],
               ),
             ),
       floatingActionButton: SaveButton(disabled: state.isSaving),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+
+  Widget buildActivityTypeDropdown(BuildContext context,
+      ActivityType selectedType, SumUpViewModel provider) {
+    List<DropdownMenuItem<ActivityType>> dropdownItems = ActivityType.values
+        .map((ActivityType value) => DropdownMenuItem<ActivityType>(
+              value: value,
+              child: Text(
+                translateActivityTypeValue(AppLocalizations.of(context), value),
+              ),
+            ))
+        .toList();
+
+    return DropdownButton<ActivityType>(
+      value: selectedType,
+      items: dropdownItems,
+      onChanged: (ActivityType? newValue) {
+        if (newValue != null) {
+          provider.setType(newValue);
+        }
+      },
     );
   }
 }

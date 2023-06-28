@@ -21,4 +21,7 @@ class LocationRequest extends Equatable {
       'longitude': longitude,
     };
   }
+
+  @override
+  bool get stringify => true;
 }

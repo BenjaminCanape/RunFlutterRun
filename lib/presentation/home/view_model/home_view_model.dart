@@ -4,18 +4,19 @@ import 'home_state.dart';
 
 final homeViewModelProvider =
     StateNotifierProvider.autoDispose<HomeViewModel, HomeState>(
-        (ref) => HomeViewModel(ref));
+  (ref) => HomeViewModel(ref),
+);
 
 class HomeViewModel extends StateNotifier<HomeState> {
-  Ref ref;
+  final Ref ref;
 
   HomeViewModel(this.ref) : super(HomeState.initial());
 
-  getCurrentIndex() {
+  int getCurrentIndex() {
     return state.currentIndex;
   }
 
-  setCurrentIndex(int index) {
+  void setCurrentIndex(int index) {
     state = state.copyWith(currentIndex: index);
   }
 }

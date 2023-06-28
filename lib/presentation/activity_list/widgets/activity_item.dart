@@ -10,21 +10,22 @@ import '../view_model/activity_list_view_model.dart';
 
 class ActivityItem extends HookConsumerWidget {
   final Activity activity;
+
   const ActivityItem({Key? key, required this.activity}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var provider = ref.read(activityListViewModelProvider.notifier);
+    final provider = ref.read(activityListViewModelProvider.notifier);
 
     return InkWell(
       onTap: () async {
-        var activityDetails = await provider.getActivityDetails(activity);
+        final activityDetails = await provider.getActivityDetails(activity);
         provider.goToActivity(activityDetails);
       },
       child: Card(
         child: ListTile(
           leading: Icon(
-            getActivityTypeIcon(activity),
+            UIActivityUtils.getActivityTypeIcon(activity),
             color: Colors.blueGrey,
           ),
           subtitle: Column(

@@ -18,4 +18,7 @@ class LoginRequest extends Equatable {
       'password': password,
     };
   }
+
+  @override
+  bool get stringify => true;
 }

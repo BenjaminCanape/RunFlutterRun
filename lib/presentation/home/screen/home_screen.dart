@@ -14,34 +14,35 @@ class HomeScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var state = ref.watch(homeViewModelProvider);
-    // ignore: unused_local_variable
-    var provider = ref.watch(homeViewModelProvider.notifier);
-    int currentIndex = state.currentIndex;
+    final state = ref.watch(homeViewModelProvider);
+    final homeViewModel = ref.watch(homeViewModelProvider.notifier);
+    final locationViewModel = ref.read(locationViewModelProvider.notifier);
+    final currentIndex = state.currentIndex;
 
-    List<Widget> tabs = [
+    final tabs = [
       const NewActivityScreen(),
       const ActivityListScreen(),
-      const SettingsScreen()
+      const SettingsScreen(),
     ];
 
     return Scaffold(
-        body: SafeArea(child: tabs[currentIndex]),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: currentIndex,
-          onTap: (value) {
-            ref.read(locationViewModelProvider.notifier).cancelLocationStream();
-            ref.read(homeViewModelProvider.notifier).setCurrentIndex(value);
-          },
-          showSelectedLabels: false,
-          selectedItemColor: Colors.teal.shade700,
-          showUnselectedLabels: false,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.list), label: 'List'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.settings), label: 'Settings')
-          ],
-        ));
+      body: SafeArea(child: tabs[currentIndex]),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: (value) {
+          locationViewModel.cancelLocationStream();
+          homeViewModel.setCurrentIndex(value);
+        },
+        showSelectedLabels: false,
+        selectedItemColor: Colors.teal.shade700,
+        showUnselectedLabels: false,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'List'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: 'Settings'),
+        ],
+      ),
+    );
   }
 }

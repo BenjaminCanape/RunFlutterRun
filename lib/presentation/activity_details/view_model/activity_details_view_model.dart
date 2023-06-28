@@ -16,7 +16,7 @@ final activityDetailsViewModelProvider = StateNotifierProvider.autoDispose<
     ActivityDetailsState>((ref) => ActivityDetailsViewModel(ref));
 
 class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
-  late Ref ref;
+  late final Ref ref;
   MapController? mapController;
 
   ActivityDetailsViewModel(this.ref) : super(ActivityDetailsState.initial()) {
@@ -28,7 +28,7 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
   }
 
   List<LatLng> savedPositionsLatLng(Activity activity) {
-    var points = activity.locations
+    final points = activity.locations
         .map((location) => LatLng(location.latitude, location.longitude))
         .toList();
     return points;
@@ -39,15 +39,16 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
         .read(activityRepositoryProvider)
         .removeActivity(id: activity.id)
         .then((value) {
-      Activity activityWithoutLocations = Activity(
-          id: activity.id,
-          type: activity.type,
-          distance: activity.distance,
-          speed: activity.speed,
-          startDatetime: activity.startDatetime,
-          endDatetime: activity.endDatetime,
-          time: activity.time,
-          locations: List.empty());
+      final activityWithoutLocations = Activity(
+        id: activity.id,
+        type: activity.type,
+        distance: activity.distance,
+        speed: activity.speed,
+        startDatetime: activity.startDatetime,
+        endDatetime: activity.endDatetime,
+        time: activity.time,
+        locations: const [],
+      );
 
       ref
           .read(activityListViewModelProvider)

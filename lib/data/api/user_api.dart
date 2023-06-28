@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/request/LoginRequest.dart';
-import '../models/response/LoginResponse.dart';
+import '../models/request/login_request.dart';
+import '../models/response/login_response.dart';
 import 'remote_api.dart';
 
 final userApiProvider = Provider<UserApi>((ref) => UserApi());

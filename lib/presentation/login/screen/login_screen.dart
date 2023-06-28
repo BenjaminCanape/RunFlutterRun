@@ -17,100 +17,109 @@ class LoginScreen extends HookConsumerWidget {
     final provider = ref.watch(loginViewModelProvider.notifier);
 
     return Scaffold(
-        appBar: AppBar(
-          leadingWidth: 40,
-          leading: const Icon(
-            Icons.login,
-            color: Colors.grey,
-          ),
-          backgroundColor: Colors.white,
-          titleTextStyle: TextStyle(
-            color: Colors.grey.shade800,
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
-          title: Text(
-            AppLocalizations.of(context).login_page.toUpperCase(),
-          ),
+      appBar: AppBar(
+        leadingWidth: 40,
+        leading: const Icon(
+          Icons.login,
+          color: Colors.grey,
         ),
-        body: state.isLogging
-            ? const Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
-                child: Column(children: [
-                const SizedBox(height: 20),
-                Icon(
-                  Icons.run_circle,
-                  size: 100,
-                  color: Colors.teal.shade800,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Form(
-                        key: formKey,
-                        child: Column(
-                          children: [
-                            TextFormField(
-                              style: textFormFieldStyle,
-                              cursorColor: Colors.teal.shade800,
-                              decoration: createInputDecorative(
-                                  AppLocalizations.of(context).email),
-                              validator: (value) =>
-                                  emailValidation(context, value),
-                              onSaved: (value) {
-                                provider.setUsername(value);
-                              },
-                            ),
-                            TextFormField(
-                              style: textFormFieldStyle,
-                              decoration: createInputDecorative(
-                                  AppLocalizations.of(context).password),
-                              obscureText: true,
-                              validator: (value) =>
-                                  passwordValidation(context, value),
-                              onSaved: (value) {
-                                provider.setPassword(value);
-                              },
-                            ),
-                            const SizedBox(height: 50),
-                            ElevatedButton(
-                              style: buttonStyle,
-                              onPressed: () {
-                                provider.submitForm(context, formKey);
-                              },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(Icons.login),
-                                  const SizedBox(width: 8),
-                                  Text(AppLocalizations.of(context).login_page),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            ElevatedButton(
-                              style: buttonStyle,
-                              onPressed: () {
-                                Navigator.pushNamed(context, '/register');
-                              },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(Icons.app_registration),
-                                  const SizedBox(width: 8),
-                                  Text(AppLocalizations.of(context)
-                                      .registration),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+        backgroundColor: Colors.white,
+        titleTextStyle: TextStyle(
+          color: Colors.grey.shade800,
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+        ),
+        title: Text(
+          AppLocalizations.of(context).login_page.toUpperCase(),
+        ),
+      ),
+      body: state.isLogging
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  Icon(
+                    Icons.run_circle,
+                    size: 100,
+                    color: Colors.teal.shade800,
                   ),
-                )
-              ])));
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Form(
+                          key: formKey,
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                style: UIFormUtils.textFormFieldStyle,
+                                cursorColor: Colors.teal.shade800,
+                                decoration: UIFormUtils.createInputDecorative(
+                                  AppLocalizations.of(context).email,
+                                ),
+                                validator: (value) =>
+                                    FormValidations.email(context, value),
+                                onSaved: (value) {
+                                  provider.setUsername(value);
+                                },
+                              ),
+                              TextFormField(
+                                style: UIFormUtils.textFormFieldStyle,
+                                decoration: UIFormUtils.createInputDecorative(
+                                  AppLocalizations.of(context).password,
+                                ),
+                                obscureText: true,
+                                validator: (value) =>
+                                    FormValidations.password(context, value),
+                                onSaved: (value) {
+                                  provider.setPassword(value);
+                                },
+                              ),
+                              const SizedBox(height: 50),
+                              ElevatedButton(
+                                style: UIFormUtils.buttonStyle,
+                                onPressed: () {
+                                  provider.submitForm(context, formKey);
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(Icons.login),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      AppLocalizations.of(context).login_page,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              ElevatedButton(
+                                style: UIFormUtils.buttonStyle,
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/register');
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(Icons.app_registration),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      AppLocalizations.of(context).registration,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+    );
   }
 }

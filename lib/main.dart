@@ -18,7 +18,7 @@ import 'presentation/sum_up/screen/sum_up_screen.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

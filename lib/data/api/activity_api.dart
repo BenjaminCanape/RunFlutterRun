@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/request/ActivityRequest.dart';
+import '../models/request/activity_request.dart';
 import '../models/response/activity.dart';
 import 'remote_api.dart';
 
@@ -30,11 +30,11 @@ class ActivityApi {
     return response?.data?.toString();
   }
 
-  Future<ActivityResponse> addActivity(ActivityRequest request) async {
+  Future<ActivityResponse?> addActivity(ActivityRequest request) async {
     Response? response = await ApiHelper.makeRequest(
         '${ApiHelper.apiUrl}private/activity/', 'POST',
         data: request.toMap());
-    return ActivityResponse.fromMap(response?.data);
+    return response != null ? ActivityResponse.fromMap(response.data) : null;
   }
 
   Future<ActivityResponse> editActivity(ActivityRequest request) async {

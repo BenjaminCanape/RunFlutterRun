@@ -1,5 +1,5 @@
-import '../../data/models/request/LoginRequest.dart';
-import '../../data/models/response/LoginResponse.dart';
+import '../../data/models/request/login_request.dart';
+import '../../data/models/response/login_response.dart';
 
 abstract class UserRepository {
   Future<int> register(LoginRequest request);

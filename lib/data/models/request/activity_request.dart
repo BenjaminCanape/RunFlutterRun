@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import '../enum/activity_type.dart';
-import 'LocationRequest.dart';
+import 'location_request.dart';
 
 class ActivityRequest extends Equatable {
   final ActivityType type;
@@ -24,11 +24,14 @@ class ActivityRequest extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
-      'type': type.name.toUpperCase(),
+      'type': type.toString().split('.').last.toUpperCase(),
       'startDatetime': startDatetime.toIso8601String(),
       'endDatetime': endDatetime.toIso8601String(),
       'distance': distance,
       'locations': locations.map((location) => location.toMap()).toList(),
     };
   }
+
+  @override
+  bool get stringify => true;
 }

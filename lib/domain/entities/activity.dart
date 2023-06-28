@@ -11,7 +11,6 @@ class Activity extends Equatable {
   final double distance;
   final double speed;
   final double time;
-
   final Iterable<Location> locations;
 
   const Activity({
@@ -26,6 +25,14 @@ class Activity extends Equatable {
   });
 
   @override
-  List<Object?> get props =>
-      [id, type, startDatetime, endDatetime, distance, speed, time];
+  List<Object?> get props => [
+        id,
+        type,
+        startDatetime,
+        endDatetime,
+        distance,
+        speed,
+        time,
+        ...locations,
+      ];
 }

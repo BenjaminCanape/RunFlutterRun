@@ -8,7 +8,7 @@ class BackToHomeButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.read(activityListViewModelProvider.notifier);
+    final provider = ref.watch(activityListViewModelProvider.notifier);
 
     return FloatingActionButton(
       backgroundColor: Colors.teal.shade800,

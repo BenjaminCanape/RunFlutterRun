@@ -8,15 +8,14 @@ class TimerPause extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isRunning = ref.watch(timerViewModelProvider).isRunning;
     final timerViewModel = ref.watch(timerViewModelProvider.notifier);
 
     if (timerViewModel.hasTimerStarted()) {
       return FloatingActionButton(
         backgroundColor: Colors.teal.shade800,
-        tooltip: timerViewModel.isTimerRunning() == true ? 'Pause' : 'Resume',
-        child: Icon(timerViewModel.isTimerRunning() == true
-            ? Icons.pause
-            : Icons.play_arrow),
+        tooltip: timerViewModel.isTimerRunning() ? 'Pause' : 'Resume',
+        child: Icon(isRunning ? Icons.pause : Icons.play_arrow),
         onPressed: () {
           if (timerViewModel.isTimerRunning()) {
             timerViewModel.pauseTimer();
@@ -26,6 +25,6 @@ class TimerPause extends HookConsumerWidget {
         },
       );
     }
-    return const SizedBox();
+    return const SizedBox.shrink();
   }
 }

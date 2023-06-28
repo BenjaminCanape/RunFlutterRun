@@ -11,9 +11,9 @@ class LoginResponse {
 
   factory LoginResponse.fromMap(Map<String, dynamic> map) {
     return LoginResponse(
-      refreshToken: map['refreshToken'].toString(),
-      token: map['token'].toString(),
-      message: map['message'].toString(),
+      refreshToken: map['refreshToken']?.toString() ?? '',
+      token: map['token']?.toString() ?? '',
+      message: map['message']?.toString() ?? '',
     );
   }
 }

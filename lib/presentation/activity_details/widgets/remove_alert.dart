@@ -12,21 +12,22 @@ class RemoveAlert extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ignore: unused_local_variable
-    final state = ref.read(activityDetailsViewModelProvider);
     final provider = ref.read(activityDetailsViewModelProvider.notifier);
 
     return AlertDialog(
-        title: Text(AppLocalizations.of(context).ask_activity_removal),
-        actions: [
-          TextButton(
-              onPressed: () {
-                provider.removeActivity(activity);
-              },
-              child: Text(AppLocalizations.of(context).delete)),
-          TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(AppLocalizations.of(context).cancel))
-        ]);
+      title: Text(AppLocalizations.of(context).ask_activity_removal),
+      actions: [
+        TextButton(
+          onPressed: () {
+            provider.removeActivity(activity);
+          },
+          child: Text(AppLocalizations.of(context).delete),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(AppLocalizations.of(context).cancel),
+        ),
+      ],
+    );
   }
 }

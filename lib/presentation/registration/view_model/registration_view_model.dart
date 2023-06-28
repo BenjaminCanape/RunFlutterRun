@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../data/models/request/LoginRequest.dart';
+import '../../../data/models/request/login_request.dart';
 import '../../../data/repository/user_repository_impl.dart';
 import '../../../main.dart';
 import 'registration_state.dart';
@@ -23,8 +23,8 @@ class RegistrationViewModel extends StateNotifier<RegistrationState> {
     state = state.copyWith(password: password);
   }
 
-  void setCheckPassword(String? password) {
-    state = state.copyWith(checkPassword: password);
+  void setCheckPassword(String? checkPassword) {
+    state = state.copyWith(checkPassword: checkPassword);
   }
 
   Future<void> submitForm(
@@ -42,11 +42,8 @@ class RegistrationViewModel extends StateNotifier<RegistrationState> {
 
       try {
         await userRepository.register(loginRequest);
-        state = state.copyWith(isLogging: false);
         navigatorKey.currentState?.pop();
       } catch (error) {
-        // Handle login error
-        state = state.copyWith(isLogging: false);
         // Show error message to the user
         showDialog(
           context: context,
@@ -65,6 +62,8 @@ class RegistrationViewModel extends StateNotifier<RegistrationState> {
             );
           },
         );
+      } finally {
+        state = state.copyWith(isLogging: false);
       }
     }
   }

@@ -17,6 +17,7 @@ import '../widgets/remove_alert.dart';
 
 class ActivityDetails extends HookConsumerWidget {
   final Activity activity;
+
   const ActivityDetails({Key? key, required this.activity}) : super(key: key);
 
   @override
@@ -25,104 +26,119 @@ class ActivityDetails extends HookConsumerWidget {
     final state = ref.watch(activityDetailsViewModelProvider);
     final provider = ref.read(activityDetailsViewModelProvider.notifier);
 
-    List<LatLng> points = provider.savedPositionsLatLng(activity);
-    List<Marker> markers = [];
+    final List<LatLng> points = provider.savedPositionsLatLng(activity);
+    final List<Marker> markers = [];
 
     if (activity.locations.isNotEmpty) {
-      markers.add(Marker(
+      markers.add(
+        Marker(
           width: 80.0,
           height: 80.0,
-          point: LatLng(activity.locations.first.latitude,
-              activity.locations.first.longitude),
+          point: LatLng(
+            activity.locations.first.latitude,
+            activity.locations.first.longitude,
+          ),
           builder: (ctx) => Column(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.location_on_rounded),
-                    color: Colors.green.shade700,
-                    iconSize: 35.0,
-                    onPressed: () {},
-                  ),
-                ],
-              )));
+            children: [
+              IconButton(
+                icon: const Icon(Icons.location_on_rounded),
+                color: Colors.green.shade700,
+                iconSize: 35.0,
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ),
+      );
 
       if (activity.locations.length > 1) {
-        markers.add(Marker(
+        markers.add(
+          Marker(
             width: 80.0,
             height: 80.0,
-            point: LatLng(activity.locations.last.latitude,
-                activity.locations.last.longitude),
+            point: LatLng(
+              activity.locations.last.latitude,
+              activity.locations.last.longitude,
+            ),
             builder: (ctx) => Column(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.location_on_rounded),
-                      color: Colors.red,
-                      iconSize: 35.0,
-                      onPressed: () {},
-                    )
-                  ],
-                )));
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.location_on_rounded),
+                  color: Colors.red,
+                  iconSize: 35.0,
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ),
+        );
       }
     }
 
     return Scaffold(
       appBar: AppBar(
-          leadingWidth: 40,
-          leading: Icon(
-            getActivityTypeIcon(activity),
-            color: Colors.grey,
-          ),
-          backgroundColor: Colors.white,
-          titleTextStyle: TextStyle(
-              color: Colors.grey.shade800,
-              fontSize: 22,
-              fontWeight: FontWeight.bold),
-          title: Row(
-            children: [
-              Text(
-                translateActivityTypeValue(
-                        AppLocalizations.of(context), activity.type)
-                    .toUpperCase(),
-              ),
-              const Spacer(),
-              IconButton(
-                  color: Colors.black,
-                  tooltip: 'Remove',
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return RemoveAlert(activity: activity);
-                        });
+        leadingWidth: 40,
+        leading: Icon(
+          UIActivityUtils.getActivityTypeIcon(activity),
+          color: Colors.grey,
+        ),
+        backgroundColor: Colors.white,
+        titleTextStyle: TextStyle(
+          color: Colors.grey.shade800,
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+        ),
+        title: Row(
+          children: [
+            Text(
+              translateActivityTypeValue(
+                AppLocalizations.of(context),
+                activity.type,
+              ).toUpperCase(),
+            ),
+            const Spacer(),
+            IconButton(
+              color: Colors.black,
+              tooltip: 'Remove',
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return RemoveAlert(activity: activity);
                   },
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  )),
-            ],
-          )),
+                );
+              },
+              icon: const Icon(
+                Icons.delete,
+                color: Colors.red,
+              ),
+            ),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
             Card(
               child: ListTile(
-                subtitle: Column(children: [
-                  Date(date: activity.startDatetime),
-                  Column(
-                    children: <Widget>[
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Center(
-                        child: TimerText(timeInMs: activity.time.toInt()),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Metrics(
-                          distance: activity.distance, speed: activity.speed),
-                    ],
-                  )
-                ]),
+                subtitle: Column(
+                  children: [
+                    Date(date: activity.startDatetime),
+                    Column(
+                      children: [
+                        const SizedBox(height: 30),
+                        Center(
+                          child: TimerText(timeInMs: activity.time.toInt()),
+                        ),
+                        const SizedBox(height: 15),
+                        Metrics(
+                          distance: activity.distance,
+                          speed: activity.speed,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             LocationMap(points: points, markers: markers),

@@ -8,11 +8,11 @@ class JwtUtils {
 
   static Future<bool> removeJwt() async {
     final prefs = await SharedPreferences.getInstance();
-    return await prefs.remove('jwt');
+    return prefs.remove('jwt');
   }
 
   static Future<bool> setJwt(String jwt) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return await prefs.setString('jwt', jwt);
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setString('jwt', jwt);
   }
 }

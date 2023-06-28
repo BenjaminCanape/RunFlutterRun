@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../data/models/enum/activity_type.dart';
-import '../../../data/models/request/ActivityRequest.dart';
+import '../../../data/models/request/activity_request.dart';
 import '../../../data/repository/activity_repository_impl.dart';
 import '../../../main.dart';
 import '../../common/textToSpeech/text_to_speech.dart';

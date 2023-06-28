@@ -1,6 +1,6 @@
 import 'package:geolocator/geolocator.dart';
 
-import '../../../../../data/models/request/LocationRequest.dart';
+import '../../../../../data/models/request/location_request.dart';
 
 class LocationState {
   final Position? currentPosition;
@@ -28,4 +28,19 @@ class LocationState {
       savedPositions: savedPositions ?? this.savedPositions,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is LocationState &&
+          runtimeType == other.runtimeType &&
+          currentPosition == other.currentPosition &&
+          lastPosition == other.lastPosition &&
+          savedPositions == other.savedPositions;
+
+  @override
+  int get hashCode =>
+      currentPosition.hashCode ^
+      lastPosition.hashCode ^
+      savedPositions.hashCode;
 }

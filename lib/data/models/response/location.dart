@@ -27,8 +27,8 @@ class LocationResponse extends Equatable {
     return LocationResponse(
       id: map['id'].toString(),
       datetime: DateTime.parse(map['datetime']),
-      latitude: map['latitude'] ?? '',
-      longitude: map['longitude'] ?? '',
+      latitude: (map['latitude'] as num?)?.toDouble() ?? 0.0,
+      longitude: (map['longitude'] as num?)?.toDouble() ?? 0.0,
     );
   }
 

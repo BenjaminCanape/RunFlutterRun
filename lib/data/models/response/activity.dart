@@ -35,7 +35,7 @@ class ActivityResponse extends Equatable {
         distance,
         speed,
         time,
-        locations,
+        ...locations,
       ];
 
   factory ActivityResponse.fromMap(Map<String, dynamic> map) {
@@ -46,18 +46,19 @@ class ActivityResponse extends Equatable {
     );
 
     return ActivityResponse(
-        id: map['id'].toString(),
-        type: activityType,
-        startDatetime: DateTime.parse(map['startDatetime']),
-        endDatetime: DateTime.parse(map['endDatetime']),
-        distance: map['distance'].toDouble(),
-        speed:
-            map['speed'] is String ? double.parse(map['speed']) : map['speed'],
-        time: map['time'].toDouble(),
-        locations: List<LocationResponse>.from(
-            (map['locations'] as List<dynamic>)
-                .map((dynamic item) => LocationResponse.fromMap(item))
-                .toList()));
+      id: map['id'].toString(),
+      type: activityType,
+      startDatetime: DateTime.parse(map['startDatetime']),
+      endDatetime: DateTime.parse(map['endDatetime']),
+      distance: map['distance'].toDouble(),
+      speed: map['speed'] is String
+          ? double.parse(map['speed'])
+          : map['speed'].toDouble(),
+      time: map['time'].toDouble(),
+      locations: (map['locations'] as List<dynamic>)
+          .map<LocationResponse>((item) => LocationResponse.fromMap(item))
+          .toList(),
+    );
   }
 
   Activity toEntity() {

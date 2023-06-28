@@ -17,17 +17,27 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
 
   SettingsViewModel(this.ref) : super(SettingsState.initial());
 
-  void logout() async {
-    await ref.read(userRepositoryProvider).logout();
-    await JwtUtils.removeJwt();
-    await RefreshTokenUtils.removeRefreshToken();
-    navigatorKey.currentState?.pushReplacementNamed("/login");
+  void logoutUser() async {
+    try {
+      await ref.read(userRepositoryProvider).logout();
+      await JwtUtils.removeJwt();
+      await RefreshTokenUtils.removeRefreshToken();
+      navigatorKey.currentState?.pushReplacementNamed("/login");
+    } catch (error) {
+      // Handle logout error
+      // Display error message or perform specific actions
+    }
   }
 
-  void deleteAccount() async {
-    await ref.read(userRepositoryProvider).delete();
-    await clearStorage();
-    navigatorKey.currentState?.pushReplacementNamed("/login");
+  void deleteUserAccount() async {
+    try {
+      await ref.read(userRepositoryProvider).delete();
+      await clearStorage();
+      navigatorKey.currentState?.pushReplacementNamed("/login");
+    } catch (error) {
+      // Handle delete account error
+      // Display error message or perform specific actions
+    }
   }
 
   Future<void> clearStorage() async {

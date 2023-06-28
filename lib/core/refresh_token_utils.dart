@@ -8,11 +8,11 @@ class RefreshTokenUtils {
 
   static Future<bool> removeRefreshToken() async {
     final prefs = await SharedPreferences.getInstance();
-    return await prefs.remove('refreshToken');
+    return prefs.remove('refreshToken');
   }
 
   static Future<bool> setRefreshToken(String refreshToken) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return await prefs.setString('refreshToken', refreshToken);
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setString('refreshToken', refreshToken);
   }
 }

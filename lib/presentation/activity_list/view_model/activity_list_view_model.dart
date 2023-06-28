@@ -5,34 +5,47 @@ import '../../../data/repository/activity_repository_impl.dart';
 import '../../../domain/entities/activity.dart';
 import '../../../main.dart';
 import '../../activity_details/screen/activity_details.dart';
-import 'activitie_list_state.dart';
+import 'activity_list_state.dart';
 
 final activityListViewModelProvider =
     StateNotifierProvider.autoDispose<ActivityListViewModel, ActivityListState>(
-        (ref) => ActivityListViewModel(ref));
+  (ref) => ActivityListViewModel(ref),
+);
 
 class ActivityListViewModel extends StateNotifier<ActivityListState> {
-  late Ref ref;
+  late final Ref ref;
 
   ActivityListViewModel(this.ref) : super(ActivityListState.initial()) {
-    state = state.copyWith(isLoading: true);
-    ref.read(activityRepositoryProvider).getActivities().then((activities) =>
-        state = state.copyWith(activities: activities, isLoading: false));
+    fetchActivities();
   }
 
-  Future<Activity> getDetails(String id) {
+  Future<void> fetchActivities() async {
     state = state.copyWith(isLoading: true);
-    return ref
-        .read(activityRepositoryProvider)
-        .getActivityById(id: id)
-        .then((activity) {
+
+    try {
+      final activities =
+          await ref.read(activityRepositoryProvider).getActivities();
+      state = state.copyWith(activities: activities, isLoading: false);
+    } catch (error) {
+      // Handle error
       state = state.copyWith(isLoading: false);
-      return activity;
-    });
+    }
   }
 
   Future<Activity> getActivityDetails(Activity activity) async {
-    return await getDetails(activity.id);
+    state = state.copyWith(isLoading: true);
+
+    try {
+      final activityDetails = await ref
+          .read(activityRepositoryProvider)
+          .getActivityById(id: activity.id);
+      state = state.copyWith(isLoading: false);
+      return activityDetails;
+    } catch (error) {
+      // Handle error
+      state = state.copyWith(isLoading: false);
+      rethrow;
+    }
   }
 
   void backToHome() {
@@ -42,7 +55,8 @@ class ActivityListViewModel extends StateNotifier<ActivityListState> {
   void goToActivity(Activity activityDetails) {
     navigatorKey.currentState?.push(
       MaterialPageRoute(
-          builder: (context) => ActivityDetails(activity: activityDetails)),
+        builder: (context) => ActivityDetails(activity: activityDetails),
+      ),
     );
   }
 }

@@ -9,21 +9,20 @@ class DeleteAccountAlert extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ignore: unused_local_variable
-    final state = ref.read(settingsViewModelProvider);
     final provider = ref.read(settingsViewModelProvider.notifier);
 
     return AlertDialog(
-        title: Text(AppLocalizations.of(context).ask_account_removal),
-        actions: [
-          TextButton(
-              onPressed: () {
-                provider.deleteAccount();
-              },
-              child: Text(AppLocalizations.of(context).delete)),
-          TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(AppLocalizations.of(context).cancel))
-        ]);
+      title: Text(AppLocalizations.of(context).ask_account_removal),
+      actions: [
+        TextButton(
+          onPressed: provider.deleteUserAccount,
+          child: Text(AppLocalizations.of(context).delete),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(AppLocalizations.of(context).cancel),
+        ),
+      ],
+    );
   }
 }

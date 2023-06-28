@@ -7,7 +7,11 @@ class HomeState {
     return const HomeState(currentIndex: 0);
   }
 
-  HomeState copyWith({int? currentIndex}) {
-    return HomeState(currentIndex: currentIndex ?? this.currentIndex);
+  HomeState copyWith({
+    int? currentIndex,
+  }) {
+    return HomeState(
+      currentIndex: currentIndex ?? this.currentIndex,
+    );
   }
 }

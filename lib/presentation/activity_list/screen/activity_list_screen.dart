@@ -10,8 +10,8 @@ class ActivityListScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var activities = ref.watch(activityListViewModelProvider).activities;
-    var isLoading = ref.watch(activityListViewModelProvider).isLoading;
+    final activities = ref.watch(activityListViewModelProvider).activities;
+    final isLoading = ref.watch(activityListViewModelProvider).isLoading;
 
     return Scaffold(
       appBar: AppBar(

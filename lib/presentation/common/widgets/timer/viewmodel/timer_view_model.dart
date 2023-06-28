@@ -100,16 +100,19 @@ class TimerViewModel extends StateNotifier<TimerState> {
   }
 
   int convertMillisToHours(int ms) {
-    return ms ~/ 3600000;
+    return ms ~/ Duration.millisecondsPerHour;
   }
 
   int convertMillisToMinutes(int ms, int hoursToSubtract) {
-    return (ms - (hoursToSubtract * 3600000)) ~/ 60000;
+    return (ms - (hoursToSubtract * Duration.millisecondsPerHour)) ~/
+        Duration.millisecondsPerMinute;
   }
 
   int convertMillisToSeconds(
       int ms, int hoursToSubtract, int minutesToSubtract) {
-    return (ms - (hoursToSubtract * 3600000 + minutesToSubtract * 60000)) ~/
-        1000;
+    return (ms -
+            (hoursToSubtract * Duration.millisecondsPerHour +
+                minutesToSubtract * Duration.millisecondsPerMinute)) ~/
+        Duration.millisecondsPerSecond;
   }
 }

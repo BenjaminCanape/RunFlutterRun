@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
-var buttonStyle = createButtonStyle(Colors.teal.shade800);
-var textFormFieldStyle = const TextStyle(fontSize: 20);
+class UIFormUtils {
+  static final ButtonStyle buttonStyle =
+      createButtonStyle(Colors.teal.shade800);
+  static const TextStyle textFormFieldStyle = TextStyle(fontSize: 20);
 
-ButtonStyle createButtonStyle(Color backgroundColor) {
-  return ButtonStyle(
-    textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 20)),
-    minimumSize: MaterialStateProperty.all(const Size(150, 50)),
-    backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
-  );
-}
+  static ButtonStyle createButtonStyle(Color backgroundColor) {
+    return ButtonStyle(
+      textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 20)),
+      minimumSize: MaterialStateProperty.all(const Size(150, 50)),
+      backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
+    );
+  }
 
-InputDecoration createInputDecorative(String text) {
-  return InputDecoration(
+  static InputDecoration createInputDecorative(String text) {
+    return InputDecoration(
       errorStyle: TextStyle(
         color: Colors.red.shade800,
       ),
@@ -23,5 +25,7 @@ InputDecoration createInputDecorative(String text) {
       labelStyle: TextStyle(
         color: Colors.teal.shade800,
       ),
-      labelText: text);
+      labelText: text,
+    );
+  }
 }

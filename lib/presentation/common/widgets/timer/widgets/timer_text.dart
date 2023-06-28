@@ -18,9 +18,10 @@ class TimerText extends HookConsumerWidget {
         TextStyle(fontSize: 60.0, fontFamily: "Open Sans");
 
     return Text(
-        timeInMs != null
-            ? timerViewModel.getFormattedTime(timeInMs)
-            : timerViewModel.getFormattedTime(),
-        style: timerTextStyle);
+      timeInMs != null
+          ? timerViewModel.getFormattedTime(timeInMs)
+          : timerViewModel.getFormattedTime(),
+      style: timerTextStyle,
+    );
   }
 }

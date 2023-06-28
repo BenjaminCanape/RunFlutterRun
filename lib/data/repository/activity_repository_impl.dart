@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../domain/entities/activity.dart';
 import '../../domain/repository/activity_repository.dart';
 import '../api/activity_api.dart';
-import '../models/request/ActivityRequest.dart';
+import '../models/request/activity_request.dart';
 
 final activityRepositoryProvider = Provider<ActivityRepository>(
     (ref) => ActivityRepositoryImpl(ref.read(activityApiProvider)));
@@ -31,9 +31,9 @@ class ActivityRepositoryImpl extends ActivityRepository {
   }
 
   @override
-  Future<Activity> addActivity(ActivityRequest request) async {
+  Future<Activity?> addActivity(ActivityRequest request) async {
     final activityResponse = await _remoteApi.addActivity(request);
-    return activityResponse.toEntity();
+    return activityResponse?.toEntity();
   }
 
   @override

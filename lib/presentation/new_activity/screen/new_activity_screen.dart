@@ -16,13 +16,14 @@ class NewActivityScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final timerViewModel = ref.watch(timerViewModelProvider.notifier);
     // ignore: unused_local_variable
-    final isRunning = ref.watch(timerViewModelProvider).isRunning;
+    final isRunning =
+        ref.watch(timerViewModelProvider.select((value) => value.isRunning));
     ref.read(locationViewModelProvider.notifier).startGettingLocation();
 
     return Scaffold(
-      body: SafeArea(
+      body: const SafeArea(
         child: Column(
-          children: const [
+          children: [
             TimerSized(),
             Metrics(),
             SizedBox(height: 10),
@@ -31,7 +32,7 @@ class NewActivityScreen extends HookConsumerWidget {
         ),
       ),
       floatingActionButton: timerViewModel.hasTimerStarted()
-          ? Stack(
+          ? const Stack(
               children: [
                 Positioned(
                   bottom: 16,

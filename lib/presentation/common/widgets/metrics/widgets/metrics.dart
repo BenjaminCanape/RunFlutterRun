@@ -12,7 +12,7 @@ class Metrics extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(metricsViewModelProvider);
-    var textStyle = const TextStyle(fontSize: 30.0);
+    const textStyle = TextStyle(fontSize: 30.0);
 
     double speedToDisplay = state.globalSpeed;
     double distanceToDisplay = state.distance;

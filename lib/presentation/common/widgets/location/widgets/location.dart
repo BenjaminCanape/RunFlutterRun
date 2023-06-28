@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map/plugin_api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -17,12 +16,15 @@ class Location extends HookConsumerWidget {
 
     final points = provider.savedPositionsLatLng();
 
+    final currentPosition = state.currentPosition;
+    final currentLatitude = currentPosition?.latitude ?? 0;
+    final currentLongitude = currentPosition?.longitude ?? 0;
+
     final markers = <Marker>[
       Marker(
         width: 80,
         height: 80,
-        point: LatLng(state.currentPosition?.latitude ?? 0,
-            state.currentPosition?.longitude ?? 0),
+        point: LatLng(currentLatitude, currentLongitude),
         builder: (ctx) => const Icon(
           Icons.run_circle_sharp,
           size: 30,

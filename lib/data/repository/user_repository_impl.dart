@@ -1,9 +1,9 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../models/response/LoginResponse.dart';
 
+import '../models/response/login_response.dart';
 import '../../domain/repository/user_repository.dart';
 import '../api/user_api.dart';
-import '../models/request/LoginRequest.dart';
+import '../models/request/login_request.dart';
 
 final userRepositoryProvider = Provider<UserRepository>(
     (ref) => UserRepositoryImpl(ref.read(userApiProvider)));

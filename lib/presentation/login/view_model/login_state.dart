@@ -10,7 +10,7 @@ class LoginState {
   });
 
   factory LoginState.initial() {
-    return LoginState(
+    return const LoginState(
       username: '',
       password: '',
       isLogging: false,

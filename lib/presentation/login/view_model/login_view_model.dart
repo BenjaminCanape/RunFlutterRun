@@ -3,8 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/jwt_storage.dart';
 import '../../../core/refresh_token_utils.dart';
-import '../../../data/models/request/LoginRequest.dart';
-import '../../../data/models/response/LoginResponse.dart';
+import '../../../data/models/request/login_request.dart';
+import '../../../data/models/response/login_response.dart';
 import '../../../data/repository/user_repository_impl.dart';
 import '../../../main.dart';
 import '../../home/screen/home_screen.dart';
@@ -16,16 +16,16 @@ final loginViewModelProvider =
 );
 
 class LoginViewModel extends StateNotifier<LoginState> {
-  Ref ref;
+  final Ref ref;
 
   LoginViewModel(this.ref) : super(LoginState.initial());
 
   void setUsername(String? username) {
-    state = state.copyWith(username: username);
+    state = state.copyWith(username: username ?? '');
   }
 
   void setPassword(String? password) {
-    state = state.copyWith(password: password);
+    state = state.copyWith(password: password ?? '');
   }
 
   Future<void> submitForm(

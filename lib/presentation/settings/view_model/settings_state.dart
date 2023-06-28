@@ -6,7 +6,7 @@ class SettingsState {
   });
 
   factory SettingsState.initial() {
-    return SettingsState(
+    return const SettingsState(
       isLoading: false,
     );
   }

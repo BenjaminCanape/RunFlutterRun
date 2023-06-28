@@ -17,97 +17,98 @@ class RegistrationScreen extends HookConsumerWidget {
     final provider = ref.watch(registrationViewModelProvider.notifier);
 
     return Scaffold(
-        appBar: AppBar(
-          leadingWidth: 40,
-          leading: const Icon(
-            Icons.app_registration,
-            color: Colors.grey,
-          ),
-          backgroundColor: Colors.white,
-          titleTextStyle: TextStyle(
-            color: Colors.grey.shade800,
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
-          title: Text(
-            AppLocalizations.of(context).registration.toUpperCase(),
-          ),
+      appBar: AppBar(
+        leadingWidth: 40,
+        leading: const Icon(
+          Icons.app_registration,
+          color: Colors.grey,
         ),
-        body: state.isLogging
-            ? const Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
-                child: Center(
-                    child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          style: textFormFieldStyle,
-                          decoration: createInputDecorative(
-                              AppLocalizations.of(context).email),
-                          validator: (value) => emailValidation(context, value),
-                          onSaved: (value) {
-                            provider.setUsername(value);
-                          },
+        backgroundColor: Colors.white,
+        titleTextStyle: TextStyle(
+          color: Colors.grey.shade800,
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+        ),
+        title: Text(
+          AppLocalizations.of(context).registration.toUpperCase(),
+        ),
+      ),
+      body: state.isLogging
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        style: UIFormUtils.textFormFieldStyle,
+                        decoration: UIFormUtils.createInputDecorative(
+                            AppLocalizations.of(context).email),
+                        validator: (value) =>
+                            FormValidations.email(context, value),
+                        onSaved: (value) {
+                          provider.setUsername(value);
+                        },
+                      ),
+                      TextFormField(
+                        style: UIFormUtils.textFormFieldStyle,
+                        decoration: UIFormUtils.createInputDecorative(
+                            AppLocalizations.of(context).password),
+                        obscureText: true,
+                        validator: (value) =>
+                            FormValidations.password(context, value),
+                        onChanged: (value) {
+                          provider.setPassword(value);
+                        },
+                      ),
+                      TextFormField(
+                        style: UIFormUtils.textFormFieldStyle,
+                        decoration: UIFormUtils.createInputDecorative(
+                            '${AppLocalizations.of(context).verify} ${AppLocalizations.of(context).password}'),
+                        obscureText: true,
+                        validator: (value) => FormValidations.confirmPassword(
+                            context, value, state.password),
+                        onChanged: (value) {
+                          provider.setCheckPassword(value);
+                        },
+                      ),
+                      const SizedBox(height: 50),
+                      ElevatedButton(
+                        style: UIFormUtils.buttonStyle,
+                        onPressed: () {
+                          provider.submitForm(context, formKey);
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.check),
+                            const SizedBox(width: 8),
+                            Text(AppLocalizations.of(context).validate),
+                          ],
                         ),
-                        TextFormField(
-                          style: textFormFieldStyle,
-                          decoration: createInputDecorative(
-                              AppLocalizations.of(context).password),
-                          obscureText: true,
-                          validator: (value) =>
-                              passwordValidation(context, value),
-                          onChanged: (value) {
-                            provider.setPassword(value);
-                          },
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        style: UIFormUtils.buttonStyle,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.arrow_back),
+                            const SizedBox(width: 8),
+                            Text(AppLocalizations.of(context).back),
+                          ],
                         ),
-                        TextFormField(
-                          style: textFormFieldStyle,
-                          decoration: createInputDecorative(
-                              '${AppLocalizations.of(context).verify} ${AppLocalizations.of(context).password}'),
-                          obscureText: true,
-                          validator: (value) => checkPasswordValidation(
-                              context, value, state.password),
-                          onChanged: (value) {
-                            provider.setCheckPassword(value);
-                          },
-                        ),
-                        const SizedBox(height: 50),
-                        ElevatedButton(
-                          style: buttonStyle,
-                          onPressed: () {
-                            provider.submitForm(context, formKey);
-                          },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(Icons.check),
-                              const SizedBox(width: 8),
-                              Text(AppLocalizations.of(context).validate),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        ElevatedButton(
-                          style: buttonStyle,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(Icons.arrow_back),
-                              const SizedBox(width: 8),
-                              Text(AppLocalizations.of(context).back),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                )),
-              ));
+                ),
+              ),
+            ),
+    );
   }
 }
