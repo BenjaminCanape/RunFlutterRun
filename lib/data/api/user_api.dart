@@ -20,7 +20,7 @@ class UserApi {
   Future<LoginResponse> login(LoginRequest request) async {
     Response? response = await ApiHelper.makeRequest(
         '${ApiHelper.apiUrl}user/login', 'POST',
-        queryParams: request.toMap());
+        data: request.toMap());
     return LoginResponse.fromMap(response?.data);
   }
 
