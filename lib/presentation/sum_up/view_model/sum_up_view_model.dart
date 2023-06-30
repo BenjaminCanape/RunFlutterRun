@@ -1,13 +1,13 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../data/models/enum/activity_type.dart';
-import '../../../data/models/request/activity_request.dart';
-import '../../../data/repository/activity_repository_impl.dart';
+import '../../../data/model/request/activity_request.dart';
+import '../../../data/repositories/activity_repository_impl.dart';
+import '../../../domain/entities/enum/activity_type.dart';
 import '../../../main.dart';
-import '../../common/textToSpeech/text_to_speech.dart';
-import '../../common/widgets/location/view_model/location_view_model.dart';
-import '../../common/widgets/metrics/view_model/metrics_view_model.dart';
-import '../../common/widgets/timer/viewmodel/timer_view_model.dart';
+import '../../common/core/services/text_to_speech_service.dart';
+import '../../common/location/view_model/location_view_model.dart';
+import '../../common/metrics/view_model/metrics_view_model.dart';
+import '../../common/timer/viewmodel/timer_view_model.dart';
 import 'sum_up_state.dart';
 
 final sumUpViewModel = Provider.autoDispose((ref) {

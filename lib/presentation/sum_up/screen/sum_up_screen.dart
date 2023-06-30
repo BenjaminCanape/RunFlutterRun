@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../data/models/enum/activity_type.dart';
-import '../../common/widgets/location/widgets/location.dart';
-import '../../common/widgets/metrics/widgets/metrics.dart';
-import '../../common/widgets/timer/widgets/timer_sized.dart';
+import '../../../domain/entities/enum/activity_type.dart';
+import '../../common/core/utils/activity_utils.dart';
+import '../../common/location/widgets/current_location_map.dart';
+import '../../common/metrics/widgets/metrics.dart';
+import '../../common/timer/widgets/timer_sized.dart';
 import '../view_model/sum_up_view_model.dart';
 import '../widgets/save_button.dart';
 
@@ -38,10 +39,10 @@ class SumUpScreen extends HookConsumerWidget {
                 children: [
                   const SizedBox(height: 10),
                   buildActivityTypeDropdown(context, selectedType, provider),
-                  const TimerSized(),
+                  const TimerTextSized(),
                   const Metrics(),
                   const SizedBox(height: 10),
-                  const Location(),
+                  const CurrentLocationMap(),
                 ],
               ),
             ),
@@ -56,7 +57,8 @@ class SumUpScreen extends HookConsumerWidget {
         .map((ActivityType value) => DropdownMenuItem<ActivityType>(
               value: value,
               child: Text(
-                translateActivityTypeValue(AppLocalizations.of(context), value),
+                ActivityUtils.translateActivityTypeValue(
+                    AppLocalizations.of(context), value),
               ),
             ))
         .toList();

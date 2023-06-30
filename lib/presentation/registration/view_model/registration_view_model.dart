@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../data/models/request/login_request.dart';
-import '../../../data/repository/user_repository_impl.dart';
+import '../../../data/model/request/login_request.dart';
+import '../../../data/repositories/user_repository_impl.dart';
 import '../../../main.dart';
 import 'registration_state.dart';
 

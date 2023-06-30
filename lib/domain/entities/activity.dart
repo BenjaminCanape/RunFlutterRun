@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../data/models/enum/activity_type.dart';
+import 'enum/activity_type.dart';
 import 'location.dart';
 
 class Activity extends Equatable {

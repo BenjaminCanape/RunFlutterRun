@@ -3,7 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 
-import '../../../data/repository/activity_repository_impl.dart';
+import '../../../data/repositories/activity_repository_impl.dart';
 import '../../../domain/entities/activity.dart';
 import '../../../main.dart';
 import '../../activity_list/view_model/activity_list_view_model.dart';
