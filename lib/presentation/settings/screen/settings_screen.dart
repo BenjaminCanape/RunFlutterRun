@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../common/ui/form.dart';
+import '../../common/core/utils/form_utils.dart';
 import '../view_model/settings_view_model.dart';
 import '../widgets/delete_account_alert.dart';
 
@@ -39,7 +39,7 @@ class SettingsScreen extends HookConsumerWidget {
                   children: [
                     const SizedBox(height: 40),
                     ElevatedButton(
-                      style: UIFormUtils.buttonStyle,
+                      style: FormUtils.buttonStyle,
                       onPressed: () => provider.logoutUser(),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -52,7 +52,7 @@ class SettingsScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
-                      style: UIFormUtils.createButtonStyle(Colors.red.shade600),
+                      style: FormUtils.createButtonStyle(Colors.red.shade600),
                       onPressed: () => showDialog(
                           context: context,
                           builder: (context) {

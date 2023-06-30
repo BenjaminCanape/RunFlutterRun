@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../common/ui/form.dart';
-import '../../common/validators/validators.dart';
+import '../../common/core/utils/form_utils.dart';
+import '../../common/core/validators/login_validators.dart';
 import '../view_model/login_view_model.dart';
 
 class LoginScreen extends HookConsumerWidget {
@@ -54,32 +54,32 @@ class LoginScreen extends HookConsumerWidget {
                           child: Column(
                             children: [
                               TextFormField(
-                                style: UIFormUtils.textFormFieldStyle,
+                                style: FormUtils.textFormFieldStyle,
                                 cursorColor: Colors.teal.shade800,
-                                decoration: UIFormUtils.createInputDecorative(
+                                decoration: FormUtils.createInputDecorative(
                                   AppLocalizations.of(context).email,
                                 ),
                                 validator: (value) =>
-                                    FormValidations.email(context, value),
+                                    LoginValidators.email(context, value),
                                 onSaved: (value) {
                                   provider.setUsername(value);
                                 },
                               ),
                               TextFormField(
-                                style: UIFormUtils.textFormFieldStyle,
-                                decoration: UIFormUtils.createInputDecorative(
+                                style: FormUtils.textFormFieldStyle,
+                                decoration: FormUtils.createInputDecorative(
                                   AppLocalizations.of(context).password,
                                 ),
                                 obscureText: true,
                                 validator: (value) =>
-                                    FormValidations.password(context, value),
+                                    LoginValidators.password(context, value),
                                 onSaved: (value) {
                                   provider.setPassword(value);
                                 },
                               ),
                               const SizedBox(height: 50),
                               ElevatedButton(
-                                style: UIFormUtils.buttonStyle,
+                                style: FormUtils.buttonStyle,
                                 onPressed: () {
                                   provider.submitForm(context, formKey);
                                 },
@@ -96,7 +96,7 @@ class LoginScreen extends HookConsumerWidget {
                               ),
                               const SizedBox(height: 20),
                               ElevatedButton(
-                                style: UIFormUtils.buttonStyle,
+                                style: FormUtils.buttonStyle,
                                 onPressed: () {
                                   Navigator.pushNamed(context, '/register');
                                 },

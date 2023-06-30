@@ -1,4 +1,4 @@
-import '../../../data/models/enum/activity_type.dart';
+import '../../../domain/entities/enum/activity_type.dart';
 
 class SumUpState {
   final bool isSaving;

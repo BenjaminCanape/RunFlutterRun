@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../data/models/enum/activity_type.dart';
 import '../../../domain/entities/activity.dart';
-import '../../common/ui/activity.dart';
-import '../../common/widgets/date/date.dart';
+import '../../common/core/utils/activity_utils.dart';
+import '../../common/core/widgets/date.dart';
 import '../view_model/activity_list_view_model.dart';
 
 class ActivityItem extends HookConsumerWidget {
@@ -25,14 +24,14 @@ class ActivityItem extends HookConsumerWidget {
       child: Card(
         child: ListTile(
           leading: Icon(
-            UIActivityUtils.getActivityTypeIcon(activity),
+            ActivityUtils.getActivityTypeIcon(activity),
             color: Colors.blueGrey,
           ),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                translateActivityTypeValue(
+                ActivityUtils.translateActivityTypeValue(
                   AppLocalizations.of(context),
                   activity.type,
                 ).toUpperCase(),
