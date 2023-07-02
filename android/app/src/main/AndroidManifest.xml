@@ -7,7 +7,7 @@
    <application
         android:label="Run Flutter Run"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/run">
         <activity
             android:name=".MainActivity"
             android:exported="true"
