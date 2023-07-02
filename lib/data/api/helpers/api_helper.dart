@@ -8,7 +8,9 @@ import '../../../main.dart';
 import '../user_api.dart';
 
 class ApiHelper {
-  static const String apiUrl = 'https://runbackendrun.onrender.com/api/';
+  //static const String apiUrl = 'https://runbackendrun.onrender.com/api/';
+  static const String apiUrl =
+      'https://runbackendrun-production.up.railway.app/api/';
 
   static Future<Response?> makeRequest(
     String url,
