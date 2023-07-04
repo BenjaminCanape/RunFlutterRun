@@ -79,7 +79,7 @@ class ActivityDetailsScreen extends HookConsumerWidget {
       appBar: AppBar(
         leadingWidth: 40,
         leading: Icon(
-          ActivityUtils.getActivityTypeIcon(activity),
+          ActivityUtils.getActivityTypeIcon(activity.type),
           color: Colors.grey,
         ),
         backgroundColor: Colors.white,

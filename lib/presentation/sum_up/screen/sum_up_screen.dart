@@ -56,10 +56,16 @@ class SumUpScreen extends HookConsumerWidget {
     List<DropdownMenuItem<ActivityType>> dropdownItems = ActivityType.values
         .map((ActivityType value) => DropdownMenuItem<ActivityType>(
               value: value,
-              child: Text(
-                ActivityUtils.translateActivityTypeValue(
-                    AppLocalizations.of(context), value),
-              ),
+              child: Row(children: [
+                Icon(ActivityUtils.getActivityTypeIcon(value)),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  ActivityUtils.translateActivityTypeValue(
+                      AppLocalizations.of(context), value),
+                )
+              ]),
             ))
         .toList();
 

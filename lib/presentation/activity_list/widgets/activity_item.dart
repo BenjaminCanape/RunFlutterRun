@@ -24,7 +24,7 @@ class ActivityItem extends HookConsumerWidget {
       child: Card(
         child: ListTile(
           leading: Icon(
-            ActivityUtils.getActivityTypeIcon(activity),
+            ActivityUtils.getActivityTypeIcon(activity.type),
             color: Colors.blueGrey,
           ),
           subtitle: Column(
