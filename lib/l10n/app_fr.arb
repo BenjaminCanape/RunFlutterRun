@@ -1,5 +1,6 @@
 {
   "@@locale": "fr",
+  "activity": "Activité",
   "activity_list": "Liste des activités",
   "activity_sumup": "Résumé de l'activité",
   "ask_account_removal": "Confirmer la suppression de votre compte",
@@ -21,6 +22,7 @@
   "hours": "heures",
   "hours_pronoun": "à",
   "kilometers": "kilomètres",
+  "list": "Liste",
   "login": "Se connecter",
   "login_page": "Connexion",
   "logout": "Se déconnecter",
