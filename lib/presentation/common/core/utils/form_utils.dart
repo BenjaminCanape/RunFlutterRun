@@ -25,27 +25,16 @@ class FormUtils {
     return InputDecoration(
       icon: icon != null ? Icon(icon) : null,
       iconColor: color,
-      errorStyle: TextStyle(
-        color: errorColor,
-      ),
+      errorStyle: TextStyle(color: errorColor),
       errorBorder:
           UnderlineInputBorder(borderSide: BorderSide(color: errorColor)),
-      focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: color),
-      ),
-      border: UnderlineInputBorder(
-        borderSide: BorderSide(color: color),
-      ),
-      enabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: color),
-      ),
-      focusedErrorBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: errorColor),
-      ),
+      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: color)),
+      border: UnderlineInputBorder(borderSide: BorderSide(color: color)),
+      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: color)),
+      focusedErrorBorder:
+          UnderlineInputBorder(borderSide: BorderSide(color: errorColor)),
       focusColor: color,
-      labelStyle: TextStyle(
-        color: color,
-      ),
+      labelStyle: TextStyle(color: color),
       labelText: text,
     );
   }
