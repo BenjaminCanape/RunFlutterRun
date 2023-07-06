@@ -1,5 +1,6 @@
 {
   "@@locale": "en",
+  "activity": "Activity",
   "activity_list": " Activity list",
   "activity_sumup": "Activity Sumup",
   "ask_account_removal": "Are you sure to delete your account",
@@ -21,6 +22,7 @@
   "hours": "hours",
   "hours_pronoun": "at",
   "kilometers": "kilometers",
+  "list": "List",
   "login": "Log in",
   "login_page": "Login",
   "logout": "Log out",

@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../../domain/entities/activity.dart';
 import '../../../../domain/entities/enum/activity_type.dart';
 
 class ActivityUtils {
-  static IconData getActivityTypeIcon(Activity activity) {
-    switch (activity.type) {
+  static IconData getActivityTypeIcon(ActivityType type) {
+    switch (type) {
       case ActivityType.running:
         return Icons.run_circle_outlined;
       case ActivityType.walking:

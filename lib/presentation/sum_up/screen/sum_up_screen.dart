@@ -20,23 +20,22 @@ class SumUpScreen extends HookConsumerWidget {
     ActivityType selectedType = state.type;
 
     return Scaffold(
-      appBar: AppBar(
-        leadingWidth: 0,
-        backgroundColor: Colors.white,
-        titleTextStyle: TextStyle(
-          color: Colors.grey.shade800,
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
-        title: Text(
-          AppLocalizations.of(context).activity_sumup.toUpperCase(),
-        ),
-      ),
       body: state.isSaving
           ? const Center(child: CircularProgressIndicator())
           : SafeArea(
               child: Column(
                 children: [
+                  Container(
+                    padding: const EdgeInsets.only(left: 0, top: 12),
+                    child: Text(
+                      AppLocalizations.of(context).activity_sumup,
+                      style: const TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const Divider(),
                   const SizedBox(height: 10),
                   buildActivityTypeDropdown(context, selectedType, provider),
                   const TimerTextSized(),
@@ -56,10 +55,16 @@ class SumUpScreen extends HookConsumerWidget {
     List<DropdownMenuItem<ActivityType>> dropdownItems = ActivityType.values
         .map((ActivityType value) => DropdownMenuItem<ActivityType>(
               value: value,
-              child: Text(
-                ActivityUtils.translateActivityTypeValue(
-                    AppLocalizations.of(context), value),
-              ),
+              child: Row(children: [
+                Icon(ActivityUtils.getActivityTypeIcon(value)),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  ActivityUtils.translateActivityTypeValue(
+                      AppLocalizations.of(context), value),
+                )
+              ]),
             ))
         .toList();
 

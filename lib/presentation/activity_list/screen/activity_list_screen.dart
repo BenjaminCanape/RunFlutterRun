@@ -14,32 +14,28 @@ class ActivityListScreen extends HookConsumerWidget {
     final isLoading = ref.watch(activityListViewModelProvider).isLoading;
 
     return Scaffold(
-      appBar: AppBar(
-        leadingWidth: 40,
-        leading: const Icon(
-          Icons.list,
-          color: Colors.grey,
-        ),
-        backgroundColor: Colors.white,
-        titleTextStyle: TextStyle(
-          color: Colors.grey.shade800,
-          fontSize: 22,
-          fontWeight: FontWeight.bold,
-        ),
-        title: Text(
-          AppLocalizations.of(context).activity_list.toUpperCase(),
-        ),
-      ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : SafeArea(
               child: Column(
                 children: [
+                  Container(
+                    padding: const EdgeInsets.only(left: 0, top: 12),
+                    child: Text(
+                      AppLocalizations.of(context).activity_list,
+                      style: const TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const Divider(),
                   Expanded(
                     child: ListView.builder(
                       itemCount: activities.length,
                       itemBuilder: (context, index) {
-                        return ActivityItem(activity: activities[index]);
+                        return ActivityItem(
+                            index: index, activity: activities[index]);
                       },
                     ),
                   ),

@@ -7,10 +7,11 @@ class FormUtils {
 
   static ButtonStyle createButtonStyle(Color backgroundColor) {
     return ButtonStyle(
-      textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 20)),
-      minimumSize: MaterialStateProperty.all(const Size(150, 50)),
-      backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
-    );
+        textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 20)),
+        minimumSize: MaterialStateProperty.all(const Size(150, 50)),
+        backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
+        shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))));
   }
 
   static InputDecoration createInputDecorative(String text) {
