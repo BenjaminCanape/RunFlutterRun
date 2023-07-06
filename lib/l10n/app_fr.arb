@@ -19,6 +19,7 @@
   "form_description_email_not_valid": "Veuillez saisir une adresse e-mail valide",
   "form_description_password_empty": "Veuillez saisir votre mot de passe",
   "good_luck": "C'est parti, bon courage",
+  "hello": "Bonjour",
   "hours": "heures",
   "hours_pronoun": "à",
   "kilometers": "kilomètres",
@@ -37,5 +38,6 @@
   "start": "Début",
   "validate": "Valider",
   "verify": "Vérifier",
-  "walking": "Marche"
+  "walking": "Marche",
+  "welcome": "Bienvenue"
 }

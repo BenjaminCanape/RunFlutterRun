@@ -19,6 +19,7 @@
   "form_description_email_not_valid": "Type a valid email",
   "form_description_password_empty": "Type your password",
   "good_luck": "Let start, good luck",
+  "hello": "Hello",
   "hours": "hours",
   "hours_pronoun": "at",
   "kilometers": "kilometers",
@@ -37,5 +38,6 @@
   "start": "Start",
   "validate": "Validate",
   "verify": "Verify",
-  "walking": "Walking"
+  "walking": "Walking",
+  "welcome": "Welcome"
 }

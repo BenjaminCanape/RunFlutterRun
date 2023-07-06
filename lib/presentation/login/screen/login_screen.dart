@@ -17,33 +17,27 @@ class LoginScreen extends HookConsumerWidget {
     final provider = ref.watch(loginViewModelProvider.notifier);
 
     return Scaffold(
-      appBar: AppBar(
-        leadingWidth: 40,
-        leading: const Icon(
-          Icons.login,
-          color: Colors.grey,
-        ),
-        backgroundColor: Colors.white,
-        titleTextStyle: TextStyle(
-          color: Colors.grey.shade800,
-          fontSize: 22,
-          fontWeight: FontWeight.bold,
-        ),
-        title: Text(
-          AppLocalizations.of(context).login_page.toUpperCase(),
-        ),
-      ),
+      backgroundColor: Colors.blueGrey.shade900,
       body: state.isLogging
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: 20),
-                  Icon(
-                    Icons.run_circle,
-                    size: 100,
-                    color: Colors.teal.shade800,
+                  Container(
+                    padding: const EdgeInsets.only(left: 0, top: 150),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: Align(
+                        alignment: AlignmentDirectional.topStart,
+                        child: Text(
+                          '${AppLocalizations.of(context).hello},',
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 33),
+                        ),
+                      ),
+                    ),
                   ),
+                  const SizedBox(height: 40),
                   Padding(
                     padding: const EdgeInsets.all(20),
                     child: Column(
@@ -54,11 +48,12 @@ class LoginScreen extends HookConsumerWidget {
                           child: Column(
                             children: [
                               TextFormField(
-                                style: FormUtils.textFormFieldStyle,
-                                cursorColor: Colors.teal.shade800,
+                                style: FormUtils.darkTextFormFieldStyle,
+                                cursorColor: Colors.teal.shade100,
                                 decoration: FormUtils.createInputDecorative(
-                                  AppLocalizations.of(context).email,
-                                ),
+                                    AppLocalizations.of(context).email,
+                                    dark: true,
+                                    icon: Icons.email),
                                 validator: (value) =>
                                     LoginValidators.email(context, value),
                                 onSaved: (value) {
@@ -66,10 +61,11 @@ class LoginScreen extends HookConsumerWidget {
                                 },
                               ),
                               TextFormField(
-                                style: FormUtils.textFormFieldStyle,
+                                style: FormUtils.darkTextFormFieldStyle,
                                 decoration: FormUtils.createInputDecorative(
-                                  AppLocalizations.of(context).password,
-                                ),
+                                    AppLocalizations.of(context).password,
+                                    dark: true,
+                                    icon: Icons.password),
                                 obscureText: true,
                                 validator: (value) =>
                                     LoginValidators.password(context, value),

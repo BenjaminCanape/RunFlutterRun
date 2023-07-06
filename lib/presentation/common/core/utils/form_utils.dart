@@ -4,6 +4,8 @@ class FormUtils {
   static final ButtonStyle buttonStyle =
       createButtonStyle(Colors.teal.shade800);
   static const TextStyle textFormFieldStyle = TextStyle(fontSize: 20);
+  static const TextStyle darkTextFormFieldStyle =
+      TextStyle(fontSize: 20, color: Colors.white);
 
   static ButtonStyle createButtonStyle(Color backgroundColor) {
     return ButtonStyle(
@@ -14,18 +16,25 @@ class FormUtils {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))));
   }
 
-  static InputDecoration createInputDecorative(String text) {
+  static InputDecoration createInputDecorative(String text,
+      {bool? dark, IconData? icon}) {
+    dark ??= false;
+    final color = dark ? Colors.teal.shade200 : Colors.red.shade800;
+    final errorColor = dark ? Colors.red.shade200 : Colors.red.shade600;
+
     return InputDecoration(
-      errorStyle: TextStyle(
-        color: Colors.red.shade800,
-      ),
-      focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: Colors.teal.shade800),
-      ),
-      focusColor: Colors.teal.shade800,
-      labelStyle: TextStyle(
-        color: Colors.teal.shade800,
-      ),
+      icon: icon != null ? Icon(icon) : null,
+      iconColor: color,
+      errorStyle: TextStyle(color: errorColor),
+      errorBorder:
+          UnderlineInputBorder(borderSide: BorderSide(color: errorColor)),
+      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: color)),
+      border: UnderlineInputBorder(borderSide: BorderSide(color: color)),
+      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: color)),
+      focusedErrorBorder:
+          UnderlineInputBorder(borderSide: BorderSide(color: errorColor)),
+      focusColor: color,
+      labelStyle: TextStyle(color: color),
       labelText: text,
     );
   }
