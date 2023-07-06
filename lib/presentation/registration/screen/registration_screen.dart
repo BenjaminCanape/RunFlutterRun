@@ -16,98 +16,106 @@ class RegistrationScreen extends HookConsumerWidget {
     final provider = ref.watch(registrationViewModelProvider.notifier);
 
     return Scaffold(
-      appBar: AppBar(
-        leadingWidth: 40,
-        leading: const Icon(
-          Icons.app_registration,
-          color: Colors.grey,
-        ),
-        backgroundColor: Colors.white,
-        titleTextStyle: TextStyle(
-          color: Colors.grey.shade800,
-          fontSize: 22,
-          fontWeight: FontWeight.bold,
-        ),
-        title: Text(
-          AppLocalizations.of(context).registration.toUpperCase(),
-        ),
-      ),
-      body: state.isLogging
-          ? const Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        style: FormUtils.textFormFieldStyle,
-                        decoration: FormUtils.createInputDecorative(
-                            AppLocalizations.of(context).email),
-                        validator: (value) =>
-                            LoginValidators.email(context, value),
-                        onSaved: (value) {
-                          provider.setUsername(value);
-                        },
-                      ),
-                      TextFormField(
-                        style: FormUtils.textFormFieldStyle,
-                        decoration: FormUtils.createInputDecorative(
-                            AppLocalizations.of(context).password),
-                        obscureText: true,
-                        validator: (value) =>
-                            LoginValidators.password(context, value),
-                        onChanged: (value) {
-                          provider.setPassword(value);
-                        },
-                      ),
-                      TextFormField(
-                        style: FormUtils.textFormFieldStyle,
-                        decoration: FormUtils.createInputDecorative(
-                            '${AppLocalizations.of(context).verify} ${AppLocalizations.of(context).password}'),
-                        obscureText: true,
-                        validator: (value) => LoginValidators.confirmPassword(
-                            context, value, state.password),
-                        onChanged: (value) {
-                          provider.setCheckPassword(value);
-                        },
-                      ),
-                      const SizedBox(height: 50),
-                      ElevatedButton(
-                        style: FormUtils.buttonStyle,
-                        onPressed: () {
-                          provider.submitForm(context, formKey);
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.check),
-                            const SizedBox(width: 8),
-                            Text(AppLocalizations.of(context).validate),
-                          ],
+        backgroundColor: Colors.blueGrey.shade900,
+        body: state.isLogging
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                child: Column(children: [
+                  Container(
+                    padding: const EdgeInsets.only(left: 0, top: 150),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: Align(
+                        alignment: AlignmentDirectional.topStart,
+                        child: Text(
+                          '${AppLocalizations.of(context).welcome},',
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 33),
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        style: FormUtils.buttonStyle,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.arrow_back),
-                            const SizedBox(width: 8),
-                            Text(AppLocalizations.of(context).back),
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            ),
-    );
+                  const SizedBox(height: 40),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            style: FormUtils.darkTextFormFieldStyle,
+                            decoration: FormUtils.createInputDecorative(
+                                AppLocalizations.of(context).email,
+                                dark: true,
+                                icon: Icons.email),
+                            validator: (value) =>
+                                LoginValidators.email(context, value),
+                            onSaved: (value) {
+                              provider.setUsername(value);
+                            },
+                          ),
+                          TextFormField(
+                            style: FormUtils.darkTextFormFieldStyle,
+                            decoration: FormUtils.createInputDecorative(
+                                AppLocalizations.of(context).password,
+                                dark: true,
+                                icon: Icons.password),
+                            obscureText: true,
+                            validator: (value) =>
+                                LoginValidators.password(context, value),
+                            onChanged: (value) {
+                              provider.setPassword(value);
+                            },
+                          ),
+                          TextFormField(
+                            style: FormUtils.darkTextFormFieldStyle,
+                            decoration: FormUtils.createInputDecorative(
+                                '${AppLocalizations.of(context).verify} ${AppLocalizations.of(context).password}',
+                                dark: true,
+                                icon: Icons.password),
+                            obscureText: true,
+                            validator: (value) =>
+                                LoginValidators.confirmPassword(
+                                    context, value, state.password),
+                            onChanged: (value) {
+                              provider.setCheckPassword(value);
+                            },
+                          ),
+                          const SizedBox(height: 50),
+                          ElevatedButton(
+                            style: FormUtils.buttonStyle,
+                            onPressed: () {
+                              provider.submitForm(context, formKey);
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(Icons.check),
+                                const SizedBox(width: 8),
+                                Text(AppLocalizations.of(context).validate),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          ElevatedButton(
+                            style: FormUtils.buttonStyle,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(Icons.arrow_back),
+                                const SizedBox(width: 8),
+                                Text(AppLocalizations.of(context).back),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ]),
+              ));
   }
 }
