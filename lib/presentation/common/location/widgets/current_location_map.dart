@@ -6,6 +6,7 @@ import 'package:latlong2/latlong.dart';
 import '../view_model/location_view_model.dart';
 import 'location_map.dart';
 
+/// Widget that displays the current location on a map.
 class CurrentLocationMap extends HookConsumerWidget {
   const CurrentLocationMap({Key? key}) : super(key: key);
 

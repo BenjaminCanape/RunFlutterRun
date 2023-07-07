@@ -11,10 +11,12 @@ import '../../home/screen/home_screen.dart';
 import '../../home/view_model/home_view_model.dart';
 import 'activitie_details_state.dart';
 
+/// Provider for the activity details view model.
 final activityDetailsViewModelProvider = StateNotifierProvider.autoDispose<
     ActivityDetailsViewModel,
     ActivityDetailsState>((ref) => ActivityDetailsViewModel(ref));
 
+/// View model for the activity details screen.
 class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
   late final Ref ref;
   MapController? mapController;
@@ -23,10 +25,12 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
     mapController = MapController();
   }
 
+  /// Navigates back to the home screen.
   void backToHome() {
     navigatorKey.currentState?.pop();
   }
 
+  /// Converts the saved locations of the activity to a list of LatLng points.
   List<LatLng> savedPositionsLatLng(Activity activity) {
     final points = activity.locations
         .map((location) => LatLng(location.latitude, location.longitude))
@@ -34,6 +38,7 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
     return points;
   }
 
+  /// Removes the specified activity.
   void removeActivity(Activity activity) {
     ref
         .read(activityRepositoryProvider)

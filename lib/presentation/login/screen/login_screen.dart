@@ -9,6 +9,7 @@ import '../view_model/login_view_model.dart';
 class LoginScreen extends HookConsumerWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  /// Constructs a [LoginScreen].
   LoginScreen({Key? key}) : super(key: key);
 
   @override

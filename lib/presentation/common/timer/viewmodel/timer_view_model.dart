@@ -18,8 +18,10 @@ class TimerViewModel extends StateNotifier<TimerState> {
   Timer? timer;
   Stopwatch stopwatch = Stopwatch();
 
+  /// Represents the view model for a timer.
   TimerViewModel(this.ref) : super(TimerState.initial());
 
+  /// Starts the timer.
   void startTimer() {
     bool isRunning = hasTimerStarted();
     stopwatch.start();
@@ -34,18 +36,22 @@ class TimerViewModel extends StateNotifier<TimerState> {
     }
   }
 
+  /// Checks if the timer has already started.
   bool hasTimerStarted() {
     return stopwatch.elapsedMilliseconds > 0;
   }
 
+  /// Checks if the timer is currently running.
   bool isTimerRunning() {
     return stopwatch.isRunning;
   }
 
+  /// Resets the timer.
   void resetTimer() {
     state = TimerState.initial();
   }
 
+  /// Stops the timer.
   void stopTimer() {
     stopwatch.stop();
     stopwatch.reset();
@@ -57,6 +63,7 @@ class TimerViewModel extends StateNotifier<TimerState> {
     navigatorKey.currentState?.pushNamed('/sumup');
   }
 
+  /// Pauses the timer.
   void pauseTimer() {
     ref.read(textToSpeechService).sayPause();
     stopwatch.stop();
@@ -65,10 +72,12 @@ class TimerViewModel extends StateNotifier<TimerState> {
     state = state.copyWith(isRunning: false);
   }
 
+  /// Gets the timer value in milliseconds.
   int getTimerInMs() {
     return stopwatch.elapsedMilliseconds;
   }
 
+  /// Updates the timer state with the current time.
   void updateTime(Timer timer) {
     int timerInMs = stopwatch.elapsedMilliseconds;
     int hours = convertMillisToHours(timerInMs);
@@ -77,6 +86,7 @@ class TimerViewModel extends StateNotifier<TimerState> {
     state = state.copyWith(hours: hours, minutes: minutes, seconds: seconds);
   }
 
+  /// Converts the time in milliseconds to a formatted string.
   String getFormattedTime([int? timeInMs]) {
     int hours = state.hours;
     int minutes = state.minutes;
@@ -99,15 +109,18 @@ class TimerViewModel extends StateNotifier<TimerState> {
     return formattedTime;
   }
 
+  /// Converts milliseconds to hours.
   int convertMillisToHours(int ms) {
     return ms ~/ Duration.millisecondsPerHour;
   }
 
+  /// Converts milliseconds to minutes, subtracting the hours.
   int convertMillisToMinutes(int ms, int hoursToSubtract) {
     return (ms - (hoursToSubtract * Duration.millisecondsPerHour)) ~/
         Duration.millisecondsPerMinute;
   }
 
+  /// Converts milliseconds to seconds, subtracting the hours and minutes.
   int convertMillisToSeconds(
       int ms, int hoursToSubtract, int minutesToSubtract) {
     return (ms -

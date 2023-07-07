@@ -7,6 +7,7 @@ import 'package:latlong2/latlong.dart';
 import '../../core/utils/map_utils.dart';
 import '../view_model/location_view_model.dart';
 
+/// Widget that displays a map with markers and polylines representing locations.
 class LocationMap extends HookConsumerWidget {
   final List<LatLng> points;
   final List<Marker> markers;

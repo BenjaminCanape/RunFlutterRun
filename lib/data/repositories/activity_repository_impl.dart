@@ -5,9 +5,11 @@ import '../../domain/repositories/activity_repository.dart';
 import '../api/activity_api.dart';
 import '../model/request/activity_request.dart';
 
+/// Provider for the ActivityRepository implementation.
 final activityRepositoryProvider =
     Provider<ActivityRepository>((ref) => ActivityRepositoryImpl());
 
+/// Implementation of the ActivityRepository.
 class ActivityRepositoryImpl extends ActivityRepository {
   ActivityRepositoryImpl();
 

@@ -10,43 +10,53 @@ import '../../common/metrics/view_model/metrics_view_model.dart';
 import '../../common/timer/viewmodel/timer_view_model.dart';
 import 'sum_up_state.dart';
 
+/// Provides the instance of [SumUpViewModel].
 final sumUpViewModel = Provider.autoDispose((ref) {
   return SumUpViewModel(ref);
 });
 
+/// Provides the state management for the SumUpScreen.
 final sumUpViewModelProvider =
     StateNotifierProvider.autoDispose<SumUpViewModel, SumUpState>(
-        (ref) => SumUpViewModel(ref));
+  (ref) => SumUpViewModel(ref),
+);
 
+/// Represents the view model for the SumUpScreen.
 class SumUpViewModel extends StateNotifier<SumUpState> {
   late Ref ref;
 
+  /// Creates a new instance of [SumUpViewModel] with the given [ref].
   SumUpViewModel(this.ref) : super(SumUpState.initial()) {
     ref.read(textToSpeechService).sayActivitySumUp();
   }
 
+  /// Sets the selected [type] of the activity.
   void setType(ActivityType type) {
     state = state.copyWith(type: type);
   }
 
+  /// Saves the activity.
   void save() {
     state = state.copyWith(isSaving: true);
-    var startDatetime = ref.read(timerViewModelProvider).startDatetime;
-    var endDatetime = startDatetime.add(Duration(
-        hours: ref.read(timerViewModelProvider).hours,
-        minutes: ref.read(timerViewModelProvider).minutes,
-        seconds: ref.read(timerViewModelProvider).seconds));
 
-    var locations = ref.read(locationViewModelProvider).savedPositions;
+    final startDatetime = ref.read(timerViewModelProvider).startDatetime;
+    final endDatetime = startDatetime.add(Duration(
+      hours: ref.read(timerViewModelProvider).hours,
+      minutes: ref.read(timerViewModelProvider).minutes,
+      seconds: ref.read(timerViewModelProvider).seconds,
+    ));
+
+    final locations = ref.read(locationViewModelProvider).savedPositions;
 
     ref
         .read(activityRepositoryProvider)
         .addActivity(ActivityRequest(
-            type: state.type,
-            startDatetime: startDatetime,
-            endDatetime: endDatetime,
-            distance: ref.read(metricsViewModelProvider).distance,
-            locations: locations))
+          type: state.type,
+          startDatetime: startDatetime,
+          endDatetime: endDatetime,
+          distance: ref.read(metricsViewModelProvider).distance,
+          locations: locations,
+        ))
         .then((value) {
       ref.read(timerViewModelProvider.notifier).resetTimer();
       ref.read(locationViewModelProvider.notifier).resetSavedPositions();

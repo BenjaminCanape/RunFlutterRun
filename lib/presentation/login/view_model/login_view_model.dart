@@ -7,24 +7,29 @@ import '../../../main.dart';
 import '../../home/screen/home_screen.dart';
 import 'login_state.dart';
 
+/// Provides the view model for the login screen.
 final loginViewModelProvider =
     StateNotifierProvider.autoDispose<LoginViewModel, LoginState>(
   (ref) => LoginViewModel(ref),
 );
 
+/// The view model class for the login screen.
 class LoginViewModel extends StateNotifier<LoginState> {
   final Ref ref;
 
   LoginViewModel(this.ref) : super(LoginState.initial());
 
+  /// Sets the username in the state.
   void setUsername(String? username) {
     state = state.copyWith(username: username ?? '');
   }
 
+  /// Sets the password in the state.
   void setPassword(String? password) {
     state = state.copyWith(password: password ?? '');
   }
 
+  /// Submits the login form.
   Future<void> submitForm(
       BuildContext context, GlobalKey<FormState> formKey) async {
     if (formKey.currentState!.validate()) {

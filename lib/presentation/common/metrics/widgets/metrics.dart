@@ -3,10 +3,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../view_model/metrics_view_model.dart';
 
+/// A widget that displays the metrics information such as speed and distance.
 class Metrics extends HookConsumerWidget {
   final double? speed;
   final double? distance;
 
+  /// Creates a Metrics widget.
   const Metrics({Key? key, this.speed, this.distance}) : super(key: key);
 
   @override

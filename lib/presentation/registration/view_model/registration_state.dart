@@ -1,9 +1,11 @@
+/// Represents the state of the registration screen.
 class RegistrationState {
   final String username;
   final String password;
   final String checkPassword;
   final bool isLogging;
 
+  /// Creates a new instance of [RegistrationState].
   const RegistrationState({
     required this.username,
     required this.password,
@@ -11,6 +13,7 @@ class RegistrationState {
     required this.isLogging,
   });
 
+  /// Creates the initial state for the registration screen.
   factory RegistrationState.initial() {
     return const RegistrationState(
       username: '',
@@ -20,6 +23,7 @@ class RegistrationState {
     );
   }
 
+  /// Creates a copy of this state object with the specified changes.
   RegistrationState copyWith({
     String? username,
     String? password,

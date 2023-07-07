@@ -60,15 +60,16 @@ class SettingsScreen extends HookConsumerWidget {
                       child: ElevatedButton(
                         style: FormUtils.createButtonStyle(Colors.red.shade600),
                         onPressed: () => QuickAlert.show(
-                            context: context,
-                            type: QuickAlertType.confirm,
-                            title: AppLocalizations.of(context)
-                                .ask_account_removal,
-                            confirmBtnText: AppLocalizations.of(context).delete,
-                            cancelBtnText: AppLocalizations.of(context).cancel,
-                            confirmBtnColor: Colors.red,
-                            onCancelBtnTap: () => Navigator.of(context).pop(),
-                            onConfirmBtnTap: () => provider.deleteUserAccount),
+                          context: context,
+                          type: QuickAlertType.confirm,
+                          title:
+                              AppLocalizations.of(context).ask_account_removal,
+                          confirmBtnText: AppLocalizations.of(context).delete,
+                          cancelBtnText: AppLocalizations.of(context).cancel,
+                          confirmBtnColor: Colors.red,
+                          onCancelBtnTap: () => Navigator.of(context).pop(),
+                          onConfirmBtnTap: () => provider.deleteUserAccount(),
+                        ),
                         child: Align(
                           alignment: Alignment.center,
                           child: Row(

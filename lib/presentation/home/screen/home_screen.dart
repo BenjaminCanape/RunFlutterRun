@@ -9,8 +9,10 @@ import '../view_model/home_view_model.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-enum Tabs { home, list }
+/// An enumeration representing the available tabs in the home screen.
+enum Tabs { home, list, settings }
 
+/// The home screen widget.
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -40,14 +42,17 @@ class HomeScreen extends HookConsumerWidget {
         showUnselectedLabels: true,
         items: [
           BottomNavigationBarItem(
-              icon: const Icon(Icons.home),
-              label: AppLocalizations.of(context).activity),
+            icon: const Icon(Icons.home),
+            label: AppLocalizations.of(context).activity,
+          ),
           BottomNavigationBarItem(
-              icon: const Icon(Icons.list),
-              label: AppLocalizations.of(context).list),
+            icon: const Icon(Icons.list),
+            label: AppLocalizations.of(context).list,
+          ),
           BottomNavigationBarItem(
-              icon: const Icon(Icons.settings),
-              label: AppLocalizations.of(context).settings),
+            icon: const Icon(Icons.settings),
+            label: AppLocalizations.of(context).settings,
+          ),
         ],
       ),
     );

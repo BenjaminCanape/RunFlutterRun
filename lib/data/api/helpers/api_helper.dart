@@ -7,11 +7,16 @@ import '../../../core/utils/jwt_utils.dart';
 import '../../../main.dart';
 import '../user_api.dart';
 
+/// Helper class for making API requests.
 class ApiHelper {
   //static const String apiUrl = 'https://runbackendrun.onrender.com/api/';
   static const String apiUrl =
       'https://runbackendrun-production.up.railway.app/api/';
 
+  /// Makes an HTTP request to the specified [url] using the given [method].
+  ///
+  /// Optional [data] and [queryParams] can be provided for POST, PUT, and DELETE requests.
+  /// Returns the [Response] object or null if an unauthorized error occurs and user navigation is handled.
   static Future<Response?> makeRequest(
     String url,
     String method, {
@@ -61,16 +66,19 @@ class ApiHelper {
   }
 }
 
+/// Wrapper class for the Dio library with additional functionality.
 class RemoteApi {
   late String url;
   late Dio dio;
   late SharedPreferences prefs;
 
+  /// Constructs a RemoteApi object with the given [url].
   RemoteApi(this.url) {
     dio = Dio();
     initCache();
   }
 
+  /// Initializes the shared preferences cache.
   Future<void> initCache() async {
     prefs = await SharedPreferences.getInstance();
 
@@ -124,6 +132,7 @@ class RemoteApi {
     ));
   }
 
+  /// Sets the JWT in the request headers.
   Future<void> setJwt() async {
     final jwt = await JwtUtils.getJwt();
     if (jwt != null) {
@@ -131,6 +140,9 @@ class RemoteApi {
     }
   }
 
+  /// Handles an unauthorized error by refreshing the JWT and making the request again.
+  ///
+  /// Returns the [Response] object or null if navigation to the login screen occurs.
   Future<Response?> handleUnauthorizedError(DioError error,
       Map<String, dynamic>? data, Map<String, dynamic>? queryParams) async {
     try {

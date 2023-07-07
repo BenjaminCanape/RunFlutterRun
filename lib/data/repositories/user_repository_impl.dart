@@ -7,9 +7,11 @@ import '../model/response/login_response.dart';
 import '../../domain/repositories/user_repository.dart';
 import '../model/request/login_request.dart';
 
+/// Provider for the UserRepository implementation.
 final userRepositoryProvider =
     Provider<UserRepository>((ref) => UserRepositoryImpl());
 
+/// Implementation of the UserRepository.
 class UserRepositoryImpl extends UserRepository {
   UserRepositoryImpl();
 

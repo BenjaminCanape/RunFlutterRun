@@ -16,11 +16,12 @@ class RegistrationScreen extends HookConsumerWidget {
     final provider = ref.watch(registrationViewModelProvider.notifier);
 
     return Scaffold(
-        backgroundColor: Colors.blueGrey.shade900,
-        body: state.isLogging
-            ? const Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
-                child: Column(children: [
+      backgroundColor: Colors.blueGrey.shade900,
+      body: state.isLogging
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Column(
+                children: [
                   Container(
                     padding: const EdgeInsets.only(left: 0, top: 150),
                     child: Padding(
@@ -30,7 +31,9 @@ class RegistrationScreen extends HookConsumerWidget {
                         child: Text(
                           '${AppLocalizations.of(context).welcome},',
                           style: const TextStyle(
-                              color: Colors.white, fontSize: 33),
+                            color: Colors.white,
+                            fontSize: 33,
+                          ),
                         ),
                       ),
                     ),
@@ -42,24 +45,28 @@ class RegistrationScreen extends HookConsumerWidget {
                       key: formKey,
                       child: Column(
                         children: [
+                          // Email TextFormField
                           TextFormField(
                             style: FormUtils.darkTextFormFieldStyle,
                             decoration: FormUtils.createInputDecorative(
-                                AppLocalizations.of(context).email,
-                                dark: true,
-                                icon: Icons.email),
+                              AppLocalizations.of(context).email,
+                              dark: true,
+                              icon: Icons.email,
+                            ),
                             validator: (value) =>
                                 LoginValidators.email(context, value),
                             onSaved: (value) {
                               provider.setUsername(value);
                             },
                           ),
+                          // Password TextFormField
                           TextFormField(
                             style: FormUtils.darkTextFormFieldStyle,
                             decoration: FormUtils.createInputDecorative(
-                                AppLocalizations.of(context).password,
-                                dark: true,
-                                icon: Icons.password),
+                              AppLocalizations.of(context).password,
+                              dark: true,
+                              icon: Icons.password,
+                            ),
                             obscureText: true,
                             validator: (value) =>
                                 LoginValidators.password(context, value),
@@ -67,21 +74,27 @@ class RegistrationScreen extends HookConsumerWidget {
                               provider.setPassword(value);
                             },
                           ),
+                          // Confirm Password TextFormField
                           TextFormField(
                             style: FormUtils.darkTextFormFieldStyle,
                             decoration: FormUtils.createInputDecorative(
-                                '${AppLocalizations.of(context).verify} ${AppLocalizations.of(context).password}',
-                                dark: true,
-                                icon: Icons.password),
+                              '${AppLocalizations.of(context).verify} ${AppLocalizations.of(context).password}',
+                              dark: true,
+                              icon: Icons.password,
+                            ),
                             obscureText: true,
                             validator: (value) =>
                                 LoginValidators.confirmPassword(
-                                    context, value, state.password),
+                              context,
+                              value,
+                              state.password,
+                            ),
                             onChanged: (value) {
                               provider.setCheckPassword(value);
                             },
                           ),
                           const SizedBox(height: 50),
+                          // Validate Button
                           ElevatedButton(
                             style: FormUtils.buttonStyle,
                             onPressed: () {
@@ -97,6 +110,7 @@ class RegistrationScreen extends HookConsumerWidget {
                             ),
                           ),
                           const SizedBox(height: 20),
+                          // Back Button
                           ElevatedButton(
                             style: FormUtils.buttonStyle,
                             onPressed: () {
@@ -115,7 +129,9 @@ class RegistrationScreen extends HookConsumerWidget {
                       ),
                     ),
                   ),
-                ]),
-              ));
+                ],
+              ),
+            ),
+    );
   }
 }

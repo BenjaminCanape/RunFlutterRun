@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../viewmodel/timer_view_model.dart';
 
+/// A widget that displays the timer text.
 class TimerText extends HookConsumerWidget {
   final int? timeInMs;
 

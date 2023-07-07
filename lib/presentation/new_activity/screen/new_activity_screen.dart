@@ -9,6 +9,7 @@ import '../../common/timer/widgets/timer_pause.dart';
 import '../../common/timer/widgets/timer_sized.dart';
 import '../../common/timer/widgets/timer_start.dart';
 
+/// The screen for creating a new activity.
 class NewActivityScreen extends HookConsumerWidget {
   const NewActivityScreen({Key? key}) : super(key: key);
 

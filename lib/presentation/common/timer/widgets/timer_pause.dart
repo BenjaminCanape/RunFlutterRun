@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../viewmodel/timer_view_model.dart';
 
+/// A floating action button used to pause or resume the timer.
 class TimerPause extends HookConsumerWidget {
   const TimerPause({Key? key}) : super(key: key);
 
