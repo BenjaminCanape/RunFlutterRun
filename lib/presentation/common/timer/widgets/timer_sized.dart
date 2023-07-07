@@ -21,7 +21,7 @@ class TimerTextSized extends HookConsumerWidget {
           child: Center(
             child: TimerText(),
           ),
-        ),
+        )
       ],
     );
   }
