@@ -7,11 +7,12 @@ import '../../../main.dart';
 import '../../activity_details/screen/activity_details_screen.dart';
 import 'activity_list_state.dart';
 
+/// The provider for the activity list view model.
 final activityListViewModelProvider =
     StateNotifierProvider.autoDispose<ActivityListViewModel, ActivityListState>(
-  (ref) => ActivityListViewModel(ref),
-);
+        (ref) => ActivityListViewModel(ref));
 
+/// The view model for the activity list screen.
 class ActivityListViewModel extends StateNotifier<ActivityListState> {
   late final Ref ref;
 
@@ -19,6 +20,7 @@ class ActivityListViewModel extends StateNotifier<ActivityListState> {
     fetchActivities();
   }
 
+  /// Fetches the list of activities.
   Future<void> fetchActivities() async {
     state = state.copyWith(isLoading: true);
 
@@ -32,6 +34,7 @@ class ActivityListViewModel extends StateNotifier<ActivityListState> {
     }
   }
 
+  /// Retrieves the details of an activity.
   Future<Activity> getActivityDetails(Activity activity) async {
     state = state.copyWith(isLoading: true);
 
@@ -48,10 +51,12 @@ class ActivityListViewModel extends StateNotifier<ActivityListState> {
     }
   }
 
+  /// Navigates back to the home screen.
   void backToHome() {
     navigatorKey.currentState?.pop();
   }
 
+  /// Navigates to the activity details screen.
   void goToActivity(Activity activityDetails) {
     navigatorKey.currentState?.push(
       MaterialPageRoute(

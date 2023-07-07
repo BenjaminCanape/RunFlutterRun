@@ -13,23 +13,33 @@ final settingsViewModelProvider =
 class SettingsViewModel extends StateNotifier<SettingsState> {
   Ref ref;
 
+  /// Manages the state and logic of the settings screen.
+  ///
+  /// [ref] - The reference to the hooks riverpod container.
   SettingsViewModel(this.ref) : super(SettingsState.initial());
 
-  void logoutUser() async {
+  /// Logs out the user.
+  Future<void> logoutUser() async {
     try {
       await ref.read(userRepositoryProvider).logout();
       navigatorKey.currentState?.pushReplacementNamed("/login");
-    } catch (error) {}
+    } catch (error) {
+      // Handle logout error
+    }
   }
 
-  void deleteUserAccount() async {
+  /// Deletes the user account.
+  Future<void> deleteUserAccount() async {
     try {
       await ref.read(userRepositoryProvider).delete();
       await clearStorage();
       navigatorKey.currentState?.pushReplacementNamed("/login");
-    } catch (error) {}
+    } catch (error) {
+      // Handle account deletion error
+    }
   }
 
+  /// Clears the local storage.
   Future<void> clearStorage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();

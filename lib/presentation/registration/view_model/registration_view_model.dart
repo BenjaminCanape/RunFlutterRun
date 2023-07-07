@@ -8,25 +8,31 @@ import 'registration_state.dart';
 
 final registrationViewModelProvider =
     StateNotifierProvider.autoDispose<RegistrationViewModel, RegistrationState>(
-        (ref) => RegistrationViewModel(ref));
+  (ref) => RegistrationViewModel(ref),
+);
 
 class RegistrationViewModel extends StateNotifier<RegistrationState> {
   Ref ref;
 
+  /// Creates a new instance of [RegistrationViewModel].
   RegistrationViewModel(this.ref) : super(RegistrationState.initial());
 
+  /// Sets the username in the state.
   void setUsername(String? username) {
     state = state.copyWith(username: username);
   }
 
+  /// Sets the password in the state.
   void setPassword(String? password) {
     state = state.copyWith(password: password);
   }
 
+  /// Sets the check password in the state.
   void setCheckPassword(String? checkPassword) {
     state = state.copyWith(checkPassword: checkPassword);
   }
 
+  /// Submits the registration form.
   Future<void> submitForm(
       BuildContext context, GlobalKey<FormState> formKey) async {
     if (formKey.currentState!.validate()) {

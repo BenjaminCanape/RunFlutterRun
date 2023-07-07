@@ -16,6 +16,7 @@ import 'presentation/login/screen/login_screen.dart';
 import 'presentation/registration/screen/registration_screen.dart';
 import 'presentation/sum_up/screen/sum_up_screen.dart';
 
+/// Global navigator key to access the navigator from anywhere in the app.
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
@@ -27,6 +28,7 @@ void main() async {
   runApp(
     const ProviderScope(child: MyApp()),
   );
+
   FlutterError.demangleStackTrace = (StackTrace stack) {
     if (stack is stack_trace.Trace) return stack.vmTrace;
     if (stack is stack_trace.Chain) return stack.toTrace().vmTrace;
@@ -34,23 +36,28 @@ void main() async {
   };
 }
 
+/// Provider for the MyAppViewModel.
 final myAppProvider = Provider((ref) {
   return MyAppViewModel(ref);
 });
 
+/// ViewModel for the main app.
 class MyAppViewModel {
   final Ref ref;
 
   MyAppViewModel(this.ref);
 
+  /// Initializes the app, e.g., initializes services.
   void init() {
     ref.read(textToSpeechService).init();
   }
 
+  /// Retrieves the JWT token from storage.
   Future<String?> getJwt() async {
     return JwtUtils.getJwt();
   }
 
+  /// Retrieves the localized configuration based on the current locale.
   Future<AppLocalizations> getLocalizedConf() async {
     final lang = ui.window.locale.languageCode;
     final country = ui.window.locale.countryCode;
@@ -58,9 +65,11 @@ class MyAppViewModel {
   }
 }
 
+/// The main app widget.
 class MyApp extends HookConsumerWidget {
   const MyApp({Key? key});
 
+  /// Builds the MaterialApp with the provided home widget.
   MaterialApp buildMaterialApp(Widget home) {
     return MaterialApp(
       initialRoute: '/',

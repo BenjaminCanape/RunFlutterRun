@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../viewmodel/timer_view_model.dart';
 import 'timer_text.dart';
 
+/// A widget that displays the timer text with a fixed size.
 class TimerTextSized extends HookConsumerWidget {
   const TimerTextSized({Key? key}) : super(key: key);
 

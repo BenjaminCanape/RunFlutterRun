@@ -50,6 +50,7 @@ class SumUpScreen extends HookConsumerWidget {
     );
   }
 
+  /// Builds the dropdown button for selecting the activity type.
   Widget buildActivityTypeDropdown(BuildContext context,
       ActivityType selectedType, SumUpViewModel provider) {
     List<DropdownMenuItem<ActivityType>> dropdownItems = ActivityType.values
@@ -57,9 +58,7 @@ class SumUpScreen extends HookConsumerWidget {
               value: value,
               child: Row(children: [
                 Icon(ActivityUtils.getActivityTypeIcon(value)),
-                const SizedBox(
-                  width: 10,
-                ),
+                const SizedBox(width: 10),
                 Text(
                   ActivityUtils.translateActivityTypeValue(
                       AppLocalizations.of(context), value),

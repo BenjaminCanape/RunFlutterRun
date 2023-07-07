@@ -15,6 +15,7 @@ import '../../common/timer/widgets/timer_text.dart';
 import '../widgets/back_to_home_button.dart';
 import '../view_model/activity_details_view_model.dart';
 
+/// The screen that displays details of a specific activity.
 class ActivityDetailsScreen extends HookConsumerWidget {
   final Activity activity;
 
@@ -27,9 +28,11 @@ class ActivityDetailsScreen extends HookConsumerWidget {
     final state = ref.watch(activityDetailsViewModelProvider);
     final provider = ref.read(activityDetailsViewModelProvider.notifier);
 
+    // Calculate the points for the location map.
     final List<LatLng> points = provider.savedPositionsLatLng(activity);
     final List<Marker> markers = [];
 
+    // Add markers to the map if activity locations are available.
     if (activity.locations.isNotEmpty) {
       markers.add(
         Marker(

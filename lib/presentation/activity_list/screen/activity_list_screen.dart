@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../view_model/activity_list_view_model.dart';
 import '../widgets/activity_item.dart';
 
+/// The screen that displays a list of activities.
 class ActivityListScreen extends HookConsumerWidget {
   const ActivityListScreen({Key? key}) : super(key: key);
 
