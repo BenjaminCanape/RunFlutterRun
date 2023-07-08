@@ -1,3 +1,5 @@
+<img src="banner.png">
+
 # Run Flutter Run
 
 A clone of the Runtastic mobile app
