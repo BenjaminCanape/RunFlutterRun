@@ -55,6 +55,7 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   email_validator: ^2.1.17
   quickalert: ^1.0.1
+  flutter_spinkit: ^5.2.0
 
 dev_dependencies:
   flutter_test:
