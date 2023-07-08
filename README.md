@@ -1,4 +1,4 @@
-<img src="banner.png" alt="Description de l'image">
+<img src="banner.png">
 
 # Run Flutter Run
 
