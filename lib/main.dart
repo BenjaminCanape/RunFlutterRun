@@ -6,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:run_flutter_run/presentation/common/core/services/text_to_speech_service.dart';
+import 'package:run_flutter_run/presentation/common/core/utils/ui_utils.dart';
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
 import 'core/utils/jwt_utils.dart';
@@ -113,7 +114,7 @@ class MyApp extends HookConsumerWidget {
       future: provider.getJwt(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return UIUtils.loader;
         } else if (snapshot.hasData && snapshot.data != null) {
           return buildMaterialApp(const HomeScreen());
         } else {

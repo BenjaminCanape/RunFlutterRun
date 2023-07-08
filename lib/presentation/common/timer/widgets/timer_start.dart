@@ -18,8 +18,22 @@ class TimerStart extends HookConsumerWidget {
           ? Colors.red.shade700
           : Colors.teal.shade800,
       elevation: 4.0,
-      child: Icon(
-          timerViewModel.hasTimerStarted() ? Icons.stop : Icons.play_arrow),
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        transitionBuilder: (child, animation) {
+          return ScaleTransition(
+            scale: animation,
+            child: FadeTransition(
+              opacity: animation,
+              child: child,
+            ),
+          );
+        },
+        child: Icon(
+          timerViewModel.hasTimerStarted() ? Icons.stop : Icons.play_arrow,
+          key: ValueKey<bool>(timerViewModel.hasTimerStarted()),
+        ),
+      ),
       onPressed: () {
         if (timerViewModel.hasTimerStarted()) {
           timerViewModel.stopTimer();

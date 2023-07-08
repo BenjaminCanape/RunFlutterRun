@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../domain/entities/enum/activity_type.dart';
 import '../../common/core/utils/activity_utils.dart';
+import '../../common/core/utils/ui_utils.dart';
 import '../../common/location/widgets/current_location_map.dart';
 import '../../common/metrics/widgets/metrics.dart';
 import '../../common/timer/widgets/timer_sized.dart';
@@ -21,7 +22,7 @@ class SumUpScreen extends HookConsumerWidget {
 
     return Scaffold(
       body: state.isSaving
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(child: UIUtils.loader)
           : SafeArea(
               child: Column(
                 children: [

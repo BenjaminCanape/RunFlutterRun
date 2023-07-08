@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../common/core/utils/ui_utils.dart';
 import '../view_model/activity_list_view_model.dart';
 import '../widgets/activity_item.dart';
 
@@ -16,7 +17,7 @@ class ActivityListScreen extends HookConsumerWidget {
 
     return Scaffold(
       body: isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(child: UIUtils.loader)
           : SafeArea(
               child: Column(
                 children: [

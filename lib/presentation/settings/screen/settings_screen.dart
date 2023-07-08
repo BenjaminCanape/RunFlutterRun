@@ -5,6 +5,7 @@ import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 import '../../common/core/utils/form_utils.dart';
+import '../../common/core/utils/ui_utils.dart';
 import '../view_model/settings_view_model.dart';
 
 class SettingsScreen extends HookConsumerWidget {
@@ -19,7 +20,7 @@ class SettingsScreen extends HookConsumerWidget {
       body: SafeArea(
         child: Center(
           child: state.isLoading
-              ? const CircularProgressIndicator()
+              ? UIUtils.loader
               : Column(
                   children: [
                     Container(

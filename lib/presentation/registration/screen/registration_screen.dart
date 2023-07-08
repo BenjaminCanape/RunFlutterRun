@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../common/core/utils/form_utils.dart';
 import '../../common/core/validators/login_validators.dart';
+import '../../common/core/utils/ui_utils.dart';
 import '../view_model/registration_view_model.dart';
 
 class RegistrationScreen extends HookConsumerWidget {
@@ -18,7 +19,7 @@ class RegistrationScreen extends HookConsumerWidget {
     return Scaffold(
       backgroundColor: Colors.blueGrey.shade900,
       body: state.isLogging
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(child: UIUtils.loader)
           : SingleChildScrollView(
               child: Column(
                 children: [

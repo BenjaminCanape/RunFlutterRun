@@ -59,8 +59,16 @@ class ActivityListViewModel extends StateNotifier<ActivityListState> {
   /// Navigates to the activity details screen.
   void goToActivity(Activity activityDetails) {
     navigatorKey.currentState?.push(
-      MaterialPageRoute(
-        builder: (context) => ActivityDetailsScreen(activity: activityDetails),
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 500),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(1.0, 0.0),
+            end: Offset.zero,
+          ).animate(animation),
+          child: ActivityDetailsScreen(activity: activityDetails),
+        ),
       ),
     );
   }
