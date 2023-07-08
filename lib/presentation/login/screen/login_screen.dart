@@ -5,7 +5,7 @@ import 'package:run_flutter_run/presentation/registration/screen/registration_sc
 
 import '../../common/core/utils/form_utils.dart';
 import '../../common/core/validators/login_validators.dart';
-import '../../common/core/widgets/loader.dart';
+import '../../common/core/utils/ui_utils.dart';
 import '../view_model/login_view_model.dart';
 
 class LoginScreen extends HookConsumerWidget {
@@ -22,7 +22,7 @@ class LoginScreen extends HookConsumerWidget {
     return Scaffold(
       backgroundColor: Colors.blueGrey.shade900,
       body: state.isLogging
-          ? const Center(child: loader)
+          ? const Center(child: UIUtils.loader)
           : SingleChildScrollView(
               child: Column(
                 children: [
