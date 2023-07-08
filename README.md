@@ -1,6 +1,6 @@
 # Run Flutter Run
 
-A clone of Runtastic mobile app
+A clone of the Runtastic mobile app
 
 ## Functionnalities
 
@@ -22,3 +22,24 @@ flutter pub get
 flutter gen-l10n
 flutter run
 ```
+
+## Some screenshots of the application
+
+### New Activity
+
+<img src="screenshots/new_activity/home.png" alt="Description de l'image" width="300px">
+<img src="screenshots/new_activity/current_activity.png" alt="Description de l'image" width="300px">
+
+### Activity list
+
+<img src="screenshots/activity_list/activity_list.png" alt="Description de l'image" width="300px">
+<img src="screenshots/activity_list/activity_details.png" alt="Description de l'image" width="300px">
+
+### Settings
+
+<img src="screenshots/settings/settings.png" alt="Description de l'image" width="300px">
+
+### Login and registration
+
+<img src="screenshots/login_registration/login.png" alt="Description de l'image" width="300px">
+<img src="screenshots/login_registration/registration.png" alt="Description de l'image" width="300px">
