@@ -21,21 +21,24 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
   /// Logs out the user.
   Future<void> logoutUser() async {
     try {
+      state = state.copyWith(isLoading: true);
       await ref.read(userRepositoryProvider).logout();
+      await clearStorage();
       navigatorKey.currentState?.pushReplacementNamed("/login");
     } catch (error) {
-      // Handle logout error
+      state = state.copyWith(isLoading: false);
     }
   }
 
   /// Deletes the user account.
   Future<void> deleteUserAccount() async {
     try {
+      state = state.copyWith(isLoading: true);
       await ref.read(userRepositoryProvider).delete();
       await clearStorage();
       navigatorKey.currentState?.pushReplacementNamed("/login");
     } catch (error) {
-      // Handle account deletion error
+      state = state.copyWith(isLoading: false);
     }
   }
 

@@ -13,16 +13,24 @@ class SaveButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.read(sumUpViewModelProvider.notifier);
+    const animationDuration = Duration(milliseconds: 300);
 
-    return FloatingActionButton(
-      backgroundColor: Colors.teal.shade800,
-      elevation: 4.0,
-      onPressed: disabled
-          ? null
-          : () {
-              provider.save();
-            },
-      child: const Icon(Icons.save),
+    return AnimatedOpacity(
+      opacity: disabled ? 0.5 : 1.0,
+      duration: animationDuration,
+      child: FloatingActionButton(
+        backgroundColor: Colors.teal.shade800,
+        elevation: 4.0,
+        onPressed: disabled
+            ? null
+            : () {
+                provider.save();
+                Future.delayed(animationDuration, () {
+                  // Callback function to handle post-animation logic
+                });
+              },
+        child: const Icon(Icons.save),
+      ),
     );
   }
 }

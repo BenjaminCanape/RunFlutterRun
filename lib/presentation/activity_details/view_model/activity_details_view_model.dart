@@ -40,6 +40,7 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
 
   /// Removes the specified activity.
   void removeActivity(Activity activity) {
+    state = state.copyWith(isLoading: true);
     ref
         .read(activityRepositoryProvider)
         .removeActivity(id: activity.id)
@@ -65,6 +66,8 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
       ref.read(homeViewModelProvider.notifier).setCurrentIndex(Tabs.list.index);
       navigatorKey.currentState?.pushReplacement(
           MaterialPageRoute(builder: (context) => const HomeScreen()));
+    }).catchError((error) {
+      state = state.copyWith(isLoading: true);
     });
   }
 }

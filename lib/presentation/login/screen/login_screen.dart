@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/presentation/registration/screen/registration_screen.dart';
 
 import '../../common/core/utils/form_utils.dart';
 import '../../common/core/validators/login_validators.dart';
@@ -95,7 +96,22 @@ class LoginScreen extends HookConsumerWidget {
                               ElevatedButton(
                                 style: FormUtils.buttonStyle,
                                 onPressed: () {
-                                  Navigator.pushNamed(context, '/register');
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      transitionDuration:
+                                          const Duration(milliseconds: 500),
+                                      pageBuilder: (context, animation,
+                                              secondaryAnimation) =>
+                                          SlideTransition(
+                                        position: Tween<Offset>(
+                                          begin: const Offset(1.0, 0.0),
+                                          end: Offset.zero,
+                                        ).animate(animation),
+                                        child: RegistrationScreen(),
+                                      ),
+                                    ),
+                                  );
                                 },
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
