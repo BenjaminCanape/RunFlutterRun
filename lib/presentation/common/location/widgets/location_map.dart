@@ -40,13 +40,13 @@ class LocationMap extends HookConsumerWidget {
             TileLayer(
               urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
             ),
-            MarkerLayer(markers: markers),
             PolylineLayer(
               polylines: [
                 Polyline(
                     points: points, strokeWidth: 4, color: Colors.blueGrey),
               ],
             ),
+            MarkerLayer(markers: markers),
           ],
         ),
       ),
