@@ -34,6 +34,29 @@ class CurrentLocationMap extends HookConsumerWidget {
       ),
     ];
 
+    if (points.isNotEmpty) {
+      markers.add(
+        Marker(
+          width: 80.0,
+          height: 80.0,
+          point: LatLng(
+            points.first.latitude,
+            points.first.longitude,
+          ),
+          builder: (ctx) => Column(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.location_on_rounded),
+                color: Colors.green.shade700,
+                iconSize: 35.0,
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return LocationMap(points: points, markers: markers);
   }
 }

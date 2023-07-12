@@ -4,7 +4,6 @@ import '../../../data/model/request/activity_request.dart';
 import '../../../data/repositories/activity_repository_impl.dart';
 import '../../../domain/entities/enum/activity_type.dart';
 import '../../../main.dart';
-import '../../common/core/services/text_to_speech_service.dart';
 import '../../common/location/view_model/location_view_model.dart';
 import '../../common/metrics/view_model/metrics_view_model.dart';
 import '../../common/timer/viewmodel/timer_view_model.dart';
@@ -26,9 +25,7 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
   late Ref ref;
 
   /// Creates a new instance of [SumUpViewModel] with the given [ref].
-  SumUpViewModel(this.ref) : super(SumUpState.initial()) {
-    ref.read(textToSpeechService).sayActivitySumUp();
-  }
+  SumUpViewModel(this.ref) : super(SumUpState.initial()) {}
 
   /// Sets the selected [type] of the activity.
   void setType(ActivityType type) {

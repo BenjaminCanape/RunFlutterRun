@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/presentation/common/metrics/view_model/metrics_view_model.dart';
 import 'package:wakelock/wakelock.dart';
 
 import '../../../../../main.dart';
@@ -52,13 +53,43 @@ class TimerViewModel extends StateNotifier<TimerState> {
   }
 
   /// Stops the timer.
-  void stopTimer() {
+  void stopTimer() async {
+    final appProvider = ref.read(myAppProvider);
+    final l10nConf = await appProvider.getLocalizedConf();
+    final metricsProvider = ref.read(metricsViewModelProvider);
+    final distance = metricsProvider.distance;
+    final globalSpeed = metricsProvider.globalSpeed;
+
+    var textToSay = StringBuffer();
+
+    textToSay.write('${l10nConf.congrats}.');
+
+    textToSay.write(
+        "${l10nConf.distance}: ${distance.toStringAsFixed(2)} ${l10nConf.kilometers}.");
+
+    var duration = StringBuffer();
+    if (state.hours != 0) {
+      duration.write("${state.hours} ${l10nConf.hours}");
+    }
+    if (state.minutes != 0) {
+      duration.write("${state.minutes} ${l10nConf.minutes}");
+    }
+    if (state.seconds != 0) {
+      duration.write("${state.seconds} ${l10nConf.seconds}");
+    }
+
+    textToSay.write('${l10nConf.duration}: $duration.');
+
+    textToSay.write(
+        "${l10nConf.speed}: ${globalSpeed.toStringAsFixed(2)} ${l10nConf.kilometers} ${l10nConf.per} ${l10nConf.hours}");
+
+    await ref.read(textToSpeechService).say(textToSay.toString());
+
     stopwatch.stop();
     stopwatch.reset();
     timer?.cancel();
     ref.read(locationViewModelProvider.notifier).cancelLocationStream();
     state = state.copyWith(isRunning: false);
-    ref.read(textToSpeechService).sayCongrats();
     Wakelock.disable();
     navigatorKey.currentState?.pushNamed('/sumup');
   }

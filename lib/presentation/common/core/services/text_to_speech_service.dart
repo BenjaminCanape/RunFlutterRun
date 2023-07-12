@@ -46,11 +46,6 @@ class TextToSpeechService {
     await flutterTts.speak(translate.resume_activity);
   }
 
-  /// Says "Congratulations" using text-to-speech.
-  Future<void> sayCongrats() async {
-    await flutterTts.speak(translate.congrats);
-  }
-
   /// Says the given text using text-to-speech.
   Future<void> say(String text) async {
     await flutterTts.speak(text);

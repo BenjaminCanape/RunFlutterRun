@@ -45,10 +45,14 @@ class MetricsViewModel extends StateNotifier<MetricsState> {
     final newDistanceInteger = state.distance.toInt();
     if (newDistanceInteger != lastDistanceInteger) {
       final l10nConf = await _container.read(myAppProvider).getLocalizedConf();
-      await textToSpeech.say("$newDistanceInteger ${l10nConf.kilometers}");
-      textToSpeech.say(
-        "${state.globalSpeed.toStringAsFixed(2)} ${l10nConf.kilometers} ${l10nConf.hours}",
-      );
+
+      var textToSay = StringBuffer();
+
+      textToSay.write("$newDistanceInteger ${l10nConf.kilometers}.");
+      textToSay.write(
+          "${state.globalSpeed.toStringAsFixed(2)} ${l10nConf.kilometers} ${l10nConf.per} ${l10nConf.hours}");
+
+      await textToSpeech.say(textToSay.toString());
     }
   }
 

@@ -68,7 +68,7 @@ class MyAppViewModel {
 
 /// The main app widget.
 class MyApp extends HookConsumerWidget {
-  const MyApp({Key? key});
+  const MyApp({super.key});
 
   /// Builds the MaterialApp with the provided home widget.
   MaterialApp buildMaterialApp(Widget home) {

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:run_flutter_run/presentation/common/location/widgets/location_map.dart';
 
 import '../../../domain/entities/enum/activity_type.dart';
 import '../../common/core/utils/activity_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
-import '../../common/location/widgets/current_location_map.dart';
+import '../../common/location/view_model/location_view_model.dart';
 import '../../common/metrics/widgets/metrics.dart';
 import '../../common/timer/widgets/timer_sized.dart';
 import '../view_model/sum_up_view_model.dart';
@@ -19,6 +22,60 @@ class SumUpScreen extends HookConsumerWidget {
     final state = ref.watch(sumUpViewModelProvider);
     final provider = ref.watch(sumUpViewModelProvider.notifier);
     ActivityType selectedType = state.type;
+
+    final locations = ref.read(locationViewModelProvider).savedPositions;
+
+    final List<LatLng> points =
+        ref.read(locationViewModelProvider.notifier).savedPositionsLatLng();
+
+    final List<Marker> markers = [];
+
+    // Add markers to the map if activity locations are available.
+    if (locations.isNotEmpty) {
+      markers.add(
+        Marker(
+          width: 80.0,
+          height: 80.0,
+          point: LatLng(
+            locations.first.latitude,
+            locations.first.longitude,
+          ),
+          builder: (ctx) => Column(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.location_on_rounded),
+                color: Colors.green.shade700,
+                iconSize: 35.0,
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ),
+      );
+
+      if (locations.length > 1) {
+        markers.add(
+          Marker(
+            width: 80.0,
+            height: 80.0,
+            point: LatLng(
+              locations.last.latitude,
+              locations.last.longitude,
+            ),
+            builder: (ctx) => Column(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.location_on_rounded),
+                  color: Colors.red,
+                  iconSize: 35.0,
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    }
 
     return Scaffold(
       body: state.isSaving
@@ -42,7 +99,7 @@ class SumUpScreen extends HookConsumerWidget {
                   const TimerTextSized(),
                   const Metrics(),
                   const SizedBox(height: 10),
-                  const CurrentLocationMap(),
+                  LocationMap(points: points, markers: markers),
                 ],
               ),
             ),

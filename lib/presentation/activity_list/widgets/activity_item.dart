@@ -27,7 +27,8 @@ class ActivityItem extends HookConsumerWidget {
 
     final appLocalizations = AppLocalizations.of(context);
     final formattedDateTime =
-        DateFormat('dd/MM/yyyy HH:mm').format(activity.startDatetime);
+        DateFormat('dd/MM/yyyy ${appLocalizations.hours_pronoun} HH:mm')
+            .format(activity.startDatetime);
 
     final List<Color> colors = ColorUtils.generateColorTupleFromIndex(index);
     final startColor = colors.first;

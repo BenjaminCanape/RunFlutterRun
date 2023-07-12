@@ -4,7 +4,7 @@
 
 A clone of the Runtastic mobile app
 
-## Functionnalities
+## Functionalities
 
 Register your runs with this app.
 You will be able to see the map of your run, 
