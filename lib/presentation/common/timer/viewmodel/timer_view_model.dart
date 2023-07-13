@@ -54,6 +54,9 @@ class TimerViewModel extends StateNotifier<TimerState> {
 
   /// Stops the timer.
   void stopTimer() async {
+    stopwatch.stop();
+    state = state.copyWith(isRunning: false);
+
     final appProvider = ref.read(myAppProvider);
     final l10nConf = await appProvider.getLocalizedConf();
     final metricsProvider = ref.read(metricsViewModelProvider);
@@ -85,11 +88,10 @@ class TimerViewModel extends StateNotifier<TimerState> {
 
     await ref.read(textToSpeechService).say(textToSay.toString());
 
-    stopwatch.stop();
+    ref.read(locationViewModelProvider.notifier).cancelLocationStream();
+
     stopwatch.reset();
     timer?.cancel();
-    ref.read(locationViewModelProvider.notifier).cancelLocationStream();
-    state = state.copyWith(isRunning: false);
     Wakelock.disable();
     navigatorKey.currentState?.pushNamed('/sumup');
   }

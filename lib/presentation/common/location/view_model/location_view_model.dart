@@ -86,9 +86,10 @@ class LocationViewModel extends StateNotifier<LocationState> {
   }
 
   /// Cancels the location stream and cleans up resources.
-  void cancelLocationStream() {
-    _positionStream?.cancel();
+  void cancelLocationStream() async {
+    await _positionStream?.cancel();
     _positionStream = null;
+    state = state.copyWith(currentPosition: null);
   }
 
   /// Checks if the location stream is currently paused.

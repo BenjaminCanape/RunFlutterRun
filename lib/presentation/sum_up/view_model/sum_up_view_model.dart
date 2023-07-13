@@ -25,7 +25,7 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
   late Ref ref;
 
   /// Creates a new instance of [SumUpViewModel] with the given [ref].
-  SumUpViewModel(this.ref) : super(SumUpState.initial()) {}
+  SumUpViewModel(this.ref) : super(SumUpState.initial());
 
   /// Sets the selected [type] of the activity.
   void setType(ActivityType type) {
