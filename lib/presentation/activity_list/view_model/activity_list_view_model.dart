@@ -72,4 +72,9 @@ class ActivityListViewModel extends StateNotifier<ActivityListState> {
       ),
     );
   }
+
+  /// Reload the state with new list of activities
+  void reloadActivities(List<Activity> activities) {
+    state = state.copyWith(activities: activities);
+  }
 }

@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:run_flutter_run/presentation/common/location/widgets/location_map.dart';
+import '../../common/location/widgets/location_map.dart';
 
 import '../../../domain/entities/enum/activity_type.dart';
 import '../../common/core/utils/activity_utils.dart';
@@ -95,7 +95,8 @@ class SumUpScreen extends HookConsumerWidget {
                   ),
                   const Divider(),
                   const SizedBox(height: 10),
-                  buildActivityTypeDropdown(context, selectedType, provider),
+                  ActivityUtils.buildActivityTypeDropdown(
+                      context, selectedType, provider),
                   const TimerTextSized(),
                   const Metrics(),
                   const SizedBox(height: 10),
@@ -105,34 +106,6 @@ class SumUpScreen extends HookConsumerWidget {
             ),
       floatingActionButton: SaveButton(disabled: state.isSaving),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
-  }
-
-  /// Builds the dropdown button for selecting the activity type.
-  Widget buildActivityTypeDropdown(BuildContext context,
-      ActivityType selectedType, SumUpViewModel provider) {
-    List<DropdownMenuItem<ActivityType>> dropdownItems = ActivityType.values
-        .map((ActivityType value) => DropdownMenuItem<ActivityType>(
-              value: value,
-              child: Row(children: [
-                Icon(ActivityUtils.getActivityTypeIcon(value)),
-                const SizedBox(width: 10),
-                Text(
-                  ActivityUtils.translateActivityTypeValue(
-                      AppLocalizations.of(context), value),
-                )
-              ]),
-            ))
-        .toList();
-
-    return DropdownButton<ActivityType>(
-      value: selectedType,
-      items: dropdownItems,
-      onChanged: (ActivityType? newValue) {
-        if (newValue != null) {
-          provider.setType(newValue);
-        }
-      },
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/presentation/common/metrics/view_model/metrics_view_model.dart';
+import '../../metrics/view_model/metrics_view_model.dart';
 import 'package:wakelock/wakelock.dart';
 
 import '../../../../../main.dart';

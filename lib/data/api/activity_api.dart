@@ -6,12 +6,14 @@ import 'helpers/api_helper.dart';
 
 /// API methods for managing activities.
 class ActivityApi {
+  static String url = '${ApiHelper.apiUrl}private/activity/';
+
   /// Retrieves a list of activities.
   ///
   /// Returns a list of [ActivityResponse] objects.
   static Future<List<ActivityResponse>> getActivities() async {
-    Response? response = await ApiHelper.makeRequest(
-        '${ApiHelper.apiUrl}private/activity/all', 'GET');
+    Response? response =
+        await ApiHelper.makeRequest('${ActivityApi.url}all', 'GET');
     final data = List<Map<String, dynamic>>.from(response?.data);
     return data.map((e) => ActivityResponse.fromMap(e)).toList();
   }
@@ -20,8 +22,8 @@ class ActivityApi {
   ///
   /// Returns an [ActivityResponse] object.
   static Future<ActivityResponse> getActivityById(String id) async {
-    Response? response = await ApiHelper.makeRequest(
-        '${ApiHelper.apiUrl}private/activity/$id', 'GET');
+    Response? response =
+        await ApiHelper.makeRequest('${ActivityApi.url}$id', 'GET');
     return ActivityResponse.fromMap(response?.data);
   }
 
@@ -29,8 +31,7 @@ class ActivityApi {
   ///
   /// Returns the response data as a string.
   static Future<String?> removeActivity(String id) async {
-    Response? response = await ApiHelper.makeRequest(
-        '${ApiHelper.apiUrl}private/activity/', 'DELETE',
+    Response? response = await ApiHelper.makeRequest(ActivityApi.url, 'DELETE',
         queryParams: {'id': int.parse(id)});
     return response?.data?.toString();
   }
@@ -39,8 +40,7 @@ class ActivityApi {
   ///
   /// Returns an [ActivityResponse] object or null if the response is null.
   static Future<ActivityResponse?> addActivity(ActivityRequest request) async {
-    Response? response = await ApiHelper.makeRequest(
-        '${ApiHelper.apiUrl}private/activity/', 'POST',
+    Response? response = await ApiHelper.makeRequest(ActivityApi.url, 'POST',
         data: request.toMap());
     return response != null ? ActivityResponse.fromMap(response.data) : null;
   }
@@ -49,8 +49,7 @@ class ActivityApi {
   ///
   /// Returns an [ActivityResponse] object.
   static Future<ActivityResponse> editActivity(ActivityRequest request) async {
-    Response? response = await ApiHelper.makeRequest(
-        '${ApiHelper.apiUrl}private/activity/', 'PUT',
+    Response? response = await ApiHelper.makeRequest(ActivityApi.url, 'PUT',
         data: request.toMap());
     return ActivityResponse.fromMap(response?.data);
   }

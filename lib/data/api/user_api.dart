@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
+import '../../core/utils/storage_utils.dart';
 
-import '../../core/utils/jwt_utils.dart';
-import '../../core/utils/refresh_token_utils.dart';
 import '../model/request/login_request.dart';
 import '../model/response/login_response.dart';
 import 'helpers/api_helper.dart';
@@ -44,14 +43,14 @@ class UserApi {
   ///
   /// Returns the new JWT token as a string.
   static Future<String?> refreshToken() async {
-    String? refreshToken = await RefreshTokenUtils.getRefreshToken();
+    String? refreshToken = await StorageUtils.getRefreshToken();
 
     Response? response = await ApiHelper.makeRequest(
         '${ApiHelper.apiUrl}user/refreshToken', 'POST',
         data: {'token': refreshToken});
 
     String? jwt = response?.data['token'];
-    await JwtUtils.setJwt(response?.data['token']);
+    await StorageUtils.setJwt(response?.data['token']);
 
     return jwt;
   }
