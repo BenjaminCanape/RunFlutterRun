@@ -52,7 +52,7 @@ class StorageUtils {
 
   /// Removes the cached data of an url api from shared preferences.
   ///
-  /// Returns [true] if the JWT was successfully removed, otherwise [false].
+  /// Returns [true] if the data were successfully removed, otherwise [false].
   static Future<bool> removeCachedDataFromUrl(String url) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.remove(url);
