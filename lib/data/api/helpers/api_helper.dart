@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import '../../../core/utils/storage_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/error.dart';
-import '../../../core/utils/jwt_utils.dart';
 import '../../../main.dart';
 import '../user_api.dart';
 
@@ -134,7 +134,7 @@ class RemoteApi {
 
   /// Sets the JWT in the request headers.
   Future<void> setJwt() async {
-    final jwt = await JwtUtils.getJwt();
+    final jwt = await StorageUtils.getJwt();
     if (jwt != null) {
       dio.options.headers['Authorization'] = 'Bearer $jwt';
     }

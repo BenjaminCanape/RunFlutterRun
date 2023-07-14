@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../activity_list/screen/activity_list_screen.dart';
@@ -6,8 +7,6 @@ import '../../common/location/view_model/location_view_model.dart';
 import '../../new_activity/screen/new_activity_screen.dart';
 import '../../settings/screen/settings_screen.dart';
 import '../view_model/home_view_model.dart';
-
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// An enumeration representing the available tabs in the home screen.
 enum Tabs { home, list, settings }
