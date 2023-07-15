@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../metrics/view_model/metrics_view_model.dart';
 import 'package:wakelock/wakelock.dart';
 
 import '../../../../../main.dart';
 import '../../core/services/text_to_speech_service.dart';
 import '../../location/view_model/location_view_model.dart';
+import '../../metrics/view_model/metrics_view_model.dart';
 import 'timer_state.dart';
 
 final timerViewModelProvider =

@@ -1,11 +1,12 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../core/utils/storage_utils.dart';
 
+import '../../core/utils/storage_utils.dart';
+import '../../domain/repositories/user_repository.dart';
 import '../api/user_api.dart';
+import '../model/request/edit_password_request.dart';
+import '../model/request/login_request.dart';
 import '../model/request/send_new_password_request.dart';
 import '../model/response/login_response.dart';
-import '../../domain/repositories/user_repository.dart';
-import '../model/request/login_request.dart';
 
 /// Provider for the UserRepository implementation.
 final userRepositoryProvider =
@@ -44,5 +45,10 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<void> sendNewPasswordByMail(SendNewPasswordRequest request) async {
     await UserApi.sendNewPasswordByMail(request);
+  }
+
+  @override
+  Future<void> editPassword(EditPasswordRequest request) async {
+    await UserApi.editPassword(request);
   }
 }

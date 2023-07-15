@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
-import '../../core/utils/storage_utils.dart';
 
+import '../../core/utils/storage_utils.dart';
+import '../model/request/edit_password_request.dart';
 import '../model/request/login_request.dart';
 import '../model/request/send_new_password_request.dart';
 import '../model/response/login_response.dart';
@@ -66,5 +67,14 @@ class UserApi {
         queryParams: request.toMap());
 
     return response?.data;
+  }
+
+  /// Edit password
+  ///
+  /// Returns a [void] object.
+  static Future<void> editPassword(EditPasswordRequest request) async {
+    await ApiHelper.makeRequest(
+        '${ApiHelper.apiUrl}private/user/editPassword', 'POST',
+        data: request.toMap());
   }
 }
