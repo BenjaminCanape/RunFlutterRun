@@ -27,6 +27,12 @@ class LocationViewModel extends StateNotifier<LocationState> {
   /// The [ref] is a reference to the current provider reference.
   LocationViewModel(this.ref) : super(LocationState.initial());
 
+  @override
+  void dispose() {
+    super.dispose();
+    cancelLocationStream();
+  }
+
   /// Starts getting the user's location updates.
   Future<void> startGettingLocation() async {
     final metricsProvider = ref.read(metricsViewModelProvider.notifier);
@@ -87,9 +93,10 @@ class LocationViewModel extends StateNotifier<LocationState> {
 
   /// Cancels the location stream and cleans up resources.
   void cancelLocationStream() async {
-    await _positionStream?.cancel();
-    _positionStream = null;
-    state = state.copyWith(currentPosition: null);
+    await _positionStream?.cancel().whenComplete(() {
+      _positionStream = null;
+      state = state.copyWith(currentPosition: null);
+    });
   }
 
   /// Checks if the location stream is currently paused.

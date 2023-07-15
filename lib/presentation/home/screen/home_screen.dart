@@ -22,6 +22,10 @@ class HomeScreen extends HookConsumerWidget {
     final locationViewModel = ref.read(locationViewModelProvider.notifier);
     final currentIndex = state.currentIndex;
 
+    if (currentIndex == 0) {
+      locationViewModel.startGettingLocation();
+    }
+
     final tabs = [
       const NewActivityScreen(),
       const ActivityListScreen(),
