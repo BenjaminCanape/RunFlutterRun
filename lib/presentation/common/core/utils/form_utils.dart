@@ -37,7 +37,7 @@ class FormUtils {
   static InputDecoration createInputDecorative(String text,
       {bool? dark, IconData? icon}) {
     dark ??= false;
-    final color = dark ? Colors.teal.shade200 : Colors.red.shade800;
+    final color = dark ? Colors.teal.shade200 : Colors.teal.shade800;
     final errorColor = dark ? Colors.red.shade200 : Colors.red.shade600;
 
     return InputDecoration(

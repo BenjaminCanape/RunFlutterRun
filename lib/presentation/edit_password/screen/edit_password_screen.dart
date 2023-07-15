@@ -17,28 +17,22 @@ class EditPasswordScreen extends HookConsumerWidget {
     final provider = ref.watch(editPasswordViewModelProvider.notifier);
 
     return Scaffold(
-      backgroundColor: Colors.blueGrey.shade900,
       body: state.isEditing
           ? const Center(child: UIUtils.loader)
-          : SingleChildScrollView(
+          : SafeArea(
               child: Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(left: 0, top: 150),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Align(
-                        alignment: AlignmentDirectional.topStart,
-                        child: Text(
-                          AppLocalizations.of(context).edit_password,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 33,
-                          ),
-                        ),
-                      ),
+                    padding: const EdgeInsets.only(left: 0, top: 12),
+                    child: Text(
+                      AppLocalizations.of(context).edit_password,
+                      style: const TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
+                  const Divider(),
                   const SizedBox(height: 40),
                   Padding(
                     padding: const EdgeInsets.all(20),
@@ -48,12 +42,13 @@ class EditPasswordScreen extends HookConsumerWidget {
                         children: [
                           // Current Password TextFormField
                           TextFormField(
-                            style: FormUtils.darkTextFormFieldStyle,
+                            style: FormUtils.textFormFieldStyle,
                             decoration: FormUtils.createInputDecorative(
                               AppLocalizations.of(context).current_password,
-                              dark: true,
+                              dark: false,
                               icon: Icons.password,
                             ),
+                            obscureText: true,
                             validator: (value) =>
                                 LoginValidators.password(context, value),
                             onSaved: (value) {
@@ -62,10 +57,10 @@ class EditPasswordScreen extends HookConsumerWidget {
                           ),
                           // Password TextFormField
                           TextFormField(
-                            style: FormUtils.darkTextFormFieldStyle,
+                            style: FormUtils.textFormFieldStyle,
                             decoration: FormUtils.createInputDecorative(
                               AppLocalizations.of(context).new_password,
-                              dark: true,
+                              dark: false,
                               icon: Icons.password,
                             ),
                             obscureText: true,
@@ -77,10 +72,10 @@ class EditPasswordScreen extends HookConsumerWidget {
                           ),
                           // Confirm Password TextFormField
                           TextFormField(
-                            style: FormUtils.darkTextFormFieldStyle,
+                            style: FormUtils.textFormFieldStyle,
                             decoration: FormUtils.createInputDecorative(
                               '${AppLocalizations.of(context).verify} ${AppLocalizations.of(context).password}',
-                              dark: true,
+                              dark: false,
                               icon: Icons.password,
                             ),
                             obscureText: true,
@@ -94,38 +89,6 @@ class EditPasswordScreen extends HookConsumerWidget {
                               provider.setCheckPassword(value);
                             },
                           ),
-                          const SizedBox(height: 50),
-                          // Validate Button
-                          ElevatedButton(
-                            style: FormUtils.buttonStyle,
-                            onPressed: () {
-                              provider.submitForm(context, formKey);
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(Icons.check),
-                                const SizedBox(width: 8),
-                                Text(AppLocalizations.of(context).validate),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          // Back Button
-                          ElevatedButton(
-                            style: FormUtils.buttonStyle,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(Icons.arrow_back),
-                                const SizedBox(width: 8),
-                                Text(AppLocalizations.of(context).back),
-                              ],
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -133,6 +96,34 @@ class EditPasswordScreen extends HookConsumerWidget {
                 ],
               ),
             ),
+      floatingActionButton: Stack(
+        children: [
+          Positioned(
+            bottom: 16,
+            right: 80,
+            child: FloatingActionButton(
+              backgroundColor: Colors.teal.shade800,
+              elevation: 4.0,
+              child: const Icon(Icons.save),
+              onPressed: () {
+                provider.submitForm(context, formKey);
+              },
+            ),
+          ),
+          Positioned(
+            bottom: 16,
+            left: 80,
+            child: FloatingActionButton(
+              backgroundColor: Colors.teal.shade800,
+              elevation: 4.0,
+              child: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
