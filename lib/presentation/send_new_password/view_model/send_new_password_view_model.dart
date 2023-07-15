@@ -12,7 +12,7 @@ final sendNewPasswordViewModelProvider = StateNotifierProvider.autoDispose<
   (ref) => SendNewPasswordViewModel(ref),
 );
 
-/// The view model class for the login screen.
+/// The view model class for the send new password screen.
 class SendNewPasswordViewModel extends StateNotifier<SendNewPasswordState> {
   final Ref ref;
 

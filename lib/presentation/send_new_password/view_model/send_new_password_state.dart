@@ -1,6 +1,6 @@
 /// Represents the state of the send new password screen.
 class SendNewPasswordState {
-  /// The username entered by the user.
+  /// The email entered by the user.
   final String email;
 
   /// Indicates whether the mail is sending
