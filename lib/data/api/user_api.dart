@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import '../../core/utils/storage_utils.dart';
 
 import '../model/request/login_request.dart';
+import '../model/request/send_new_password_request.dart';
 import '../model/response/login_response.dart';
 import 'helpers/api_helper.dart';
 
@@ -53,5 +54,17 @@ class UserApi {
     await StorageUtils.setJwt(response?.data['token']);
 
     return jwt;
+  }
+
+  /// Send new password by mail
+  ///
+  /// Returns a [String].
+  static Future<String> sendNewPasswordByMail(
+      SendNewPasswordRequest request) async {
+    Response? response = await ApiHelper.makeRequest(
+        '${ApiHelper.apiUrl}user/sendNewPasswordByMail', 'POST',
+        queryParams: request.toMap());
+
+    return response?.data;
   }
 }

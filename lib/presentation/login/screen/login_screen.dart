@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/presentation/send_new_password/screen/send_new_password_screen.dart';
 import '../../registration/screen/registration_screen.dart';
 
 import '../../common/core/utils/form_utils.dart';
@@ -123,6 +124,34 @@ class LoginScreen extends HookConsumerWidget {
                                       AppLocalizations.of(context).registration,
                                     ),
                                   ],
+                                ),
+                              ),
+                              const SizedBox(height: 30),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      transitionDuration:
+                                          const Duration(milliseconds: 500),
+                                      pageBuilder: (context, animation,
+                                              secondaryAnimation) =>
+                                          SlideTransition(
+                                        position: Tween<Offset>(
+                                          begin: const Offset(1.0, 0.0),
+                                          end: Offset.zero,
+                                        ).animate(animation),
+                                        child: SendNewPasswordScreen(),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  AppLocalizations.of(context)
+                                      .send_new_password,
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      decoration: TextDecoration.underline),
                                 ),
                               ),
                             ],
