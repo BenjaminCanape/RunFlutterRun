@@ -1,3 +1,4 @@
+import '../../data/model/request/edit_password_request.dart';
 import '../../data/model/request/login_request.dart';
 import '../../data/model/request/send_new_password_request.dart';
 import '../../data/model/response/login_response.dart';
@@ -18,4 +19,7 @@ abstract class UserRepository {
 
   /// Send new password by mail
   Future<void> sendNewPasswordByMail(SendNewPasswordRequest request);
+
+  /// Edit the password
+  Future<void> editPassword(EditPasswordRequest request);
 }
