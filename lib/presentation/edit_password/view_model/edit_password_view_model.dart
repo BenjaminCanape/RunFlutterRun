@@ -35,6 +35,7 @@ class EditPasswordViewModel extends StateNotifier<EditPasswordState> {
   /// Submits the edit password form.
   Future<void> submitForm(
       BuildContext context, GlobalKey<FormState> formKey) async {
+    state = state.copyWith(errorOnRequest: false);
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
@@ -49,6 +50,8 @@ class EditPasswordViewModel extends StateNotifier<EditPasswordState> {
       try {
         await userRepository.editPassword(editPasswordRequest);
         navigatorKey.currentState?.pop();
+      } catch (e) {
+        state = state.copyWith(errorOnRequest: true);
       } finally {
         state = state.copyWith(isEditing: false);
       }

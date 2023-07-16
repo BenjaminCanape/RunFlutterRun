@@ -16,6 +16,7 @@
   "distance": "Distance",
   "duration": "Durée",
   "edit_password": "Editer le mot de passe",
+  "edit_password_error": "Erreur: le mot de passe n'a pas été modifié",
   "email": "Email",
   "end": "Fin",
   "form_description_email_empty": "Veuillez saisir votre email",

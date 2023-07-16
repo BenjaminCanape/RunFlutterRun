@@ -74,7 +74,7 @@ class UserApi {
   /// Returns a [void] object.
   static Future<void> editPassword(EditPasswordRequest request) async {
     await ApiHelper.makeRequest(
-        '${ApiHelper.apiUrl}private/user/editPassword', 'POST',
+        '${ApiHelper.apiUrl}private/user/editPassword', 'PUT',
         data: request.toMap());
   }
 }

@@ -40,6 +40,17 @@ class EditPasswordScreen extends HookConsumerWidget {
                       key: formKey,
                       child: Column(
                         children: [
+                          state.errorOnRequest
+                              ? Column(children: [
+                                  Text(
+                                    AppLocalizations.of(context)
+                                        .edit_password_error,
+                                    style: const TextStyle(
+                                        color: Colors.red, fontSize: 18),
+                                  ),
+                                  const SizedBox(height: 20)
+                                ])
+                              : Container(),
                           // Current Password TextFormField
                           TextFormField(
                             style: FormUtils.textFormFieldStyle,
