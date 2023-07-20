@@ -10,7 +10,8 @@ import '../user_api.dart';
 /// Helper class for making API requests.
 class ApiHelper {
   //static const String apiUrl = 'https://runbackendrun.herokuapp.com/api/';
-  static const String apiUrl = 'https://runbackendrun.onrender.com/api/';
+  //static const String apiUrl = 'https://runbackendrun.onrender.com/api/';
+  static const String apiUrl = 'http://tiqorhzmyb.eu11.qoddiapp.com/api/';
   //static const String apiUrl =
   //   'https://runbackendrun-production.up.railway.app/api/';
 
