@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,6 +13,8 @@ import '../../../domain/entities/activity.dart';
 import '../../../domain/entities/enum/activity_type.dart';
 import '../../../main.dart';
 import '../../activity_list/view_model/activity_list_view_model.dart';
+import '../../common/core/utils/image_utils.dart';
+import '../../common/core/utils/share_utils.dart';
 import '../../home/screen/home_screen.dart';
 import '../../home/view_model/home_view_model.dart';
 import 'activitie_details_state.dart';
@@ -122,5 +126,16 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
     }).whenComplete(() {
       state = state.copyWith(isLoading: false);
     });
+  }
+
+  /// Share the image of the map
+  Future<void> shareMap(BuildContext context, Widget widget) async {
+    Uint8List? image = await ImageUtils.captureWidgetToImage(state.boundaryKey);
+
+    if (image != null) {
+      await ShareUtils.shareImage(context, image);
+    } else {
+      ShareUtils.showShareFailureSnackBar(context);
+    }
   }
 }

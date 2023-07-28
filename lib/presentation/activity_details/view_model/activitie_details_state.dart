@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import '../../../domain/entities/activity.dart';
 import '../../../domain/entities/enum/activity_type.dart';
 
@@ -7,16 +9,19 @@ class ActivityDetailsState {
   final ActivityType? type;
   final bool isLoading;
   final bool isEditing;
+  final GlobalKey boundaryKey;
 
   const ActivityDetailsState(
       {this.activity,
       this.type,
       required this.isLoading,
-      required this.isEditing});
+      required this.isEditing,
+      required this.boundaryKey});
 
   /// Creates an initial state with no activity.
   factory ActivityDetailsState.initial() {
-    return const ActivityDetailsState(isLoading: false, isEditing: false);
+    return ActivityDetailsState(
+        isLoading: false, isEditing: false, boundaryKey: GlobalKey());
   }
 
   /// Creates a new state with the provided activity, or retains the existing activity if not provided.
@@ -29,6 +34,7 @@ class ActivityDetailsState {
         activity: activity ?? this.activity,
         isLoading: isLoading ?? this.isLoading,
         type: type ?? this.type,
-        isEditing: isEditing ?? this.isEditing);
+        isEditing: isEditing ?? this.isEditing,
+        boundaryKey: boundaryKey);
   }
 }
