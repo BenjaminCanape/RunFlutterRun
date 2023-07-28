@@ -1,6 +1,3 @@
-// ignore: duplicate_ignore
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -85,8 +82,7 @@ class ActivityDetailsScreen extends HookConsumerWidget {
       }
     }
 
-    Widget buildScreenshot(
-        Activity displayedActivity, List<LatLng> points, List<Marker> markers) {
+    Widget buildScreenshot(List<LatLng> points, List<Marker> markers) {
       return RepaintBoundary(
         key: state.boundaryKey,
         child: LocationMap(points: points, markers: markers),
@@ -95,9 +91,7 @@ class ActivityDetailsScreen extends HookConsumerWidget {
 
     Widget floatingActionButtonScreenshot() {
       return SizedBox(
-          height: 500,
-          width: 500,
-          child: buildScreenshot(displayedActivity, points, markers));
+          height: 500, width: 500, child: buildScreenshot(points, markers));
     }
 
     return Scaffold(
@@ -183,7 +177,7 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                     ],
                   ),
                   Expanded(
-                    child: buildScreenshot(displayedActivity, points, markers),
+                    child: buildScreenshot(points, markers),
                   )
                 ],
               ),
