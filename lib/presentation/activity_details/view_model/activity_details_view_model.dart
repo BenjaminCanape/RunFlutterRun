@@ -1,13 +1,19 @@
 import 'dart:async';
 import 'dart:typed_data';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:run_flutter_run/presentation/common/core/utils/activity_utils.dart';
+import 'package:run_flutter_run/presentation/common/timer/viewmodel/timer_view_model.dart';
+
 import '../../../core/utils/storage_utils.dart';
-import '../../../data/model/request/location_request.dart';
 import '../../../data/api/activity_api.dart';
 import '../../../data/model/request/activity_request.dart';
+import '../../../data/model/request/location_request.dart';
 import '../../../data/repositories/activity_repository_impl.dart';
 import '../../../domain/entities/activity.dart';
 import '../../../domain/entities/enum/activity_type.dart';
@@ -129,11 +135,28 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
   }
 
   /// Share the image of the map
-  Future<void> shareMap(BuildContext context, Widget widget) async {
+  Future<void> shareMap(
+      BuildContext context, Widget widget, Activity activity) async {
     Uint8List? image = await ImageUtils.captureWidgetToImage(state.boundaryKey);
 
     if (image != null) {
-      await ShareUtils.shareImage(context, image);
+      String duration =
+          "${AppLocalizations.of(context).duration}: ${ref.read(timerViewModelProvider.notifier).getFormattedTime(activity.time.toInt())}";
+      String distance =
+          "${AppLocalizations.of(context).distance}: ${activity.distance.toStringAsFixed(2)} km";
+      String speed =
+          "${AppLocalizations.of(context).speed}: ${activity.speed.toStringAsFixed(2)} km/h";
+
+      Uint8List? imageEdited = await ImageUtils.addTextToImage(
+          image,
+          ActivityUtils.translateActivityTypeValue(
+              AppLocalizations.of(context), activity.type),
+          "$duration - $distance - $speed");
+      if (imageEdited != null) {
+        await ShareUtils.shareImage(context, imageEdited);
+      } else {
+        ShareUtils.showShareFailureSnackBar(context);
+      }
     } else {
       ShareUtils.showShareFailureSnackBar(context);
     }

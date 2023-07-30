@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
-import 'package:run_flutter_run/presentation/edit_password/screen/edit_password_screen.dart';
+import '../../edit_password/screen/edit_password_screen.dart';
 
 import '../../common/core/utils/form_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
