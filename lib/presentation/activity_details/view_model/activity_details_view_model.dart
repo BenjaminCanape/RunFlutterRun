@@ -135,8 +135,7 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
   }
 
   /// Share the image of the map
-  Future<void> shareMap(
-      BuildContext context, Widget widget, Activity activity) async {
+  Future<void> shareMap(Widget widget, Activity activity) async {
     try {
       Uint8List? image =
           await ImageUtils.captureWidgetToImage(state.boundaryKey);
@@ -146,26 +145,26 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
       if (resizedImage == null) throw Exception();
 
       String duration =
-          "${AppLocalizations.of(context).duration}: ${ref.read(timerViewModelProvider.notifier).getFormattedTime(activity.time.toInt())}";
+          "${AppLocalizations.of(navigatorKey.currentContext!).duration}: ${ref.read(timerViewModelProvider.notifier).getFormattedTime(activity.time.toInt())}";
       String distance =
-          "${AppLocalizations.of(context).distance}: ${activity.distance.toStringAsFixed(2)} km";
+          "${AppLocalizations.of(navigatorKey.currentContext!).distance}: ${activity.distance.toStringAsFixed(2)} km";
       String speed =
-          "${AppLocalizations.of(context).speed}: ${activity.speed.toStringAsFixed(2)} km/h";
+          "${AppLocalizations.of(navigatorKey.currentContext!).speed}: ${activity.speed.toStringAsFixed(2)} km/h";
 
       Uint8List? imageEdited = await ImageUtils.addTextToImage(
         resizedImage,
         ActivityUtils.translateActivityTypeValue(
-            AppLocalizations.of(context), activity.type),
+            AppLocalizations.of(navigatorKey.currentContext!), activity.type),
         "$duration - $distance - $speed",
       );
 
       if (imageEdited != null) {
-        await ShareUtils.shareImage(context, imageEdited);
+        await ShareUtils.shareImage(navigatorKey.currentContext!, imageEdited);
       } else {
         throw Exception();
       }
     } catch (e) {
-      ShareUtils.showShareFailureSnackBar(context);
+      ShareUtils.showShareFailureSnackBar(navigatorKey.currentContext!);
     }
   }
 }

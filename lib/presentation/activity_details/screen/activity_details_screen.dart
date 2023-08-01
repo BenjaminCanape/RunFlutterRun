@@ -91,7 +91,16 @@ class ActivityDetailsScreen extends HookConsumerWidget {
 
     Widget floatingActionButtonScreenshot() {
       return SizedBox(
-          height: 1500, width: 1500, child: buildScreenshot(points, markers));
+        height: 1500,
+        width: 1500,
+        child: RepaintBoundary(
+          key: state.boundaryKey,
+          child: Transform(
+            transform: Matrix4.identity(),
+            child: LocationMap(points: points, markers: markers),
+          ),
+        ),
+      );
     }
 
     return Scaffold(
@@ -200,7 +209,7 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                   right: 80,
                   child: FloatingActionButton(
                     onPressed: () => provider.shareMap(
-                        context, floatingActionButtonScreenshot(), activity),
+                        floatingActionButtonScreenshot(), activity),
                     backgroundColor: Colors.teal.shade800,
                     elevation: 4.0,
                     child: const Icon(Icons.share),
