@@ -141,9 +141,6 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
           await ImageUtils.captureWidgetToImage(state.boundaryKey);
       if (image == null) throw Exception();
 
-      Uint8List? resizedImage = await ImageUtils.resizeImage(image, 1500, 1500);
-      if (resizedImage == null) throw Exception();
-
       String duration =
           "${AppLocalizations.of(navigatorKey.currentContext!).duration}: ${ref.read(timerViewModelProvider.notifier).getFormattedTime(activity.time.toInt())}";
       String distance =
@@ -152,7 +149,7 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
           "${AppLocalizations.of(navigatorKey.currentContext!).speed}: ${activity.speed.toStringAsFixed(2)} km/h";
 
       Uint8List? imageEdited = await ImageUtils.addTextToImage(
-        resizedImage,
+        image,
         ActivityUtils.translateActivityTypeValue(
             AppLocalizations.of(navigatorKey.currentContext!), activity.type),
         "$duration - $distance - $speed",

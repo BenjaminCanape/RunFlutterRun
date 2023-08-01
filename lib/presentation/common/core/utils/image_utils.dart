@@ -8,14 +8,55 @@ import 'package:image/image.dart' as img;
 ///
 class ImageUtils {
   /// Create an image from a widget
-  static Future<Uint8List?> captureWidgetToImage(GlobalKey boundaryKey) async {
+  static Future<Uint8List?> captureWidgetToImage(GlobalKey boundaryKey,
+      {int size = 1500}) async {
     try {
       RenderRepaintBoundary boundary = boundaryKey.currentContext!
           .findRenderObject() as RenderRepaintBoundary;
       ui.Image image = await boundary.toImage();
       ByteData? byteData =
           await image.toByteData(format: ui.ImageByteFormat.png);
-      return byteData?.buffer.asUint8List();
+
+      if (byteData == null) return null;
+
+      Uint8List originalImageBytes = byteData.buffer.asUint8List();
+      Uint8List? croppedImageBytes = await cropImage(originalImageBytes, size);
+
+      return croppedImageBytes;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /// crop the image passed in parameter with the size also passed
+  static Future<Uint8List?> cropImage(Uint8List imageBytes, int size) async {
+    try {
+      img.Image? originalImage = img.decodeImage(imageBytes);
+      if (originalImage == null) return null;
+
+      int cropSize;
+      int offsetX = 0;
+      int offsetY = 0;
+
+      if (originalImage.width > originalImage.height) {
+        // Crop vertically to get a square
+        cropSize = originalImage.height;
+        offsetX = ((originalImage.width - cropSize) / 2).toInt();
+      } else {
+        // Crop horizontally to get a square
+        cropSize = originalImage.width;
+        offsetY = ((originalImage.height - cropSize) / 2).toInt();
+      }
+
+      // Crop the image
+      img.Image croppedImage = img.copyCrop(originalImage,
+          x: offsetX, y: offsetY, width: cropSize, height: cropSize);
+      img.Image resizedCroppedImage =
+          img.copyResize(croppedImage, width: size, height: size);
+      Uint8List croppedImageBytes =
+          Uint8List.fromList(img.encodePng(resizedCroppedImage));
+
+      return croppedImageBytes;
     } catch (e) {
       return null;
     }
@@ -44,7 +85,7 @@ class ImageUtils {
       // Create a paragraph with the given title
       final titleStyle = ui.TextStyle(
         color: Colors.black,
-        fontSize: 26,
+        fontSize: 100,
         fontWeight: FontWeight.bold,
         shadows: [
           const Shadow(
@@ -61,12 +102,12 @@ class ImageUtils {
       titleParagraph
           .layout(ui.ParagraphConstraints(width: image!.width.toDouble()));
 
-      canvas.drawParagraph(titleParagraph, const Offset(10, 10));
+      canvas.drawParagraph(titleParagraph, const Offset(40, 40));
 
       // Create a paragraph with the given text
       final textStyle = ui.TextStyle(
         color: Colors.black,
-        fontSize: 14,
+        fontSize: 50,
         fontWeight: FontWeight.bold,
         shadows: [
           const Shadow(
@@ -83,7 +124,7 @@ class ImageUtils {
       textParagraph
           .layout(ui.ParagraphConstraints(width: image.width.toDouble()));
 
-      canvas.drawParagraph(textParagraph, const Offset(10, 40));
+      canvas.drawParagraph(textParagraph, const Offset(40, 160));
 
       // End recording and convert the canvas to an image
       final imgData = await recorder.endRecording().toImage(
@@ -95,22 +136,6 @@ class ImageUtils {
       // Convert the image back to Uint8List
       Uint8List imageWithTextBytes = byteData!.buffer.asUint8List();
       return imageWithTextBytes;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  /// Resize an image
-  static Future<Uint8List?> resizeImage(
-      Uint8List imageBytes, int width, int height) async {
-    try {
-      img.Image? image = img.decodeImage(imageBytes);
-      img.Image resizedImage =
-          img.copyResize(image!, width: width, height: height);
-
-      Uint8List resizedImageBytes =
-          Uint8List.fromList(img.encodePng(resizedImage));
-      return resizedImageBytes;
     } catch (e) {
       return null;
     }
