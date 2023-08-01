@@ -89,20 +89,6 @@ class ActivityDetailsScreen extends HookConsumerWidget {
       );
     }
 
-    Widget floatingActionButtonScreenshot() {
-      return SizedBox(
-        height: 1500,
-        width: 1500,
-        child: RepaintBoundary(
-          key: state.boundaryKey,
-          child: Transform(
-            transform: Matrix4.identity(),
-            child: LocationMap(points: points, markers: markers),
-          ),
-        ),
-      );
-    }
-
     return Scaffold(
       body: state.isLoading
           ? const Center(child: UIUtils.loader)
@@ -208,8 +194,7 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                   bottom: 16,
                   right: 80,
                   child: FloatingActionButton(
-                    onPressed: () => provider.shareMap(
-                        floatingActionButtonScreenshot(), activity),
+                    onPressed: () => provider.shareMap(activity),
                     backgroundColor: Colors.teal.shade800,
                     elevation: 4.0,
                     child: const Icon(Icons.share),

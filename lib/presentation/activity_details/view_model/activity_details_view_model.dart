@@ -135,7 +135,7 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
   }
 
   /// Share the image of the map
-  Future<void> shareMap(Widget widget, Activity activity) async {
+  Future<void> shareMap(Activity activity) async {
     try {
       Uint8List? image =
           await ImageUtils.captureWidgetToImage(state.boundaryKey);
