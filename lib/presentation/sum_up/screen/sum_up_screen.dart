@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import '../../common/core/widgets/share_map_button.dart';
 import '../../common/location/widgets/location_map.dart';
 
 import '../../../domain/entities/enum/activity_type.dart';
@@ -100,11 +101,31 @@ class SumUpScreen extends HookConsumerWidget {
                   const TimerTextSized(),
                   const Metrics(),
                   const SizedBox(height: 10),
-                  LocationMap(points: points, markers: markers),
+                  Expanded(
+                    child: RepaintBoundary(
+                      key: state.boundaryKey,
+                      child: LocationMap(points: points, markers: markers),
+                    ),
+                  ),
                 ],
               ),
             ),
-      floatingActionButton: SaveButton(disabled: state.isSaving),
+      floatingActionButton: Stack(
+        children: [
+          Positioned(
+            bottom: 16,
+            right: 80,
+            child: SaveButton(disabled: state.isSaving),
+          ),
+          Positioned(
+            bottom: 16,
+            left: 80,
+            child: ShareMapButton(
+                activity: provider.getActivity(),
+                boundaryKey: state.boundaryKey),
+          ),
+        ],
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

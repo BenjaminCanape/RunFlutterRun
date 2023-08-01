@@ -11,11 +11,11 @@ import '../../../domain/entities/enum/activity_type.dart';
 import '../../common/core/utils/activity_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
 import '../../common/core/widgets/date.dart';
+import '../../common/core/widgets/share_map_button.dart';
 import '../../common/location/widgets/location_map.dart';
 import '../../common/metrics/widgets/metrics.dart';
 import '../../common/timer/widgets/timer_text.dart';
 import '../view_model/activity_details_view_model.dart';
-import '../widgets/back_to_home_button.dart';
 
 /// The screen that displays details of a specific activity.
 class ActivityDetailsScreen extends HookConsumerWidget {
@@ -165,7 +165,12 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                       ),
                     ],
                   ),
-                  LocationMap(points: points, markers: markers),
+                  Expanded(
+                    child: RepaintBoundary(
+                      key: state.boundaryKey,
+                      child: LocationMap(points: points, markers: markers),
+                    ),
+                  )
                 ],
               ),
             ),
@@ -180,7 +185,22 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                     },
               child: const Icon(Icons.save),
             )
-          : const BackToHomeButton(),
+          : Stack(
+              children: [
+                Positioned(
+                  bottom: 16,
+                  right: 80,
+                  child: ShareMapButton(
+                      activity: displayedActivity,
+                      boundaryKey: state.boundaryKey),
+                ),
+                const Positioned(
+                  bottom: 16,
+                  left: 80,
+                  child: BackButton(),
+                ),
+              ],
+            ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

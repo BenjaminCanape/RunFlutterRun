@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+
 import '../../../core/utils/storage_utils.dart';
-import '../../../data/model/request/location_request.dart';
 import '../../../data/api/activity_api.dart';
 import '../../../data/model/request/activity_request.dart';
+import '../../../data/model/request/location_request.dart';
 import '../../../data/repositories/activity_repository_impl.dart';
 import '../../../domain/entities/activity.dart';
 import '../../../domain/entities/enum/activity_type.dart';
