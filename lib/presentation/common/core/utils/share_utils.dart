@@ -16,7 +16,7 @@ class ShareUtils {
   static void showShareFailureSnackBar(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context).image_saving_failed),
+        content: Text(AppLocalizations.of(context).share_failed),
         duration: const Duration(seconds: 3),
         action: SnackBarAction(
           label: AppLocalizations.of(context).close,

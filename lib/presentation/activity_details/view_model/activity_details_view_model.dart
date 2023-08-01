@@ -137,9 +137,14 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
   /// Share the image of the map
   Future<void> shareMap(
       BuildContext context, Widget widget, Activity activity) async {
-    Uint8List? image = await ImageUtils.captureWidgetToImage(state.boundaryKey);
+    try {
+      Uint8List? image =
+          await ImageUtils.captureWidgetToImage(state.boundaryKey);
+      if (image == null) throw Exception();
 
-    if (image != null) {
+      Uint8List? resizedImage = await ImageUtils.resizeImage(image, 1500, 1500);
+      if (resizedImage == null) throw Exception();
+
       String duration =
           "${AppLocalizations.of(context).duration}: ${ref.read(timerViewModelProvider.notifier).getFormattedTime(activity.time.toInt())}";
       String distance =
@@ -148,16 +153,18 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
           "${AppLocalizations.of(context).speed}: ${activity.speed.toStringAsFixed(2)} km/h";
 
       Uint8List? imageEdited = await ImageUtils.addTextToImage(
-          image,
-          ActivityUtils.translateActivityTypeValue(
-              AppLocalizations.of(context), activity.type),
-          "$duration - $distance - $speed");
+        resizedImage,
+        ActivityUtils.translateActivityTypeValue(
+            AppLocalizations.of(context), activity.type),
+        "$duration - $distance - $speed",
+      );
+
       if (imageEdited != null) {
         await ShareUtils.shareImage(context, imageEdited);
       } else {
-        ShareUtils.showShareFailureSnackBar(context);
+        throw Exception();
       }
-    } else {
+    } catch (e) {
       ShareUtils.showShareFailureSnackBar(context);
     }
   }
