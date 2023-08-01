@@ -1,22 +1,21 @@
+import 'package:flutter/cupertino.dart';
+
 import '../../../domain/entities/enum/activity_type.dart';
 
 /// Represents the state of the SumUpScreen.
 class SumUpState {
   final bool isSaving;
   final ActivityType type;
+  final GlobalKey boundaryKey;
 
   /// Creates a new instance of SumUpState.
-  const SumUpState({
-    required this.type,
-    required this.isSaving,
-  });
+  const SumUpState(
+      {required this.type, required this.isSaving, required this.boundaryKey});
 
   /// Creates an initial state with default values.
   factory SumUpState.initial() {
-    return const SumUpState(
-      isSaving: false,
-      type: ActivityType.running,
-    );
+    return SumUpState(
+        isSaving: false, type: ActivityType.running, boundaryKey: GlobalKey());
   }
 
   /// Creates a copy of the state with optional updates.
@@ -25,8 +24,8 @@ class SumUpState {
     ActivityType? type,
   }) {
     return SumUpState(
-      isSaving: isSaving ?? this.isSaving,
-      type: type ?? this.type,
-    );
+        isSaving: isSaving ?? this.isSaving,
+        type: type ?? this.type,
+        boundaryKey: boundaryKey);
   }
 }

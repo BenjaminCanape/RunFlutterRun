@@ -11,6 +11,7 @@ import '../../../domain/entities/enum/activity_type.dart';
 import '../../common/core/utils/activity_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
 import '../../common/core/widgets/date.dart';
+import '../../common/core/widgets/share_map_button.dart';
 import '../../common/location/widgets/location_map.dart';
 import '../../common/metrics/widgets/metrics.dart';
 import '../../common/timer/widgets/timer_text.dart';
@@ -80,13 +81,6 @@ class ActivityDetailsScreen extends HookConsumerWidget {
           ),
         );
       }
-    }
-
-    Widget buildScreenshot(List<LatLng> points, List<Marker> markers) {
-      return RepaintBoundary(
-        key: state.boundaryKey,
-        child: LocationMap(points: points, markers: markers),
-      );
     }
 
     return Scaffold(
@@ -172,7 +166,10 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                     ],
                   ),
                   Expanded(
-                    child: buildScreenshot(points, markers),
+                    child: RepaintBoundary(
+                      key: state.boundaryKey,
+                      child: LocationMap(points: points, markers: markers),
+                    ),
                   )
                 ],
               ),
@@ -193,12 +190,9 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                 Positioned(
                   bottom: 16,
                   right: 80,
-                  child: FloatingActionButton(
-                    onPressed: () => provider.shareMap(activity),
-                    backgroundColor: Colors.teal.shade800,
-                    elevation: 4.0,
-                    child: const Icon(Icons.share),
-                  ),
+                  child: ShareMapButton(
+                      activity: displayedActivity,
+                      boundaryKey: state.boundaryKey),
                 ),
                 const Positioned(
                   bottom: 16,

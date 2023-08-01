@@ -1,4 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/domain/entities/activity.dart';
+import 'package:run_flutter_run/domain/entities/location.dart';
 
 import '../../../data/model/request/activity_request.dart';
 import '../../../data/repositories/activity_repository_impl.dart';
@@ -63,5 +65,36 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
       state = state.copyWith(isSaving: false);
       navigatorKey.currentState?.pop();
     });
+  }
+
+  getActivity() {
+    final startDatetime = ref.read(timerViewModelProvider).startDatetime;
+    final endDatetime = startDatetime.add(Duration(
+      hours: ref.read(timerViewModelProvider).hours,
+      minutes: ref.read(timerViewModelProvider).minutes,
+      seconds: ref.read(timerViewModelProvider).seconds,
+    ));
+    final locations = ref.read(locationViewModelProvider).savedPositions;
+    final distance = ref.read(metricsViewModelProvider).distance;
+    final speed = ref.read(metricsViewModelProvider).globalSpeed;
+
+    Duration difference = endDatetime.difference(startDatetime);
+    double differenceInMilliseconds = difference.inMilliseconds.toDouble();
+
+    return Activity(
+        id: '',
+        type: state.type,
+        startDatetime: startDatetime,
+        endDatetime: endDatetime,
+        distance: distance,
+        speed: speed,
+        time: differenceInMilliseconds,
+        locations: locations
+            .map((l) => Location(
+                id: '',
+                datetime: l.datetime,
+                latitude: l.latitude,
+                longitude: l.longitude))
+            .toList());
   }
 }

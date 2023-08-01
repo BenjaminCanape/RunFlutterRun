@@ -1,14 +1,7 @@
-import 'dart:async';
-import 'dart:typed_data';
-
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:run_flutter_run/presentation/common/core/utils/activity_utils.dart';
-import 'package:run_flutter_run/presentation/common/timer/viewmodel/timer_view_model.dart';
 
 import '../../../core/utils/storage_utils.dart';
 import '../../../data/api/activity_api.dart';
@@ -19,8 +12,6 @@ import '../../../domain/entities/activity.dart';
 import '../../../domain/entities/enum/activity_type.dart';
 import '../../../main.dart';
 import '../../activity_list/view_model/activity_list_view_model.dart';
-import '../../common/core/utils/image_utils.dart';
-import '../../common/core/utils/share_utils.dart';
 import '../../home/screen/home_screen.dart';
 import '../../home/view_model/home_view_model.dart';
 import 'activitie_details_state.dart';
@@ -132,36 +123,5 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
     }).whenComplete(() {
       state = state.copyWith(isLoading: false);
     });
-  }
-
-  /// Share the image of the map
-  Future<void> shareMap(Activity activity) async {
-    try {
-      Uint8List? image =
-          await ImageUtils.captureWidgetToImage(state.boundaryKey);
-      if (image == null) throw Exception();
-
-      String duration =
-          "${AppLocalizations.of(navigatorKey.currentContext!).duration}: ${ref.read(timerViewModelProvider.notifier).getFormattedTime(activity.time.toInt())}";
-      String distance =
-          "${AppLocalizations.of(navigatorKey.currentContext!).distance}: ${activity.distance.toStringAsFixed(2)} km";
-      String speed =
-          "${AppLocalizations.of(navigatorKey.currentContext!).speed}: ${activity.speed.toStringAsFixed(2)} km/h";
-
-      Uint8List? imageEdited = await ImageUtils.addTextToImage(
-        image,
-        ActivityUtils.translateActivityTypeValue(
-            AppLocalizations.of(navigatorKey.currentContext!), activity.type),
-        "$duration - $distance - $speed",
-      );
-
-      if (imageEdited != null) {
-        await ShareUtils.shareImage(navigatorKey.currentContext!, imageEdited);
-      } else {
-        throw Exception();
-      }
-    } catch (e) {
-      ShareUtils.showShareFailureSnackBar(navigatorKey.currentContext!);
-    }
   }
 }
