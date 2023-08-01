@@ -41,11 +41,11 @@ class ImageUtils {
       if (originalImage.width > originalImage.height) {
         // Crop vertically to get a square
         cropSize = originalImage.height;
-        offsetX = ((originalImage.width - cropSize) / 2).toInt();
+        offsetX = (originalImage.width - cropSize) ~/ 2;
       } else {
         // Crop horizontally to get a square
         cropSize = originalImage.width;
-        offsetY = ((originalImage.height - cropSize) / 2).toInt();
+        offsetY = (originalImage.height - cropSize) ~/ 2;
       }
 
       // Crop the image
