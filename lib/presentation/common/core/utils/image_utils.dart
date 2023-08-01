@@ -43,7 +43,17 @@ class ImageUtils {
 
       // Create a paragraph with the given title
       final titleStyle = ui.TextStyle(
-          color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold);
+        color: Colors.black,
+        fontSize: 26,
+        fontWeight: FontWeight.bold,
+        shadows: [
+          const Shadow(
+            blurRadius: 2,
+            color: Colors.white, // Add a white shadow for better readability
+            offset: Offset(1, 1),
+          ),
+        ],
+      );
       final titleParagraphBuilder = ui.ParagraphBuilder(ui.ParagraphStyle())
         ..pushStyle(titleStyle)
         ..addText(title.toUpperCase());
@@ -56,7 +66,15 @@ class ImageUtils {
       // Create a paragraph with the given text
       final textStyle = ui.TextStyle(
         color: Colors.black,
-        fontSize: 12,
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+        shadows: [
+          const Shadow(
+            blurRadius: 2,
+            color: Colors.white, // Add a white shadow for better readability
+            offset: Offset(1, 1),
+          ),
+        ],
       );
       final textParagraphBuilder = ui.ParagraphBuilder(ui.ParagraphStyle())
         ..pushStyle(textStyle)
