@@ -88,7 +88,8 @@ class ActivityResponse extends Equatable {
         latitude: location.latitude,
         longitude: location.longitude,
       );
-    }).toList();
+    }).toList()
+      ..sort((a, b) => a.datetime.compareTo(b.datetime));
 
     return Activity(
       id: id,
