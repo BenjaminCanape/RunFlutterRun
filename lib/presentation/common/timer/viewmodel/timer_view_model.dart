@@ -82,8 +82,11 @@ class TimerViewModel extends StateNotifier<TimerState> {
 
     textToSay.write('${l10nConf.duration}: $duration.');
 
+    String km = globalSpeed.toString().split('.')[0];
+    String meters = globalSpeed.toString().split('.')[1];
+
     textToSay.write(
-        "${l10nConf.speed}: ${globalSpeed.toStringAsFixed(2)} ${l10nConf.kilometers} ${l10nConf.per} ${l10nConf.hours}");
+        "${l10nConf.speed}: $km,$meters ${l10nConf.kilometers} ${l10nConf.per} ${l10nConf.hours}");
 
     await ref.read(textToSpeechService).say(textToSay.toString());
 

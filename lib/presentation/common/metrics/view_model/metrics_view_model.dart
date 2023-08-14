@@ -27,6 +27,7 @@ class MetricsViewModel extends StateNotifier<MetricsState> {
   Future<void> updateMetrics() async {
     final location = _container.read(locationViewModelProvider);
     final timer = _container.read(timerViewModelProvider.notifier);
+    final timerState = _container.read(timerViewModelProvider);
 
     final lastDistanceInteger = state.distance.toInt();
 
@@ -49,8 +50,25 @@ class MetricsViewModel extends StateNotifier<MetricsState> {
       var textToSay = StringBuffer();
 
       textToSay.write("$newDistanceInteger ${l10nConf.kilometers}.");
+
+      var duration = StringBuffer();
+      if (timerState.hours != 0) {
+        duration.write("${timerState.hours} ${l10nConf.hours}");
+      }
+      if (timerState.minutes != 0) {
+        duration.write("${timerState.minutes} ${l10nConf.minutes}");
+      }
+      if (timerState.seconds != 0) {
+        duration.write("${timerState.seconds} ${l10nConf.seconds}");
+      }
+
+      textToSay.write('${l10nConf.duration}: $duration.');
+
+      String km = state.globalSpeed.toString().split('.')[0];
+      String meters = state.globalSpeed.toString().split('.')[1];
+
       textToSay.write(
-          "${state.globalSpeed.toStringAsFixed(2)} ${l10nConf.kilometers} ${l10nConf.per} ${l10nConf.hours}");
+          "${l10nConf.speed}: $km,$meters ${l10nConf.kilometers} ${l10nConf.per} ${l10nConf.hours}");
 
       await textToSpeech.say(textToSay.toString());
     }
