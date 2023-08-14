@@ -34,14 +34,14 @@ class Metrics extends HookConsumerWidget {
           const Icon(Icons.location_on),
           const SizedBox(width: 8),
           Text(
-            '${distanceToDisplay.toStringAsFixed(2)} Km',
+            '${distanceToDisplay.toStringAsFixed(2)} km',
             style: textStyle,
           ),
           const SizedBox(width: 40),
           const Icon(Icons.speed),
           const SizedBox(width: 8),
           Text(
-            '${speedToDisplay.toStringAsFixed(2)} Km/h',
+            '${speedToDisplay.toStringAsFixed(2)} km/h',
             style: textStyle,
           ),
         ],
