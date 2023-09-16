@@ -37,7 +37,14 @@ class LocationViewModel extends StateNotifier<LocationState> {
   Future<void> startGettingLocation() async {
     final metricsProvider = ref.read(metricsViewModelProvider.notifier);
 
-    await Geolocator.requestPermission();
+    var permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied ||
+          permission == LocationPermission.deniedForever) {
+        return;
+      }
+    }
     _positionStream ??=
         Geolocator.getPositionStream().listen((Position position) {
       if (mounted) {
