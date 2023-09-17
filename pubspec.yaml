@@ -63,6 +63,7 @@ dependencies:
   path_provider: ^2.0.15
   esys_flutter_share_plus: ^2.2.0
   image: ^4.0.17
+  fl_chart: ^0.63.0
 
 dev_dependencies:
   flutter_test:
