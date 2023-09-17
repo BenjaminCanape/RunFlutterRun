@@ -12,14 +12,18 @@ class GraphTab extends StatelessWidget {
 
   const GraphTab({Key? key, required this.activity}) : super(key: key);
 
-  double getMaxSpeed(List<FlSpot> spots) {
+  FlSpot getMaxSpeedSpot(List<FlSpot> spots) {
     double maxSpeed = 0;
+    FlSpot maxSpeedSpot = const FlSpot(0, 0);
+
     for (final FlSpot spot in spots) {
       if (spot.y > maxSpeed) {
         maxSpeed = spot.y;
+        maxSpeedSpot = spot;
       }
     }
-    return maxSpeed;
+
+    return maxSpeedSpot;
   }
 
   List<FlSpot> smoothData(List<FlSpot> inputSpots) {
@@ -80,6 +84,7 @@ class GraphTab extends StatelessWidget {
     }
 
     final smoothedData = smoothData(spots);
+    final maxSpeedSpot = getMaxSpeedSpot(smoothedData);
 
     return Scaffold(
       body: Column(
@@ -97,14 +102,16 @@ class GraphTab extends StatelessWidget {
                         verticalInterval: activity.distance > 2 ? 1 : 0.5),
                     titlesData: FlTitlesData(
                       leftTitles: AxisTitles(
+                        axisNameSize: 30,
                         axisNameWidget: const Text('km/h',
                             style: TextStyle(fontWeight: FontWeight.w900)),
                         sideTitles: SideTitles(
                           showTitles: true,
-                          reservedSize: 50,
+                          reservedSize: 30,
                           getTitlesWidget: (value, _) {
                             if (value == 0 ||
-                                value == getMaxSpeed(smoothedData) * 1.25) {
+                                value ==
+                                    getMaxSpeedSpot(smoothedData).y * 1.25) {
                               return const Text('');
                             } else {
                               return Text(value.toStringAsFixed(1));
@@ -122,7 +129,7 @@ class GraphTab extends StatelessWidget {
                           sideTitles: SideTitles(
                             showTitles: true,
                             interval: activity.distance > 2 ? 1 : 0.5,
-                            reservedSize: 50,
+                            reservedSize: 30,
                             getTitlesWidget: (value, _) {
                               if (value == 0 ||
                                   (activity.distance > 0.5 &&
@@ -137,12 +144,19 @@ class GraphTab extends StatelessWidget {
                     minX: 0,
                     maxX: activity.distance,
                     minY: 0,
-                    maxY: getMaxSpeed(smoothedData) * 1.25,
+                    maxY: getMaxSpeedSpot(smoothedData).y * 1.25,
+                    showingTooltipIndicators: [],
                     lineBarsData: [
                       LineChartBarData(
                         spots: smoothedData,
                         isCurved: true,
                         dotData: const FlDotData(show: false),
+                        belowBarData: BarAreaData(show: false),
+                      ),
+                      LineChartBarData(
+                        spots: [maxSpeedSpot],
+                        isCurved: true,
+                        dotData: const FlDotData(show: true),
                         belowBarData: BarAreaData(show: false),
                       ),
                     ],
