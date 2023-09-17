@@ -146,6 +146,20 @@ class GraphTab extends StatelessWidget {
                     minY: 0,
                     maxY: getMaxSpeedSpot(smoothedData).y * 1.25,
                     showingTooltipIndicators: [],
+                    lineTouchData: LineTouchData(touchTooltipData:
+                        LineTouchTooltipData(getTooltipItems: (touchedSpots) {
+                      return touchedSpots.map((LineBarSpot touchedSpot) {
+                        const textStyle = TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        );
+                        return LineTooltipItem(
+                          '${smoothedData[touchedSpot.spotIndex].y.toStringAsFixed(2)} km/h',
+                          textStyle,
+                        );
+                      }).toList();
+                    })),
                     lineBarsData: [
                       LineChartBarData(
                         spots: smoothedData,
