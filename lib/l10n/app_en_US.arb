@@ -37,6 +37,7 @@
   "logout": "Log out",
   "minutes": "minutes",
   "new_password": "New password",
+  "no_data": "No data",
   "password": "Password",
   "passwords_do_not_match": "Passwords do not match",
   "pause_activity": "Activity paused",
