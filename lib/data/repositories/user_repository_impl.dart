@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/domain/entities/user.dart';
 
 import '../../core/utils/storage_utils.dart';
 import '../../domain/repositories/user_repository.dart';
@@ -50,5 +51,11 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<void> editPassword(EditPasswordRequest request) async {
     await UserApi.editPassword(request);
+  }
+
+  @override
+  Future<List<User>> search(String text) async {
+    final userResponses = await UserApi.search(text);
+    return userResponses.map((response) => response.toEntity()).toList();
   }
 }

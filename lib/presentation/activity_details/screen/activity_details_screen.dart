@@ -106,7 +106,7 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                                     ),
                                     Tab(
                                       text: AppLocalizations.of(context).graph,
-                                    ),
+                                    )
                                   ]),
                               body: TabBarView(
                                   controller: tabController,
