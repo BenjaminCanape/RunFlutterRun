@@ -84,8 +84,8 @@ class UserApi {
   /// Returns a List of [UserResponse] object.
   static Future<List<UserResponse>> search(String text) async {
     Response? response = await ApiHelper.makeRequest(
-        '${ApiHelper.apiUrl}private/user/search', 'POST',
-        data: {'searchText': text});
+        '${ApiHelper.apiUrl}private/user/search', 'GET',
+        queryParams: {'searchText': text});
     final data = List<Map<String, dynamic>>.from(response?.data);
     return data.map((e) => UserResponse.fromMap(e)).toList();
   }

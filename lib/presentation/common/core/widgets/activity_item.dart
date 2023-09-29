@@ -5,10 +5,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
-import '../../../domain/entities/activity.dart';
-import '../../common/core/utils/activity_utils.dart';
-import '../../common/core/utils/color_utils.dart';
-import '../view_model/activity_list_view_model.dart';
+import '../../../../domain/entities/activity.dart';
+import '../utils/activity_utils.dart';
+import '../utils/color_utils.dart';
+import '../../../activity_list/view_model/activity_list_view_model.dart';
 
 /// A widget representing an item in the activity list.
 class ActivityItem extends HookConsumerWidget {

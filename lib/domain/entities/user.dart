@@ -1,11 +1,9 @@
-import 'dart:ffi';
-
 import 'package:equatable/equatable.dart';
 
 /// Represents a user.
 class User extends Equatable {
   /// The ID of the user.
-  final Long id;
+  final String id;
 
   /// The username of the user.
   final String username;

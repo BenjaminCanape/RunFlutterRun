@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/presentation/community/screen/community_screen.dart';
 
 import '../../activity_list/screen/activity_list_screen.dart';
 import '../../common/location/view_model/location_view_model.dart';
@@ -29,35 +31,47 @@ class HomeScreen extends HookConsumerWidget {
     final tabs = [
       const NewActivityScreen(),
       const ActivityListScreen(),
+      CommunityScreen(),
       const SettingsScreen(),
     ];
 
     return Scaffold(
-      body: SafeArea(child: tabs[currentIndex]),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (value) {
-          locationViewModel.cancelLocationStream();
-          homeViewModel.setCurrentIndex(value);
-        },
-        showSelectedLabels: true,
-        selectedItemColor: Colors.teal.shade700,
-        showUnselectedLabels: true,
-        items: [
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
-            label: AppLocalizations.of(context).activity,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.list),
-            label: AppLocalizations.of(context).list,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.settings),
-            label: AppLocalizations.of(context).settings,
-          ),
-        ],
-      ),
-    );
+        body: SafeArea(child: tabs[currentIndex]),
+        bottomNavigationBar: Container(
+            color: Colors.teal.shade700,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+              child: GNav(
+                backgroundColor: Colors.teal.shade700,
+                color: Colors.white,
+                activeColor: Colors.white,
+                tabBackgroundColor: Colors.teal.shade900,
+                padding: const EdgeInsets.all(16),
+                selectedIndex: currentIndex,
+                onTabChange: (value) {
+                  locationViewModel.cancelLocationStream();
+                  homeViewModel.setCurrentIndex(value);
+                },
+                gap: 8,
+                tabs: [
+                  GButton(
+                    icon: Icons.flash_on,
+                    text: AppLocalizations.of(context).start_activity,
+                  ),
+                  GButton(
+                    icon: Icons.list,
+                    text: AppLocalizations.of(context).list,
+                  ),
+                  GButton(
+                    icon: Icons.people,
+                    text: AppLocalizations.of(context).community,
+                  ),
+                  GButton(
+                    icon: Icons.settings,
+                    text: AppLocalizations.of(context).settings,
+                  ),
+                ],
+              ),
+            )));
   }
 }

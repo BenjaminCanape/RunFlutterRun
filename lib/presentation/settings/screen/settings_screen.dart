@@ -24,17 +24,6 @@ class SettingsScreen extends HookConsumerWidget {
               ? UIUtils.loader
               : Column(
                   children: [
-                    Container(
-                      padding: const EdgeInsets.only(left: 0, top: 12),
-                      child: Text(
-                        AppLocalizations.of(context).settings,
-                        style: const TextStyle(
-                            color: Colors.blueGrey,
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    const Divider(),
                     const SizedBox(height: 40),
                     Container(
                       width: double.infinity,
