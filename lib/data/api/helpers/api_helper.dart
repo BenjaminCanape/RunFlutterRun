@@ -11,7 +11,7 @@ import '../user_api.dart';
 class ApiHelper {
   //static const String apiUrl = 'https://runbackendrun.herokuapp.com/api/';
   //static const String apiUrl = 'https://runbackendrun.onrender.com/api/';
-  static const String apiUrl = 'http://tiqorhzmyb.eu11.qoddiapp.com/api/';
+  static const String apiUrl = 'http://lxgfjcmoky.us18.qoddiapp.com/api/';
   //static const String apiUrl =
   //   'https://runbackendrun-production.up.railway.app/api/';
 
