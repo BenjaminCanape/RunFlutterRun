@@ -48,7 +48,7 @@ class ActivityUtils {
                 const SizedBox(width: 10),
                 Text(
                   ActivityUtils.translateActivityTypeValue(
-                    AppLocalizations.of(context),
+                    AppLocalizations.of(context)!,
                     value,
                   ),
                 )

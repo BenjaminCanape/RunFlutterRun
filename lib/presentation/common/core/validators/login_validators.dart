@@ -11,10 +11,10 @@ class LoginValidators {
   /// Returns an error message if the email is empty or not valid, or null if the email is valid.
   static String? email(BuildContext context, String? value) {
     if (value == null || value.isEmpty) {
-      return AppLocalizations.of(context).form_description_email_empty;
+      return AppLocalizations.of(context)!.form_description_email_empty;
     }
     if (!EmailValidator.validate(value)) {
-      return AppLocalizations.of(context).form_description_email_not_valid;
+      return AppLocalizations.of(context)!.form_description_email_not_valid;
     }
     return null;
   }
@@ -26,7 +26,7 @@ class LoginValidators {
   /// Returns an error message if the password is empty, or null if the password is valid.
   static String? password(BuildContext context, String? value) {
     if (value == null || value.isEmpty) {
-      return AppLocalizations.of(context).form_description_password_empty;
+      return AppLocalizations.of(context)!.form_description_password_empty;
     }
     return null;
   }
@@ -41,10 +41,10 @@ class LoginValidators {
   static String? confirmPassword(
       BuildContext context, String? value, String? password) {
     if (value == null || value.isEmpty) {
-      return AppLocalizations.of(context).form_description_password_empty;
+      return AppLocalizations.of(context)!.form_description_password_empty;
     }
     if (value != password) {
-      return AppLocalizations.of(context).passwords_do_not_match;
+      return AppLocalizations.of(context)!.passwords_do_not_match;
     }
     return null;
   }

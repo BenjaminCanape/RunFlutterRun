@@ -16,12 +16,12 @@ class ShareUtils {
   static void showShareFailureSnackBar(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context).share_failed),
+        content: Text(AppLocalizations.of(context)!.share_failed),
         duration: const Duration(seconds: 3),
         action: SnackBarAction(
-          label: AppLocalizations.of(context).close,
+          label: AppLocalizations.of(context)!.close,
           onPressed: () {
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            ScaffoldMessenger.of(context)!.hideCurrentSnackBar();
           },
         ),
       ),

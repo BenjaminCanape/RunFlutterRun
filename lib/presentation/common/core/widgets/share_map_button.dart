@@ -23,7 +23,7 @@ class ShareMapButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
     final timerViewModel = ref.read(timerViewModelProvider.notifier);
 
     Future<void> shareImageWithText(Uint8List image) async {
