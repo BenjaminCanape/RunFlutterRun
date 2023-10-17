@@ -13,7 +13,7 @@ final pendingRequestsViewModelProvider =
 class PendingRequestsViewModel extends StateNotifier<PendingRequestsState> {
   late final Ref ref;
 
-  PendingRequestsViewModel(this.ref) : super(PendingRequestsState.initial()) {}
+  PendingRequestsViewModel(this.ref) : super(PendingRequestsState.initial());
 
   Future<List<User>> getPendingRequests() async {
     //state = state.copyWith(pendingRequests: [], isLoading: true);

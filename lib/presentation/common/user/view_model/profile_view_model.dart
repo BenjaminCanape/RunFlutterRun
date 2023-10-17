@@ -12,7 +12,7 @@ final profileViewModelProvider =
 class ProfileViewModel extends StateNotifier<ProfileState> {
   late final Ref ref;
 
-  ProfileViewModel(this.ref) : super(ProfileState.initial()) {}
+  ProfileViewModel(this.ref) : super(ProfileState.initial());
 
   /// Retrieves the friendship status.
   Future<FriendRequestStatus?> getFriendShipStatus(String userId) async {

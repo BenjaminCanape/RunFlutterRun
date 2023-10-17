@@ -88,7 +88,7 @@ class GraphTab extends StatelessWidget {
 
     final smoothedData = spots.isNotEmpty ? smoothData(spots) : spots;
     final maxSpeedSpot =
-        smoothedData.isNotEmpty ? getMaxSpeedSpot(smoothedData) : FlSpot(0, 0);
+        smoothedData.isNotEmpty ? getMaxSpeedSpot(smoothedData) : const FlSpot(0, 0);
 
     return Scaffold(
       body: Column(

@@ -15,7 +15,7 @@ final communityViewModelProvider =
 class CommunityViewModel extends StateNotifier<CommunityState> {
   late final Ref ref;
 
-  CommunityViewModel(this.ref) : super(CommunityState.initial()) {}
+  CommunityViewModel(this.ref) : super(CommunityState.initial());
 
   search(String text) {
     return ref.read(userRepositoryProvider).search(text);
