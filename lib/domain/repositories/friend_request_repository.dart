@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:run_flutter_run/domain/entities/enum/friend_request_status.dart';
 import 'package:run_flutter_run/domain/entities/friend_request.dart';
 
 import '../entities/user.dart';
@@ -10,7 +11,7 @@ abstract class FriendRequestRepository {
   Future<List<User>> getPendingRequestUsers();
 
   /// Get the status of the friend request I have with the user
-  Future<FriendRequest?> getStatus(String userId);
+  Future<FriendRequestStatus?> getStatus(String userId);
 
   /// Send a friend request to the user
   Future<Long> sendRequest(String userId);

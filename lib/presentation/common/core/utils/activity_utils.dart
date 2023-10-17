@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../domain/entities/enum/activity_type.dart';
-import '../../../activity_details/view_model/activity_details_view_model.dart';
-import '../../../sum_up/view_model/sum_up_view_model.dart';
+import '../../../my_activities/view_model/activity_details_view_model.dart';
+import '../../../new_activity/view_model/sum_up_view_model.dart';
 
 /// Utility class for activity-related operations.
 class ActivityUtils {

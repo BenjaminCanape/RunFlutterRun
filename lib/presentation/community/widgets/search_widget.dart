@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:run_flutter_run/domain/entities/user.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../view_model/community_view_model.dart';
 
 class SearchWidget extends HookConsumerWidget implements PreferredSizeWidget {
@@ -23,11 +23,11 @@ class SearchWidget extends HookConsumerWidget implements PreferredSizeWidget {
       title: TypeAheadField<User>(
         textFieldConfiguration: TextFieldConfiguration(
           controller: searchController,
-          decoration: const InputDecoration(
-            hintText: 'Rechercher...',
+          decoration: InputDecoration(
+            hintText: '${AppLocalizations.of(context).search}...',
             border: InputBorder.none,
-            iconColor: Colors.white,
-            suffixIcon: Icon(Icons.search),
+            suffixIconColor: Colors.teal.shade800,
+            suffixIcon: const Icon(Icons.search),
           ),
         ),
         suggestionsCallback: (String query) async {

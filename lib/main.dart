@@ -9,13 +9,13 @@ import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
 import 'core/utils/storage_utils.dart';
 import 'l10n/support_locale.dart';
-import 'presentation/activity_list/screen/activity_list_screen.dart';
+import 'presentation/my_activities/screens/activity_list_screen.dart';
 import 'presentation/common/core/services/text_to_speech_service.dart';
 import 'presentation/common/core/utils/ui_utils.dart';
-import 'presentation/home/screen/home_screen.dart';
-import 'presentation/login/screen/login_screen.dart';
-import 'presentation/registration/screen/registration_screen.dart';
-import 'presentation/sum_up/screen/sum_up_screen.dart';
+import 'presentation/home/screens/home_screen.dart';
+import 'presentation/login/screens/login_screen.dart';
+import 'presentation/registration/screens/registration_screen.dart';
+import 'presentation/new_activity/screens/sum_up_screen.dart';
 
 /// Global navigator key to access the navigator from anywhere in the app.
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

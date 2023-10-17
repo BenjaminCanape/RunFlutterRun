@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/repositories/user_repository_impl.dart';
 import '../../../main.dart';
-import 'settings_state.dart';
+import 'state/settings_state.dart';
 
 final settingsViewModelProvider =
     StateNotifierProvider.autoDispose<SettingsViewModel, SettingsState>(

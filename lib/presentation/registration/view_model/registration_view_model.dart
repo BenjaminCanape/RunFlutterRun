@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../data/model/request/login_request.dart';
 import '../../../data/repositories/user_repository_impl.dart';
 import '../../../main.dart';
-import 'registration_state.dart';
+import 'state/registration_state.dart';
 
 final registrationViewModelProvider =
     StateNotifierProvider.autoDispose<RegistrationViewModel, RegistrationState>(

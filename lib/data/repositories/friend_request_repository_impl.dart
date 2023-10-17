@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:run_flutter_run/data/api/friend_request_api.dart';
+import 'package:run_flutter_run/domain/entities/enum/friend_request_status.dart';
 import 'package:run_flutter_run/domain/repositories/friend_request_repository.dart';
 
 import '../../domain/entities/friend_request.dart';
@@ -25,9 +26,8 @@ class FriendRequestRepositoryImpl extends FriendRequestRepository {
   }
 
   @override
-  Future<FriendRequest?> getStatus(String userId) async {
-    final response = await FriendRequestApi.getStatus(userId);
-    return response?.toEntity();
+  Future<FriendRequestStatus?> getStatus(String userId) async {
+    return await FriendRequestApi.getStatus(userId);
   }
 
   @override

@@ -5,7 +5,7 @@ import 'package:run_flutter_run/domain/entities/friend_request.dart';
 /// Represents a response object for a friend request.
 class FriendRequestResponse extends Equatable {
   /// The username of the user
-  final FriendRequestStatus status;
+  final FriendRequestStatus? status;
 
   /// Constructs an FriendRequestResponse object with the given parameters.
   const FriendRequestResponse({required this.status});
@@ -15,7 +15,10 @@ class FriendRequestResponse extends Equatable {
 
   /// Creates an FriendRequestResponse object from a JSON map.
   factory FriendRequestResponse.fromMap(Map<String, dynamic> map) {
-    return FriendRequestResponse(status: map['status']);
+    final status = FriendRequestStatus.values
+        .firstWhere((type) => type.name.toUpperCase() == map['status']);
+
+    return FriendRequestResponse(status: status);
   }
 
   /// Converts the FriendRequestResponse object to a FriendRequest entity.

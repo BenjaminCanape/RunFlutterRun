@@ -4,7 +4,7 @@ import '../../../../../main.dart';
 import '../../core/services/text_to_speech_service.dart';
 import '../../location/view_model/location_view_model.dart';
 import '../../timer/viewmodel/timer_view_model.dart';
-import 'metrics_state.dart';
+import 'state/metrics_state.dart';
 
 /// A provider for [MetricsViewModel] that creates an instance of [MetricsViewModel] automatically
 /// and disposes it when no longer needed.

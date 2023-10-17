@@ -9,11 +9,10 @@ import '../user_api.dart';
 
 /// Helper class for making API requests.
 class ApiHelper {
-  //static const String apiUrl = 'https://runbackendrun.herokuapp.com/api/';
-  //static const String apiUrl = 'https://runbackendrun.onrender.com/api/';
-  static const String apiUrl = 'http://lxgfjcmoky.us18.qoddiapp.com/api/';
-  //static const String apiUrl =
-  //   'https://runbackendrun-production.up.railway.app/api/';
+  // switch url when back is down
+  //static const String apiUrl = 'http://lxgfjcmoky.us18.qoddiapp.com/api/'; //US server
+  static const String apiUrl =
+      'http://tiqorhzmyb.eu11.qoddiapp.com/api/'; //EU server
 
   /// Makes an HTTP request to the specified [url] using the given [method].
   ///
@@ -41,6 +40,14 @@ class ApiHelper {
           response = await remoteApi.dio.post(
             url,
             data: data,
+            queryParameters: queryParams,
+          );
+          break;
+        case 'POST_FORM_DATA':
+          final formData = FormData.fromMap(data!);
+          response = await remoteApi.dio.post(
+            url,
+            data: formData,
             queryParameters: queryParams,
           );
           break;

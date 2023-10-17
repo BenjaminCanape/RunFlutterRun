@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:dio/dio.dart';
 import 'package:run_flutter_run/data/model/response/friend_request_response.dart';
+import 'package:run_flutter_run/domain/entities/enum/friend_request_status.dart';
 
 import '../model/response/user_response.dart';
 import 'helpers/api_helper.dart';
@@ -23,11 +24,14 @@ class FriendRequestApi {
   /// Retrieves the status of the friend request I have with the user
   ///
   /// Returns an [FriendRequestResponse?] object.
-  static Future<FriendRequestResponse?> getStatus(String userId) async {
+  static Future<FriendRequestStatus?> getStatus(String userId) async {
     Response? response = await ApiHelper.makeRequest(
         '${FriendRequestApi.url}getStatus', 'GET',
-        data: {'userId': userId});
-    return FriendRequestResponse.fromMap(response?.data);
+        queryParams: {'userId': userId});
+    final data = response?.data;
+    return data != null
+        ? FriendRequestResponse.fromMap(response?.data).status
+        : null;
   }
 
   /// Send the friend request to the user
@@ -35,7 +39,7 @@ class FriendRequestApi {
   /// Returns an [Long] id of the friend request.
   static Future<Long> sendRequest(String userId) async {
     Response? response = await ApiHelper.makeRequest(
-        '${FriendRequestApi.url}sendRequest', 'POST',
+        '${FriendRequestApi.url}sendRequest', 'POST_FORM_DATA',
         data: {'receiverId': userId});
     return response?.data;
   }
@@ -45,7 +49,7 @@ class FriendRequestApi {
   /// Returns an [FriendRequestResponse].
   static Future<FriendRequestResponse> accept(String userId) async {
     Response? response = await ApiHelper.makeRequest(
-        '${FriendRequestApi.url}acceptRequest', 'POST',
+        '${FriendRequestApi.url}acceptRequest', 'POST_FORM_DATA',
         data: {'userId': userId});
     return FriendRequestResponse.fromMap(response?.data);
   }
@@ -55,7 +59,7 @@ class FriendRequestApi {
   /// Returns an [FriendRequestResponse].
   static Future<FriendRequestResponse> reject(String userId) async {
     Response? response = await ApiHelper.makeRequest(
-        '${FriendRequestApi.url}rejectRequest', 'POST',
+        '${FriendRequestApi.url}rejectRequest', 'POST_FORM_DATA',
         data: {'userId': userId});
     return FriendRequestResponse.fromMap(response?.data);
   }
@@ -65,7 +69,7 @@ class FriendRequestApi {
   /// Returns an [FriendRequestResponse].
   static Future<FriendRequestResponse> cancel(String userId) async {
     Response? response = await ApiHelper.makeRequest(
-        '${FriendRequestApi.url}cancelRequest', 'POST',
+        '${FriendRequestApi.url}cancelRequest', 'POST_FORM_DATA',
         data: {'userId': userId});
     return FriendRequestResponse.fromMap(response?.data);
   }
