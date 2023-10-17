@@ -24,7 +24,7 @@ class SearchWidget extends HookConsumerWidget implements PreferredSizeWidget {
         textFieldConfiguration: TextFieldConfiguration(
           controller: searchController,
           decoration: InputDecoration(
-            hintText: '${AppLocalizations.of(context).search}...',
+            hintText: '${AppLocalizations.of(context)!.search}...',
             border: InputBorder.none,
             suffixIconColor: Colors.teal.shade800,
             suffixIcon: const Icon(Icons.search),

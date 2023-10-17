@@ -87,7 +87,7 @@ class SumUpScreen extends HookConsumerWidget {
                   Container(
                     padding: const EdgeInsets.only(left: 0, top: 12),
                     child: Text(
-                      AppLocalizations.of(context).activity_sumup,
+                      AppLocalizations.of(context)!.activity_sumup,
                       style: const TextStyle(
                           color: Colors.blueGrey,
                           fontSize: 28,

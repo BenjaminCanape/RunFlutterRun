@@ -29,7 +29,7 @@ class FriendRequestWidget extends HookConsumerWidget {
         children: [
           const Icon(Icons.check),
           const SizedBox(width: 8),
-          Text(AppLocalizations.of(context).followed),
+          Text(AppLocalizations.of(context)!.followed),
         ],
       );
     } else if (status == FriendRequestStatus.rejected) {
@@ -49,7 +49,7 @@ class FriendRequestWidget extends HookConsumerWidget {
             children: [
               const Icon(Icons.follow_the_signs),
               const SizedBox(width: 8),
-              Text(AppLocalizations.of(context).follow),
+              Text(AppLocalizations.of(context)!.follow),
             ],
           ),
         ),

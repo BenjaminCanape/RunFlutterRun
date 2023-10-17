@@ -45,7 +45,7 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                       const SizedBox(width: 10),
                       Text(
                         ActivityUtils.translateActivityTypeValue(
-                          AppLocalizations.of(context),
+                          AppLocalizations.of(context)!,
                           displayedActivity.type,
                         ),
                         style: const TextStyle(
@@ -73,10 +73,11 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                           QuickAlert.show(
                             context: context,
                             type: QuickAlertType.confirm,
-                            title: AppLocalizations.of(context)
+                            title: AppLocalizations.of(context)!
                                 .ask_activity_removal,
-                            confirmBtnText: AppLocalizations.of(context).delete,
-                            cancelBtnText: AppLocalizations.of(context).cancel,
+                            confirmBtnText:
+                                AppLocalizations.of(context)!.delete,
+                            cancelBtnText: AppLocalizations.of(context)!.cancel,
                             confirmBtnColor: Colors.red,
                             onCancelBtnTap: () => Navigator.of(context).pop(),
                             onConfirmBtnTap: () =>
@@ -102,10 +103,10 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                                   tabs: [
                                     Tab(
                                       text:
-                                          AppLocalizations.of(context).details,
+                                          AppLocalizations.of(context)!.details,
                                     ),
                                     Tab(
-                                      text: AppLocalizations.of(context).graph,
+                                      text: AppLocalizations.of(context)!.graph,
                                     )
                                   ]),
                               body: TabBarView(

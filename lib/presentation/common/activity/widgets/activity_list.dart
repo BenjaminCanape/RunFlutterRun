@@ -20,7 +20,7 @@ class ActivityList extends HookConsumerWidget {
       child: activities.isEmpty
           ? Center(
               child: Text(
-                AppLocalizations.of(context).no_data,
+                AppLocalizations.of(context)!.no_data,
                 style:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),

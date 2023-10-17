@@ -25,7 +25,7 @@ class ActivityItem extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.read(activityListViewModelProvider.notifier);
 
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
     final formattedDateTime =
         DateFormat('dd/MM/yyyy ${appLocalizations.hours_pronoun} HH:mm')
             .format(activity.startDatetime);
@@ -94,7 +94,7 @@ class ActivityItem extends HookConsumerWidget {
                         children: <Widget>[
                           Text(
                             ActivityUtils.translateActivityTypeValue(
-                              AppLocalizations.of(context),
+                              AppLocalizations.of(context)!,
                               activity.type,
                             ).toUpperCase(),
                             style: const TextStyle(

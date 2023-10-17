@@ -78,7 +78,7 @@ class CommunityScreen extends HookConsumerWidget {
                               const Icon(Icons.people),
                               const SizedBox(width: 8),
                               Text(
-                                  "${"${AppLocalizations.of(context).see_pending_requests} (${requests.length}"})"),
+                                  "${"${AppLocalizations.of(context)!.see_pending_requests} (${requests.length}"})"),
                             ],
                           ),
                         ),

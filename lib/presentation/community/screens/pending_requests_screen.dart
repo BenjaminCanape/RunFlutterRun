@@ -27,7 +27,7 @@ class PendingRequestsScreen extends HookConsumerWidget {
               Container(
                 padding: const EdgeInsets.only(left: 0, top: 12),
                 child: Text(
-                  AppLocalizations.of(context).pending_requests_title,
+                  AppLocalizations.of(context)!.pending_requests_title,
                   style: const TextStyle(
                       color: Colors.blueGrey,
                       fontSize: 28,

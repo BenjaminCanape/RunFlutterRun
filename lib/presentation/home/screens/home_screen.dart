@@ -56,19 +56,19 @@ class HomeScreen extends HookConsumerWidget {
                 tabs: [
                   GButton(
                     icon: Icons.flash_on,
-                    text: AppLocalizations.of(context).start_activity,
+                    text: AppLocalizations.of(context)!.start_activity,
                   ),
                   GButton(
                     icon: Icons.list,
-                    text: AppLocalizations.of(context).list,
+                    text: AppLocalizations.of(context)!.list,
                   ),
                   GButton(
                     icon: Icons.people,
-                    text: AppLocalizations.of(context).community,
+                    text: AppLocalizations.of(context)!.community,
                   ),
                   GButton(
                     icon: Icons.settings,
-                    text: AppLocalizations.of(context).settings,
+                    text: AppLocalizations.of(context)!.settings,
                   ),
                 ],
               ),

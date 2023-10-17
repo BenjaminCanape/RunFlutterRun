@@ -55,8 +55,9 @@ class ProfileScreen extends HookConsumerWidget {
                     },
                   ),
                   const Divider(),
-                  Text(
-                      AppLocalizations.of(context).activity_list.toUpperCase()),
+                  Text(AppLocalizations.of(context)!
+                      .activity_list
+                      .toUpperCase()),
                   const SizedBox(
                     height: 20,
                   ),

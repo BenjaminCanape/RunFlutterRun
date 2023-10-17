@@ -15,7 +15,7 @@ class Date extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
     final formattedDateTime =
         DateFormat('dd/MM/yyyy ${appLocalizations.hours_pronoun} HH:mm')
             .format(date);

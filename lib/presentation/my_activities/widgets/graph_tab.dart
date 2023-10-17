@@ -87,8 +87,9 @@ class GraphTab extends StatelessWidget {
     }
 
     final smoothedData = spots.isNotEmpty ? smoothData(spots) : spots;
-    final maxSpeedSpot =
-        smoothedData.isNotEmpty ? getMaxSpeedSpot(smoothedData) : const FlSpot(0, 0);
+    final maxSpeedSpot = smoothedData.isNotEmpty
+        ? getMaxSpeedSpot(smoothedData)
+        : const FlSpot(0, 0);
 
     return Scaffold(
       body: Column(
@@ -194,7 +195,7 @@ class GraphTab extends StatelessWidget {
                                 label: HorizontalLineLabel(
                                     show: true,
                                     labelResolver: (_) =>
-                                        AppLocalizations.of(context)
+                                        AppLocalizations.of(context)!
                                             .average_speed),
                               ),
                             ],
@@ -202,7 +203,7 @@ class GraphTab extends StatelessWidget {
                         ),
                       ),
                     )
-                  : Text(AppLocalizations.of(context).no_data),
+                  : Text(AppLocalizations.of(context)!.no_data),
             ),
           ),
         ],

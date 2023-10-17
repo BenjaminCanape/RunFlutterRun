@@ -54,7 +54,7 @@ class SettingsScreen extends HookConsumerWidget {
                           children: [
                             const Icon(Icons.edit),
                             const SizedBox(width: 8),
-                            Text(AppLocalizations.of(context).edit_password),
+                            Text(AppLocalizations.of(context)!.edit_password),
                           ],
                         ),
                       ),
@@ -76,7 +76,7 @@ class SettingsScreen extends HookConsumerWidget {
                           children: [
                             const Icon(Icons.logout),
                             const SizedBox(width: 8),
-                            Text(AppLocalizations.of(context).logout),
+                            Text(AppLocalizations.of(context)!.logout),
                           ],
                         ),
                       ),
@@ -91,9 +91,10 @@ class SettingsScreen extends HookConsumerWidget {
                       onPressed: () => QuickAlert.show(
                         context: context,
                         type: QuickAlertType.confirm,
-                        title: AppLocalizations.of(context).ask_account_removal,
-                        confirmBtnText: AppLocalizations.of(context).delete,
-                        cancelBtnText: AppLocalizations.of(context).cancel,
+                        title:
+                            AppLocalizations.of(context)!.ask_account_removal,
+                        confirmBtnText: AppLocalizations.of(context)!.delete,
+                        cancelBtnText: AppLocalizations.of(context)!.cancel,
                         confirmBtnColor: Colors.red,
                         onCancelBtnTap: () => Navigator.of(context).pop(),
                         onConfirmBtnTap: () => provider.deleteUserAccount(),
@@ -105,7 +106,7 @@ class SettingsScreen extends HookConsumerWidget {
                           children: [
                             const Icon(Icons.delete),
                             const SizedBox(width: 8),
-                            Text(AppLocalizations.of(context).delete_account),
+                            Text(AppLocalizations.of(context)!.delete_account),
                           ],
                         ),
                       ),
