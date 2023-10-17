@@ -24,7 +24,7 @@ class ActivityListScreen extends HookConsumerWidget {
                   Container(
                     padding: const EdgeInsets.only(left: 0, top: 12),
                     child: Text(
-                      AppLocalizations.of(context).activity_list,
+                      AppLocalizations.of(context)!.activity_list,
                       style: const TextStyle(
                           color: Colors.blueGrey,
                           fontSize: 28,

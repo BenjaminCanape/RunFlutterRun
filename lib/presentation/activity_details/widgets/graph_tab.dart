@@ -194,7 +194,7 @@ class GraphTab extends StatelessWidget {
                                 label: HorizontalLineLabel(
                                     show: true,
                                     labelResolver: (_) =>
-                                        AppLocalizations.of(context)
+                                        AppLocalizations.of(context)!
                                             .average_speed),
                               ),
                             ],
@@ -202,7 +202,7 @@ class GraphTab extends StatelessWidget {
                         ),
                       ),
                     )
-                  : Text(AppLocalizations.of(context).no_data),
+                  : Text(AppLocalizations.of(context)!.no_data),
             ),
           ),
         ],

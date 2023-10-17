@@ -27,7 +27,7 @@ class SettingsScreen extends HookConsumerWidget {
                     Container(
                       padding: const EdgeInsets.only(left: 0, top: 12),
                       child: Text(
-                        AppLocalizations.of(context).settings,
+                        AppLocalizations.of(context)!.settings,
                         style: const TextStyle(
                             color: Colors.blueGrey,
                             fontSize: 28,
@@ -66,7 +66,7 @@ class SettingsScreen extends HookConsumerWidget {
                             children: [
                               const Icon(Icons.edit),
                               const SizedBox(width: 8),
-                              Text(AppLocalizations.of(context).edit_password),
+                              Text(AppLocalizations.of(context)!.edit_password),
                             ],
                           ),
                         ),
@@ -88,7 +88,7 @@ class SettingsScreen extends HookConsumerWidget {
                             children: [
                               const Icon(Icons.logout),
                               const SizedBox(width: 8),
-                              Text(AppLocalizations.of(context).logout),
+                              Text(AppLocalizations.of(context)!.logout),
                             ],
                           ),
                         ),
@@ -104,9 +104,9 @@ class SettingsScreen extends HookConsumerWidget {
                           context: context,
                           type: QuickAlertType.confirm,
                           title:
-                              AppLocalizations.of(context).ask_account_removal,
-                          confirmBtnText: AppLocalizations.of(context).delete,
-                          cancelBtnText: AppLocalizations.of(context).cancel,
+                              AppLocalizations.of(context)!.ask_account_removal,
+                          confirmBtnText: AppLocalizations.of(context)!.delete,
+                          cancelBtnText: AppLocalizations.of(context)!.cancel,
                           confirmBtnColor: Colors.red,
                           onCancelBtnTap: () => Navigator.of(context).pop(),
                           onConfirmBtnTap: () => provider.deleteUserAccount(),
@@ -118,7 +118,8 @@ class SettingsScreen extends HookConsumerWidget {
                             children: [
                               const Icon(Icons.delete),
                               const SizedBox(width: 8),
-                              Text(AppLocalizations.of(context).delete_account),
+                              Text(
+                                  AppLocalizations.of(context)!.delete_account),
                             ],
                           ),
                         ),

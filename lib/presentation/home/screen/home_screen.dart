@@ -46,15 +46,15 @@ class HomeScreen extends HookConsumerWidget {
         items: [
           BottomNavigationBarItem(
             icon: const Icon(Icons.home),
-            label: AppLocalizations.of(context).activity,
+            label: AppLocalizations.of(context)!.activity,
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.list),
-            label: AppLocalizations.of(context).list,
+            label: AppLocalizations.of(context)!.list,
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.settings),
-            label: AppLocalizations.of(context).settings,
+            label: AppLocalizations.of(context)!.settings,
           ),
         ],
       ),
