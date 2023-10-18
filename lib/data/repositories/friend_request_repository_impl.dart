@@ -31,7 +31,7 @@ class FriendRequestRepositoryImpl extends FriendRequestRepository {
   }
 
   @override
-  Future<Long> sendRequest(String userId) async {
+  Future<int> sendRequest(String userId) async {
     return await FriendRequestApi.sendRequest(userId);
   }
 

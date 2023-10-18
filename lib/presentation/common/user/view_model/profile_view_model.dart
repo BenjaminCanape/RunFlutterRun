@@ -29,8 +29,9 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     }
   }
 
-  void setRequestStatus(FriendRequestStatus? status) async {
-    state = state.copyWith(status: status);
-    // return await ref.read(friendRequestRepositoryProvider).getStatus(userId);
+  /// Send the friend request
+  void sendFriendRequest(String userId) async {
+    await ref.read(friendRequestRepositoryProvider).sendRequest(userId);
+    state = state.copyWith(status: FriendRequestStatus.pending);
   }
 }

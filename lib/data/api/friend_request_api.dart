@@ -37,8 +37,8 @@ class FriendRequestApi {
 
   /// Send the friend request to the user
   ///
-  /// Returns an [Long] id of the friend request.
-  static Future<Long> sendRequest(String userId) async {
+  /// Returns an [int] id of the friend request.
+  static Future<int> sendRequest(String userId) async {
     Response? response = await ApiHelper.makeRequest(
         '${FriendRequestApi.url}sendRequest', 'POST_FORM_DATA',
         data: {'receiverId': userId});

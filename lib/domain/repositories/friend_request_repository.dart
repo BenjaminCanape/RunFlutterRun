@@ -14,7 +14,7 @@ abstract class FriendRequestRepository {
   Future<FriendRequestStatus?> getStatus(String userId);
 
   /// Send a friend request to the user
-  Future<Long> sendRequest(String userId);
+  Future<int> sendRequest(String userId);
 
   /// Accept the friend request of the user
   Future<FriendRequest> accept(String userId);
