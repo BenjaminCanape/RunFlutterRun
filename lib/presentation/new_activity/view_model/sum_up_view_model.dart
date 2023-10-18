@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:run_flutter_run/domain/entities/activity.dart';
 import 'package:run_flutter_run/domain/entities/location.dart';
+import 'package:run_flutter_run/domain/entities/user.dart';
 
 import '../../../data/model/request/activity_request.dart';
 import '../../../data/repositories/activity_repository_impl.dart';
@@ -95,6 +96,7 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
                 datetime: l.datetime,
                 latitude: l.latitude,
                 longitude: l.longitude))
-            .toList());
+            .toList(),
+        user: const User(id: '', username: ''));
   }
 }

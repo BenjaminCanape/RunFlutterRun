@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/domain/entities/activity.dart';
 import 'package:run_flutter_run/presentation/community/screens/pending_requests_screen.dart';
 import 'package:run_flutter_run/presentation/community/view_model/community_view_model.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 //import 'package:run_flutter_run/presentation/community/view_model/pending_request_view_model.dart';
-import '../../../domain/entities/user.dart';
 import '../../common/core/utils/form_utils.dart';
 import '../../common/activity/widgets/activity_list.dart';
 import '../../common/core/utils/ui_utils.dart';
@@ -18,22 +18,30 @@ class CommunityScreen extends HookConsumerWidget {
 
   CommunityScreen({Key? key}) : super(key: key);
 
-  final pendingRequestsDataFutureProvider =
-      FutureProvider<List<User>>((ref) async {
+  final pendingRequestsDataFutureProvider = FutureProvider<void>((ref) async {
     final pendingRequestsProvider =
-        ref.read(pendingRequestsViewModelProvider.notifier);
-    final requests = await pendingRequestsProvider.getPendingRequests();
-    return requests;
+        ref.watch(pendingRequestsViewModelProvider.notifier);
+    pendingRequestsProvider.getPendingRequests();
+  });
+
+  final communityDataFutureProvider =
+      FutureProvider<List<Activity>>((ref) async {
+    final communityProvider = ref.read(communityViewModelProvider.notifier);
+    final activities = await communityProvider.getMyAndMyFriendsActivities();
+    return activities;
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var provider = ref.read(communityViewModelProvider.notifier);
-    var state = ref.read(communityViewModelProvider);
-    //var pendingRequestsState = ref.read(pendingRequestsViewModelProvider);
+    //var state = ref.read(communityViewModelProvider);
 
     var pendingRequestsStateProvider =
         ref.watch(pendingRequestsDataFutureProvider);
+
+    var pendingRequestsState = ref.watch(pendingRequestsViewModelProvider);
+
+    var communityStateProvider = ref.watch(communityDataFutureProvider);
 
     return Scaffold(
         appBar: SearchWidget(
@@ -44,8 +52,8 @@ class CommunityScreen extends HookConsumerWidget {
         ),
         body: Column(children: [
           pendingRequestsStateProvider.when(
-            data: (requests) {
-              return requests.isNotEmpty
+            data: (_) {
+              return pendingRequestsState.pendingRequests.isNotEmpty
                   ? Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(
@@ -65,7 +73,7 @@ class CommunityScreen extends HookConsumerWidget {
                                   begin: const Offset(1.0, 0.0),
                                   end: Offset.zero,
                                 ).animate(animation),
-                                child: PendingRequestsScreen(users: requests),
+                                child: const PendingRequestsScreen(),
                               ),
                             ),
                           );
@@ -78,7 +86,7 @@ class CommunityScreen extends HookConsumerWidget {
                               const Icon(Icons.people),
                               const SizedBox(width: 8),
                               Text(
-                                  "${"${AppLocalizations.of(context)!.see_pending_requests} (${requests.length}"})"),
+                                  "${"${AppLocalizations.of(context)!.see_pending_requests} (${pendingRequestsState.pendingRequests.length}"})"),
                             ],
                           ),
                         ),
@@ -93,9 +101,21 @@ class CommunityScreen extends HookConsumerWidget {
               return Text('$error');
             },
           ),
-          state.isLoading
-              ? const Center(child: UIUtils.loader)
-              : ActivityList(activities: state.activities)
+          communityStateProvider.when(
+            data: (activities) {
+              return ActivityList(
+                activities: activities,
+                displayUserName: true,
+                canOpenActivity: false,
+              );
+            },
+            loading: () {
+              return const Center(child: UIUtils.loader);
+            },
+            error: (error, stackTrace) {
+              return Text('$error');
+            },
+          )
         ]));
   }
 }

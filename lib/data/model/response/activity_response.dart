@@ -1,8 +1,10 @@
 import 'package:equatable/equatable.dart';
+import 'package:run_flutter_run/data/model/response/user_response.dart';
 
 import '../../../domain/entities/activity.dart';
 import '../../../domain/entities/enum/activity_type.dart';
 import '../../../domain/entities/location.dart';
+import '../../../domain/entities/user.dart';
 import 'location_response.dart';
 
 /// Represents a response object for an activity.
@@ -31,17 +33,20 @@ class ActivityResponse extends Equatable {
   /// The list of locations associated with the activity.
   final Iterable<LocationResponse> locations;
 
+  /// The user concerned by the activity
+  final UserResponse user;
+
   /// Constructs an ActivityResponse object with the given parameters.
-  const ActivityResponse({
-    required this.id,
-    required this.type,
-    required this.startDatetime,
-    required this.endDatetime,
-    required this.distance,
-    required this.speed,
-    required this.time,
-    required this.locations,
-  });
+  const ActivityResponse(
+      {required this.id,
+      required this.type,
+      required this.startDatetime,
+      required this.endDatetime,
+      required this.distance,
+      required this.speed,
+      required this.time,
+      required this.locations,
+      required this.user});
 
   @override
   List<Object?> get props => [
@@ -53,6 +58,7 @@ class ActivityResponse extends Equatable {
         speed,
         time,
         ...locations,
+        user
       ];
 
   /// Creates an ActivityResponse object from a JSON map.
@@ -64,19 +70,19 @@ class ActivityResponse extends Equatable {
     );
 
     return ActivityResponse(
-      id: map['id'].toString(),
-      type: activityType,
-      startDatetime: DateTime.parse(map['startDatetime']),
-      endDatetime: DateTime.parse(map['endDatetime']),
-      distance: map['distance'].toDouble(),
-      speed: map['speed'] is String
-          ? double.parse(map['speed'])
-          : map['speed'].toDouble(),
-      time: map['time'].toDouble(),
-      locations: (map['locations'] as List<dynamic>)
-          .map<LocationResponse>((item) => LocationResponse.fromMap(item))
-          .toList(),
-    );
+        id: map['id'].toString(),
+        type: activityType,
+        startDatetime: DateTime.parse(map['startDatetime']),
+        endDatetime: DateTime.parse(map['endDatetime']),
+        distance: map['distance'].toDouble(),
+        speed: map['speed'] is String
+            ? double.parse(map['speed'])
+            : map['speed'].toDouble(),
+        time: map['time'].toDouble(),
+        locations: (map['locations'] as List<dynamic>)
+            .map<LocationResponse>((item) => LocationResponse.fromMap(item))
+            .toList(),
+        user: UserResponse.fromMap(map['user']));
   }
 
   /// Converts the ActivityResponse object to an Activity entity.
@@ -92,14 +98,14 @@ class ActivityResponse extends Equatable {
       ..sort((a, b) => a.datetime.compareTo(b.datetime));
 
     return Activity(
-      id: id,
-      type: type,
-      startDatetime: startDatetime,
-      endDatetime: endDatetime,
-      distance: distance,
-      speed: speed,
-      time: time,
-      locations: activityLocations,
-    );
+        id: id,
+        type: type,
+        startDatetime: startDatetime,
+        endDatetime: endDatetime,
+        distance: distance,
+        speed: speed,
+        time: time,
+        locations: activityLocations,
+        user: User(id: user.id, username: user.username));
   }
 }

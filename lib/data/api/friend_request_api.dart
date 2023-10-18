@@ -15,8 +15,9 @@ class FriendRequestApi {
   ///
   /// Returns a list of [UserResponse] objects.
   static Future<List<UserResponse>> getPendindRequestUsers() async {
-    Response? response =
-        await ApiHelper.makeRequest('${FriendRequestApi.url}pending', 'GET');
+    Response? response = await ApiHelper.makeRequest(
+        '${FriendRequestApi.url}pending', 'GET',
+        noCache: true);
     final data = List<Map<String, dynamic>>.from(response?.data);
     return data.map((e) => UserResponse.fromMap(e)).toList();
   }
@@ -27,7 +28,7 @@ class FriendRequestApi {
   static Future<FriendRequestStatus?> getStatus(String userId) async {
     Response? response = await ApiHelper.makeRequest(
         '${FriendRequestApi.url}getStatus', 'GET',
-        queryParams: {'userId': userId});
+        queryParams: {'userId': userId}, noCache: true);
     final data = response?.data;
     return data != null
         ? FriendRequestResponse.fromMap(response?.data).status

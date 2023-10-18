@@ -51,15 +51,15 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
         .removeActivity(id: activity.id)
         .then((value) {
       final activityWithoutLocations = Activity(
-        id: activity.id,
-        type: activity.type,
-        distance: activity.distance,
-        speed: activity.speed,
-        startDatetime: activity.startDatetime,
-        endDatetime: activity.endDatetime,
-        time: activity.time,
-        locations: const [],
-      );
+          id: activity.id,
+          type: activity.type,
+          distance: activity.distance,
+          speed: activity.speed,
+          startDatetime: activity.startDatetime,
+          endDatetime: activity.endDatetime,
+          time: activity.time,
+          locations: const [],
+          user: activity.user);
 
       ref
           .read(activityListViewModelProvider)

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/domain/entities/enum/friend_request_status.dart';
 import 'package:run_flutter_run/domain/entities/user.dart';
 import 'package:run_flutter_run/presentation/common/activity/widgets/activity_list.dart';
 import 'package:run_flutter_run/presentation/common/friendship/widgets/friend_request.dart';
@@ -15,11 +14,10 @@ class ProfileScreen extends HookConsumerWidget {
   ProfileScreen({Key? key, required this.user}) : super(key: key);
 
   final friendShipStatusDataProvider =
-      FutureProvider.family<FriendRequestStatus?, User>((ref, user) async {
+      FutureProvider.family<void, User>((ref, user) async {
     final userId = user.id;
     final pendingRequestsProvider = ref.read(profileViewModelProvider.notifier);
-    final request = await pendingRequestsProvider.getFriendShipStatus(userId);
-    return request;
+    pendingRequestsProvider.getFriendshipStatus(userId);
   });
 
   @override
@@ -43,9 +41,9 @@ class ProfileScreen extends HookConsumerWidget {
                     ),
                   ),
                   friendShipStatusProvider.when(
-                    data: (request) {
+                    data: (_) {
                       return FriendRequestWidget(
-                          userId: user.id, status: request);
+                          userId: user.id, status: state.friendshipStatus);
                     },
                     loading: () {
                       return const Center(child: UIUtils.loader);
@@ -55,13 +53,13 @@ class ProfileScreen extends HookConsumerWidget {
                     },
                   ),
                   const Divider(),
-                  Text(AppLocalizations.of(context)!
-                      .activity_list
-                      .toUpperCase()),
                   const SizedBox(
                     height: 20,
                   ),
-                  ActivityList(activities: state.activities)
+                  ActivityList(
+                    activities: state.activities,
+                    canOpenActivity: false,
+                  )
                 ],
               ),
             ),

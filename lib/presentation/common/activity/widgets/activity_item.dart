@@ -15,11 +15,19 @@ class ActivityItem extends HookConsumerWidget {
   final int index;
   final Activity activity;
 
-  const ActivityItem({
-    Key? key,
-    required this.activity,
-    required this.index,
-  }) : super(key: key);
+  /// display username ?
+  final bool displayUserName;
+
+  /// can open activity ?
+  final bool canOpenActivity;
+
+  const ActivityItem(
+      {Key? key,
+      required this.activity,
+      required this.index,
+      this.displayUserName = false,
+      this.canOpenActivity = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,8 +45,10 @@ class ActivityItem extends HookConsumerWidget {
 
     return InkWell(
       onTap: () async {
-        final activityDetails = await provider.getActivityDetails(activity);
-        provider.goToActivity(activityDetails);
+        if (canOpenActivity) {
+          final activityDetails = await provider.getActivityDetails(activity);
+          provider.goToActivity(activityDetails);
+        }
       },
       child: Center(
         child: Padding(
@@ -92,6 +102,18 @@ class ActivityItem extends HookConsumerWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
+                          displayUserName
+                              ? Column(children: [
+                                  Text(
+                                    activity.user.username,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Avenir',
+                                    ),
+                                  ),
+                                  const SizedBox(height: 16)
+                                ])
+                              : Container(),
                           Text(
                             ActivityUtils.translateActivityTypeValue(
                               AppLocalizations.of(context)!,
@@ -172,18 +194,20 @@ class ActivityItem extends HookConsumerWidget {
                         ],
                       ),
                     ),
-                    const Expanded(
-                      flex: 2,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Icon(
-                            Icons.navigate_next,
-                            color: Colors.black,
+                    canOpenActivity
+                        ? const Expanded(
+                            flex: 2,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.navigate_next,
+                                  color: Colors.black,
+                                )
+                              ],
+                            ),
                           )
-                        ],
-                      ),
-                    ),
+                        : Container(),
                   ],
                 ),
               ),

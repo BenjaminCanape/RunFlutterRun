@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:run_flutter_run/domain/entities/user.dart';
 import 'package:run_flutter_run/presentation/community/widgets/pending_request_list.dart';
 
 import '../../common/core/utils/ui_utils.dart';
@@ -10,14 +9,11 @@ import '../view_model/pending_request_view_model.dart';
 
 /// The screen that displays pending requests
 class PendingRequestsScreen extends HookConsumerWidget {
-  final List<User> users;
-
-  const PendingRequestsScreen({Key? key, required this.users})
-      : super(key: key);
+  const PendingRequestsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var state = ref.read(pendingRequestsViewModelProvider);
+    var state = ref.watch(pendingRequestsViewModelProvider);
     var provider = ref.read(pendingRequestsViewModelProvider.notifier);
     return state.isLoading
         ? const Center(child: UIUtils.loader)
@@ -38,7 +34,7 @@ class PendingRequestsScreen extends HookConsumerWidget {
               const SizedBox(height: 40),
               Expanded(
                   child: PendingRequestsListWidget(
-                users: users,
+                users: state.pendingRequests,
                 onAccept: (userId) => provider.acceptRequest(userId),
                 onReject: (userId) => provider.rejectRequest(userId),
               ))

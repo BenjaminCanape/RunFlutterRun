@@ -18,12 +18,10 @@ class ApiHelper {
   ///
   /// Optional [data] and [queryParams] can be provided for POST, PUT, and DELETE requests.
   /// Returns the [Response] object or null if an unauthorized error occurs and user navigation is handled.
-  static Future<Response?> makeRequest(
-    String url,
-    String method, {
-    Map<String, dynamic>? data,
-    Map<String, dynamic>? queryParams,
-  }) async {
+  static Future<Response?> makeRequest(String url, String method,
+      {Map<String, dynamic>? data,
+      Map<String, dynamic>? queryParams,
+      bool noCache = false}) async {
     final remoteApi = RemoteApi(url);
     await remoteApi.setJwt();
 
@@ -34,6 +32,7 @@ class ApiHelper {
           response = await remoteApi.dio.get(
             url,
             queryParameters: queryParams,
+            options: Options(extra: {'noCache': true}),
           );
           break;
         case 'POST':

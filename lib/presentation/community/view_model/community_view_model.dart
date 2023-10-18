@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/data/repositories/activity_repository_impl.dart';
 import 'package:run_flutter_run/domain/entities/user.dart';
 import 'package:run_flutter_run/presentation/common/user/screens/profile_screen.dart';
 import '../../../data/repositories/user_repository_impl.dart';
@@ -19,6 +20,10 @@ class CommunityViewModel extends StateNotifier<CommunityState> {
 
   search(String text) {
     return ref.read(userRepositoryProvider).search(text);
+  }
+
+  getMyAndMyFriendsActivities() {
+    return ref.read(activityRepositoryProvider).getMyAndMyFriendsActivities();
   }
 
   /// Navigates to the profile of a user.

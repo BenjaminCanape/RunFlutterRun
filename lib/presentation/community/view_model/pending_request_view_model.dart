@@ -15,7 +15,7 @@ class PendingRequestsViewModel extends StateNotifier<PendingRequestsState> {
 
   PendingRequestsViewModel(this.ref) : super(PendingRequestsState.initial());
 
-  Future<List<User>> getPendingRequests() async {
+  void getPendingRequests() async {
     //state = state.copyWith(pendingRequests: [], isLoading: true);
     /*return ref
         .read(friendRequestRepositoryProvider)
@@ -24,7 +24,8 @@ class PendingRequestsViewModel extends StateNotifier<PendingRequestsState> {
             state = state.copyWith(pendingRequests: value, isLoading: false));*/
     return await ref
         .read(friendRequestRepositoryProvider)
-        .getPendingRequestUsers();
+        .getPendingRequestUsers()
+        .then((value) => state = state.copyWith(pendingRequests: value));
   }
 
   void setPendingRequest(List<User> users) {
@@ -39,7 +40,7 @@ class PendingRequestsViewModel extends StateNotifier<PendingRequestsState> {
         .then((value) {
       var requests = state.pendingRequests;
       requests.removeWhere((user) => user.id == userId);
-      state = state.copyWith(isLoading: false);
+      state = state.copyWith(pendingRequests: requests, isLoading: false);
     });
   }
 
@@ -51,7 +52,7 @@ class PendingRequestsViewModel extends StateNotifier<PendingRequestsState> {
         .then((value) {
       var requests = state.pendingRequests;
       requests.removeWhere((user) => user.id == userId);
-      state = state.copyWith(isLoading: false);
+      state = state.copyWith(pendingRequests: requests, isLoading: false);
     });
   }
 }

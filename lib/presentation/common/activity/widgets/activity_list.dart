@@ -9,10 +9,21 @@ class ActivityList extends HookConsumerWidget {
   /// The activities to display.
   final List<Activity> activities;
 
+  /// display username ?
+  final bool displayUserName;
+
+  /// can open activity ?
+  final bool canOpenActivity;
+
   /// Creates a [ActivityList] widget.
   ///
   /// The [activities] is the activities to display.
-  const ActivityList({Key? key, required this.activities}) : super(key: key);
+  const ActivityList(
+      {Key? key,
+      this.displayUserName = false,
+      this.canOpenActivity = true,
+      required this.activities})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,7 +39,12 @@ class ActivityList extends HookConsumerWidget {
           : ListView.builder(
               itemCount: activities.length,
               itemBuilder: (context, index) {
-                return ActivityItem(index: index, activity: activities[index]);
+                return ActivityItem(
+                  index: index,
+                  activity: activities[index],
+                  displayUserName: displayUserName,
+                  canOpenActivity: canOpenActivity,
+                );
               },
             ),
     );
