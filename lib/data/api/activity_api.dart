@@ -22,8 +22,9 @@ class ActivityApi {
   ///
   /// Returns a list of [ActivityResponse] objects.
   static Future<List<ActivityResponse>> getMyAndMyFriendsActivities() async {
-    Response? response =
-        await ApiHelper.makeRequest('${ActivityApi.url}friends', 'GET');
+    Response? response = await ApiHelper.makeRequest(
+        '${ActivityApi.url}friends', 'GET',
+        noCache: true);
     final data = List<Map<String, dynamic>>.from(response?.data);
     return data.map((e) => ActivityResponse.fromMap(e)).toList();
   }

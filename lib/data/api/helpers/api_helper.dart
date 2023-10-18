@@ -32,7 +32,7 @@ class ApiHelper {
           response = await remoteApi.dio.get(
             url,
             queryParameters: queryParams,
-            options: Options(extra: {'noCache': true}),
+            options: Options(extra: {'noCache': noCache}),
           );
           break;
         case 'POST':
@@ -93,10 +93,12 @@ class RemoteApi {
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
         final cacheKey = options.uri.toString();
-
         final cachedResponse = prefs.getString(cacheKey);
+        bool noCache = options.extra['noCache'] ?? false;
 
-        if (options.method == 'GET' && cachedResponse != null) {
+        if (noCache == false &&
+            options.method == 'GET' &&
+            cachedResponse != null) {
           final cacheTimestamp = prefs.getInt('$cacheKey:timestamp') ?? 0;
 
           final currentTimestamp = DateTime.now().millisecondsSinceEpoch;
