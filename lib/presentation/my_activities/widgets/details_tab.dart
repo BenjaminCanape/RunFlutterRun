@@ -131,10 +131,17 @@ class DetailsTab extends HookConsumerWidget {
                       activity: displayedActivity,
                       boundaryKey: state.boundaryKey),
                 ),
-                const Positioned(
+                Positioned(
                   bottom: 16,
                   left: 80,
-                  child: BackButton(),
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.teal.shade800,
+                    elevation: 4.0,
+                    child: const Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
               ],
             ),

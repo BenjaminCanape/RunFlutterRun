@@ -37,12 +37,6 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                   Container(
                     padding: const EdgeInsets.only(left: 25, top: 12),
                     child: Row(children: [
-                      Icon(
-                        ActivityUtils.getActivityTypeIcon(
-                            displayedActivity.type),
-                        color: Colors.blueGrey,
-                      ),
-                      const SizedBox(width: 10),
                       Text(
                         ActivityUtils.translateActivityTypeValue(
                           AppLocalizations.of(context)!,
@@ -100,13 +94,12 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                                   labelColor: Colors.blueGrey,
                                   dividerColor: Colors.blueGrey,
                                   indicatorColor: Colors.blueGrey,
-                                  tabs: [
+                                  tabs: const [
                                     Tab(
-                                      text:
-                                          AppLocalizations.of(context)!.details,
+                                      icon: Icon(Icons.short_text),
                                     ),
                                     Tab(
-                                      text: AppLocalizations.of(context)!.graph,
+                                      icon: Icon(Icons.graphic_eq_outlined),
                                     ),
                                   ]),
                               body: TabBarView(
