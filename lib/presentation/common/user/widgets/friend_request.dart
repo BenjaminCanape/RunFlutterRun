@@ -1,37 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:run_flutter_run/domain/entities/enum/friend_request_status.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:run_flutter_run/presentation/common/user/view_model/profile_view_model.dart';
 
 class FriendRequestWidget extends HookConsumerWidget {
   final String userId;
 
-  const FriendRequestWidget({super.key, required this.userId});
+  const FriendRequestWidget({Key? key, required this.userId}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var provider = ref.read(profileViewModelProvider.notifier);
-    var state = ref.watch(profileViewModelProvider);
+    final provider = ref.read(profileViewModelProvider.notifier);
+    final state = ref.watch(profileViewModelProvider);
 
     if (state.friendshipStatus == FriendRequestStatus.pending) {
-      return const Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.follow_the_signs),
-          SizedBox(width: 8),
-          Text('En attente'),
-        ],
+      return _buildStatusWidget(
+        context,
+        Icons.access_time,
+        Colors.orange,
+        AppLocalizations.of(context)!.pending,
+        Colors.orange,
       );
     } else if (state.friendshipStatus == FriendRequestStatus.accepted) {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(Icons.check),
-          const SizedBox(width: 8),
-          Text(AppLocalizations.of(context)!.followed),
-        ],
+      return _buildStatusWidget(
+        context,
+        Icons.check,
+        Colors.green,
+        AppLocalizations.of(context)!.followed,
+        Colors.green,
       );
     } else if (state.friendshipStatus == FriendRequestStatus.rejected) {
       return Container();
@@ -40,18 +37,40 @@ class FriendRequestWidget extends HookConsumerWidget {
         onPressed: () {
           provider.sendFriendRequest(userId);
         },
-        child: Align(
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.follow_the_signs),
-              const SizedBox(width: 8),
-              Text(AppLocalizations.of(context)!.follow),
-            ],
-          ),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.teal.shade800,
+        ),
+        child: _buildStatusWidget(
+          context,
+          Icons.person_add,
+          Colors.white,
+          AppLocalizations.of(context)!.follow,
+          Colors.white,
         ),
       );
     }
+  }
+
+  Widget _buildStatusWidget(
+    BuildContext context,
+    IconData icon,
+    Color iconColor,
+    String text,
+    Color textColor,
+  ) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: iconColor),
+          const SizedBox(width: 8),
+          Text(
+            text,
+            style: TextStyle(color: textColor),
+          ),
+        ],
+      ),
+    );
   }
 }

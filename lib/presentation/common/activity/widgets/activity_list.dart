@@ -30,10 +30,20 @@ class ActivityList extends HookConsumerWidget {
     return Expanded(
       child: activities.isEmpty
           ? Center(
-              child: Text(
-                AppLocalizations.of(context)!.no_data,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(Icons.info, size: 48),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.no_data,
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
             )
           : ListView.builder(

@@ -7,7 +7,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../core/utils/ui_utils.dart';
 import '../view_model/profile_view_model.dart';
 
-/// The screen that displays the profile of a specific user.
 class ProfileScreen extends HookConsumerWidget {
   final User user;
 
@@ -33,28 +32,39 @@ class ProfileScreen extends HookConsumerWidget {
               child: Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(left: 0, top: 12),
-                    child: Text(
-                      user.username,
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                    padding:
+                        const EdgeInsets.only(left: 16, top: 16, right: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Icon(Icons.person, size: 30),
+                        const SizedBox(width: 8),
+                        Text(
+                          user.username,
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      ],
                     ),
                   ),
-                  friendShipStatusProvider.when(
-                    data: (_) {
-                      return FriendRequestWidget(userId: user.id);
-                    },
-                    loading: () {
-                      return const Center(child: UIUtils.loader);
-                    },
-                    error: (error, stackTrace) {
-                      return Text('$error');
-                    },
-                  ),
                   const Divider(),
-                  const SizedBox(
-                    height: 20,
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: friendShipStatusProvider.when(
+                        data: (_) {
+                          return FriendRequestWidget(userId: user.id);
+                        },
+                        loading: () {
+                          return const Center(child: UIUtils.loader);
+                        },
+                        error: (error, stackTrace) {
+                          return Text('$error');
+                        },
+                      ),
+                    ),
                   ),
+                  const SizedBox(height: 20),
                   ActivityList(
                     activities: state.activities,
                     canOpenActivity: false,
