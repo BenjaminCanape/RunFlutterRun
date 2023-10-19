@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/domain/entities/activity.dart';
-import 'package:run_flutter_run/presentation/community/screens/pending_requests_screen.dart';
-import 'package:run_flutter_run/presentation/community/view_model/community_view_model.dart';
+import '../../../domain/entities/activity.dart';
+import 'pending_requests_screen.dart';
+import '../view_model/community_view_model.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-//import 'package:run_flutter_run/presentation/community/view_model/pending_request_view_model.dart';
 import '../../common/core/utils/form_utils.dart';
 import '../../common/activity/widgets/activity_list.dart';
 import '../../common/core/utils/ui_utils.dart';
@@ -34,13 +33,9 @@ class CommunityScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var provider = ref.read(communityViewModelProvider.notifier);
-    //var state = ref.read(communityViewModelProvider);
-
     var pendingRequestsStateProvider =
         ref.watch(pendingRequestsDataFutureProvider);
-
     var pendingRequestsState = ref.watch(pendingRequestsViewModelProvider);
-
     var communityStateProvider = ref.watch(communityDataFutureProvider);
 
     return Scaffold(

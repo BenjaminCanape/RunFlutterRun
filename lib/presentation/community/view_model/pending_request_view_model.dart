@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/data/repositories/friend_request_repository_impl.dart';
-import 'package:run_flutter_run/domain/entities/user.dart';
+import '../../../data/repositories/friend_request_repository_impl.dart';
+import '../../../domain/entities/user.dart';
 
 import 'state/pending_requests_state.dart';
 
@@ -16,12 +16,6 @@ class PendingRequestsViewModel extends StateNotifier<PendingRequestsState> {
   PendingRequestsViewModel(this.ref) : super(PendingRequestsState.initial());
 
   void getPendingRequests() async {
-    //state = state.copyWith(pendingRequests: [], isLoading: true);
-    /*return ref
-        .read(friendRequestRepositoryProvider)
-        .getPendingRequestUsers()
-        .then((value) =>
-            state = state.copyWith(pendingRequests: value, isLoading: false));*/
     return await ref
         .read(friendRequestRepositoryProvider)
         .getPendingRequestUsers()
