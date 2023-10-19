@@ -29,11 +29,15 @@ flutter run
 
 ### New Activity
 
-<img src="screenshots/new_activity/home.png" alt="Description de l'image" width="300px"> <img src="screenshots/new_activity/current_activity.png" alt="Description de l'image" width="300px">
+<img src="screenshots/new_activity/home.png" alt="Description de l'image" width="300px"> <img src="screenshots/new_activity/current_activity.png" alt="Description de l'image" width="300px"> 
 
 ### Activity list
 
-<img src="screenshots/activity_list/activity_list.png" alt="Description de l'image" width="300px"> <img src="screenshots/activity_list/activity_details.png" alt="Description de l'image" width="300px">
+<img src="screenshots/activity_list/activity_list.png" alt="Description de l'image" width="300px"> <img src="screenshots/activity_list/activity_details.png" alt="Description de l'image" width="300px"> <img src="screenshots/activity_list/activity_graph.png" alt="Description de l'image" width="300px"> 
+
+### Community
+
+<img src="screenshots/community/all_activities.png" alt="Description de l'image" width="300px"> <img src="screenshots/community/user_profile.png" alt="Description de l'image" width="300px">
 
 ### Settings
 
