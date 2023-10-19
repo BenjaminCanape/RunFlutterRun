@@ -8,7 +8,7 @@ import 'package:latlong2/latlong.dart';
 import '../../../../../data/model/request/location_request.dart';
 import '../../metrics/view_model/metrics_view_model.dart';
 import '../../timer/viewmodel/timer_view_model.dart';
-import 'location_state.dart';
+import 'state/location_state.dart';
 
 /// Provider for the [LocationViewModel].
 final locationViewModelProvider =

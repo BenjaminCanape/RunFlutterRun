@@ -6,6 +6,12 @@ abstract class ActivityRepository {
   /// Retrieves a list of activities.
   Future<List<Activity>> getActivities();
 
+  /// Retrieves a list of my activities and my friends.
+  Future<List<Activity>> getMyAndMyFriendsActivities();
+
+  /// Retrieves a list of a user activities.
+  Future<List<Activity>> getUserActivities(String userId);
+
   /// Retrieves an activity by its ID.
   Future<Activity> getActivityById({required String id});
 

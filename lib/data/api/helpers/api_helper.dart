@@ -9,22 +9,19 @@ import '../user_api.dart';
 
 /// Helper class for making API requests.
 class ApiHelper {
-  //static const String apiUrl = 'https://runbackendrun.herokuapp.com/api/';
-  //static const String apiUrl = 'https://runbackendrun.onrender.com/api/';
-  static const String apiUrl = 'http://lxgfjcmoky.us18.qoddiapp.com/api/';
-  //static const String apiUrl =
-  //   'https://runbackendrun-production.up.railway.app/api/';
+  // switch url when back is down
+  //static const String apiUrl = 'http://lxgfjcmoky.us18.qoddiapp.com/api/'; //US server
+  static const String apiUrl =
+      'http://tiqorhzmyb.eu11.qoddiapp.com/api/'; //EU server
 
   /// Makes an HTTP request to the specified [url] using the given [method].
   ///
   /// Optional [data] and [queryParams] can be provided for POST, PUT, and DELETE requests.
   /// Returns the [Response] object or null if an unauthorized error occurs and user navigation is handled.
-  static Future<Response?> makeRequest(
-    String url,
-    String method, {
-    Map<String, dynamic>? data,
-    Map<String, dynamic>? queryParams,
-  }) async {
+  static Future<Response?> makeRequest(String url, String method,
+      {Map<String, dynamic>? data,
+      Map<String, dynamic>? queryParams,
+      bool noCache = false}) async {
     final remoteApi = RemoteApi(url);
     await remoteApi.setJwt();
 
@@ -35,12 +32,21 @@ class ApiHelper {
           response = await remoteApi.dio.get(
             url,
             queryParameters: queryParams,
+            options: Options(extra: {'noCache': noCache}),
           );
           break;
         case 'POST':
           response = await remoteApi.dio.post(
             url,
             data: data,
+            queryParameters: queryParams,
+          );
+          break;
+        case 'POST_FORM_DATA':
+          final formData = FormData.fromMap(data!);
+          response = await remoteApi.dio.post(
+            url,
+            data: formData,
             queryParameters: queryParams,
           );
           break;
@@ -87,10 +93,12 @@ class RemoteApi {
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
         final cacheKey = options.uri.toString();
-
         final cachedResponse = prefs.getString(cacheKey);
+        bool noCache = options.extra['noCache'] ?? false;
 
-        if (options.method == 'GET' && cachedResponse != null) {
+        if (noCache == false &&
+            options.method == 'GET' &&
+            cachedResponse != null) {
           final cacheTimestamp = prefs.getInt('$cacheKey:timestamp') ?? 0;
 
           final currentTimestamp = DateTime.now().millisecondsSinceEpoch;

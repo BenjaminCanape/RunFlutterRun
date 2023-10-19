@@ -2,6 +2,7 @@ import '../../data/model/request/edit_password_request.dart';
 import '../../data/model/request/login_request.dart';
 import '../../data/model/request/send_new_password_request.dart';
 import '../../data/model/response/login_response.dart';
+import '../entities/user.dart';
 
 /// Abstract class representing the user repository.
 abstract class UserRepository {
@@ -22,4 +23,7 @@ abstract class UserRepository {
 
   /// Edit the password
   Future<void> editPassword(EditPasswordRequest request);
+
+  /// Search users based on a text value
+  Future<List<User>> search(String text);
 }

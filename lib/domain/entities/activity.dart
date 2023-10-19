@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:run_flutter_run/domain/entities/user.dart';
 
 import 'enum/activity_type.dart';
 import 'location.dart';
@@ -29,17 +30,20 @@ class Activity extends Equatable {
   /// The list of locations associated with the activity.
   final Iterable<Location> locations;
 
+  // The user concerned by the activity
+  final User user;
+
   /// Constructs an Activity object with the given parameters.
-  const Activity({
-    required this.id,
-    required this.type,
-    required this.startDatetime,
-    required this.endDatetime,
-    required this.distance,
-    required this.speed,
-    required this.time,
-    required this.locations,
-  });
+  const Activity(
+      {required this.id,
+      required this.type,
+      required this.startDatetime,
+      required this.endDatetime,
+      required this.distance,
+      required this.speed,
+      required this.time,
+      required this.locations,
+      required this.user});
 
   @override
   List<Object?> get props => [
@@ -51,5 +55,6 @@ class Activity extends Equatable {
         speed,
         time,
         ...locations,
+        user
       ];
 }

@@ -7,7 +7,7 @@ import '../../../../../main.dart';
 import '../../core/services/text_to_speech_service.dart';
 import '../../location/view_model/location_view_model.dart';
 import '../../metrics/view_model/metrics_view_model.dart';
-import 'timer_state.dart';
+import 'state/timer_state.dart';
 
 final timerViewModelProvider =
     StateNotifierProvider.autoDispose<TimerViewModel, TimerState>(

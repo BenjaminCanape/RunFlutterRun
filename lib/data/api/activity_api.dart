@@ -18,6 +18,27 @@ class ActivityApi {
     return data.map((e) => ActivityResponse.fromMap(e)).toList();
   }
 
+  /// Retrieves a list of my activities and my friends.
+  ///
+  /// Returns a list of [ActivityResponse] objects.
+  static Future<List<ActivityResponse>> getMyAndMyFriendsActivities() async {
+    Response? response = await ApiHelper.makeRequest(
+        '${ActivityApi.url}friends', 'GET',
+        noCache: true);
+    final data = List<Map<String, dynamic>>.from(response?.data);
+    return data.map((e) => ActivityResponse.fromMap(e)).toList();
+  }
+
+  /// Retrieves a list of a user activities.
+  ///
+  /// Returns a list of [ActivityResponse] objects.
+  static Future<List<ActivityResponse>> getUserActivities(String userId) async {
+    Response? response =
+        await ApiHelper.makeRequest('${ActivityApi.url}user/$userId', 'GET');
+    final data = List<Map<String, dynamic>>.from(response?.data);
+    return data.map((e) => ActivityResponse.fromMap(e)).toList();
+  }
+
   /// Retrieves an activity by its ID.
   ///
   /// Returns an [ActivityResponse] object.

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:run_flutter_run/data/model/response/user_response.dart';
 
 import '../../core/utils/storage_utils.dart';
 import '../model/request/edit_password_request.dart';
@@ -76,5 +77,16 @@ class UserApi {
     await ApiHelper.makeRequest(
         '${ApiHelper.apiUrl}private/user/editPassword', 'PUT',
         data: request.toMap());
+  }
+
+  /// Search users based on a search value
+  ///
+  /// Returns a List of [UserResponse] object.
+  static Future<List<UserResponse>> search(String text) async {
+    Response? response = await ApiHelper.makeRequest(
+        '${ApiHelper.apiUrl}private/user/search', 'GET',
+        queryParams: {'searchText': text});
+    final data = List<Map<String, dynamic>>.from(response?.data);
+    return data.map((e) => UserResponse.fromMap(e)).toList();
   }
 }

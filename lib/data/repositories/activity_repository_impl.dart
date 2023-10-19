@@ -20,6 +20,18 @@ class ActivityRepositoryImpl extends ActivityRepository {
   }
 
   @override
+  Future<List<Activity>> getMyAndMyFriendsActivities() async {
+    final activityResponses = await ActivityApi.getMyAndMyFriendsActivities();
+    return activityResponses.map((response) => response.toEntity()).toList();
+  }
+
+  @override
+  Future<List<Activity>> getUserActivities(String userId) async {
+    final activityResponses = await ActivityApi.getUserActivities(userId);
+    return activityResponses.map((response) => response.toEntity()).toList();
+  }
+
+  @override
   Future<Activity> getActivityById({required String id}) async {
     final activityResponse = await ActivityApi.getActivityById(id);
     return activityResponse.toEntity();

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:run_flutter_run/presentation/common/activity/widgets/activity_list.dart';
 
-import '../../activity_list/view_model/activity_list_view_model.dart';
 import '../../common/core/utils/ui_utils.dart';
+import '../view_model/activity_list_view_model.dart';
 
 /// The screen that displays a list of activities.
 class ActivityListScreen extends HookConsumerWidget {

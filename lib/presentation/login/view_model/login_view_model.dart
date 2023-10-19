@@ -4,8 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../data/model/request/login_request.dart';
 import '../../../data/repositories/user_repository_impl.dart';
 import '../../../main.dart';
-import '../../home/screen/home_screen.dart';
-import 'login_state.dart';
+import '../../home/screens/home_screen.dart';
+import 'state/login_state.dart';
 
 /// Provides the view model for the login screen.
 final loginViewModelProvider =
