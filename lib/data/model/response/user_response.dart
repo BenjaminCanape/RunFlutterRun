@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:run_flutter_run/domain/entities/user.dart';
+import '../../../domain/entities/user.dart';
 
 /// Represents a response object for a user.
 class UserResponse extends Equatable {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/presentation/common/activity/widgets/activity_list.dart';
+import '../../common/activity/widgets/activity_list.dart';
 
 import '../../common/core/utils/ui_utils.dart';
 import '../view_model/activity_list_view_model.dart';

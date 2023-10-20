@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:run_flutter_run/domain/entities/enum/friend_request_status.dart';
-import 'package:run_flutter_run/domain/entities/friend_request.dart';
+import '../../../domain/entities/enum/friend_request_status.dart';
+import '../../../domain/entities/friend_request.dart';
 
 /// Represents a response object for a friend request.
 class FriendRequestResponse extends Equatable {

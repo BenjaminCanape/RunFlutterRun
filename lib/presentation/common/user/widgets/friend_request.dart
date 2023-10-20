@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/domain/entities/enum/friend_request_status.dart';
+import '../../../../domain/entities/enum/friend_request_status.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:run_flutter_run/presentation/common/user/view_model/profile_view_model.dart';
+import '../view_model/profile_view_model.dart';
 
 class FriendRequestWidget extends HookConsumerWidget {
   final String userId;

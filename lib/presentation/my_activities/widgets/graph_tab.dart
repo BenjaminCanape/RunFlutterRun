@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:run_flutter_run/domain/entities/location.dart';
-import 'package:run_flutter_run/presentation/common/core/utils/map_utils.dart';
+import '../../../domain/entities/location.dart';
+import '../../common/core/utils/map_utils.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../domain/entities/activity.dart';
 

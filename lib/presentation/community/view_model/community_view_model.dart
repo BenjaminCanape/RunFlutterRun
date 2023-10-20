@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/data/repositories/activity_repository_impl.dart';
-import 'package:run_flutter_run/domain/entities/user.dart';
-import 'package:run_flutter_run/presentation/common/user/screens/profile_screen.dart';
+import '../../../data/repositories/activity_repository_impl.dart';
+import '../../../domain/entities/user.dart';
+import '../../common/user/screens/profile_screen.dart';
 import '../../../data/repositories/user_repository_impl.dart';
 import '../../../main.dart';
 import 'state/community_state.dart';

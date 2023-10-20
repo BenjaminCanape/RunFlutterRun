@@ -4,8 +4,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
-import 'package:run_flutter_run/presentation/my_activities/widgets/details_tab.dart';
-import 'package:run_flutter_run/presentation/my_activities/widgets/graph_tab.dart';
+import '../widgets/details_tab.dart';
+import '../widgets/graph_tab.dart';
 
 import '../../../domain/entities/activity.dart';
 import '../../common/core/utils/activity_utils.dart';

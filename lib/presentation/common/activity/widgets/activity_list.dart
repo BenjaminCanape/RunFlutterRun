@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/domain/entities/activity.dart';
+import '../../../../domain/entities/activity.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'activity_item.dart';
 

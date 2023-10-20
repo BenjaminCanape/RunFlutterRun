@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:run_flutter_run/data/model/response/user_response.dart';
+import '../model/response/user_response.dart';
 
 import '../../core/utils/storage_utils.dart';
 import '../model/request/edit_password_request.dart';

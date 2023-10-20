@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:run_flutter_run/data/model/response/user_response.dart';
+import 'user_response.dart';
 
 import '../../../domain/entities/activity.dart';
 import '../../../domain/entities/enum/activity_type.dart';

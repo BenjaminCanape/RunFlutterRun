@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:run_flutter_run/domain/entities/enum/friend_request_status.dart';
+import 'enum/friend_request_status.dart';
 
 /// Represents a friend request.
 class FriendRequest extends Equatable {

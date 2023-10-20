@@ -1,4 +1,4 @@
-import 'package:run_flutter_run/domain/entities/enum/friend_request_status.dart';
+import '../../../../../domain/entities/enum/friend_request_status.dart';
 
 import '../../../../../domain/entities/activity.dart';
 

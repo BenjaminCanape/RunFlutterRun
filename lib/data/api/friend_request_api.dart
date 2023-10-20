@@ -1,8 +1,8 @@
 import 'dart:ffi';
 
 import 'package:dio/dio.dart';
-import 'package:run_flutter_run/data/model/response/friend_request_response.dart';
-import 'package:run_flutter_run/domain/entities/enum/friend_request_status.dart';
+import '../model/response/friend_request_response.dart';
+import '../../domain/entities/enum/friend_request_status.dart';
 
 import '../model/response/user_response.dart';
 import 'helpers/api_helper.dart';

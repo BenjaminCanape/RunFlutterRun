@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/domain/entities/activity.dart';
+import '../../../../domain/entities/activity.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import '../../core/utils/activity_utils.dart';
@@ -25,9 +25,9 @@ class ActivityItem extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.read(activityListViewModelProvider.notifier);
     final appLocalizations = AppLocalizations.of(context)!;
-    final formattedDateTime =
-        DateFormat('dd/MM/yyyy ${appLocalizations.hours_pronoun} HH:mm')
-            .format(activity.startDatetime);
+    final formattedDate =
+        DateFormat('dd/MM/yyyy').format(activity.startDatetime);
+    final formattedTime = DateFormat('HH:mm').format(activity.startDatetime);
 
     final List<Color> colors = ColorUtils.generateColorTupleFromIndex(index);
     final startColor = colors.first;
@@ -106,7 +106,7 @@ class ActivityItem extends HookConsumerWidget {
                     ),
                   ),
                   Text(
-                    '${appLocalizations.date_pronoun} $formattedDateTime',
+                    '${appLocalizations.date_pronoun} $formattedDate ${appLocalizations.hours_pronoun} $formattedTime',
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       fontFamily: 'Avenir',

@@ -1,7 +1,7 @@
 import 'dart:ffi';
 
-import 'package:run_flutter_run/domain/entities/enum/friend_request_status.dart';
-import 'package:run_flutter_run/domain/entities/friend_request.dart';
+import '../entities/enum/friend_request_status.dart';
+import '../entities/friend_request.dart';
 
 import '../entities/user.dart';
 

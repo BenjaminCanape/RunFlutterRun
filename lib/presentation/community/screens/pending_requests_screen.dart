@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:run_flutter_run/presentation/community/widgets/pending_request_list.dart';
+import '../widgets/pending_request_list.dart';
 
 import '../../common/core/utils/ui_utils.dart';
 import '../view_model/pending_request_view_model.dart';

@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/domain/entities/activity.dart';
-import 'package:run_flutter_run/domain/entities/location.dart';
-import 'package:run_flutter_run/domain/entities/user.dart';
+import '../../../domain/entities/activity.dart';
+import '../../../domain/entities/location.dart';
+import '../../../domain/entities/user.dart';
 
 import '../../../data/model/request/activity_request.dart';
 import '../../../data/repositories/activity_repository_impl.dart';

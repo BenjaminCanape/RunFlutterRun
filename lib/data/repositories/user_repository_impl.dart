@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/domain/entities/user.dart';
+import '../../domain/entities/user.dart';
 
 import '../../core/utils/storage_utils.dart';
 import '../../domain/repositories/user_repository.dart';

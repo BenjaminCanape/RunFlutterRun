@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:run_flutter_run/domain/entities/user.dart';
+import 'user.dart';
 
 import 'enum/activity_type.dart';
 import 'location.dart';

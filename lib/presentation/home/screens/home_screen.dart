@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/presentation/community/screens/community_screen.dart';
 
-import '../../my_activities/screens/activity_list_screen.dart';
 import '../../common/location/view_model/location_view_model.dart';
+import '../../community/screens/community_screen.dart';
+import '../../my_activities/screens/activity_list_screen.dart';
 import '../../new_activity/screens/new_activity_screen.dart';
 import '../../settings/screens/settings_screen.dart';
 import '../view_model/home_view_model.dart';

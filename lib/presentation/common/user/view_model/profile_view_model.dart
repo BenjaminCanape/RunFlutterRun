@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/data/repositories/activity_repository_impl.dart';
-import 'package:run_flutter_run/data/repositories/friend_request_repository_impl.dart';
-import 'package:run_flutter_run/domain/entities/enum/friend_request_status.dart';
+import '../../../../data/repositories/activity_repository_impl.dart';
+import '../../../../data/repositories/friend_request_repository_impl.dart';
+import '../../../../domain/entities/enum/friend_request_status.dart';
 import 'state/profile_state.dart';
 
 /// Provider for the profile view model.

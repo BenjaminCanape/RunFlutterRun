@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:run_flutter_run/domain/entities/user.dart';
-import 'package:run_flutter_run/presentation/common/friendship/widgets/accept_refuse.dart';
+import '../../../domain/entities/user.dart';
+import '../../common/friendship/widgets/accept_refuse.dart';
 
 class PendingRequestsListWidget extends StatelessWidget {
   final List<User> users;

@@ -3,13 +3,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import '../../common/core/widgets/share_map_button.dart';
-import '../../common/location/widgets/location_map.dart';
 
 import '../../../domain/entities/enum/activity_type.dart';
 import '../../common/core/utils/activity_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
+import '../../common/core/widgets/share_map_button.dart';
 import '../../common/location/view_model/location_view_model.dart';
+import '../../common/location/widgets/location_map.dart';
 import '../../common/metrics/widgets/metrics.dart';
 import '../../common/timer/widgets/timer_sized.dart';
 import '../view_model/sum_up_view_model.dart';
