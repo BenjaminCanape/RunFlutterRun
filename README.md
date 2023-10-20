@@ -37,7 +37,7 @@ flutter run
 
 ### Community
 
-<img src="screenshots/community/all_activities.png" alt="Description de l'image" width="300px"> <img src="screenshots/community/user_profile.png" alt="Description de l'image" width="300px">
+<img src="screenshots/community/all_activities.png" alt="Description de l'image" width="300px"> <img src="screenshots/community/pending_requests.png" alt="Description de l'image" width="300px"> <img src="screenshots/community/user_profile.png" alt="Description de l'image" width="300px">
 
 ### Settings
 
