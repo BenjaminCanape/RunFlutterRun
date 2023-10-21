@@ -21,7 +21,11 @@ class PendingRequestsListWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         final user = users[index];
         return ListTile(
-            title: Text(user.username),
+            title: Text(
+              user.firstname != null && user.lastname != null
+                  ? '${user.firstname} ${user.lastname}'
+                  : user.username,
+            ),
             trailing: AcceptRefuseWidget(
                 userId: user.id, onAccept: onAccept, onReject: onReject));
       },
