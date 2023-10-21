@@ -47,6 +47,34 @@ class RegistrationScreen extends HookConsumerWidget {
                       key: formKey,
                       child: Column(
                         children: [
+                          // Firstname TextFormField
+                          TextFormField(
+                            style: FormUtils.darkTextFormFieldStyle,
+                            decoration: FormUtils.createInputDecorative(
+                              AppLocalizations.of(context)!.firstname,
+                              dark: true,
+                              icon: Icons.person,
+                            ),
+                            validator: (value) =>
+                                LoginValidators.name(context, value),
+                            onSaved: (value) {
+                              provider.setFirstname(value);
+                            },
+                          ),
+                          // Lastname TextFormField
+                          TextFormField(
+                            style: FormUtils.darkTextFormFieldStyle,
+                            decoration: FormUtils.createInputDecorative(
+                              AppLocalizations.of(context)!.lastname,
+                              dark: true,
+                              icon: Icons.person,
+                            ),
+                            validator: (value) =>
+                                LoginValidators.name(context, value),
+                            onSaved: (value) {
+                              provider.setLastname(value);
+                            },
+                          ),
                           // Email TextFormField
                           TextFormField(
                             style: FormUtils.darkTextFormFieldStyle,

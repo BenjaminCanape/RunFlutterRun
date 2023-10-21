@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/data/model/request/registration_request.dart';
 import '../../domain/entities/user.dart';
 
 import '../../core/utils/storage_utils.dart';
@@ -18,7 +19,7 @@ class UserRepositoryImpl extends UserRepository {
   UserRepositoryImpl();
 
   @override
-  Future<int> register(LoginRequest request) async {
+  Future<int> register(RegistrationRequest request) async {
     return UserApi.createUser(request);
   }
 

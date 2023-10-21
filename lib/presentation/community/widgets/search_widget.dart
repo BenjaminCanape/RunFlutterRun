@@ -35,8 +35,11 @@ class SearchWidget extends HookConsumerWidget implements PreferredSizeWidget {
         },
         itemBuilder: (BuildContext context, User suggestion) {
           return ListTile(
-            title: Text(suggestion.username),
-          );
+              title: Text(
+            suggestion.firstname != null && suggestion.lastname != null
+                ? '${suggestion.firstname} ${suggestion.lastname}'
+                : suggestion.username,
+          ));
         },
         onSuggestionSelected: (User suggestion) =>
             provider.goToUserProfile(suggestion),

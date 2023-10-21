@@ -4,6 +4,18 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Validators for login form fields.
 class LoginValidators {
+  /// Validates the names [value].
+  ///
+  /// The [context] is the build context for localization.
+  /// The [value] is the name input value to validate.
+  /// Returns an error message if the name is empty, or null if the name is valid.
+  static String? name(BuildContext context, String? value) {
+    if (value == null || value.isEmpty) {
+      return AppLocalizations.of(context)!.form_description_name_empty;
+    }
+    return null;
+  }
+
   /// Validates the email [value].
   ///
   /// The [context] is the build context for localization.

@@ -40,7 +40,9 @@ class ProfileScreen extends HookConsumerWidget {
                         const Icon(Icons.person, size: 30),
                         const SizedBox(width: 8),
                         Text(
-                          user.username,
+                          user.firstname != null && user.lastname != null
+                              ? '${user.firstname} ${user.lastname}'
+                              : user.username,
                           style: const TextStyle(fontSize: 18),
                         ),
                       ],
