@@ -23,15 +23,21 @@ class FriendRequestWidget extends HookConsumerWidget {
         Colors.orange,
       );
     } else if (state.friendshipStatus == FriendRequestStatus.accepted) {
-      return _buildStatusWidget(
-        context,
-        Icons.check,
-        Colors.green,
-        AppLocalizations.of(context)!.followed,
-        Colors.green,
+      return ElevatedButton(
+        onPressed: () {
+          provider.unfollow(userId);
+        },
+        style: ElevatedButton.styleFrom(
+          primary: Colors.red.shade800,
+        ),
+        child: _buildStatusWidget(
+          context,
+          Icons.person_remove,
+          Colors.white,
+          AppLocalizations.of(context)!.unfollow,
+          Colors.white,
+        ),
       );
-    } else if (state.friendshipStatus == FriendRequestStatus.rejected) {
-      return Container();
     } else {
       return ElevatedButton(
         onPressed: () {

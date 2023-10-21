@@ -106,6 +106,10 @@ class ActivityResponse extends Equatable {
         speed: speed,
         time: time,
         locations: activityLocations,
-        user: User(id: user.id, username: user.username));
+        user: User(
+            id: user.id,
+            username: user.username,
+            firstname: user.firstname,
+            lastname: user.lastname));
   }
 }

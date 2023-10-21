@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:run_flutter_run/data/model/request/registration_request.dart';
 import '../model/response/user_response.dart';
 
 import '../../core/utils/storage_utils.dart';
@@ -13,7 +14,7 @@ class UserApi {
   /// Creates a new user.
   ///
   /// Returns the user ID as an integer.
-  static Future<int> createUser(LoginRequest request) async {
+  static Future<int> createUser(RegistrationRequest request) async {
     Response? response = await ApiHelper.makeRequest(
         '${ApiHelper.apiUrl}user/register', 'POST',
         data: request.toMap());

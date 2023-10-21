@@ -85,7 +85,10 @@ class ActivityItem extends HookConsumerWidget {
                 children: [
                   if (displayUserName)
                     Text(
-                      activity.user.username,
+                      activity.user.firstname != null &&
+                              activity.user.lastname != null
+                          ? '${activity.user.firstname} ${activity.user.lastname}'
+                          : activity.user.username,
                       style: TextStyle(
                         color: Colors.grey.shade700,
                         fontFamily: 'Avenir',

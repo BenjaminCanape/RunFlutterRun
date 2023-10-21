@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../data/model/request/login_request.dart';
+import '../../../data/model/request/registration_request.dart';
 import '../../../data/repositories/user_repository_impl.dart';
 import '../../../main.dart';
 import 'state/registration_state.dart';
@@ -16,6 +16,16 @@ class RegistrationViewModel extends StateNotifier<RegistrationState> {
 
   /// Creates a new instance of [RegistrationViewModel].
   RegistrationViewModel(this.ref) : super(RegistrationState.initial());
+
+  /// Sets the firstname in the state.
+  void setFirstname(String? firstname) {
+    state = state.copyWith(firstname: firstname);
+  }
+
+  /// Sets the lastname in the state.
+  void setLastname(String? lastname) {
+    state = state.copyWith(lastname: lastname);
+  }
 
   /// Sets the username in the state.
   void setUsername(String? username) {
@@ -41,13 +51,15 @@ class RegistrationViewModel extends StateNotifier<RegistrationState> {
       state = state.copyWith(isLogging: true);
 
       final userRepository = ref.read(userRepositoryProvider);
-      final loginRequest = LoginRequest(
+      final registrationRequest = RegistrationRequest(
+        firstname: state.firstname,
+        lastname: state.lastname,
         username: state.username,
         password: state.password,
       );
 
       try {
-        await userRepository.register(loginRequest);
+        await userRepository.register(registrationRequest);
         navigatorKey.currentState?.pop();
       } catch (error) {
         // Show error message to the user

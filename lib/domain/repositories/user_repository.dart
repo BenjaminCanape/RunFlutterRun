@@ -1,3 +1,5 @@
+import 'package:run_flutter_run/data/model/request/registration_request.dart';
+
 import '../../data/model/request/edit_password_request.dart';
 import '../../data/model/request/login_request.dart';
 import '../../data/model/request/send_new_password_request.dart';
@@ -7,7 +9,7 @@ import '../entities/user.dart';
 /// Abstract class representing the user repository.
 abstract class UserRepository {
   /// Registers a new user.
-  Future<int> register(LoginRequest request);
+  Future<int> register(RegistrationRequest request);
 
   /// Performs user login.
   Future<LoginResponse> login(LoginRequest request);

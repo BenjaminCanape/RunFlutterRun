@@ -34,4 +34,10 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     await ref.read(friendRequestRepositoryProvider).sendRequest(userId);
     state = state.copyWith(status: FriendRequestStatus.pending);
   }
+
+  /// unfollow
+  void unfollow(String userId) async {
+    await ref.read(friendRequestRepositoryProvider).reject(userId);
+    state = state.copyWith(status: FriendRequestStatus.rejected);
+  }
 }
