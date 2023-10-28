@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import '../../../domain/entities/user.dart';
 
@@ -38,5 +40,14 @@ class UserResponse extends Equatable {
   User toEntity() {
     return User(
         id: id, username: username, firstname: firstname, lastname: lastname);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'username': username,
+      'firstname': firstname,
+      'lastname': lastname,
+    };
   }
 }

@@ -1,11 +1,12 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/data/model/request/registration_request.dart';
+import '../model/request/registration_request.dart';
 import '../../domain/entities/user.dart';
 
 import '../../core/utils/storage_utils.dart';
 import '../../domain/repositories/user_repository.dart';
 import '../api/user_api.dart';
 import '../model/request/edit_password_request.dart';
+import '../model/request/edit_profile_request.dart';
 import '../model/request/login_request.dart';
 import '../model/request/send_new_password_request.dart';
 import '../model/response/login_response.dart';
@@ -28,6 +29,7 @@ class UserRepositoryImpl extends UserRepository {
     LoginResponse response = await UserApi.login(request);
     await StorageUtils.setJwt(response.token);
     await StorageUtils.setRefreshToken(response.refreshToken);
+    await StorageUtils.setUser(response.user);
     return response;
   }
 
@@ -52,6 +54,11 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<void> editPassword(EditPasswordRequest request) async {
     await UserApi.editPassword(request);
+  }
+
+  @override
+  Future<void> editProfile(EditProfileRequest request) async {
+    await UserApi.editProfile(request);
   }
 
   @override

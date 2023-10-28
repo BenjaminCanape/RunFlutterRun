@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:run_flutter_run/data/model/request/registration_request.dart';
+import '../model/request/registration_request.dart';
+import '../model/request/edit_profile_request.dart';
 import '../model/response/user_response.dart';
 
 import '../../core/utils/storage_utils.dart';
@@ -77,6 +78,15 @@ class UserApi {
   static Future<void> editPassword(EditPasswordRequest request) async {
     await ApiHelper.makeRequest(
         '${ApiHelper.apiUrl}private/user/editPassword', 'PUT',
+        data: request.toMap());
+  }
+
+  /// Edit profile
+  ///
+  /// Returns a [void] object.
+  static Future<void> editProfile(EditProfileRequest request) async {
+    await ApiHelper.makeRequest(
+        '${ApiHelper.apiUrl}private/user/editProfile', 'PUT',
         data: request.toMap());
   }
 
