@@ -1,5 +1,7 @@
 import 'dart:math';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../../../main.dart';
 import '../../core/services/text_to_speech_service.dart';
 import '../../location/view_model/location_view_model.dart';

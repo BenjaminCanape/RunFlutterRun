@@ -1,8 +1,5 @@
-import 'dart:ffi';
-
 import '../entities/enum/friend_request_status.dart';
 import '../entities/friend_request.dart';
-
 import '../entities/user.dart';
 
 /// Abstract class representing the friend request repository.

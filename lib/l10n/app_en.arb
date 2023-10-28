@@ -23,6 +23,8 @@
   "duration": "Duration",
   "edit_password": "Edit the password",
   "edit_password_error": "Error: the password was not edited",
+  "edit_profile": "Edit profile",
+  "edit_profile_error": "Error: the profile was not saved",
   "email": "Email",
   "end": "End",
   "firstname": "Firstname",

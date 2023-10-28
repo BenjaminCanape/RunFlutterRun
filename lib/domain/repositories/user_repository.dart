@@ -1,6 +1,7 @@
-import 'package:run_flutter_run/data/model/request/registration_request.dart';
+import '../../data/model/request/registration_request.dart';
 
 import '../../data/model/request/edit_password_request.dart';
+import '../../data/model/request/edit_profile_request.dart';
 import '../../data/model/request/login_request.dart';
 import '../../data/model/request/send_new_password_request.dart';
 import '../../data/model/response/login_response.dart';
@@ -25,6 +26,9 @@ abstract class UserRepository {
 
   /// Edit the password
   Future<void> editPassword(EditPasswordRequest request);
+
+  /// Edit the profile
+  Future<void> editProfile(EditProfileRequest request);
 
   /// Search users based on a text value
   Future<List<User>> search(String text);

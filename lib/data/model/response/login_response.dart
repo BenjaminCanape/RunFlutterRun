@@ -1,3 +1,5 @@
+import 'user_response.dart';
+
 /// Represents a response object for a login request.
 class LoginResponse {
   /// The refresh token received in the login response.
@@ -6,6 +8,9 @@ class LoginResponse {
   /// The access token (JWT token) received in the login response.
   final String token;
 
+  /// The user received in the login response.
+  final UserResponse user;
+
   /// A message associated with the login response.
   final String message;
 
@@ -13,6 +18,7 @@ class LoginResponse {
   const LoginResponse({
     required this.refreshToken,
     required this.token,
+    required this.user,
     required this.message,
   });
 
@@ -21,6 +27,7 @@ class LoginResponse {
     return LoginResponse(
       refreshToken: map['refreshToken']?.toString() ?? '',
       token: map['token']?.toString() ?? '',
+      user: UserResponse.fromMap(map['user']),
       message: map['message']?.toString() ?? '',
     );
   }

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import 'enum/friend_request_status.dart';
 
 /// Represents a friend request.
