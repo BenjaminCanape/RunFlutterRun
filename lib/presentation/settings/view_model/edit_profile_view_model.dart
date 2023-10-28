@@ -10,9 +10,8 @@ import '../../../main.dart';
 import 'state/edit_profile_state.dart';
 
 final editProfileViewModelProvider =
-    StateNotifierProvider.autoDispose<EditProfileViewModel, EditProfileState>(
-  (ref) => EditProfileViewModel(ref),
-);
+    StateNotifierProvider<EditProfileViewModel, EditProfileState>(
+        (ref) => EditProfileViewModel(ref));
 
 class EditProfileViewModel extends StateNotifier<EditProfileState> {
   Ref ref;
@@ -28,6 +27,14 @@ class EditProfileViewModel extends StateNotifier<EditProfileState> {
   /// Sets the lastname in the state.
   void setLastname(String? lastname) {
     state = state.copyWith(lastname: lastname);
+  }
+
+  Future<void> getCurrentUser() async {
+    User? user = await StorageUtils.getUser();
+    if (user != null) {
+      state =
+          state.copyWith(firstname: user.firstname, lastname: user.lastname);
+    }
   }
 
   /// Submits the edit profile form.
