@@ -19,7 +19,6 @@ final editProfileViewModelProvider =
 
 class EditProfileViewModel extends StateNotifier<EditProfileState> {
   Ref ref;
-  final _picker = ImagePicker();
 
   /// Creates a new instance of [EditProfileViewModel].
   EditProfileViewModel(this.ref) : super(EditProfileState.initial());
@@ -42,18 +41,11 @@ class EditProfileViewModel extends StateNotifier<EditProfileState> {
     }
   }
 
-  Future<void> chooseNewProfilePicture() async {
-    final XFile? pickedImage =
-        await _picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedImage != null) {
-      Uint8List file = await pickedImage.readAsBytes();
-
-      ref
-          .read(userRepositoryProvider)
-          .uploadProfilePicture(file)
-          .then((_) => state = state.copyWith(profilePicture: file));
-    }
+  Future<void> chooseNewProfilePicture(Uint8List image) async {
+    ref
+        .read(userRepositoryProvider)
+        .uploadProfilePicture(image)
+        .then((_) => state = state.copyWith(profilePicture: image));
   }
 
   Future<void> getProfilePicture() async {

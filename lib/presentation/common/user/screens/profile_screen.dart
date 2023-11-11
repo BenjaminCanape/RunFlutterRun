@@ -31,38 +31,35 @@ class ProfileScreen extends HookConsumerWidget {
             body: SafeArea(
               child: Column(
                 children: [
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding:
-                          const EdgeInsets.only(left: 16, top: 16, right: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            width: 150,
-                            height: 150,
-                            child: state.profilePicture != null
-                                ? Image.memory(
-                                    state.profilePicture!,
-                                    fit: BoxFit.cover,
-                                  )
-                                : const Icon(Icons.person, size: 100),
+                  Container(
+                    padding:
+                        const EdgeInsets.only(left: 16, top: 16, right: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          width: 150,
+                          height: 150,
+                          child: state.profilePicture != null
+                              ? Image.memory(
+                                  state.profilePicture!,
+                                  fit: BoxFit.cover,
+                                )
+                              : const Icon(Icons.person, size: 100),
+                        ),
+                        const SizedBox(width: 8),
+                        Flexible(
+                          child: Text(
+                            user.firstname != null && user.lastname != null
+                                ? '${user.firstname} ${user.lastname}'
+                                : user.username,
+                            style: const TextStyle(fontSize: 18),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                           ),
-                          const SizedBox(width: 8),
-                          Flexible(
-                            child: Text(
-                              user.firstname != null && user.lastname != null
-                                  ? '${user.firstname} ${user.lastname}'
-                                  : user.username,
-                              style: const TextStyle(fontSize: 18),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                   const Divider(),

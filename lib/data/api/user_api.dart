@@ -142,7 +142,6 @@ class UserApi {
         filename: 'profile_picture.jpg',
       ),
     });
-    debugPrint(file.toString());
     await ApiHelper.makeRequest(
         '${ApiHelper.apiUrl}private/user/picture/upload', 'POST',
         formData: formData);

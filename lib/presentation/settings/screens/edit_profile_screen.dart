@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../common/core/utils/form_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
 import '../../common/core/validators/login_validators.dart';
+import '../../common/core/widgets/upload_file.dart';
 import '../view_model/edit_profile_view_model.dart';
 
 class EditProfileScreen extends HookConsumerWidget {
@@ -64,22 +65,10 @@ class EditProfileScreen extends HookConsumerWidget {
                                     ])
                                   : Container(),
                               const SizedBox(height: 10),
-                              Container(
-                                alignment: Alignment.center,
-                                width: 200,
-                                height: 200,
-                                color: Colors.grey[300],
-                                child: state.profilePicture != null
-                                    ? Image.memory(state.profilePicture!,
-                                        fit: BoxFit.cover)
-                                    : Text(AppLocalizations.of(context)!
-                                        .profile_picture_select_please),
-                              ),
-                              ElevatedButton(
-                                onPressed: provider.chooseNewProfilePicture,
-                                child: Text(AppLocalizations.of(context)!
-                                    .profile_picture_select),
-                              ),
+                              UploadFileWidget(
+                                  image: state.profilePicture,
+                                  callbackFunc:
+                                      provider.chooseNewProfilePicture),
                               // Firstname TextFormField
                               TextFormField(
                                 style: FormUtils.textFormFieldStyle,
