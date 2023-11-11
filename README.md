@@ -41,7 +41,7 @@ flutter run
 
 ### Settings
 
-<img src="screenshots/settings/settings.png" alt="Description de l'image" width="300px">
+<img src="screenshots/settings/settings.png" alt="Description de l'image" width="300px"><img src="screenshots/settings/edit_profile.png" alt="Description de l'image" width="300px">
 
 ### Login and registration
 
