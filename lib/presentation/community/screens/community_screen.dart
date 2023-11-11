@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../../domain/entities/activity.dart';
-import 'pending_requests_screen.dart';
-import '../view_model/community_view_model.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../common/core/utils/form_utils.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../../domain/entities/activity.dart';
 import '../../common/activity/widgets/activity_list.dart';
+import '../../common/core/utils/form_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
+import '../view_model/community_view_model.dart';
 import '../view_model/pending_request_view_model.dart';
 import '../widgets/search_widget.dart';
+import 'pending_requests_screen.dart';
 
 /// The screen that displays community infos
 class CommunityScreen extends HookConsumerWidget {

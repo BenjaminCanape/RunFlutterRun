@@ -12,18 +12,18 @@ class ProfileScreen extends HookConsumerWidget {
 
   ProfileScreen({Key? key, required this.user}) : super(key: key);
 
-  final friendShipStatusDataProvider =
+  final futureDataProvider =
       FutureProvider.family<void, User>((ref, user) async {
     final userId = user.id;
-    final pendingRequestsProvider = ref.read(profileViewModelProvider.notifier);
-    pendingRequestsProvider.getFriendshipStatus(userId);
+    final profileProvider = ref.read(profileViewModelProvider.notifier);
+    profileProvider.getFriendshipStatus(userId);
+    profileProvider.getProfilePicture(userId);
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var state = ref.watch(profileViewModelProvider);
-    final friendShipStatusProvider =
-        ref.watch(friendShipStatusDataProvider(user));
+    final futureProvider = ref.watch(futureDataProvider(user));
 
     return state.isLoading
         ? const Center(child: UIUtils.loader)
@@ -37,13 +37,27 @@ class ProfileScreen extends HookConsumerWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Icon(Icons.person, size: 30),
+                        Container(
+                          alignment: Alignment.center,
+                          width: 150,
+                          height: 150,
+                          child: state.profilePicture != null
+                              ? Image.memory(
+                                  state.profilePicture!,
+                                  fit: BoxFit.cover,
+                                )
+                              : const Icon(Icons.person, size: 100),
+                        ),
                         const SizedBox(width: 8),
-                        Text(
-                          user.firstname != null && user.lastname != null
-                              ? '${user.firstname} ${user.lastname}'
-                              : user.username,
-                          style: const TextStyle(fontSize: 18),
+                        Flexible(
+                          child: Text(
+                            user.firstname != null && user.lastname != null
+                                ? '${user.firstname} ${user.lastname}'
+                                : user.username,
+                            style: const TextStyle(fontSize: 18),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
                         ),
                       ],
                     ),
@@ -53,7 +67,7 @@ class ProfileScreen extends HookConsumerWidget {
                     alignment: Alignment.centerRight,
                     child: Padding(
                       padding: const EdgeInsets.only(right: 16),
-                      child: friendShipStatusProvider.when(
+                      child: futureProvider.when(
                         data: (_) {
                           return FriendRequestWidget(userId: user.id);
                         },

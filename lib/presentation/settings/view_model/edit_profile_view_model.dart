@@ -1,6 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/data/model/response/user_response.dart';
+import '../../../data/model/response/user_response.dart';
 import '../../../core/utils/storage_utils.dart';
 import '../../../data/model/request/edit_profile_request.dart';
 
@@ -34,6 +36,23 @@ class EditProfileViewModel extends StateNotifier<EditProfileState> {
     if (user != null) {
       state =
           state.copyWith(firstname: user.firstname, lastname: user.lastname);
+    }
+  }
+
+  Future<void> chooseNewProfilePicture(Uint8List image) async {
+    ref
+        .read(userRepositoryProvider)
+        .uploadProfilePicture(image)
+        .then((_) => state = state.copyWith(profilePicture: image));
+  }
+
+  Future<void> getProfilePicture() async {
+    User? currentUser = await StorageUtils.getUser();
+    if (currentUser != null) {
+      ref
+          .read(userRepositoryProvider)
+          .downloadProfilePicture(currentUser.id)
+          .then((value) => {state = state.copyWith(profilePicture: value)});
     }
   }
 

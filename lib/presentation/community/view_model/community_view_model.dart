@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../data/repositories/activity_repository_impl.dart';
-import '../../../domain/entities/user.dart';
-import '../../common/user/screens/profile_screen.dart';
 import '../../../data/repositories/user_repository_impl.dart';
+import '../../../domain/entities/user.dart';
 import '../../../main.dart';
+import '../../common/user/screens/profile_screen.dart';
 import 'state/community_state.dart';
 
 /// Provider for the community view model.

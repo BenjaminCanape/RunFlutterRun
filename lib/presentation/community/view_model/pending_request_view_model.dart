@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../data/repositories/friend_request_repository_impl.dart';
 import '../../../domain/entities/user.dart';
-
 import 'state/pending_requests_state.dart';
 
 /// Provider for the pending request view model.

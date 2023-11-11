@@ -1,13 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
-import '../model/request/registration_request.dart';
-import '../model/request/edit_profile_request.dart';
-import '../model/response/user_response.dart';
 
 import '../../core/utils/storage_utils.dart';
 import '../model/request/edit_password_request.dart';
+import '../model/request/edit_profile_request.dart';
 import '../model/request/login_request.dart';
+import '../model/request/registration_request.dart';
 import '../model/request/send_new_password_request.dart';
 import '../model/response/login_response.dart';
+import '../model/response/user_response.dart';
 import 'helpers/api_helper.dart';
 
 /// API methods for managing user-related operations.
@@ -99,5 +101,42 @@ class UserApi {
         queryParams: {'searchText': text});
     final data = List<Map<String, dynamic>>.from(response?.data);
     return data.map((e) => UserResponse.fromMap(e)).toList();
+  }
+
+  /// Download the profile picture of the user id
+  ///
+  /// Returns a [Uint8List] object.
+  static Future<Uint8List?> downloadProfilePicture(String id) async {
+    Response? response = await ApiHelper.makeRequest(
+        '${ApiHelper.apiUrl}user/picture/download/$id', 'GET',
+        noCache: true, responseType: ResponseType.bytes);
+
+    if (response != null && response.statusCode == 404) {
+      return null;
+    }
+
+    if (response != null && response.data != null) {
+      try {
+        List<int> dataList = [];
+        dataList = List<int>.from(response.data);
+        Uint8List uint8List = Uint8List.fromList(dataList);
+        return uint8List;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    return null;
+  }
+
+  /// Upload the profile picture of the current user
+  static Future<void> uploadProfilePicture(Uint8List file) async {
+    MultipartFile multipartFile = MultipartFile.fromBytes(
+      file,
+      filename: 'profile_picture.jpg',
+    );
+    await ApiHelper.makeRequest(
+        '${ApiHelper.apiUrl}private/user/picture/upload', 'POST_FORM_DATA',
+        data: {'file': multipartFile});
   }
 }

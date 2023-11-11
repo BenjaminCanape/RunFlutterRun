@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
-import 'user_response.dart';
 
 import '../../../domain/entities/activity.dart';
 import '../../../domain/entities/enum/activity_type.dart';
 import '../../../domain/entities/location.dart';
 import '../../../domain/entities/user.dart';
 import 'location_response.dart';
+import 'user_response.dart';
 
 /// Represents a response object for an activity.
 class ActivityResponse extends Equatable {

@@ -21,6 +21,7 @@ class ApiHelper {
   static Future<Response?> makeRequest(String url, String method,
       {Map<String, dynamic>? data,
       Map<String, dynamic>? queryParams,
+      ResponseType? responseType,
       bool noCache = false}) async {
     final remoteApi = RemoteApi(url);
     await remoteApi.setJwt();
@@ -32,7 +33,9 @@ class ApiHelper {
           response = await remoteApi.dio.get(
             url,
             queryParameters: queryParams,
-            options: Options(extra: {'noCache': noCache}),
+            options: Options(
+                extra: {'noCache': noCache},
+                responseType: responseType ?? ResponseType.json),
           );
           break;
         case 'POST':

@@ -54,6 +54,8 @@
   "pending": "Pending",
   "pending_requests_title": "Pending requests",
   "per": "per",
+  "profile_picture_select": "Choose a profile picture",
+  "profile_picture_select_please": "Please choose a profile picture",
   "registration": "Registration",
   "rejected": "Rejected",
   "resume_activity": "Activity resumed",

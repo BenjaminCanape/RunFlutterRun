@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../common/core/utils/form_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
 import '../../common/core/validators/login_validators.dart';
+import '../../common/core/widgets/upload_file.dart';
 import '../view_model/edit_profile_view_model.dart';
 
 class EditProfileScreen extends HookConsumerWidget {
@@ -16,6 +17,7 @@ class EditProfileScreen extends HookConsumerWidget {
     final editProfileProvider =
         ref.watch(editProfileViewModelProvider.notifier);
     editProfileProvider.getCurrentUser();
+    editProfileProvider.getProfilePicture();
   });
 
   @override
@@ -44,9 +46,9 @@ class EditProfileScreen extends HookConsumerWidget {
                         ),
                       ),
                       const Divider(),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 10),
                       Padding(
-                        padding: const EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(10),
                         child: Form(
                           key: formKey,
                           child: Column(
@@ -62,6 +64,11 @@ class EditProfileScreen extends HookConsumerWidget {
                                       const SizedBox(height: 20)
                                     ])
                                   : Container(),
+                              const SizedBox(height: 10),
+                              UploadFileWidget(
+                                  image: state.profilePicture,
+                                  callbackFunc:
+                                      provider.chooseNewProfilePicture),
                               // Firstname TextFormField
                               TextFormField(
                                 style: FormUtils.textFormFieldStyle,

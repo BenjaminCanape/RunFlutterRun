@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../model/request/registration_request.dart';
 import '../../domain/entities/user.dart';
@@ -65,5 +68,15 @@ class UserRepositoryImpl extends UserRepository {
   Future<List<User>> search(String text) async {
     final userResponses = await UserApi.search(text);
     return userResponses.map((response) => response.toEntity()).toList();
+  }
+
+  @override
+  Future<Uint8List?> downloadProfilePicture(String id) async {
+    return await UserApi.downloadProfilePicture(id);
+  }
+
+  @override
+  Future<void> uploadProfilePicture(Uint8List file) async {
+    return await UserApi.uploadProfilePicture(file);
   }
 }

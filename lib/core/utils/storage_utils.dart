@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../data/model/response/user_response.dart';
 import '../../domain/entities/user.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 /// Utility class for handling the storage using the shared_preferences library.
 class StorageUtils {
