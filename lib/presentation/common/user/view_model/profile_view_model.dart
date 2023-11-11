@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../data/repositories/activity_repository_impl.dart';
 import '../../../../data/repositories/friend_request_repository_impl.dart';
+import '../../../../data/repositories/user_repository_impl.dart';
 import '../../../../domain/entities/enum/friend_request_status.dart';
 import 'state/profile_state.dart';
 
@@ -39,5 +40,12 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
   void unfollow(String userId) async {
     await ref.read(friendRequestRepositoryProvider).reject(userId);
     state = state.copyWith(status: FriendRequestStatus.rejected);
+  }
+
+  Future<void> getProfilePicture(String userId) async {
+    ref
+        .read(userRepositoryProvider)
+        .downloadProfilePicture(userId)
+        .then((value) => state = state.copyWith(profilePicture: value));
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import '../../../core/utils/storage_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,7 +21,9 @@ class ApiHelper {
   /// Returns the [Response] object or null if an unauthorized error occurs and user navigation is handled.
   static Future<Response?> makeRequest(String url, String method,
       {Map<String, dynamic>? data,
+      FormData? formData,
       Map<String, dynamic>? queryParams,
+      ResponseType? responseType,
       bool noCache = false}) async {
     final remoteApi = RemoteApi(url);
     await remoteApi.setJwt();
@@ -32,13 +35,15 @@ class ApiHelper {
           response = await remoteApi.dio.get(
             url,
             queryParameters: queryParams,
-            options: Options(extra: {'noCache': noCache}),
+            options: Options(
+                extra: {'noCache': noCache},
+                responseType: responseType ?? ResponseType.json),
           );
           break;
         case 'POST':
           response = await remoteApi.dio.post(
             url,
-            data: data,
+            data: data ?? formData,
             queryParameters: queryParams,
           );
           break;
@@ -171,11 +176,15 @@ class RemoteApi {
             responseType: error.requestOptions.responseType,
           ),
         );
-      } on DioError catch (_) {
+      } on DioError catch (err) {
+        if (err.response?.statusCode != 404) {
+          navigatorKey.currentState?.pushReplacementNamed('/login');
+        }
+      }
+    } on DioError catch (err) {
+      if (err.response?.statusCode != 404) {
         navigatorKey.currentState?.pushReplacementNamed('/login');
       }
-    } on DioError {
-      navigatorKey.currentState?.pushReplacementNamed('/login');
     }
     return null;
   }

@@ -16,6 +16,7 @@ class EditProfileScreen extends HookConsumerWidget {
     final editProfileProvider =
         ref.watch(editProfileViewModelProvider.notifier);
     editProfileProvider.getCurrentUser();
+    editProfileProvider.getProfilePicture();
   });
 
   @override
@@ -44,9 +45,9 @@ class EditProfileScreen extends HookConsumerWidget {
                         ),
                       ),
                       const Divider(),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 10),
                       Padding(
-                        padding: const EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(10),
                         child: Form(
                           key: formKey,
                           child: Column(
@@ -62,6 +63,23 @@ class EditProfileScreen extends HookConsumerWidget {
                                       const SizedBox(height: 20)
                                     ])
                                   : Container(),
+                              const SizedBox(height: 10),
+                              Container(
+                                alignment: Alignment.center,
+                                width: 200,
+                                height: 200,
+                                color: Colors.grey[300],
+                                child: state.profilePicture != null
+                                    ? Image.memory(state.profilePicture!,
+                                        fit: BoxFit.cover)
+                                    : Text(AppLocalizations.of(context)!
+                                        .profile_picture_select_please),
+                              ),
+                              ElevatedButton(
+                                onPressed: provider.chooseNewProfilePicture,
+                                child: Text(AppLocalizations.of(context)!
+                                    .profile_picture_select),
+                              ),
                               // Firstname TextFormField
                               TextFormField(
                                 style: FormUtils.textFormFieldStyle,

@@ -66,6 +66,8 @@ dependencies:
   fl_chart: ^0.63.0
   google_nav_bar: ^5.0.6
   flutter_typeahead: ^4.8.0
+  image_picker: ^1.0.4
+  permission_handler: ^11.0.1
 
 dev_dependencies:
   flutter_test:

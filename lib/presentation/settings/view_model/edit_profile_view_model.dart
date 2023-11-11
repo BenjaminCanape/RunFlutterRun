@@ -1,5 +1,9 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:run_flutter_run/data/model/response/user_response.dart';
 import '../../../core/utils/storage_utils.dart';
 import '../../../data/model/request/edit_profile_request.dart';
@@ -15,6 +19,7 @@ final editProfileViewModelProvider =
 
 class EditProfileViewModel extends StateNotifier<EditProfileState> {
   Ref ref;
+  final _picker = ImagePicker();
 
   /// Creates a new instance of [EditProfileViewModel].
   EditProfileViewModel(this.ref) : super(EditProfileState.initial());
@@ -34,6 +39,30 @@ class EditProfileViewModel extends StateNotifier<EditProfileState> {
     if (user != null) {
       state =
           state.copyWith(firstname: user.firstname, lastname: user.lastname);
+    }
+  }
+
+  Future<void> chooseNewProfilePicture() async {
+    final XFile? pickedImage =
+        await _picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      Uint8List file = await pickedImage.readAsBytes();
+
+      ref
+          .read(userRepositoryProvider)
+          .uploadProfilePicture(file)
+          .then((_) => state = state.copyWith(profilePicture: file));
+    }
+  }
+
+  Future<void> getProfilePicture() async {
+    User? currentUser = await StorageUtils.getUser();
+    if (currentUser != null) {
+      ref
+          .read(userRepositoryProvider)
+          .downloadProfilePicture(currentUser.id)
+          .then((value) => {state = state.copyWith(profilePicture: value)});
     }
   }
 
