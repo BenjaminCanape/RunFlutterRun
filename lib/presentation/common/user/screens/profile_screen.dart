@@ -37,18 +37,20 @@ class ProfileScreen extends HookConsumerWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          alignment: Alignment.center,
-                          width: 150,
-                          height: 150,
-                          child: state.profilePicture != null
-                              ? Image.memory(
-                                  state.profilePicture!,
-                                  fit: BoxFit.cover,
-                                )
-                              : const Icon(Icons.person, size: 100),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(150),
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 150,
+                            height: 150,
+                            child: state.profilePicture != null
+                                ? Image.memory(
+                                    state.profilePicture!,
+                                    fit: BoxFit.cover,
+                                  )
+                                : const Icon(Icons.person, size: 100),
+                          ),
                         ),
-                        const SizedBox(width: 8),
                         Flexible(
                           child: Text(
                             user.firstname != null && user.lastname != null

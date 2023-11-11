@@ -5,6 +5,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../utils/form_utils.dart';
+
 /// A widget that allow to upload a file
 class UploadFileWidget extends HookConsumerWidget {
   /// The image to display.
@@ -24,16 +26,27 @@ class UploadFileWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(children: [
-      Container(
-        alignment: Alignment.center,
-        width: 200,
-        height: 200,
-        color: Colors.grey[300],
-        child: image != null
-            ? Image.memory(image!, fit: BoxFit.cover)
-            : Text(AppLocalizations.of(context)!.profile_picture_select_please),
+      ClipRRect(
+        borderRadius: BorderRadius.circular(100),
+        child: Container(
+          alignment: Alignment.center,
+          width: 200,
+          height: 200,
+          color: Colors.grey[300],
+          child: image != null
+              ? Image.memory(image!, fit: BoxFit.cover)
+              : Text(
+                  AppLocalizations.of(context)!.profile_picture_select_please),
+        ),
       ),
       ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor:
+              MaterialStateProperty.all<Color>(Colors.teal.shade800),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          ),
+        ),
         onPressed: () async {
           final XFile? pickedImage =
               await _picker.pickImage(source: ImageSource.gallery);
