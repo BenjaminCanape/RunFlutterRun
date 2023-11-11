@@ -1,18 +1,15 @@
-import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import '../model/request/registration_request.dart';
-import '../model/request/edit_profile_request.dart';
-import '../model/response/user_response.dart';
 
 import '../../core/utils/storage_utils.dart';
 import '../model/request/edit_password_request.dart';
+import '../model/request/edit_profile_request.dart';
 import '../model/request/login_request.dart';
+import '../model/request/registration_request.dart';
 import '../model/request/send_new_password_request.dart';
 import '../model/response/login_response.dart';
+import '../model/response/user_response.dart';
 import 'helpers/api_helper.dart';
 
 /// API methods for managing user-related operations.
@@ -108,7 +105,7 @@ class UserApi {
 
   /// Download the profile picture of the user id
   ///
-  /// Returns a [File] object.
+  /// Returns a [Uint8List] object.
   static Future<Uint8List?> downloadProfilePicture(String id) async {
     Response? response = await ApiHelper.makeRequest(
         '${ApiHelper.apiUrl}user/picture/download/$id', 'GET',
@@ -133,17 +130,13 @@ class UserApi {
   }
 
   /// Upload the profile picture of the current user
-  ///
-  /// Returns a [File] object.
   static Future<void> uploadProfilePicture(Uint8List file) async {
-    FormData formData = FormData.fromMap({
-      'file': MultipartFile.fromBytes(
-        file,
-        filename: 'profile_picture.jpg',
-      ),
-    });
+    MultipartFile multipartFile = MultipartFile.fromBytes(
+      file,
+      filename: 'profile_picture.jpg',
+    );
     await ApiHelper.makeRequest(
-        '${ApiHelper.apiUrl}private/user/picture/upload', 'POST',
-        formData: formData);
+        '${ApiHelper.apiUrl}private/user/picture/upload', 'POST_FORM_DATA',
+        data: {'file': multipartFile});
   }
 }

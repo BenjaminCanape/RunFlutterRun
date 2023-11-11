@@ -11,9 +11,9 @@ import '../../../data/repositories/activity_repository_impl.dart';
 import '../../../domain/entities/activity.dart';
 import '../../../domain/entities/enum/activity_type.dart';
 import '../../../main.dart';
-import 'activity_list_view_model.dart';
 import '../../home/screens/home_screen.dart';
 import '../../home/view_model/home_view_model.dart';
+import 'activity_list_view_model.dart';
 import 'state/activitie_details_state.dart';
 
 /// Provider for the activity details view model.

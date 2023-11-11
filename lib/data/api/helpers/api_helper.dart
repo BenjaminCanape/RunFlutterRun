@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import '../../../core/utils/storage_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,7 +20,6 @@ class ApiHelper {
   /// Returns the [Response] object or null if an unauthorized error occurs and user navigation is handled.
   static Future<Response?> makeRequest(String url, String method,
       {Map<String, dynamic>? data,
-      FormData? formData,
       Map<String, dynamic>? queryParams,
       ResponseType? responseType,
       bool noCache = false}) async {
@@ -43,7 +41,7 @@ class ApiHelper {
         case 'POST':
           response = await remoteApi.dio.post(
             url,
-            data: data ?? formData,
+            data: data,
             queryParameters: queryParams,
           );
           break;
@@ -176,15 +174,11 @@ class RemoteApi {
             responseType: error.requestOptions.responseType,
           ),
         );
-      } on DioError catch (err) {
-        if (err.response?.statusCode != 404) {
-          navigatorKey.currentState?.pushReplacementNamed('/login');
-        }
-      }
-    } on DioError catch (err) {
-      if (err.response?.statusCode != 404) {
+      } on DioError catch (_) {
         navigatorKey.currentState?.pushReplacementNamed('/login');
       }
+    } on DioError {
+      navigatorKey.currentState?.pushReplacementNamed('/login');
     }
     return null;
   }
