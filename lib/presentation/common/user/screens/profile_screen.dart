@@ -52,36 +52,34 @@ class ProfileScreen extends HookConsumerWidget {
                           ),
                         ),
                         Flexible(
-                          child: Text(
-                            user.firstname != null && user.lastname != null
-                                ? '${user.firstname} ${user.lastname}'
-                                : user.username,
-                            style: const TextStyle(fontSize: 18),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
+                          child: Column(children: [
+                            Text(
+                              user.firstname != null && user.lastname != null
+                                  ? '${user.firstname} ${user.lastname}'
+                                  : user.username,
+                              style: const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                            const SizedBox(height: 10),
+                            futureProvider.when(
+                              data: (_) {
+                                return FriendRequestWidget(userId: user.id);
+                              },
+                              loading: () {
+                                return const Center(child: UIUtils.loader);
+                              },
+                              error: (error, stackTrace) {
+                                return Text('$error');
+                              },
+                            ),
+                          ]),
                         ),
                       ],
                     ),
                   ),
                   const Divider(),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 16),
-                      child: futureProvider.when(
-                        data: (_) {
-                          return FriendRequestWidget(userId: user.id);
-                        },
-                        loading: () {
-                          return const Center(child: UIUtils.loader);
-                        },
-                        error: (error, stackTrace) {
-                          return Text('$error');
-                        },
-                      ),
-                    ),
-                  ),
                   const SizedBox(height: 20),
                   ActivityList(
                     activities: state.activities,
