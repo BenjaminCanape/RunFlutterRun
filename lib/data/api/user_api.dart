@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 
 import '../../core/utils/storage_utils.dart';
+import '../../domain/entities/user.dart';
 import '../model/request/edit_password_request.dart';
 import '../model/request/edit_profile_request.dart';
 import '../model/request/login_request.dart';
@@ -107,9 +108,11 @@ class UserApi {
   ///
   /// Returns a [Uint8List] object.
   static Future<Uint8List?> downloadProfilePicture(String id) async {
+    User? user = await StorageUtils.getUser();
+    bool useCache = user != null ? user.id == id : false;
     Response? response = await ApiHelper.makeRequest(
         '${ApiHelper.apiUrl}user/picture/download/$id', 'GET',
-        noCache: true, responseType: ResponseType.bytes);
+        noCache: !useCache, responseType: ResponseType.bytes);
 
     if (response != null && response.statusCode == 404) {
       return null;
@@ -138,5 +141,10 @@ class UserApi {
     await ApiHelper.makeRequest(
         '${ApiHelper.apiUrl}private/user/picture/upload', 'POST_FORM_DATA',
         data: {'file': multipartFile});
+    User? user = await StorageUtils.getUser();
+    if (user != null) {
+      await ApiHelper.removeCacheForUrl(
+          '${ApiHelper.apiUrl}user/picture/download/${user.id}');
+    }
   }
 }

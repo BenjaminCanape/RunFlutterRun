@@ -75,6 +75,13 @@ class ApiHelper {
       throw Failure(message: error.toString());
     }
   }
+
+  /// Remove the cache for a specific key, a specific url
+  static removeCacheForUrl(String url) async {
+    final remoteApi = RemoteApi(url);
+    await remoteApi.initCache();
+    await remoteApi.removeCacheForKey(url);
+  }
 }
 
 /// Wrapper class for the Dio library with additional functionality.
@@ -143,6 +150,10 @@ class RemoteApi {
         handler.next(error);
       },
     ));
+  }
+
+  removeCacheForKey(String key) {
+    prefs.remove(key);
   }
 
   /// Sets the JWT in the request headers.
