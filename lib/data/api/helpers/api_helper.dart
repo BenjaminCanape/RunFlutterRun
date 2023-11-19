@@ -77,7 +77,7 @@ class ApiHelper {
   }
 
   /// Remove the cache for a specific key, a specific url
-  static removeCacheForUrl(String url) async {
+  static Future<void> removeCacheForUrl(String url) async {
     final remoteApi = RemoteApi(url);
     await remoteApi.initCache();
     await remoteApi.removeCacheForKey(url);
@@ -152,8 +152,8 @@ class RemoteApi {
     ));
   }
 
-  removeCacheForKey(String key) {
-    prefs.remove(key);
+  Future<bool> removeCacheForKey(String key) {
+    return prefs.remove(key);
   }
 
   /// Sets the JWT in the request headers.
