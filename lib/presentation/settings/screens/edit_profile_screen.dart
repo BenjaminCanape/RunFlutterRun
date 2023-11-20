@@ -30,80 +30,97 @@ class EditProfileScreen extends HookConsumerWidget {
     return editProfileStateProvider.when(
       data: (_) {
         return Scaffold(
+          resizeToAvoidBottomInset: true,
           body: state.isEditing
               ? const Center(child: UIUtils.loader)
               : SafeArea(
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.only(left: 0, top: 12),
-                        child: Text(
-                          AppLocalizations.of(context)!.edit_profile,
-                          style: const TextStyle(
-                              color: Colors.blueGrey,
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      const Divider(),
-                      const SizedBox(height: 10),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Form(
-                          key: formKey,
-                          child: Column(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 100.0),
+                    child: ListView(
+                        keyboardDismissBehavior:
+                            ScrollViewKeyboardDismissBehavior.onDrag,
+                        children: [
+                          Column(
                             children: [
-                              state.errorOnRequest
-                                  ? Column(children: [
-                                      Text(
-                                        AppLocalizations.of(context)!
-                                            .edit_profile_error,
-                                        style: const TextStyle(
-                                            color: Colors.red, fontSize: 18),
-                                      ),
-                                      const SizedBox(height: 20)
-                                    ])
-                                  : Container(),
-                              const SizedBox(height: 10),
-                              UploadFileWidget(
-                                  image: state.profilePicture,
-                                  callbackFunc:
-                                      provider.chooseNewProfilePicture),
-                              // Firstname TextFormField
-                              TextFormField(
-                                style: FormUtils.textFormFieldStyle,
-                                decoration: FormUtils.createInputDecorative(
-                                  AppLocalizations.of(context)!.firstname,
-                                  dark: false,
-                                  icon: Icons.person,
+                              Container(
+                                padding:
+                                    const EdgeInsets.only(left: 0, top: 12),
+                                child: Text(
+                                  AppLocalizations.of(context)!.edit_profile,
+                                  style: const TextStyle(
+                                      color: Colors.blueGrey,
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                validator: (value) =>
-                                    LoginValidators.name(context, value),
-                                onSaved: (value) {
-                                  provider.setFirstname(value);
-                                },
-                                initialValue: state.firstname,
                               ),
-                              // Lastname TextFormField
-                              TextFormField(
-                                style: FormUtils.textFormFieldStyle,
-                                decoration: FormUtils.createInputDecorative(
-                                  AppLocalizations.of(context)!.lastname,
-                                  dark: false,
-                                  icon: Icons.person,
+                              const Divider(),
+                              const SizedBox(height: 10),
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Form(
+                                  key: formKey,
+                                  child: Column(
+                                    children: [
+                                      state.errorOnRequest
+                                          ? Column(children: [
+                                              Text(
+                                                AppLocalizations.of(context)!
+                                                    .edit_profile_error,
+                                                style: const TextStyle(
+                                                    color: Colors.red,
+                                                    fontSize: 18),
+                                              ),
+                                              const SizedBox(height: 20)
+                                            ])
+                                          : Container(),
+                                      const SizedBox(height: 10),
+                                      UploadFileWidget(
+                                          image: state.profilePicture,
+                                          callbackFunc:
+                                              provider.chooseNewProfilePicture),
+                                      // Firstname TextFormField
+                                      TextFormField(
+                                        style: FormUtils.textFormFieldStyle,
+                                        decoration:
+                                            FormUtils.createInputDecorative(
+                                          AppLocalizations.of(context)!
+                                              .firstname,
+                                          dark: false,
+                                          icon: Icons.person,
+                                        ),
+                                        validator: (value) =>
+                                            LoginValidators.name(
+                                                context, value),
+                                        onSaved: (value) {
+                                          provider.setFirstname(value);
+                                        },
+                                        initialValue: state.firstname,
+                                      ),
+                                      // Lastname TextFormField
+                                      TextFormField(
+                                        style: FormUtils.textFormFieldStyle,
+                                        decoration:
+                                            FormUtils.createInputDecorative(
+                                          AppLocalizations.of(context)!
+                                              .lastname,
+                                          dark: false,
+                                          icon: Icons.person,
+                                        ),
+                                        validator: (value) =>
+                                            LoginValidators.name(
+                                                context, value),
+                                        onChanged: (value) {
+                                          provider.setLastname(value);
+                                        },
+                                        initialValue: state.lastname,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                validator: (value) =>
-                                    LoginValidators.name(context, value),
-                                onChanged: (value) {
-                                  provider.setLastname(value);
-                                },
-                                initialValue: state.lastname,
                               ),
                             ],
                           ),
-                        ),
-                      ),
-                    ],
+                        ]),
                   ),
                 ),
           floatingActionButton: Stack(
