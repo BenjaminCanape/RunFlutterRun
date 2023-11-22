@@ -17,8 +17,8 @@ class MapUtils {
       sumLng += coordinate.longitude;
     }
 
-    double centerLat = sumLat / points.length;
-    double centerLng = sumLng / points.length;
+    double centerLat = points.isNotEmpty ? sumLat / points.length : 0;
+    double centerLng = points.isNotEmpty ? sumLng / points.length : 0;
 
     return LatLng(centerLat, centerLng);
   }
