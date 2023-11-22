@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import '../../../domain/entities/enum/friend_request_status.dart';
 import '../../../domain/entities/friend_request.dart';
 

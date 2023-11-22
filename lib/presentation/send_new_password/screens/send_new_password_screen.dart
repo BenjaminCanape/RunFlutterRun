@@ -11,7 +11,7 @@ class SendNewPasswordScreen extends HookConsumerWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   /// Constructs a [SendNewPasswordScreen].
-  SendNewPasswordScreen({Key? key}) : super(key: key);
+  SendNewPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

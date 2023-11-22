@@ -5,7 +5,7 @@ import '../view_model/activity_list_view_model.dart';
 
 /// A floating action button widget that allows the user to navigate back to the home screen.
 class BackToHomeButton extends HookConsumerWidget {
-  const BackToHomeButton({Key? key}) : super(key: key);
+  const BackToHomeButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

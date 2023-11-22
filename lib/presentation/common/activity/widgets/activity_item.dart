@@ -15,12 +15,12 @@ class ActivityItem extends HookConsumerWidget {
   final bool canOpenActivity;
 
   const ActivityItem({
-    Key? key,
+    super.key,
     required this.activity,
     required this.index,
     this.displayUserName = false,
     this.canOpenActivity = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

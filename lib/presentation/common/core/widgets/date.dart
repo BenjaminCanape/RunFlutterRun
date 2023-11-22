@@ -11,7 +11,7 @@ class Date extends HookConsumerWidget {
   /// Creates a [Date] widget.
   ///
   /// The [date] is the date to display.
-  const Date({Key? key, required this.date}) : super(key: key);
+  const Date({super.key, required this.date});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

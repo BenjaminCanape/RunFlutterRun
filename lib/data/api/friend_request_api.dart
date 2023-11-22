@@ -1,8 +1,8 @@
 
 import 'package:dio/dio.dart';
-import '../model/response/friend_request_response.dart';
-import '../../domain/entities/enum/friend_request_status.dart';
 
+import '../../domain/entities/enum/friend_request_status.dart';
+import '../model/response/friend_request_response.dart';
 import '../model/response/user_response.dart';
 import 'helpers/api_helper.dart';
 

@@ -15,7 +15,7 @@ enum Tabs { home, list, settings }
 
 /// The home screen widget.
 class HomeScreen extends HookConsumerWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

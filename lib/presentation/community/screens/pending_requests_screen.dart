@@ -9,7 +9,7 @@ import '../view_model/pending_request_view_model.dart';
 
 /// The screen that displays pending requests
 class PendingRequestsScreen extends HookConsumerWidget {
-  const PendingRequestsScreen({Key? key}) : super(key: key);
+  const PendingRequestsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

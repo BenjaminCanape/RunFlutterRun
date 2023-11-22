@@ -4,20 +4,19 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
-import '../widgets/details_tab.dart';
-import '../widgets/graph_tab.dart';
 
 import '../../../domain/entities/activity.dart';
 import '../../common/core/utils/activity_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
 import '../view_model/activity_details_view_model.dart';
+import '../widgets/details_tab.dart';
+import '../widgets/graph_tab.dart';
 
 /// The screen that displays details of a specific activity.
 class ActivityDetailsScreen extends HookConsumerWidget {
   final Activity activity;
 
-  const ActivityDetailsScreen({Key? key, required this.activity})
-      : super(key: key);
+  const ActivityDetailsScreen({super.key, required this.activity});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

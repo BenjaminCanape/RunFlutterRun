@@ -8,7 +8,7 @@ class SaveButton extends HookConsumerWidget {
   final bool disabled;
 
   /// Creates a new instance of [SaveButton] with the given [disabled] state.
-  const SaveButton({Key? key, required this.disabled}) : super(key: key);
+  const SaveButton({super.key, required this.disabled});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

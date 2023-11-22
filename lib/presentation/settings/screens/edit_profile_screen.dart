@@ -11,7 +11,7 @@ import '../view_model/edit_profile_view_model.dart';
 class EditProfileScreen extends HookConsumerWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  EditProfileScreen({Key? key}) : super(key: key);
+  EditProfileScreen({super.key});
 
   final editProfileFutureProvider = FutureProvider<void>((ref) async {
     final editProfileProvider =
@@ -42,12 +42,16 @@ class EditProfileScreen extends HookConsumerWidget {
                         children: [
                           Column(
                             children: [
-                              Text(
-                                AppLocalizations.of(context)!.edit_profile,
-                                style: const TextStyle(
-                                    color: Colors.blueGrey,
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.bold),
+                              Container(
+                                padding:
+                                    const EdgeInsets.only(left: 0, top: 12),
+                                child: Text(
+                                  AppLocalizations.of(context)!.edit_profile,
+                                  style: const TextStyle(
+                                      color: Colors.blueGrey,
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                               const Divider(),
                               const SizedBox(height: 10),

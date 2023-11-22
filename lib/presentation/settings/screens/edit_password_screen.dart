@@ -10,7 +10,7 @@ import '../view_model/edit_password_view_model.dart';
 class EditPasswordScreen extends HookConsumerWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  EditPasswordScreen({Key? key}) : super(key: key);
+  EditPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

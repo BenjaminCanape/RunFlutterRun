@@ -49,7 +49,7 @@ class LocationViewModel extends StateNotifier<LocationState> {
     _positionStream ??=
         Geolocator.getPositionStream().listen((Position position) {
       if (mounted && position.latitude >= -90 && position.longitude <= 90) {
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           mapController.move(
             LatLng(position.latitude, position.longitude),
             17,
@@ -77,16 +77,6 @@ class LocationViewModel extends StateNotifier<LocationState> {
         );
       }
     });
-  }
-
-  // Function to check if the latitude is valid
-  bool isValidLatitude(double latitude) {
-    return latitude >= -90 && latitude <= 90;
-  }
-
-// Function to check if the longitude is valid
-  bool isValidLongitude(double longitude) {
-    return longitude >= -180 && longitude <= 180;
   }
 
   /// Retrieves the saved positions as a list of [LatLng] objects.

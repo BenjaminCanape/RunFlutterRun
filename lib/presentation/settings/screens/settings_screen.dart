@@ -11,7 +11,7 @@ import 'edit_password_screen.dart';
 import 'edit_profile_screen.dart';
 
 class SettingsScreen extends HookConsumerWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

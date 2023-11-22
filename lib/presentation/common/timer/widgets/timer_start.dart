@@ -5,7 +5,7 @@ import '../viewmodel/timer_view_model.dart';
 
 /// A widget that displays the timer start button.
 class TimerStart extends HookConsumerWidget {
-  const TimerStart({Key? key}) : super(key: key);
+  const TimerStart({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

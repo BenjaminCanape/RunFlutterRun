@@ -15,7 +15,7 @@ import 'pending_requests_screen.dart';
 class CommunityScreen extends HookConsumerWidget {
   final TextEditingController _searchController = TextEditingController();
 
-  CommunityScreen({Key? key}) : super(key: key);
+  CommunityScreen({super.key});
 
   final pendingRequestsDataFutureProvider = FutureProvider<void>((ref) async {
     final pendingRequestsProvider =

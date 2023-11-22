@@ -10,7 +10,7 @@ import '../view_model/registration_view_model.dart';
 class RegistrationScreen extends HookConsumerWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  RegistrationScreen({Key? key}) : super(key: key);
+  RegistrationScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

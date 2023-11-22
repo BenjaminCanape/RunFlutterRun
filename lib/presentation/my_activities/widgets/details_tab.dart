@@ -17,7 +17,7 @@ import '../view_model/activity_details_view_model.dart';
 class DetailsTab extends HookConsumerWidget {
   final Activity activity;
 
-  const DetailsTab({Key? key, required this.activity}) : super(key: key);
+  const DetailsTab({super.key, required this.activity});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

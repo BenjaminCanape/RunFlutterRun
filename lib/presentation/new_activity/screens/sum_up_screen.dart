@@ -16,7 +16,7 @@ import '../view_model/sum_up_view_model.dart';
 import '../widgets/save_button.dart';
 
 class SumUpScreen extends HookConsumerWidget {
-  const SumUpScreen({Key? key}) : super(key: key);
+  const SumUpScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

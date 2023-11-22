@@ -11,8 +11,7 @@ class LocationMap extends HookConsumerWidget {
   final List<LatLng> points;
   final List<Marker> markers;
 
-  const LocationMap({Key? key, required this.points, required this.markers})
-      : super(key: key);
+  const LocationMap({super.key, required this.points, required this.markers});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

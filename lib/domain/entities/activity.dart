@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
-import 'user.dart';
 
 import 'enum/activity_type.dart';
 import 'location.dart';
+import 'user.dart';
 
 /// Represents an activity.
 class Activity extends Equatable {

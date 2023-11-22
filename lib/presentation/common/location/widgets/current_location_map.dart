@@ -8,7 +8,7 @@ import 'location_map.dart';
 
 /// Widget that displays the current location on a map.
 class CurrentLocationMap extends HookConsumerWidget {
-  const CurrentLocationMap({Key? key}) : super(key: key);
+  const CurrentLocationMap({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
