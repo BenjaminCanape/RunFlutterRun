@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../send_new_password/screens/send_new_password_screen.dart';
-import '../../registration/screens/registration_screen.dart';
 
 import '../../common/core/utils/form_utils.dart';
-import '../../common/core/validators/login_validators.dart';
 import '../../common/core/utils/ui_utils.dart';
+import '../../common/core/validators/login_validators.dart';
+import '../../registration/screens/registration_screen.dart';
+import '../../send_new_password/screens/send_new_password_screen.dart';
 import '../view_model/login_view_model.dart';
 
 class LoginScreen extends HookConsumerWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   /// Constructs a [LoginScreen].
-  LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -86,10 +86,14 @@ class LoginScreen extends HookConsumerWidget {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const Icon(Icons.login),
+                                    const Icon(
+                                      Icons.login,
+                                      color: Colors.white,
+                                    ),
                                     const SizedBox(width: 8),
                                     Text(
                                       AppLocalizations.of(context)!.login_page,
+                                      style: FormUtils.darkTextFormFieldStyle,
                                     ),
                                   ],
                                 ),
@@ -118,11 +122,15 @@ class LoginScreen extends HookConsumerWidget {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const Icon(Icons.app_registration),
+                                    const Icon(
+                                      Icons.app_registration,
+                                      color: Colors.white,
+                                    ),
                                     const SizedBox(width: 8),
                                     Text(
                                       AppLocalizations.of(context)!
                                           .registration,
+                                      style: FormUtils.darkTextFormFieldStyle,
                                     ),
                                   ],
                                 ),
@@ -152,6 +160,9 @@ class LoginScreen extends HookConsumerWidget {
                                       .send_new_password,
                                   style: const TextStyle(
                                       color: Colors.white,
+                                      decorationStyle:
+                                          TextDecorationStyle.solid,
+                                      decorationColor: Colors.white,
                                       decoration: TextDecoration.underline),
                                 ),
                               ),

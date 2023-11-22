@@ -21,7 +21,7 @@ class ShareUtils {
         action: SnackBarAction(
           label: AppLocalizations.of(context)!.close,
           onPressed: () {
-            ScaffoldMessenger.of(context)!.hideCurrentSnackBar();
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
           },
         ),
       ),

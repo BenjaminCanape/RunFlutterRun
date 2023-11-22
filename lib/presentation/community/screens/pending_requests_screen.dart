@@ -9,7 +9,7 @@ import '../view_model/pending_request_view_model.dart';
 
 /// The screen that displays pending requests
 class PendingRequestsScreen extends HookConsumerWidget {
-  const PendingRequestsScreen({Key? key}) : super(key: key);
+  const PendingRequestsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -44,7 +44,10 @@ class PendingRequestsScreen extends HookConsumerWidget {
             floatingActionButton: FloatingActionButton(
               backgroundColor: Colors.teal.shade800,
               elevation: 4.0,
-              child: const Icon(Icons.arrow_back),
+              child: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
               onPressed: () {
                 Navigator.pop(context);
               },

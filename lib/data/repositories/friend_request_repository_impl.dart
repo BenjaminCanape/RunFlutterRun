@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../api/friend_request_api.dart';

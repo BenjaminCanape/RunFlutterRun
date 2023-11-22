@@ -15,7 +15,7 @@ import 'pending_requests_screen.dart';
 class CommunityScreen extends HookConsumerWidget {
   final TextEditingController _searchController = TextEditingController();
 
-  CommunityScreen({Key? key}) : super(key: key);
+  CommunityScreen({super.key});
 
   final pendingRequestsDataFutureProvider = FutureProvider<void>((ref) async {
     final pendingRequestsProvider =
@@ -78,10 +78,15 @@ class CommunityScreen extends HookConsumerWidget {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(Icons.people),
+                              const Icon(
+                                Icons.people,
+                                color: Colors.white,
+                              ),
                               const SizedBox(width: 8),
                               Text(
-                                  "${"${AppLocalizations.of(context)!.see_pending_requests} (${pendingRequestsState.pendingRequests.length}"})"),
+                                "${"${AppLocalizations.of(context)!.see_pending_requests} (${pendingRequestsState.pendingRequests.length}"})",
+                                style: FormUtils.darkTextFormFieldStyle,
+                              ),
                             ],
                           ),
                         ),

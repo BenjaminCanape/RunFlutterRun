@@ -11,10 +11,10 @@ class SearchWidget extends HookConsumerWidget implements PreferredSizeWidget {
   final Future<List<User>> Function(String) onSearchChanged;
 
   const SearchWidget({
-    Key? key,
+    super.key,
     required this.searchController,
     required this.onSearchChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -2,10 +2,10 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../../data/model/response/user_response.dart';
+
 import '../../../core/utils/storage_utils.dart';
 import '../../../data/model/request/edit_profile_request.dart';
-
+import '../../../data/model/response/user_response.dart';
 import '../../../data/repositories/user_repository_impl.dart';
 import '../../../domain/entities/user.dart';
 import '../../../main.dart';

@@ -5,7 +5,7 @@ import '../viewmodel/timer_view_model.dart';
 
 /// A floating action button used to pause or resume the timer.
 class TimerPause extends HookConsumerWidget {
-  const TimerPause({Key? key}) : super(key: key);
+  const TimerPause({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,7 +25,10 @@ class TimerPause extends HookConsumerWidget {
           backgroundColor: Colors.teal.shade800,
           key: ValueKey<bool>(isRunning),
           tooltip: timerViewModel.isTimerRunning() ? 'Pause' : 'Resume',
-          child: Icon(isRunning ? Icons.pause : Icons.play_arrow),
+          child: Icon(
+            isRunning ? Icons.pause : Icons.play_arrow,
+            color: Colors.white,
+          ),
           onPressed: () {
             if (timerViewModel.isTimerRunning()) {
               timerViewModel.pauseTimer();

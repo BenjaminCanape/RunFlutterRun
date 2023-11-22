@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map/plugin_api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -12,8 +11,7 @@ class LocationMap extends HookConsumerWidget {
   final List<LatLng> points;
   final List<Marker> markers;
 
-  const LocationMap({Key? key, required this.points, required this.markers})
-      : super(key: key);
+  const LocationMap({super.key, required this.points, required this.markers});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

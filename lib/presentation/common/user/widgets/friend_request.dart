@@ -7,7 +7,7 @@ import '../view_model/profile_view_model.dart';
 class FriendRequestWidget extends HookConsumerWidget {
   final String userId;
 
-  const FriendRequestWidget({Key? key, required this.userId}) : super(key: key);
+  const FriendRequestWidget({super.key, required this.userId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,7 +28,9 @@ class FriendRequestWidget extends HookConsumerWidget {
           provider.unfollow(userId);
         },
         style: ElevatedButton.styleFrom(
-          primary: Colors.red.shade800,
+          backgroundColor: Colors.red.shade800,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
         child: _buildStatusWidget(
           context,
@@ -44,7 +46,9 @@ class FriendRequestWidget extends HookConsumerWidget {
           provider.sendFriendRequest(userId);
         },
         style: ElevatedButton.styleFrom(
-          primary: Colors.teal.shade800,
+          backgroundColor: Colors.teal.shade800,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
         child: _buildStatusWidget(
           context,

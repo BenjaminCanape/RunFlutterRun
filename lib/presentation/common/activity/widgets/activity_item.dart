@@ -15,12 +15,12 @@ class ActivityItem extends HookConsumerWidget {
   final bool canOpenActivity;
 
   const ActivityItem({
-    Key? key,
+    super.key,
     required this.activity,
     required this.index,
     this.displayUserName = false,
     this.canOpenActivity = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -46,7 +46,7 @@ class ActivityItem extends HookConsumerWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
         ),
-        elevation: 4,
+        elevation: 0.25,
         margin: const EdgeInsets.all(8.0),
         child: Row(
           children: [

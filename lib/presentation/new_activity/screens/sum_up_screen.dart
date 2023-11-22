@@ -16,7 +16,7 @@ import '../view_model/sum_up_view_model.dart';
 import '../widgets/save_button.dart';
 
 class SumUpScreen extends HookConsumerWidget {
-  const SumUpScreen({Key? key}) : super(key: key);
+  const SumUpScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,7 +41,7 @@ class SumUpScreen extends HookConsumerWidget {
             locations.first.latitude,
             locations.first.longitude,
           ),
-          builder: (ctx) => Column(
+          child: Column(
             children: [
               IconButton(
                 icon: const Icon(Icons.location_on_rounded),
@@ -63,7 +63,7 @@ class SumUpScreen extends HookConsumerWidget {
               locations.last.latitude,
               locations.last.longitude,
             ),
-            builder: (ctx) => Column(
+            child: Column(
               children: [
                 IconButton(
                   icon: const Icon(Icons.location_on_rounded),

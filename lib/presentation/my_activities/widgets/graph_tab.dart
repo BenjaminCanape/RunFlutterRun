@@ -10,7 +10,7 @@ import '../../../domain/entities/activity.dart';
 class GraphTab extends StatelessWidget {
   final Activity activity;
 
-  const GraphTab({Key? key, required this.activity}) : super(key: key);
+  const GraphTab({super.key, required this.activity});
 
   FlSpot getMaxSpeedSpot(List<FlSpot> spots) {
     double maxSpeed = 0;

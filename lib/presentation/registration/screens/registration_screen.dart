@@ -10,7 +10,7 @@ import '../view_model/registration_view_model.dart';
 class RegistrationScreen extends HookConsumerWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  RegistrationScreen({Key? key}) : super(key: key);
+  RegistrationScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -133,9 +133,15 @@ class RegistrationScreen extends HookConsumerWidget {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const Icon(Icons.check),
+                                const Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                ),
                                 const SizedBox(width: 8),
-                                Text(AppLocalizations.of(context)!.validate),
+                                Text(
+                                  AppLocalizations.of(context)!.validate,
+                                  style: FormUtils.darkTextFormFieldStyle,
+                                ),
                               ],
                             ),
                           ),
@@ -149,9 +155,15 @@ class RegistrationScreen extends HookConsumerWidget {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const Icon(Icons.arrow_back),
+                                const Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.white,
+                                ),
                                 const SizedBox(width: 8),
-                                Text(AppLocalizations.of(context)!.back),
+                                Text(
+                                  AppLocalizations.of(context)!.back,
+                                  style: FormUtils.darkTextFormFieldStyle,
+                                ),
                               ],
                             ),
                           ),

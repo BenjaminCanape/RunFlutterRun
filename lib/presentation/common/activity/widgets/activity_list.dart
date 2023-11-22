@@ -20,11 +20,10 @@ class ActivityList extends HookConsumerWidget {
   ///
   /// The [activities] is the activities to display.
   const ActivityList(
-      {Key? key,
+      {super.key,
       this.displayUserName = false,
       this.canOpenActivity = true,
-      required this.activities})
-      : super(key: key);
+      required this.activities});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

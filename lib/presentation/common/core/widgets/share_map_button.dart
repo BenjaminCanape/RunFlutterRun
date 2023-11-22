@@ -20,8 +20,7 @@ class ShareMapButton extends HookConsumerWidget {
   ///
   /// The [boundaryKey] is the key of the widget to capture and share
   const ShareMapButton(
-      {Key? key, required this.boundaryKey, required this.activity})
-      : super(key: key);
+      {super.key, required this.boundaryKey, required this.activity});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -63,7 +62,10 @@ class ShareMapButton extends HookConsumerWidget {
       },
       backgroundColor: Colors.teal.shade800,
       elevation: 4.0,
-      child: const Icon(Icons.share),
+      child: const Icon(
+        Icons.share,
+        color: Colors.white,
+      ),
     );
   }
 }

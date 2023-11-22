@@ -5,7 +5,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../utils/form_utils.dart';
 
 /// A widget that allow to upload a file
 class UploadFileWidget extends HookConsumerWidget {
@@ -20,8 +19,7 @@ class UploadFileWidget extends HookConsumerWidget {
   /// Creates a [UploadFileWidget] widget.
   ///
   /// The [image] is the image to display.
-  UploadFileWidget({Key? key, required this.image, required this.callbackFunc})
-      : super(key: key);
+  UploadFileWidget({super.key, required this.image, required this.callbackFunc});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -57,7 +55,8 @@ class UploadFileWidget extends HookConsumerWidget {
             callbackFunc(file);
           }
         },
-        child: Text(AppLocalizations.of(context)!.profile_picture_select),
+        child: Text(AppLocalizations.of(context)!.profile_picture_select,
+            style: const TextStyle(color: Colors.white)),
       )
     ]);
   }

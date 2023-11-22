@@ -10,13 +10,14 @@ import '../widgets/friend_request.dart';
 class ProfileScreen extends HookConsumerWidget {
   final User user;
 
-  ProfileScreen({Key? key, required this.user}) : super(key: key);
+  ProfileScreen({super.key, required this.user});
 
   final futureDataProvider =
       FutureProvider.family<void, User>((ref, user) async {
-    final userId = user.id;
+    String userId = user.id;
     final profileProvider = ref.read(profileViewModelProvider.notifier);
     profileProvider.getFriendshipStatus(userId);
+
     profileProvider.getProfilePicture(userId);
   });
 
@@ -32,53 +33,52 @@ class ProfileScreen extends HookConsumerWidget {
               child: Column(
                 children: [
                   Container(
-                    padding:
-                        const EdgeInsets.only(left: 16, top: 16, right: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(150),
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: 150,
-                            height: 150,
-                            child: state.profilePicture != null
-                                ? Image.memory(
-                                    state.profilePicture!,
-                                    fit: BoxFit.cover,
-                                  )
-                                : const Icon(Icons.person, size: 100),
+                      padding:
+                          const EdgeInsets.only(left: 16, top: 16, right: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(150),
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 150,
+                              height: 150,
+                              child: state.profilePicture != null
+                                  ? Image.memory(
+                                      state.profilePicture!,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : const Icon(Icons.person, size: 100),
+                            ),
                           ),
-                        ),
-                        Flexible(
-                          child: Column(children: [
-                            Text(
-                              user.firstname != null && user.lastname != null
-                                  ? '${user.firstname} ${user.lastname}'
-                                  : user.username,
-                              style: const TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                            const SizedBox(height: 10),
-                            futureProvider.when(
-                              data: (_) {
-                                return FriendRequestWidget(userId: user.id);
-                              },
-                              loading: () {
-                                return const Center(child: UIUtils.loader);
-                              },
-                              error: (error, stackTrace) {
-                                return Text('$error');
-                              },
-                            ),
-                          ]),
-                        ),
-                      ],
-                    ),
-                  ),
+                          Flexible(
+                            child: Column(children: [
+                              Text(
+                                user.firstname != null && user.lastname != null
+                                    ? '${user.firstname} ${user.lastname}'
+                                    : user.username,
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                              const SizedBox(height: 10),
+                              futureProvider.when(
+                                data: (_) {
+                                  return FriendRequestWidget(userId: user.id);
+                                },
+                                loading: () {
+                                  return const Center(child: UIUtils.loader);
+                                },
+                                error: (error, stackTrace) {
+                                  return Text('$error');
+                                },
+                              )
+                            ]),
+                          ),
+                        ],
+                      )),
                   const Divider(),
                   const SizedBox(height: 20),
                   ActivityList(
@@ -93,7 +93,10 @@ class ProfileScreen extends HookConsumerWidget {
             floatingActionButton: FloatingActionButton(
               backgroundColor: Colors.teal.shade800,
               elevation: 4.0,
-              child: const Icon(Icons.arrow_back),
+              child: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
               onPressed: () {
                 Navigator.pop(context);
               },

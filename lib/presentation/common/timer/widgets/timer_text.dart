@@ -7,7 +7,7 @@ import '../viewmodel/timer_view_model.dart';
 class TimerText extends HookConsumerWidget {
   final int? timeInMs;
 
-  const TimerText({Key? key, this.timeInMs}) : super(key: key);
+  const TimerText({super.key, this.timeInMs});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

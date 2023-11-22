@@ -17,7 +17,7 @@ import '../view_model/activity_details_view_model.dart';
 class DetailsTab extends HookConsumerWidget {
   final Activity activity;
 
-  const DetailsTab({Key? key, required this.activity}) : super(key: key);
+  const DetailsTab({super.key, required this.activity});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,7 +41,7 @@ class DetailsTab extends HookConsumerWidget {
             activity.locations.first.latitude,
             activity.locations.first.longitude,
           ),
-          builder: (ctx) => Column(
+          child: Column(
             children: [
               IconButton(
                 icon: const Icon(Icons.location_on_rounded),
@@ -63,7 +63,7 @@ class DetailsTab extends HookConsumerWidget {
               activity.locations.last.latitude,
               activity.locations.last.longitude,
             ),
-            builder: (ctx) => Column(
+            child: Column(
               children: [
                 IconButton(
                   icon: const Icon(Icons.location_on_rounded),
@@ -120,7 +120,10 @@ class DetailsTab extends HookConsumerWidget {
                   : () {
                       provider.save(displayedActivity);
                     },
-              child: const Icon(Icons.save),
+              child: const Icon(
+                Icons.save,
+                color: Colors.white,
+              ),
             )
           : Stack(
               children: [
@@ -137,7 +140,10 @@ class DetailsTab extends HookConsumerWidget {
                   child: FloatingActionButton(
                     backgroundColor: Colors.teal.shade800,
                     elevation: 4.0,
-                    child: const Icon(Icons.arrow_back),
+                    child: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                    ),
                     onPressed: () {
                       Navigator.pop(context);
                     },

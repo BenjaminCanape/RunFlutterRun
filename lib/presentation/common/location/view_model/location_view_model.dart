@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -47,11 +48,13 @@ class LocationViewModel extends StateNotifier<LocationState> {
     }
     _positionStream ??=
         Geolocator.getPositionStream().listen((Position position) {
-      if (mounted) {
-        mapController.move(
-          LatLng(position.latitude, position.longitude),
-          17,
-        );
+      if (mounted && position.latitude >= -90 && position.longitude <= 90) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          mapController.move(
+            LatLng(position.latitude, position.longitude),
+            17,
+          );
+        });
 
         final timerProvider = ref.read(timerViewModelProvider.notifier);
         if (timerProvider.isTimerRunning() && timerProvider.hasTimerStarted()) {

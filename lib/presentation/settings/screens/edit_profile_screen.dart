@@ -11,7 +11,7 @@ import '../view_model/edit_profile_view_model.dart';
 class EditProfileScreen extends HookConsumerWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  EditProfileScreen({Key? key}) : super(key: key);
+  EditProfileScreen({super.key});
 
   final editProfileFutureProvider = FutureProvider<void>((ref) async {
     final editProfileProvider =
@@ -131,7 +131,10 @@ class EditProfileScreen extends HookConsumerWidget {
                 child: FloatingActionButton(
                   backgroundColor: Colors.teal.shade800,
                   elevation: 4.0,
-                  child: const Icon(Icons.save),
+                  child: const Icon(
+                    Icons.save,
+                    color: Colors.white,
+                  ),
                   onPressed: () {
                     provider.submitForm(context, formKey);
                   },
@@ -142,8 +145,10 @@ class EditProfileScreen extends HookConsumerWidget {
                 left: 80,
                 child: FloatingActionButton(
                   backgroundColor: Colors.teal.shade800,
-                  elevation: 4.0,
-                  child: const Icon(Icons.arrow_back),
+                  child: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ),
                   onPressed: () {
                     Navigator.pop(context);
                   },

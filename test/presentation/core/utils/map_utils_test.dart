@@ -6,9 +6,9 @@ void main() {
   group('MapUtils', () {
     test('getCenterOfMap should return the center coordinates', () {
       final points = [
-        LatLng(48.8566, 2.3522), // Paris
-        LatLng(45.75, 4.85), // Lyon
-        LatLng(43.2965, 5.3698), // Marseille
+        const LatLng(48.8566, 2.3522), // Paris
+        const LatLng(45.75, 4.85), // Lyon
+        const LatLng(43.2965, 5.3698), // Marseille
       ];
 
       final center = MapUtils.getCenterOfMap(points);
@@ -18,8 +18,8 @@ void main() {
     });
 
     test('getDistance should return the distance between two coordinates', () {
-      final point1 = LatLng(48.8566, 2.3522); // Paris
-      final point2 = LatLng(45.7579, 4.8357); // Lyon
+      const point1 = LatLng(48.8566, 2.3522); // Paris
+      const point2 = LatLng(45.7579, 4.8357); // Lyon
 
       final distance = MapUtils.getDistance(point1, point2);
 
@@ -30,11 +30,11 @@ void main() {
         'getRadius should return the maximum distance from the center to any point',
         () {
       final points = [
-        LatLng(48.8566, 2.3522), // Paris
-        LatLng(45.75, 4.85), // Lyon
-        LatLng(43.2965, 5.3698), // Marseille
+        const LatLng(48.8566, 2.3522), // Paris
+        const LatLng(45.75, 4.85), // Lyon
+        const LatLng(43.2965, 5.3698), // Marseille
       ];
-      final center = LatLng(45.9677,
+      const center = LatLng(45.9677,
           4.190666666666666); // Center between Paris, Lyon, and Marseille
 
       final radius = MapUtils.getRadius(points, center);
@@ -44,11 +44,11 @@ void main() {
 
     test('getZoomLevel should return the calculated zoom level', () {
       final points = [
-        LatLng(48.8566, 2.3522), // Paris
-        LatLng(45.75, 4.85), // Lyon
-        LatLng(43.2965, 5.3698), // Marseille
+        const LatLng(48.8566, 2.3522), // Paris
+        const LatLng(45.75, 4.85), // Lyon
+        const LatLng(43.2965, 5.3698), // Marseille
       ];
-      final center = LatLng(45.9677,
+      const center = LatLng(45.9677,
           4.190666666666666); // Center between Paris, Lyon, and Marseille
 
       final zoomLevel = MapUtils.getZoomLevel(points, center);

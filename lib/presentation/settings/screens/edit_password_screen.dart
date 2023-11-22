@@ -10,7 +10,7 @@ import '../view_model/edit_password_view_model.dart';
 class EditPasswordScreen extends HookConsumerWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  EditPasswordScreen({Key? key}) : super(key: key);
+  EditPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -116,7 +116,10 @@ class EditPasswordScreen extends HookConsumerWidget {
             child: FloatingActionButton(
               backgroundColor: Colors.teal.shade800,
               elevation: 4.0,
-              child: const Icon(Icons.save),
+              child: const Icon(
+                Icons.save,
+                color: Colors.white,
+              ),
               onPressed: () {
                 provider.submitForm(context, formKey);
               },
@@ -128,7 +131,10 @@ class EditPasswordScreen extends HookConsumerWidget {
             child: FloatingActionButton(
               backgroundColor: Colors.teal.shade800,
               elevation: 4.0,
-              child: const Icon(Icons.arrow_back),
+              child: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
               onPressed: () {
                 Navigator.pop(context);
               },

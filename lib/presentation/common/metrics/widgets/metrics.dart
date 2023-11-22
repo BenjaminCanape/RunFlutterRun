@@ -9,7 +9,7 @@ class Metrics extends HookConsumerWidget {
   final double? distance;
 
   /// Creates a Metrics widget.
-  const Metrics({Key? key, this.speed, this.distance}) : super(key: key);
+  const Metrics({super.key, this.speed, this.distance});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
