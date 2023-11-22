@@ -9,7 +9,6 @@ import '../../../data/model/request/edit_profile_request.dart';
 import '../../../data/repositories/user_repository_impl.dart';
 import '../../../domain/entities/user.dart';
 import '../../../main.dart';
-import '../../common/user/screens/profile_screen.dart';
 import 'state/edit_profile_state.dart';
 
 final editProfileViewModelProvider =
@@ -89,27 +88,6 @@ class EditProfileViewModel extends StateNotifier<EditProfileState> {
       } finally {
         state = state.copyWith(isEditing: false);
       }
-    }
-  }
-
-  /// Navigates to the profile of a user.
-  void goToUserProfile() async {
-    User? currentUser = await StorageUtils.getUser();
-
-    if (currentUser != null) {
-      navigatorKey.currentState?.push(
-        PageRouteBuilder(
-          transitionDuration: const Duration(milliseconds: 500),
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(1.0, 0.0),
-              end: Offset.zero,
-            ).animate(animation),
-            child: ProfileScreen(user: currentUser, isCurrentUser: true),
-          ),
-        ),
-      );
     }
   }
 }

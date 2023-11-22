@@ -42,25 +42,13 @@ class EditProfileScreen extends HookConsumerWidget {
                         children: [
                           Column(
                             children: [
-                              Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context)!
-                                          .edit_profile,
-                                      style: const TextStyle(
-                                          color: Colors.blueGrey,
-                                          fontSize: 28,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.person),
-                                      onPressed: () {
-                                        provider.goToUserProfile();
-                                      },
-                                    ),
-                                  ]),
+                              Text(
+                                AppLocalizations.of(context)!.edit_profile,
+                                style: const TextStyle(
+                                    color: Colors.blueGrey,
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.bold),
+                              ),
                               const Divider(),
                               const SizedBox(height: 10),
                               Padding(
@@ -139,7 +127,10 @@ class EditProfileScreen extends HookConsumerWidget {
                 child: FloatingActionButton(
                   backgroundColor: Colors.teal.shade800,
                   elevation: 4.0,
-                  child: const Icon(Icons.save),
+                  child: const Icon(
+                    Icons.save,
+                    color: Colors.white,
+                  ),
                   onPressed: () {
                     provider.submitForm(context, formKey);
                   },
@@ -150,8 +141,10 @@ class EditProfileScreen extends HookConsumerWidget {
                 left: 80,
                 child: FloatingActionButton(
                   backgroundColor: Colors.teal.shade800,
-                  elevation: 4.0,
-                  child: const Icon(Icons.arrow_back),
+                  child: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ),
                   onPressed: () {
                     Navigator.pop(context);
                   },

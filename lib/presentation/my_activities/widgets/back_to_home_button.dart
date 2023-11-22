@@ -14,7 +14,10 @@ class BackToHomeButton extends HookConsumerWidget {
     return FloatingActionButton(
       backgroundColor: Colors.teal.shade800,
       elevation: 4.0,
-      child: const Icon(Icons.arrow_back),
+      child: const Icon(
+        Icons.arrow_back,
+        color: Colors.white,
+      ),
       onPressed: () {
         provider.backToHome();
       },

@@ -26,7 +26,8 @@ class LocationState {
 
   /// Creates an initial [LocationState] instance.
   factory LocationState.initial() {
-    return const LocationState(savedPositions: []);
+    return const LocationState(
+        savedPositions: [], currentPosition: null, lastPosition: null);
   }
 
   /// Creates a copy of this [LocationState] instance with the given fields replaced with the new values.

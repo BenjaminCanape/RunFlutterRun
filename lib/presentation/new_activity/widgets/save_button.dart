@@ -29,7 +29,10 @@ class SaveButton extends HookConsumerWidget {
                   // Callback function to handle post-animation logic
                 });
               },
-        child: const Icon(Icons.save),
+        child: const Icon(
+          Icons.save,
+          color: Colors.white,
+        ),
       ),
     );
   }

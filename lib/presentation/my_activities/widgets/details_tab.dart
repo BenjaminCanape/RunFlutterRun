@@ -120,7 +120,10 @@ class DetailsTab extends HookConsumerWidget {
                   : () {
                       provider.save(displayedActivity);
                     },
-              child: const Icon(Icons.save),
+              child: const Icon(
+                Icons.save,
+                color: Colors.white,
+              ),
             )
           : Stack(
               children: [
@@ -137,7 +140,10 @@ class DetailsTab extends HookConsumerWidget {
                   child: FloatingActionButton(
                     backgroundColor: Colors.teal.shade800,
                     elevation: 4.0,
-                    child: const Icon(Icons.arrow_back),
+                    child: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                    ),
                     onPressed: () {
                       Navigator.pop(context);
                     },

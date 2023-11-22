@@ -53,9 +53,15 @@ class SettingsScreen extends HookConsumerWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.person),
+                            const Icon(
+                              Icons.person,
+                              color: Colors.white,
+                            ),
                             const SizedBox(width: 8),
-                            Text(AppLocalizations.of(context)!.edit_profile),
+                            Text(
+                              AppLocalizations.of(context)!.edit_profile,
+                              style: FormUtils.darkTextFormFieldStyle,
+                            ),
                           ],
                         ),
                       ),
@@ -90,9 +96,15 @@ class SettingsScreen extends HookConsumerWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.edit),
+                            const Icon(
+                              Icons.edit,
+                              color: Colors.white,
+                            ),
                             const SizedBox(width: 8),
-                            Text(AppLocalizations.of(context)!.edit_password),
+                            Text(
+                              AppLocalizations.of(context)!.edit_password,
+                              style: FormUtils.darkTextFormFieldStyle,
+                            ),
                           ],
                         ),
                       ),
@@ -112,9 +124,15 @@ class SettingsScreen extends HookConsumerWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.logout),
+                            const Icon(
+                              Icons.logout,
+                              color: Colors.white,
+                            ),
                             const SizedBox(width: 8),
-                            Text(AppLocalizations.of(context)!.logout),
+                            Text(
+                              AppLocalizations.of(context)!.logout,
+                              style: FormUtils.darkTextFormFieldStyle,
+                            ),
                           ],
                         ),
                       ),
@@ -142,9 +160,15 @@ class SettingsScreen extends HookConsumerWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.delete),
+                            const Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                            ),
                             const SizedBox(width: 8),
-                            Text(AppLocalizations.of(context)!.delete_account),
+                            Text(
+                              AppLocalizations.of(context)!.delete_account,
+                              style: FormUtils.darkTextFormFieldStyle,
+                            ),
                           ],
                         ),
                       ),

@@ -29,6 +29,8 @@ class FriendRequestWidget extends HookConsumerWidget {
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.red.shade800,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
         child: _buildStatusWidget(
           context,
@@ -45,6 +47,8 @@ class FriendRequestWidget extends HookConsumerWidget {
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.teal.shade800,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
         child: _buildStatusWidget(
           context,

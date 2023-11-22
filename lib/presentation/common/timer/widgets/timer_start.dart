@@ -32,6 +32,7 @@ class TimerStart extends HookConsumerWidget {
         child: Icon(
           timerViewModel.hasTimerStarted() ? Icons.stop : Icons.play_arrow,
           key: ValueKey<bool>(timerViewModel.hasTimerStarted()),
+          color: Colors.white,
         ),
       ),
       onPressed: () {

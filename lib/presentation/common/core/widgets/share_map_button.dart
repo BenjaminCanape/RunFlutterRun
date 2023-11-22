@@ -63,7 +63,10 @@ class ShareMapButton extends HookConsumerWidget {
       },
       backgroundColor: Colors.teal.shade800,
       elevation: 4.0,
-      child: const Icon(Icons.share),
+      child: const Icon(
+        Icons.share,
+        color: Colors.white,
+      ),
     );
   }
 }

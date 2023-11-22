@@ -46,7 +46,7 @@ class ActivityItem extends HookConsumerWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
         ),
-        elevation: 4,
+        elevation: 0.25,
         margin: const EdgeInsets.all(8.0),
         child: Row(
           children: [
