@@ -44,7 +44,10 @@ class PendingRequestsScreen extends HookConsumerWidget {
             floatingActionButton: FloatingActionButton(
               backgroundColor: Colors.teal.shade800,
               elevation: 4.0,
-              child: const Icon(Icons.arrow_back),
+              child: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
               onPressed: () {
                 Navigator.pop(context);
               },
