@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:dio/dio.dart';
 import '../model/response/friend_request_response.dart';

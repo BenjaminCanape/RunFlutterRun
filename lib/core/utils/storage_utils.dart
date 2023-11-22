@@ -62,7 +62,7 @@ class StorageUtils {
     final prefs = await SharedPreferences.getInstance();
     String? userString = prefs.getString('user');
     if (userString != null) {
-      dynamic json = jsonDecode(userString!);
+      dynamic json = jsonDecode(userString);
       UserResponse response = UserResponse.fromMap(json);
       User user = response.toEntity();
       return Future.value(user);

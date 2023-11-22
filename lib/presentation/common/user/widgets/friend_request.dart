@@ -28,7 +28,7 @@ class FriendRequestWidget extends HookConsumerWidget {
           provider.unfollow(userId);
         },
         style: ElevatedButton.styleFrom(
-          primary: Colors.red.shade800,
+          backgroundColor: Colors.red.shade800,
         ),
         child: _buildStatusWidget(
           context,
@@ -44,7 +44,7 @@ class FriendRequestWidget extends HookConsumerWidget {
           provider.sendFriendRequest(userId);
         },
         style: ElevatedButton.styleFrom(
-          primary: Colors.teal.shade800,
+          backgroundColor: Colors.teal.shade800,
         ),
         child: _buildStatusWidget(
           context,

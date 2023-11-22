@@ -73,7 +73,7 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                                 AppLocalizations.of(context)!.delete,
                             cancelBtnText: AppLocalizations.of(context)!.cancel,
                             confirmBtnColor: Colors.red,
-                            onCancelBtnTap: () => Navigator.of(context)!.pop(),
+                            onCancelBtnTap: () => Navigator.of(context).pop(),
                             onConfirmBtnTap: () =>
                                 provider.removeActivity(displayedActivity),
                           );

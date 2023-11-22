@@ -41,7 +41,7 @@ class DetailsTab extends HookConsumerWidget {
             activity.locations.first.latitude,
             activity.locations.first.longitude,
           ),
-          builder: (ctx) => Column(
+          child: Column(
             children: [
               IconButton(
                 icon: const Icon(Icons.location_on_rounded),
@@ -63,7 +63,7 @@ class DetailsTab extends HookConsumerWidget {
               activity.locations.last.latitude,
               activity.locations.last.longitude,
             ),
-            builder: (ctx) => Column(
+            child: Column(
               children: [
                 IconButton(
                   icon: const Icon(Icons.location_on_rounded),

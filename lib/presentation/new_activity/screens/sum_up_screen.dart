@@ -41,7 +41,7 @@ class SumUpScreen extends HookConsumerWidget {
             locations.first.latitude,
             locations.first.longitude,
           ),
-          builder: (ctx) => Column(
+          child: Column(
             children: [
               IconButton(
                 icon: const Icon(Icons.location_on_rounded),
@@ -63,7 +63,7 @@ class SumUpScreen extends HookConsumerWidget {
               locations.last.latitude,
               locations.last.longitude,
             ),
-            builder: (ctx) => Column(
+            child: Column(
               children: [
                 IconButton(
                   icon: const Icon(Icons.location_on_rounded),

@@ -26,7 +26,7 @@ class CurrentLocationMap extends HookConsumerWidget {
         width: 80,
         height: 80,
         point: LatLng(currentLatitude, currentLongitude),
-        builder: (ctx) => const Icon(
+        child: const Icon(
           Icons.run_circle_sharp,
           size: 30,
           color: Colors.red,
@@ -43,7 +43,7 @@ class CurrentLocationMap extends HookConsumerWidget {
             points.first.latitude,
             points.first.longitude,
           ),
-          builder: (ctx) => Column(
+          child: Column(
             children: [
               IconButton(
                 icon: const Icon(Icons.location_on_rounded),

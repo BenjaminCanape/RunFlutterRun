@@ -19,7 +19,8 @@ class FormUtils {
   /// Returns the created button style.
   static ButtonStyle createButtonStyle(Color backgroundColor) {
     return ButtonStyle(
-      textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 20)),
+      textStyle: MaterialStateProperty.all(
+          const TextStyle(fontSize: 20, color: Colors.white)),
       minimumSize: MaterialStateProperty.all(const Size(150, 50)),
       backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
       shape: MaterialStateProperty.all(

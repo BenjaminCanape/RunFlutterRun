@@ -86,10 +86,14 @@ class LoginScreen extends HookConsumerWidget {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const Icon(Icons.login),
+                                    const Icon(
+                                      Icons.login,
+                                      color: Colors.white,
+                                    ),
                                     const SizedBox(width: 8),
                                     Text(
                                       AppLocalizations.of(context)!.login_page,
+                                      style: FormUtils.darkTextFormFieldStyle,
                                     ),
                                   ],
                                 ),
@@ -118,11 +122,15 @@ class LoginScreen extends HookConsumerWidget {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const Icon(Icons.app_registration),
+                                    const Icon(
+                                      Icons.app_registration,
+                                      color: Colors.white,
+                                    ),
                                     const SizedBox(width: 8),
                                     Text(
                                       AppLocalizations.of(context)!
                                           .registration,
+                                      style: FormUtils.darkTextFormFieldStyle,
                                     ),
                                   ],
                                 ),
@@ -152,6 +160,9 @@ class LoginScreen extends HookConsumerWidget {
                                       .send_new_password,
                                   style: const TextStyle(
                                       color: Colors.white,
+                                      decorationStyle:
+                                          TextDecorationStyle.solid,
+                                      decorationColor: Colors.white,
                                       decoration: TextDecoration.underline),
                                 ),
                               ),

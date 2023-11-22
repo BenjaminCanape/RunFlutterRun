@@ -42,17 +42,25 @@ class EditProfileScreen extends HookConsumerWidget {
                         children: [
                           Column(
                             children: [
-                              Container(
-                                padding:
-                                    const EdgeInsets.only(left: 0, top: 12),
-                                child: Text(
-                                  AppLocalizations.of(context)!.edit_profile,
-                                  style: const TextStyle(
-                                      color: Colors.blueGrey,
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      AppLocalizations.of(context)!
+                                          .edit_profile,
+                                      style: const TextStyle(
+                                          color: Colors.blueGrey,
+                                          fontSize: 28,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.person),
+                                      onPressed: () {
+                                        provider.goToUserProfile();
+                                      },
+                                    ),
+                                  ]),
                               const Divider(),
                               const SizedBox(height: 10),
                               Padding(
