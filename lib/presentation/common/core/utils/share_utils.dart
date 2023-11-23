@@ -9,8 +9,13 @@ import 'package:share_plus/share_plus.dart';
 class ShareUtils {
   /// Open the sharing dialog
   static Future<void> shareImage(BuildContext context, Uint8List image) async {
-    //await Share.file('Run Flutter Run', 'run.png', image, 'image/png');
-    await Share.shareXFiles([XFile.fromData(image, name: 'run_flutter_run')]);
+    await Share.shareXFiles([
+      XFile.fromData(
+        image,
+        name: 'run_flutter_run',
+        mimeType: 'image/png',
+      )
+    ]);
   }
 
   /// Display a snackbar when share image failed
