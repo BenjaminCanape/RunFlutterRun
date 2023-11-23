@@ -1,6 +1,4 @@
 PODS:
-  - esys_flutter_share_plus (0.0.1):
-    - Flutter
   - Flutter (1.0.0)
   - flutter_keyboard_visibility (0.0.1):
     - Flutter
@@ -26,7 +24,6 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - esys_flutter_share_plus (from `.symlinks/plugins/esys_flutter_share_plus/ios`)
   - Flutter (from `Flutter`)
   - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
@@ -40,8 +37,6 @@ DEPENDENCIES:
   - wakelock (from `.symlinks/plugins/wakelock/ios`)
 
 EXTERNAL SOURCES:
-  esys_flutter_share_plus:
-    :path: ".symlinks/plugins/esys_flutter_share_plus/ios"
   Flutter:
     :path: Flutter
   flutter_keyboard_visibility:
@@ -66,7 +61,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/wakelock/ios"
 
 SPEC CHECKSUMS:
-  esys_flutter_share_plus: 302b73471e2686a9ce282898d1df5d6f4382edba
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
   flutter_secure_storage: 23fc622d89d073675f2eaa109381aefbcf5a49be
@@ -79,6 +73,6 @@ SPEC CHECKSUMS:
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
 
-PODFILE CHECKSUM: 61f7f00a6fc3467a8834161d9bd64c4c266aa465
+PODFILE CHECKSUM: 2442f0b84dc733c75ff32e76bcf04626a168288b
 
 COCOAPODS: 1.11.3
