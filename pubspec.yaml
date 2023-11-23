@@ -62,12 +62,12 @@ dependencies:
   screenshot: ^2.1.0
   image_gallery_saver: ^2.0.3
   path_provider: ^2.0.15
-  esys_flutter_share_plus: ^2.2.0
   image: ^4.0.17
   fl_chart: ^0.64.0
   google_nav_bar: ^5.0.6
   flutter_typeahead: ^4.8.0
   image_picker: ^1.0.4
+  share_plus: ^6.3.4
 
 dev_dependencies:
   flutter_test:
