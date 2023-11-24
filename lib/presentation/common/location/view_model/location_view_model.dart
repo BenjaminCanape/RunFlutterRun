@@ -48,7 +48,7 @@ class LocationViewModel extends StateNotifier<LocationState> {
     }
     _positionStream ??=
         Geolocator.getPositionStream().listen((Position position) {
-      if (mounted && position.latitude >= -90 && position.longitude <= 90) {
+      if (mounted) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           mapController.move(
             LatLng(position.latitude, position.longitude),
