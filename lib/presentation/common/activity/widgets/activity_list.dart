@@ -89,18 +89,19 @@ class ActivityList extends HookConsumerWidget {
   List<List<Activity>> groupActivitiesByMonth(List<Activity> activities) {
     final groupedActivities = <List<Activity>>[];
 
-    activities.sort((a, b) => b.startDatetime.compareTo(a.startDatetime));
+    if (activities.isNotEmpty) {
+      activities.sort((a, b) => b.startDatetime.compareTo(a.startDatetime));
 
-    for (var activity in activities) {
-      if (groupedActivities.isEmpty ||
-          groupedActivities.last.first.startDatetime.month !=
-              activity.startDatetime.month) {
-        groupedActivities.add([activity]);
-      } else {
-        groupedActivities.last.add(activity);
+      for (var activity in activities) {
+        if (groupedActivities.isEmpty ||
+            groupedActivities.last.first.startDatetime.month !=
+                activity.startDatetime.month) {
+          groupedActivities.add([activity]);
+        } else {
+          groupedActivities.last.add(activity);
+        }
       }
     }
-
     return groupedActivities;
   }
 
