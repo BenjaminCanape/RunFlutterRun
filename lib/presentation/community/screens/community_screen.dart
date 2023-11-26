@@ -83,10 +83,29 @@ class CommunityScreen extends HookConsumerWidget {
                                 color: Colors.white,
                               ),
                               const SizedBox(width: 8),
-                              Text(
-                                "${"${AppLocalizations.of(context)!.see_pending_requests} (${pendingRequestsState.pendingRequests.length}"})",
-                                style: FormUtils.darkTextFormFieldStyle,
-                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .see_pending_requests,
+                                    style: FormUtils.darkTextFormFieldStyle,
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Badge.count(
+                                    count: pendingRequestsState
+                                        .pendingRequests.length,
+                                    textColor: Colors.black,
+                                    backgroundColor: Colors.white,
+                                    textStyle: const TextStyle(fontSize: 16),
+                                    smallSize: 22,
+                                    largeSize: 28,
+                                    padding:
+                                        const EdgeInsets.fromLTRB(8, 0, 9, 0),
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),
