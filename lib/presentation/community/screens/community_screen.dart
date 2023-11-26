@@ -54,50 +54,50 @@ class CommunityScreen extends HookConsumerWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 16.0),
                       child: ElevatedButton(
-                        style: FormUtils.buttonStyle,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              transitionDuration:
-                                  const Duration(milliseconds: 500),
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
-                                      SlideTransition(
-                                position: Tween<Offset>(
-                                  begin: const Offset(1.0, 0.0),
-                                  end: Offset.zero,
-                                ).animate(animation),
-                                child: const PendingRequestsScreen(),
-                              ),
-                            ),
-                          );
-                        },
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Badge.count(
-                                count:
-                                    pendingRequestsState.pendingRequests.length,
-                                textColor: Colors.black,
-                                backgroundColor: Colors.white,
-                                child: const Icon(
-                                  Icons.people,
-                                  color: Colors.white,
+                          style: FormUtils.buttonStyle,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                transitionDuration:
+                                    const Duration(milliseconds: 500),
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) =>
+                                        SlideTransition(
+                                  position: Tween<Offset>(
+                                    begin: const Offset(1.0, 0.0),
+                                    end: Offset.zero,
+                                  ).animate(animation),
+                                  child: const PendingRequestsScreen(),
                                 ),
                               ),
-                              const SizedBox(width: 8),
-                              Text(
-                                AppLocalizations.of(context)!
-                                    .see_pending_requests,
-                                style: FormUtils.darkTextFormFieldStyle,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                            );
+                          },
+                          child: Align(
+                              alignment: Alignment.center,
+                              child: Badge.count(
+                                  count: pendingRequestsState
+                                      .pendingRequests.length,
+                                  textColor: Colors.black,
+                                  backgroundColor: Colors.white,
+                                  child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 0, 16, 0),
+                                      child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const Icon(
+                                              Icons.people,
+                                              color: Colors.white,
+                                            ),
+                                            const SizedBox(width: 8),
+                                            Text(
+                                              AppLocalizations.of(context)!
+                                                  .see_pending_requests,
+                                              style: FormUtils
+                                                  .darkTextFormFieldStyle,
+                                            ),
+                                          ]))))),
                     )
                   : Container();
             },
