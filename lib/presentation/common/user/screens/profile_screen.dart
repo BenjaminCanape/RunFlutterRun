@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/domain/entities/enum/friend_request_status.dart';
 
 import '../../../../domain/entities/user.dart';
 import '../../activity/widgets/activity_list.dart';
@@ -17,7 +18,6 @@ class ProfileScreen extends HookConsumerWidget {
     String userId = user.id;
     final profileProvider = ref.read(profileViewModelProvider.notifier);
     profileProvider.getFriendshipStatus(userId);
-
     profileProvider.getProfilePicture(userId);
   });
 
@@ -66,7 +66,13 @@ class ProfileScreen extends HookConsumerWidget {
                               const SizedBox(height: 10),
                               futureProvider.when(
                                 data: (_) {
-                                  return FriendRequestWidget(userId: user.id);
+                                  Widget widget = Container();
+                                  if (state.friendshipStatus !=
+                                      FriendRequestStatus.noDisplay) {
+                                    widget =
+                                        FriendRequestWidget(userId: user.id);
+                                  }
+                                  return widget;
                                 },
                                 loading: () {
                                   return const Center(child: UIUtils.loader);

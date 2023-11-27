@@ -32,7 +32,10 @@ class SearchWidget extends HookConsumerWidget implements PreferredSizeWidget {
           ),
         ),
         suggestionsCallback: (String query) async {
-          return await onSearchChanged(query);
+          if (query.isNotEmpty) {
+            return await onSearchChanged(query);
+          }
+          return [];
         },
         itemBuilder: (BuildContext context, User suggestion) {
           return ListTile(
