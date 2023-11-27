@@ -13,11 +13,11 @@ class ActivityList extends HookConsumerWidget {
   final bool canOpenActivity;
 
   const ActivityList({
-    Key? key,
+    super.key,
     this.displayUserName = false,
     this.canOpenActivity = true,
     required this.activities,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

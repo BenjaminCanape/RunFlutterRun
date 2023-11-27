@@ -114,7 +114,8 @@ class UserApi {
         '${ApiHelper.apiUrl}user/picture/download/$id', 'GET',
         noCache: !useCache, responseType: ResponseType.bytes);
 
-    if (response != null && response.statusCode == 404) {
+    if (response != null &&
+        (response.statusCode == 404 || (response.statusCode == 500))) {
       return null;
     }
 
