@@ -36,6 +36,12 @@ class ActivityResponse extends Equatable {
   /// The user concerned by the activity
   final UserResponse user;
 
+  /// The count of likes on the activity
+  final double likesCount;
+
+  /// has current user liked ?
+  final bool hasCurrentUserLiked;
+
   /// Constructs an ActivityResponse object with the given parameters.
   const ActivityResponse(
       {required this.id,
@@ -46,7 +52,9 @@ class ActivityResponse extends Equatable {
       required this.speed,
       required this.time,
       required this.locations,
-      required this.user});
+      required this.user,
+      required this.likesCount,
+      required this.hasCurrentUserLiked});
 
   @override
   List<Object?> get props => [
@@ -58,7 +66,9 @@ class ActivityResponse extends Equatable {
         speed,
         time,
         ...locations,
-        user
+        user,
+        likesCount,
+        hasCurrentUserLiked
       ];
 
   /// Creates an ActivityResponse object from a JSON map.
@@ -79,10 +89,14 @@ class ActivityResponse extends Equatable {
             ? double.parse(map['speed'])
             : map['speed'].toDouble(),
         time: map['time'].toDouble(),
+        likesCount: map['likesCount'].toDouble(),
+        hasCurrentUserLiked: map['hasCurrentUserLiked'],
         locations: (map['locations'] as List<dynamic>)
             .map<LocationResponse>((item) => LocationResponse.fromMap(item))
             .toList(),
-        user: UserResponse.fromMap(map['user']));
+        user: UserResponse.fromMap(
+          map['user'],
+        ));
   }
 
   /// Converts the ActivityResponse object to an Activity entity.
@@ -98,18 +112,21 @@ class ActivityResponse extends Equatable {
       ..sort((a, b) => a.datetime.compareTo(b.datetime));
 
     return Activity(
-        id: id,
-        type: type,
-        startDatetime: startDatetime,
-        endDatetime: endDatetime,
-        distance: distance,
-        speed: speed,
-        time: time,
-        locations: activityLocations,
-        user: User(
-            id: user.id,
-            username: user.username,
-            firstname: user.firstname,
-            lastname: user.lastname));
+      id: id,
+      type: type,
+      startDatetime: startDatetime,
+      endDatetime: endDatetime,
+      distance: distance,
+      speed: speed,
+      time: time,
+      locations: activityLocations,
+      likesCount: likesCount,
+      hasCurrentUserLiked: hasCurrentUserLiked,
+      user: User(
+          id: user.id,
+          username: user.username,
+          firstname: user.firstname,
+          lastname: user.lastname),
+    );
   }
 }

@@ -74,4 +74,16 @@ class ActivityApi {
         data: request.toMap());
     return ActivityResponse.fromMap(response?.data);
   }
+
+  /// Like the activity
+  static Future<void> like(String activityId) async {
+    await ApiHelper.makeRequest('${ActivityApi.url}like', 'POST_FORM_DATA',
+        data: {'id': activityId});
+  }
+
+  /// Dislike the activity
+  static Future<void> dislike(String activityId) async {
+    await ApiHelper.makeRequest('${ActivityApi.url}dislike', 'POST_FORM_DATA',
+        data: {'id': activityId});
+  }
 }

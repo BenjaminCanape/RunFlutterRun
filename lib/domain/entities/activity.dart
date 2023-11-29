@@ -33,6 +33,12 @@ class Activity extends Equatable {
   // The user concerned by the activity
   final User user;
 
+  /// The count of likes on the activity
+  final double likesCount;
+
+  /// has current user liked ?
+  final bool hasCurrentUserLiked;
+
   /// Constructs an Activity object with the given parameters.
   const Activity(
       {required this.id,
@@ -43,7 +49,26 @@ class Activity extends Equatable {
       required this.speed,
       required this.time,
       required this.locations,
-      required this.user});
+      required this.user,
+      required this.likesCount,
+      required this.hasCurrentUserLiked});
+
+  Activity copy(
+      {ActivityType? type, double? likesCount, bool? hasCurrentUserLiked}) {
+    return Activity(
+      id: id,
+      type: type ?? this.type,
+      startDatetime: startDatetime,
+      endDatetime: endDatetime,
+      distance: distance,
+      speed: speed,
+      time: time,
+      locations: locations,
+      user: user,
+      likesCount: likesCount ?? this.likesCount,
+      hasCurrentUserLiked: hasCurrentUserLiked ?? this.hasCurrentUserLiked,
+    );
+  }
 
   @override
   List<Object?> get props => [
@@ -55,6 +80,8 @@ class Activity extends Equatable {
         speed,
         time,
         ...locations,
-        user
+        user,
+        likesCount,
+        hasCurrentUserLiked
       ];
 }

@@ -23,4 +23,10 @@ abstract class ActivityRepository {
 
   /// Edits an existing activity.
   Future<Activity> editActivity(ActivityRequest request);
+
+  /// Like the activity
+  Future<void> like(String id);
+
+  /// Dislike the activity
+  Future<void> dislike(String id);
 }

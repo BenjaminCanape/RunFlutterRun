@@ -90,6 +90,8 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
         distance: distance,
         speed: speed,
         time: differenceInMilliseconds,
+        likesCount: 0,
+        hasCurrentUserLiked: false,
         locations: locations
             .map((l) => Location(
                 id: '',
