@@ -134,7 +134,7 @@ class ActivityItem extends HookConsumerWidget {
                     ],
                   ),
                 ),
-                if (!displayUserName)
+                if (canOpenActivity)
                   const Icon(
                     Icons.navigate_next,
                     color: Colors.black,
