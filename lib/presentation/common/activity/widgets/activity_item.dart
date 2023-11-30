@@ -6,9 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../domain/entities/activity.dart';
-import '../../../../domain/entities/user.dart';
 import '../../../../main.dart';
-import '../../../my_activities/view_model/activity_list_view_model.dart';
 import '../../core/utils/activity_utils.dart';
 import '../../core/utils/color_utils.dart';
 import '../../core/utils/ui_utils.dart';
@@ -30,16 +28,20 @@ class ActivityItem extends HookConsumerWidget {
   });
 
   final futureDataProvider =
-      FutureProvider.family<Uint8List?, User>((ref, user) async {
-    String userId = user.id;
-    final provider = ref.read(activityItemViewModelProvider.notifier);
+      FutureProvider.family<Uint8List?, Activity>((ref, activity) async {
+    final provider =
+        ref.read(activityItemViewModelProvider(activity.id).notifier);
+    String userId = activity.user.id;
     return provider.getProfilePicture(userId);
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.read(activityListViewModelProvider.notifier);
-    final futureProvider = ref.watch(futureDataProvider(activity.user));
+    final provider =
+        ref.read(activityItemViewModelProvider(activity.id).notifier);
+    final state = ref.watch(activityItemViewModelProvider(activity.id));
+    final futureProvider = ref.watch(futureDataProvider(activity));
+
     final appLocalizations = AppLocalizations.of(context)!;
     final formattedDate =
         DateFormat('dd/MM/yyyy').format(activity.startDatetime);
@@ -49,6 +51,9 @@ class ActivityItem extends HookConsumerWidget {
     final startColor = colors.first;
     final endColor = colors.last;
     const double borderRadius = 24;
+
+    Activity currentActivity = state.activity ?? activity;
+    bool hasCurrentUserLiked = currentActivity.hasCurrentUserLiked;
 
     return InkWell(
       onTap: () async {
@@ -63,84 +68,116 @@ class ActivityItem extends HookConsumerWidget {
         ),
         elevation: 0.25,
         margin: const EdgeInsets.all(8),
-        child: Row(
+        child: Column(
           children: [
-            if (!displayUserName)
-              Container(
-                width: 120,
-                height: 150,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(borderRadius),
-                    bottomLeft: Radius.circular(borderRadius),
-                  ),
-                  gradient: LinearGradient(
-                    colors: [startColor, endColor],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: endColor,
-                      blurRadius: 12,
-                      offset: const Offset(0, 6),
+            Row(
+              children: [
+                if (!displayUserName)
+                  Container(
+                    width: 120,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(borderRadius),
+                        bottomLeft: Radius.circular(borderRadius),
+                      ),
+                      gradient: LinearGradient(
+                        colors: [startColor, endColor],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: endColor,
+                          blurRadius: 12,
+                          offset: const Offset(0, 6),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: Center(
-                  child: Icon(
-                    ActivityUtils.getActivityTypeIcon(activity.type),
-                    color: Colors.white,
-                    size: 40,
-                  ),
-                ),
-              ),
-            if (!displayUserName) const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (displayUserName)
-                    _buildUserInformation(context, futureProvider),
-                  Padding(
-                    padding: EdgeInsets.only(left: displayUserName ? 30 : 0),
-                    child: Text(
-                      ActivityUtils.translateActivityTypeValue(
-                        appLocalizations,
-                        activity.type,
-                      ).toUpperCase(),
-                      style: TextStyle(
-                        color: startColor,
-                        fontFamily: 'Avenir',
-                        fontWeight: FontWeight.bold,
+                    child: Center(
+                      child: Icon(
+                        ActivityUtils.getActivityTypeIcon(activity.type),
+                        color: Colors.white,
+                        size: 40,
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: displayUserName ? 30 : 0,
-                      bottom: displayUserName ? 30 : 0,
-                    ),
-                    child: _buildActivityDetails(context, appLocalizations,
-                        formattedDate, formattedTime),
+                if (!displayUserName) const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (displayUserName)
+                        _buildUserInformation(context, futureProvider),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(left: displayUserName ? 30 : 0),
+                        child: Text(
+                          ActivityUtils.translateActivityTypeValue(
+                            appLocalizations,
+                            activity.type,
+                          ).toUpperCase(),
+                          style: TextStyle(
+                            color: startColor,
+                            fontFamily: 'Avenir',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: displayUserName ? 30 : 0,
+                          bottom: displayUserName ? 30 : 0,
+                        ),
+                        child: _buildActivityDetails(context, appLocalizations,
+                            formattedDate, formattedTime),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                if (canOpenActivity)
+                  const Icon(
+                    Icons.navigate_next,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+              ],
             ),
             if (displayUserName)
-              Container(
-                padding: const EdgeInsets.only(right: 16),
-                child: Icon(
-                  ActivityUtils.getActivityTypeIcon(activity.type),
-                  color: startColor,
-                  size: 30,
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            hasCurrentUserLiked
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color:
+                                hasCurrentUserLiked ? Colors.red : Colors.black,
+                          ),
+                          onPressed: () {
+                            if (hasCurrentUserLiked) {
+                              provider.dislike(currentActivity);
+                            } else {
+                              provider.like(currentActivity);
+                            }
+                          },
+                        ),
+                        Text(
+                          '${currentActivity.likesCount.ceil()}',
+                          style: TextStyle(
+                            color: Colors.grey.shade600,
+                            fontFamily: 'Avenir',
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
-              ),
-            if (canOpenActivity)
-              const Icon(
-                Icons.navigate_next,
-                color: Colors.black,
-                size: 30,
               ),
           ],
         ),

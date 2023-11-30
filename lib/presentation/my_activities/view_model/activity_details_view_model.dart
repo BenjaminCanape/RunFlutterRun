@@ -58,6 +58,8 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
           startDatetime: activity.startDatetime,
           endDatetime: activity.endDatetime,
           time: activity.time,
+          likesCount: activity.likesCount,
+          hasCurrentUserLiked: activity.hasCurrentUserLiked,
           locations: const [],
           user: activity.user);
 

@@ -53,4 +53,14 @@ class ActivityRepositoryImpl extends ActivityRepository {
     final activityResponse = await ActivityApi.editActivity(request);
     return activityResponse.toEntity();
   }
+
+  @override
+  Future<void> like(String id) async {
+    await ActivityApi.like(id);
+  }
+
+  @override
+  Future<void> dislike(String id) async {
+    await ActivityApi.dislike(id);
+  }
 }

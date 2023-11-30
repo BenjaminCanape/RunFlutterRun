@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:run_flutter_run/presentation/common/activity/view_model/activity_item_view_model.dart';
 import 'package:run_flutter_run/presentation/common/core/utils/type_utils.dart';
 import '../../../../domain/entities/activity.dart';
 import 'activity_item.dart';
@@ -22,6 +24,13 @@ class ActivityList extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final groupedActivities = groupActivitiesByMonth(activities);
+
+    useEffect(() {
+      return () {
+        activities.map((a) =>
+            ref.read(activityItemViewModelProvider(a.id).notifier).dispose());
+      };
+    }, const []);
 
     return Expanded(
       child: groupedActivities.isEmpty
