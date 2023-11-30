@@ -41,6 +41,7 @@ class ActivityItem extends HookConsumerWidget {
         ref.read(activityItemViewModelProvider(activity.id).notifier);
     final state = ref.watch(activityItemViewModelProvider(activity.id));
     final futureProvider = ref.watch(futureDataProvider(activity));
+
     final appLocalizations = AppLocalizations.of(context)!;
     final formattedDate =
         DateFormat('dd/MM/yyyy').format(activity.startDatetime);
