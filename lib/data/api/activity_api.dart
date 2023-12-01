@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:run_flutter_run/data/model/response/activity_comment_response.dart';
 
 import '../model/request/activity_request.dart';
 import '../model/response/activity_response.dart';
@@ -85,5 +86,35 @@ class ActivityApi {
   static Future<void> dislike(String activityId) async {
     await ApiHelper.makeRequest('${ActivityApi.url}dislike', 'POST_FORM_DATA',
         data: {'id': activityId});
+  }
+
+  /// Comment the activity
+  static Future<ActivityCommentResponse> createComment(
+      String activityId, String comment) async {
+    Response? response = await ApiHelper.makeRequest(
+        '${ActivityApi.url}comment', 'POST_FORM_DATA',
+        data: {'activityId': activityId, 'comment': comment});
+    return ActivityCommentResponse.fromMap(response?.data);
+  }
+
+  /// Edits an existing comment.
+  ///
+  /// Returns an [ActivityCommentResponse] object.
+  static Future<ActivityCommentResponse> editComment(
+      String id, String comment) async {
+    Response? response = await ApiHelper.makeRequest(
+        '${ActivityApi.url}comment', 'PUT',
+        data: {'id': id, 'comment': comment});
+    return ActivityCommentResponse.fromMap(response?.data);
+  }
+
+  /// Removes a comment by its ID.
+  ///
+  /// Returns the response data as a string.
+  static Future<String?> removeComment(String id) async {
+    Response? response = await ApiHelper.makeRequest(
+        '${ActivityApi.url}comment', 'DELETE',
+        queryParams: {'id': int.parse(id)});
+    return response?.data?.toString();
   }
 }

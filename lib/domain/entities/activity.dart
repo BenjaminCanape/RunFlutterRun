@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:run_flutter_run/domain/entities/activity_comment.dart';
 
 import 'enum/activity_type.dart';
 import 'location.dart';
@@ -39,6 +40,9 @@ class Activity extends Equatable {
   /// has current user liked ?
   final bool hasCurrentUserLiked;
 
+  /// The list of comments associated with the activity.
+  final Iterable<ActivityComment> comments;
+
   /// Constructs an Activity object with the given parameters.
   const Activity(
       {required this.id,
@@ -51,23 +55,24 @@ class Activity extends Equatable {
       required this.locations,
       required this.user,
       required this.likesCount,
-      required this.hasCurrentUserLiked});
+      required this.hasCurrentUserLiked,
+      required this.comments});
 
   Activity copy(
       {ActivityType? type, double? likesCount, bool? hasCurrentUserLiked}) {
     return Activity(
-      id: id,
-      type: type ?? this.type,
-      startDatetime: startDatetime,
-      endDatetime: endDatetime,
-      distance: distance,
-      speed: speed,
-      time: time,
-      locations: locations,
-      user: user,
-      likesCount: likesCount ?? this.likesCount,
-      hasCurrentUserLiked: hasCurrentUserLiked ?? this.hasCurrentUserLiked,
-    );
+        id: id,
+        type: type ?? this.type,
+        startDatetime: startDatetime,
+        endDatetime: endDatetime,
+        distance: distance,
+        speed: speed,
+        time: time,
+        locations: locations,
+        user: user,
+        likesCount: likesCount ?? this.likesCount,
+        hasCurrentUserLiked: hasCurrentUserLiked ?? this.hasCurrentUserLiked,
+        comments: comments);
   }
 
   @override
@@ -82,6 +87,7 @@ class Activity extends Equatable {
         ...locations,
         user,
         likesCount,
-        hasCurrentUserLiked
+        hasCurrentUserLiked,
+        ...comments
       ];
 }

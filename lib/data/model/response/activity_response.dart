@@ -1,9 +1,11 @@
 import 'package:equatable/equatable.dart';
 
 import '../../../domain/entities/activity.dart';
+import '../../../domain/entities/activity_comment.dart';
 import '../../../domain/entities/enum/activity_type.dart';
 import '../../../domain/entities/location.dart';
 import '../../../domain/entities/user.dart';
+import 'activity_comment_response.dart';
 import 'location_response.dart';
 import 'user_response.dart';
 
@@ -42,6 +44,9 @@ class ActivityResponse extends Equatable {
   /// has current user liked ?
   final bool hasCurrentUserLiked;
 
+  /// The list of comments
+  final Iterable<ActivityCommentResponse> comments;
+
   /// Constructs an ActivityResponse object with the given parameters.
   const ActivityResponse(
       {required this.id,
@@ -54,7 +59,8 @@ class ActivityResponse extends Equatable {
       required this.locations,
       required this.user,
       required this.likesCount,
-      required this.hasCurrentUserLiked});
+      required this.hasCurrentUserLiked,
+      required this.comments});
 
   @override
   List<Object?> get props => [
@@ -68,7 +74,8 @@ class ActivityResponse extends Equatable {
         ...locations,
         user,
         likesCount,
-        hasCurrentUserLiked
+        hasCurrentUserLiked,
+        ...comments
       ];
 
   /// Creates an ActivityResponse object from a JSON map.
@@ -80,23 +87,28 @@ class ActivityResponse extends Equatable {
     );
 
     return ActivityResponse(
-        id: map['id'].toString(),
-        type: activityType,
-        startDatetime: DateTime.parse(map['startDatetime']),
-        endDatetime: DateTime.parse(map['endDatetime']),
-        distance: map['distance'].toDouble(),
-        speed: map['speed'] is String
-            ? double.parse(map['speed'])
-            : map['speed'].toDouble(),
-        time: map['time'].toDouble(),
-        likesCount: map['likesCount'].toDouble(),
-        hasCurrentUserLiked: map['hasCurrentUserLiked'],
-        locations: (map['locations'] as List<dynamic>)
-            .map<LocationResponse>((item) => LocationResponse.fromMap(item))
-            .toList(),
-        user: UserResponse.fromMap(
-          map['user'],
-        ));
+      id: map['id'].toString(),
+      type: activityType,
+      startDatetime: DateTime.parse(map['startDatetime']),
+      endDatetime: DateTime.parse(map['endDatetime']),
+      distance: map['distance'].toDouble(),
+      speed: map['speed'] is String
+          ? double.parse(map['speed'])
+          : map['speed'].toDouble(),
+      time: map['time'].toDouble(),
+      likesCount: map['likesCount'].toDouble(),
+      hasCurrentUserLiked: map['hasCurrentUserLiked'],
+      locations: (map['locations'] as List<dynamic>)
+          .map<LocationResponse>((item) => LocationResponse.fromMap(item))
+          .toList(),
+      user: UserResponse.fromMap(
+        map['user'],
+      ),
+      comments: (map['comments'] as List<dynamic>)
+          .map<ActivityCommentResponse>(
+              (item) => ActivityCommentResponse.fromMap(item))
+          .toList(),
+    );
   }
 
   /// Converts the ActivityResponse object to an Activity entity.
@@ -111,22 +123,32 @@ class ActivityResponse extends Equatable {
     }).toList()
       ..sort((a, b) => a.datetime.compareTo(b.datetime));
 
+    final activityComments = comments.map<ActivityComment>((comment) {
+      return ActivityComment(
+        id: comment.id,
+        createdAt: comment.createdAt,
+        user: comment.user.toEntity(),
+        content: comment.content,
+      );
+    }).toList()
+      ..sort((a, b) => a.createdAt.compareTo(b.createdAt));
+
     return Activity(
-      id: id,
-      type: type,
-      startDatetime: startDatetime,
-      endDatetime: endDatetime,
-      distance: distance,
-      speed: speed,
-      time: time,
-      locations: activityLocations,
-      likesCount: likesCount,
-      hasCurrentUserLiked: hasCurrentUserLiked,
-      user: User(
-          id: user.id,
-          username: user.username,
-          firstname: user.firstname,
-          lastname: user.lastname),
-    );
+        id: id,
+        type: type,
+        startDatetime: startDatetime,
+        endDatetime: endDatetime,
+        distance: distance,
+        speed: speed,
+        time: time,
+        locations: activityLocations,
+        likesCount: likesCount,
+        hasCurrentUserLiked: hasCurrentUserLiked,
+        user: User(
+            id: user.id,
+            username: user.username,
+            firstname: user.firstname,
+            lastname: user.lastname),
+        comments: activityComments);
   }
 }
