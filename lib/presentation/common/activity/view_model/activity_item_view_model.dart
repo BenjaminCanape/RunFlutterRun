@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:run_flutter_run/data/repositories/activity_repository_impl.dart';
 import 'package:run_flutter_run/domain/entities/activity.dart';
+import 'package:run_flutter_run/domain/entities/activity_comment.dart';
 import '../../../../data/repositories/user_repository_impl.dart';
 import '../../../../main.dart';
 import '../../../my_activities/screens/activity_details_screen.dart';
@@ -19,6 +20,7 @@ final activityItemViewModelProvider = StateNotifierProvider.family<
 class ActivityItemViewModel extends StateNotifier<ActivityItemState> {
   final String activityId;
   final Ref ref;
+  final TextEditingController commentController = TextEditingController();
 
   ActivityItemViewModel(this.ref, this.activityId)
       : super(ActivityItemState.initial());
@@ -56,6 +58,18 @@ class ActivityItemViewModel extends StateNotifier<ActivityItemState> {
       // Handle error
       rethrow;
     }
+  }
+
+  /// Comment the activity.
+  Future<void> comment(Activity activity) async {
+    ActivityComment? activityComment = await ref
+        .read(activityRepositoryProvider)
+        .createComment(activity.id, commentController.text);
+    Activity currentActivity = state.activity ?? activity;
+    List<ActivityComment> comments = List.from(currentActivity.comments);
+    comments.add(activityComment!);
+    setActivity(activity.copy(comments: comments));
+    commentController.text = '';
   }
 
   /// Navigates to the activity details screen.

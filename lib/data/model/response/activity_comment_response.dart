@@ -32,7 +32,7 @@ class ActivityCommentResponse extends Equatable {
     return ActivityCommentResponse(
         id: map['id'].toString(),
         createdAt: DateTime.parse(map['createdAt']),
-        user: UserResponse.fromMap(map['latitude']),
+        user: UserResponse.fromMap(map['user']),
         content: map['content'].toString());
   }
 

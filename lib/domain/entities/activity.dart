@@ -59,7 +59,10 @@ class Activity extends Equatable {
       required this.comments});
 
   Activity copy(
-      {ActivityType? type, double? likesCount, bool? hasCurrentUserLiked}) {
+      {ActivityType? type,
+      double? likesCount,
+      bool? hasCurrentUserLiked,
+      Iterable<ActivityComment>? comments}) {
     return Activity(
         id: id,
         type: type ?? this.type,
@@ -72,7 +75,7 @@ class Activity extends Equatable {
         user: user,
         likesCount: likesCount ?? this.likesCount,
         hasCurrentUserLiked: hasCurrentUserLiked ?? this.hasCurrentUserLiked,
-        comments: comments);
+        comments: comments ?? this.comments);
   }
 
   @override
