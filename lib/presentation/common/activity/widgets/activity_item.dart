@@ -1,21 +1,19 @@
 import 'dart:typed_data';
 
-import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:run_flutter_run/domain/entities/activity_comment.dart';
+import 'package:run_flutter_run/presentation/common/activity/widgets/activty_like.dart';
 
-import '../../../../core/utils/storage_utils.dart';
 import '../../../../domain/entities/activity.dart';
-import '../../../../domain/entities/user.dart';
 import '../../../../main.dart';
 import '../../core/utils/activity_utils.dart';
 import '../../core/utils/color_utils.dart';
 import '../../core/utils/ui_utils.dart';
 import '../../user/screens/profile_screen.dart';
 import '../view_model/activity_item_view_model.dart';
+import 'activity_comments.dart';
 
 class ActivityItem extends HookConsumerWidget {
   final int index;
@@ -41,26 +39,12 @@ class ActivityItem extends HookConsumerWidget {
     return provider.getProfilePicture(userId);
   });
 
-  final currentUserPictureDataProvider =
-      FutureProvider.family<Uint8List?, Activity>((ref, activity) async {
-    User? user = await StorageUtils.getUser();
-    if (user != null) {
-      final provider =
-          ref.read(activityItemViewModelProvider(activity.id).notifier);
-      return provider.getProfilePicture(user.id);
-    }
-    return null;
-  });
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider =
         ref.read(activityItemViewModelProvider(activity.id).notifier);
     final state = ref.watch(activityItemViewModelProvider(activity.id));
     final futureProvider = ref.watch(futureDataProvider(activity));
-    final currentUserPictureProvider =
-        ref.watch(currentUserPictureDataProvider(activity));
-
     final appLocalizations = AppLocalizations.of(context)!;
     final formattedDate =
         DateFormat('dd/MM/yyyy').format(activity.startDatetime);
@@ -72,7 +56,6 @@ class ActivityItem extends HookConsumerWidget {
     const double borderRadius = 24;
 
     Activity currentActivity = state.activity ?? activity;
-    bool hasCurrentUserLiked = currentActivity.hasCurrentUserLiked;
 
     return InkWell(
       onTap: () async {
@@ -163,69 +146,15 @@ class ActivityItem extends HookConsumerWidget {
               ],
             ),
             if (displayUserName)
-              Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(
-                            hasCurrentUserLiked
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            color:
-                                hasCurrentUserLiked ? Colors.red : Colors.black,
-                          ),
-                          onPressed: () {
-                            if (hasCurrentUserLiked) {
-                              provider.dislike(currentActivity);
-                            } else {
-                              provider.like(currentActivity);
-                            }
-                          },
-                        ),
-                        Text(
-                          '${currentActivity.likesCount.ceil()}',
-                          style: TextStyle(
-                            color: Colors.grey.shade600,
-                            fontFamily: 'Avenir',
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
+              ActivityLike(
+                  currentActivity: currentActivity,
+                  likeFunction: provider.like,
+                  dislikeFunction: provider.dislike),
             const Text("Comments"),
-            Container(
-                height: currentActivity.comments.length > 0 ? 225 : 80,
-                child: Expanded(
-                    child: CommentBox(
-                  userImage: currentUserPictureProvider.when(
-                    data: (pic) {
-                      return pic != null ? MemoryImage(pic) : null;
-                    },
-                    loading: () {
-                      return null;
-                    },
-                    error: (error, stackTrace) {
-                      return null;
-                    },
-                  ),
-                  sendButtonMethod: () {
-                    provider.comment(activity);
-                  },
-                  formKey: formKey,
-                  commentController: provider.commentController,
-                  backgroundColor: Colors.white,
-                  textColor: Colors.teal.shade700,
-                  sendWidget: Icon(Icons.send_sharp,
-                      size: 30, color: Colors.teal.shade800),
-                  child: commentChild(
-                      futureProvider, currentActivity.comments.toList()),
-                )))
+            ActivityComments(
+              currentActivity: currentActivity,
+              formKey: formKey,
+            )
           ],
         ),
       ),
@@ -367,62 +296,6 @@ class ActivityItem extends HookConsumerWidget {
             ),
           ],
         ),
-      ],
-    );
-  }
-
-  Widget commentChild(
-      AsyncValue<Uint8List?> futureProvider, List<ActivityComment> data) {
-    return ListView(
-      children: [
-        for (var i = 0; i < data.length; i++)
-          Padding(
-            padding: const EdgeInsets.fromLTRB(2.0, 8.0, 2.0, 0.0),
-            child: ListTile(
-              leading: GestureDetector(
-                onTap: () async {
-                  // Display the image in large form.
-                  print("Comment Clicked");
-                },
-                child: Container(
-                  height: 50.0,
-                  width: 50.0,
-                  decoration: const BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.all(Radius.circular(50))),
-                  child: futureProvider.when(
-                    data: (pic) {
-                      return pic != null
-                          ? CircleAvatar(
-                              radius: 50, backgroundImage: MemoryImage(pic))
-                          : const Icon(
-                              Icons.person,
-                              size: 50,
-                              color: Colors.black,
-                            );
-                    },
-                    loading: () {
-                      return const Center(child: UIUtils.loader);
-                    },
-                    error: (error, stackTrace) {
-                      return const Icon(
-                        Icons.person,
-                        size: 50,
-                        color: Colors.black,
-                      );
-                    },
-                  ),
-                ),
-              ),
-              title: Text(
-                data[i].user.firstname != null && data[i].user.lastname != null
-                    ? '${data[i].user.firstname!} ${data[i].user.lastname!}'
-                    : data[i].user.username,
-                style: const TextStyle(),
-              ),
-              subtitle: Text(data[i].content),
-            ),
-          )
       ],
     );
   }
