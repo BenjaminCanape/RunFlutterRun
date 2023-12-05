@@ -114,16 +114,23 @@ class ActivityItem extends HookConsumerWidget {
                       Padding(
                         padding:
                             EdgeInsets.only(left: displayUserName ? 30 : 0),
-                        child: Text(
-                          ActivityUtils.translateActivityTypeValue(
-                            appLocalizations,
-                            activity.type,
-                          ).toUpperCase(),
-                          style: TextStyle(
-                            color: startColor,
-                            fontFamily: 'Avenir',
-                            fontWeight: FontWeight.bold,
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                ActivityUtils.translateActivityTypeValue(
+                                  appLocalizations,
+                                  activity.type,
+                                ).toUpperCase(),
+                                style: TextStyle(
+                                  color: startColor,
+                                  fontFamily: 'Avenir',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                       ),
                       Padding(
@@ -146,15 +153,8 @@ class ActivityItem extends HookConsumerWidget {
               ],
             ),
             if (displayUserName)
-              ActivityLike(
-                  currentActivity: currentActivity,
-                  likeFunction: provider.like,
-                  dislikeFunction: provider.dislike),
-            const Text("Comments"),
-            ActivityComments(
-              currentActivity: currentActivity,
-              formKey: formKey,
-            )
+              _buildLikeAndCommentsSection(
+                  ref, provider, currentActivity, state.displayComments),
           ],
         ),
       ),
@@ -298,5 +298,46 @@ class ActivityItem extends HookConsumerWidget {
         ),
       ],
     );
+  }
+
+  Widget _buildLikeAndCommentsSection(
+      WidgetRef ref,
+      ActivityItemViewModel provider,
+      Activity currentActivity,
+      bool displayComments) {
+    return Padding(
+        padding: const EdgeInsets.only(left: 16, right: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.comment_outlined,
+                      color: Colors.black,
+                      size: 24,
+                    ),
+                    onPressed: () {
+                      provider.toggleComments();
+                    },
+                  ),
+                  Text(currentActivity.comments.length.toString()),
+                ]),
+                ActivityLike(
+                    currentActivity: currentActivity,
+                    likeFunction: provider.like,
+                    dislikeFunction: provider.dislike)
+              ],
+            ),
+            if (displayComments)
+              ActivityComments(
+                currentActivity: currentActivity,
+                formKey: formKey,
+              ),
+          ],
+        ));
   }
 }

@@ -25,10 +25,23 @@ class ActivityItemViewModel extends StateNotifier<ActivityItemState> {
   ActivityItemViewModel(this.ref, this.activityId)
       : super(ActivityItemState.initial());
 
+  /// Sets the activity in the state
   void setActivity(Activity activity) {
     state = state.copyWith(activity: activity);
   }
 
+  /// Toggle the comments in the state
+  void toggleComments() {
+    state = state.copyWith(displayComments: !state.displayComments);
+  }
+
+  /// Toggle the previous comments in the state
+  void togglePreviousComments() {
+    state =
+        state.copyWith(displayPreviousComments: !state.displayPreviousComments);
+  }
+
+  /// Get the profile picture of the user
   Future<Uint8List?> getProfilePicture(String userId) async {
     return ref.read(userRepositoryProvider).downloadProfilePicture(userId);
   }
