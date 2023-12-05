@@ -36,71 +36,74 @@ class ActivityComments extends HookConsumerWidget {
     required this.formKey,
   });
 
-  Widget buildList(WidgetRef ref, List<ActivityComment> data) {
+  Widget buildCommentList(WidgetRef ref, List<ActivityComment> comments) {
     return Expanded(
-        child: ListView(
-      children: [
-        for (var i = 0; i < data.length; i++)
-          Padding(
-            padding: const EdgeInsets.fromLTRB(2.0, 8.0, 2.0, 0.0),
-            child: ListTile(
-              leading: GestureDetector(
-                child: Container(
-                  height: 50.0,
-                  width: 50.0,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(50))),
-                  child: ref
-                      .watch(commentUserPictureDataProvider(data[i].user))
-                      .when(
-                    data: (pic) {
-                      return pic != null
-                          ? CircleAvatar(
-                              radius: 50, backgroundImage: MemoryImage(pic))
-                          : const Icon(
-                              Icons.person,
-                              size: 50,
-                              color: Colors.black,
-                            );
-                    },
-                    loading: () {
-                      return const Icon(
-                        Icons.person,
-                        size: 50,
-                        color: Colors.black,
-                      );
-                    },
-                    error: (error, stackTrace) {
-                      return const Icon(
-                        Icons.person,
-                        size: 50,
-                        color: Colors.black,
-                      );
-                    },
-                  ),
-                ),
-              ),
-              title: Text(
-                data[i].user.firstname != null && data[i].user.lastname != null
-                    ? '${data[i].user.firstname!} ${data[i].user.lastname!}'
-                    : data[i].user.username,
-                style: const TextStyle(),
-              ),
-              subtitle: Text(data[i].content),
-            ),
-          )
-      ],
-    ));
+      child: ListView(
+        children: [
+          for (var comment in comments) buildCommentItem(ref, comment),
+        ],
+      ),
+    );
   }
 
-  Widget commentChild(WidgetRef ref, ActivityItemViewModel provider,
-      List<ActivityComment> data, bool displayPreviousComments) {
-    final lastComment = data.isNotEmpty ? data.last : null;
+  Widget buildCommentItem(WidgetRef ref, ActivityComment comment) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(2.0, 8.0, 2.0, 0.0),
+      child: ListTile(
+        leading: GestureDetector(
+          child: Container(
+            height: 50.0,
+            width: 50.0,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(50)),
+            ),
+            child: ref.watch(commentUserPictureDataProvider(comment.user)).when(
+              data: (pic) {
+                return pic != null
+                    ? CircleAvatar(
+                        radius: 50, backgroundImage: MemoryImage(pic))
+                    : const Icon(
+                        Icons.person,
+                        size: 50,
+                        color: Colors.black,
+                      );
+              },
+              loading: () {
+                return const Icon(
+                  Icons.person,
+                  size: 50,
+                  color: Colors.black,
+                );
+              },
+              error: (error, stackTrace) {
+                return const Icon(
+                  Icons.person,
+                  size: 50,
+                  color: Colors.black,
+                );
+              },
+            ),
+          ),
+        ),
+        title: Text(
+          comment.user.firstname != null && comment.user.lastname != null
+              ? '${comment.user.firstname} ${comment.user.lastname}'
+              : comment.user.username,
+          style: const TextStyle(),
+        ),
+        subtitle: Text(comment.content),
+      ),
+    );
+  }
+
+  Widget buildCommentChild(WidgetRef ref, ActivityItemViewModel provider,
+      List<ActivityComment> comments, bool displayPreviousComments) {
+    final lastComment = comments.isNotEmpty ? comments.last : null;
 
     return Column(
       children: [
-        if (data.length > 1 && !displayPreviousComments)
+        if (comments.length > 1 && !displayPreviousComments)
           GestureDetector(
             onTap: () {
               provider.togglePreviousComments();
@@ -108,7 +111,7 @@ class ActivityComments extends HookConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'View ${data.length - 1} previous comments',
+                'View ${comments.length - 1} previous comments',
                 style: TextStyle(
                   color: Colors.teal.shade700,
                   fontWeight: FontWeight.bold,
@@ -117,52 +120,8 @@ class ActivityComments extends HookConsumerWidget {
             ),
           ),
         if (lastComment != null && !displayPreviousComments)
-          ListTile(
-            leading: GestureDetector(
-              child: Container(
-                height: 50.0,
-                width: 50.0,
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                ),
-                child: ref
-                    .watch(commentUserPictureDataProvider(lastComment.user))
-                    .when(
-                  data: (pic) {
-                    return pic != null
-                        ? CircleAvatar(
-                            radius: 50, backgroundImage: MemoryImage(pic))
-                        : const Icon(
-                            Icons.person,
-                            size: 50,
-                            color: Colors.black,
-                          );
-                  },
-                  loading: () {
-                    return const Icon(
-                      Icons.person,
-                      size: 50,
-                      color: Colors.black,
-                    );
-                  },
-                  error: (error, stackTrace) {
-                    return const Icon(
-                      Icons.person,
-                      size: 50,
-                      color: Colors.black,
-                    );
-                  },
-                ),
-              ),
-            ),
-            title: Text(
-              '${lastComment.user.firstname}${lastComment.user.lastname}',
-              style: const TextStyle(),
-            ),
-            subtitle: Text(lastComment.content),
-          ),
-        if (displayPreviousComments) buildList(ref, data)
+          buildCommentItem(ref, lastComment),
+        if (displayPreviousComments) buildCommentList(ref, comments),
       ],
     );
   }
@@ -196,8 +155,8 @@ class ActivityComments extends HookConsumerWidget {
         textColor: Colors.teal.shade700,
         sendWidget:
             Icon(Icons.send_sharp, size: 30, color: Colors.teal.shade800),
-        child: commentChild(ref, provider, currentActivity.comments.toList(),
-            state.displayPreviousComments),
+        child: buildCommentChild(ref, provider,
+            currentActivity.comments.toList(), state.displayPreviousComments),
       ),
     );
   }
