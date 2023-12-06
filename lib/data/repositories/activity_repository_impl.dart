@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/domain/entities/activity_comment.dart';
 
 import '../../domain/entities/activity.dart';
 import '../../domain/repositories/activity_repository.dart';
@@ -62,5 +63,23 @@ class ActivityRepositoryImpl extends ActivityRepository {
   @override
   Future<void> dislike(String id) async {
     await ActivityApi.dislike(id);
+  }
+
+  @override
+  Future<ActivityComment?> createComment(
+      String activityId, String comment) async {
+    final response = await ActivityApi.createComment(activityId, comment);
+    return response.toEntity();
+  }
+
+  @override
+  Future<ActivityComment> editComment(String id, String comment) async {
+    final response = await ActivityApi.editComment(id, comment);
+    return response.toEntity();
+  }
+
+  @override
+  Future<String?> removeComment({required String id}) async {
+    return await ActivityApi.removeComment(id);
   }
 }

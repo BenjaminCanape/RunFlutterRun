@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:run_flutter_run/data/repositories/activity_repository_impl.dart';
 import 'package:run_flutter_run/domain/entities/activity.dart';
+import 'package:run_flutter_run/domain/entities/activity_comment.dart';
 import '../../../../data/repositories/user_repository_impl.dart';
+import '../../../../domain/entities/user.dart';
 import '../../../../main.dart';
 import '../../../my_activities/screens/activity_details_screen.dart';
+import '../../user/screens/profile_screen.dart';
 import 'state/activity_item_state.dart';
 
 /// Provider for the activity item view model.
@@ -19,14 +22,28 @@ final activityItemViewModelProvider = StateNotifierProvider.family<
 class ActivityItemViewModel extends StateNotifier<ActivityItemState> {
   final String activityId;
   final Ref ref;
+  final TextEditingController commentController = TextEditingController();
 
   ActivityItemViewModel(this.ref, this.activityId)
       : super(ActivityItemState.initial());
 
+  /// Sets the activity in the state
   void setActivity(Activity activity) {
     state = state.copyWith(activity: activity);
   }
 
+  /// Toggle the comments in the state
+  void toggleComments() {
+    state = state.copyWith(displayComments: !state.displayComments);
+  }
+
+  /// Toggle the previous comments in the state
+  void togglePreviousComments() {
+    state =
+        state.copyWith(displayPreviousComments: !state.displayPreviousComments);
+  }
+
+  /// Get the profile picture of the user
   Future<Uint8List?> getProfilePicture(String userId) async {
     return ref.read(userRepositoryProvider).downloadProfilePicture(userId);
   }
@@ -58,6 +75,18 @@ class ActivityItemViewModel extends StateNotifier<ActivityItemState> {
     }
   }
 
+  /// Comment the activity.
+  Future<void> comment(Activity activity) async {
+    ActivityComment? activityComment = await ref
+        .read(activityRepositoryProvider)
+        .createComment(activity.id, commentController.text);
+    Activity currentActivity = state.activity ?? activity;
+    List<ActivityComment> comments = List.from(currentActivity.comments);
+    comments.add(activityComment!);
+    setActivity(activity.copy(comments: comments));
+    commentController.text = '';
+  }
+
   /// Navigates to the activity details screen.
   void goToActivity(Activity activityDetails) {
     navigatorKey.currentState?.push(
@@ -70,6 +99,23 @@ class ActivityItemViewModel extends StateNotifier<ActivityItemState> {
             end: Offset.zero,
           ).animate(animation),
           child: ActivityDetailsScreen(activity: activityDetails),
+        ),
+      ),
+    );
+  }
+
+  /// Go to user profile
+  void goToProfile(User user) {
+    navigatorKey.currentState?.push(
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 500),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(1.0, 0.0),
+            end: Offset.zero,
+          ).animate(animation),
+          child: ProfileScreen(user: user),
         ),
       ),
     );

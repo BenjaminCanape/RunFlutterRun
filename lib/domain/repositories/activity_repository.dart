@@ -1,3 +1,5 @@
+import 'package:run_flutter_run/domain/entities/activity_comment.dart';
+
 import '../../data/model/request/activity_request.dart';
 import '../entities/activity.dart';
 
@@ -29,4 +31,13 @@ abstract class ActivityRepository {
 
   /// Dislike the activity
   Future<void> dislike(String id);
+
+  /// Removes a comment by its ID.
+  Future<String?> removeComment({required String id});
+
+  /// Adds a new comment.
+  Future<ActivityComment?> createComment(String activityId, String comment);
+
+  /// Edits an existing comment.
+  Future<ActivityComment> editComment(String id, String comment);
 }

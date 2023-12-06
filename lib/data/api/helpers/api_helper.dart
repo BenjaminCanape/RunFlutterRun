@@ -10,10 +10,10 @@ import '../user_api.dart';
 /// Helper class for making API requests.
 class ApiHelper {
   // switch url when back is down
-  //static const String apiUrl =
-  //    'http://lxgfjcmoky.us18.qoddiapp.com/api/'; //US server
   static const String apiUrl =
-      'http://tiqorhzmyb.eu11.qoddiapp.com/api/'; //EU server
+      'http://lxgfjcmoky.us18.qoddiapp.com/api/'; //US server
+  //static const String apiUrl =
+  //    'http://tiqorhzmyb.eu11.qoddiapp.com/api/'; //EU server
 
   /// Makes an HTTP request to the specified [url] using the given [method].
   ///

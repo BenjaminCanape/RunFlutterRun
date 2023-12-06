@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:run_flutter_run/presentation/common/activity/widgets/activty_like.dart';
 
 import '../../../../domain/entities/activity.dart';
 import '../../../../main.dart';
@@ -12,12 +13,15 @@ import '../../core/utils/color_utils.dart';
 import '../../core/utils/ui_utils.dart';
 import '../../user/screens/profile_screen.dart';
 import '../view_model/activity_item_view_model.dart';
+import 'activity_comments.dart';
 
 class ActivityItem extends HookConsumerWidget {
   final int index;
   final Activity activity;
   final bool displayUserName;
   final bool canOpenActivity;
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   ActivityItem({
     super.key,
@@ -41,7 +45,6 @@ class ActivityItem extends HookConsumerWidget {
         ref.read(activityItemViewModelProvider(activity.id).notifier);
     final state = ref.watch(activityItemViewModelProvider(activity.id));
     final futureProvider = ref.watch(futureDataProvider(activity));
-
     final appLocalizations = AppLocalizations.of(context)!;
     final formattedDate =
         DateFormat('dd/MM/yyyy').format(activity.startDatetime);
@@ -53,7 +56,6 @@ class ActivityItem extends HookConsumerWidget {
     const double borderRadius = 24;
 
     Activity currentActivity = state.activity ?? activity;
-    bool hasCurrentUserLiked = currentActivity.hasCurrentUserLiked;
 
     return InkWell(
       onTap: () async {
@@ -112,16 +114,23 @@ class ActivityItem extends HookConsumerWidget {
                       Padding(
                         padding:
                             EdgeInsets.only(left: displayUserName ? 30 : 0),
-                        child: Text(
-                          ActivityUtils.translateActivityTypeValue(
-                            appLocalizations,
-                            activity.type,
-                          ).toUpperCase(),
-                          style: TextStyle(
-                            color: startColor,
-                            fontFamily: 'Avenir',
-                            fontWeight: FontWeight.bold,
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                ActivityUtils.translateActivityTypeValue(
+                                  appLocalizations,
+                                  activity.type,
+                                ).toUpperCase(),
+                                style: TextStyle(
+                                  color: startColor,
+                                  fontFamily: 'Avenir',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                       ),
                       Padding(
@@ -144,41 +153,8 @@ class ActivityItem extends HookConsumerWidget {
               ],
             ),
             if (displayUserName)
-              Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(
-                            hasCurrentUserLiked
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            color:
-                                hasCurrentUserLiked ? Colors.red : Colors.black,
-                          ),
-                          onPressed: () {
-                            if (hasCurrentUserLiked) {
-                              provider.dislike(currentActivity);
-                            } else {
-                              provider.like(currentActivity);
-                            }
-                          },
-                        ),
-                        Text(
-                          '${currentActivity.likesCount.ceil()}',
-                          style: TextStyle(
-                            color: Colors.grey.shade600,
-                            fontFamily: 'Avenir',
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
+              _buildLikeAndCommentsSection(
+                  ref, provider, currentActivity, state.displayComments),
           ],
         ),
       ),
@@ -322,5 +298,46 @@ class ActivityItem extends HookConsumerWidget {
         ),
       ],
     );
+  }
+
+  Widget _buildLikeAndCommentsSection(
+      WidgetRef ref,
+      ActivityItemViewModel provider,
+      Activity currentActivity,
+      bool displayComments) {
+    return Padding(
+        padding: const EdgeInsets.only(left: 16, right: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.comment_outlined,
+                      color: Colors.black,
+                      size: 24,
+                    ),
+                    onPressed: () {
+                      provider.toggleComments();
+                    },
+                  ),
+                  Text(currentActivity.comments.length.toString()),
+                ]),
+                ActivityLike(
+                    currentActivity: currentActivity,
+                    likeFunction: provider.like,
+                    dislikeFunction: provider.dislike)
+              ],
+            ),
+            if (displayComments)
+              ActivityComments(
+                currentActivity: currentActivity,
+                formKey: formKey,
+              ),
+          ],
+        ));
   }
 }
