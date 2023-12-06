@@ -5,6 +5,12 @@ class L10n {
     Locale("en"),
     Locale("en", "US"),
     Locale("fr"),
-    Locale("fr", "FR")
+    Locale("fr", "FR"),
+    Locale("de"),
+    Locale("es"),
+    Locale("pt"),
+    Locale("ar"),
+    Locale("ru"),
+    Locale("zh"),
   ];
 }
