@@ -74,6 +74,14 @@
   "unfollow": "Unfollow",
   "validate": "Validate",
   "verify": "Verify",
+  "view_previous_comments": "View {previousCommentsCount} previous comments",
+  "@view_previous_comments": {
+    "placeholders": {
+        "previousCommentsCount": {
+            "type": "int"
+        }
+    }
+  }, 
   "walking": "Walking",
   "welcome": "Welcome"
 }

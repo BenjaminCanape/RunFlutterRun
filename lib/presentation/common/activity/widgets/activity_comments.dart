@@ -8,6 +8,7 @@ import 'package:run_flutter_run/domain/entities/activity_comment.dart';
 import '../../../../core/utils/storage_utils.dart';
 import '../../../../domain/entities/user.dart';
 import '../view_model/activity_item_view_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ActivityComments extends HookConsumerWidget {
   final Activity currentActivity;
@@ -86,19 +87,24 @@ class ActivityComments extends HookConsumerWidget {
             ),
           ),
         ),
-        title: Text(
+        title: GestureDetector(
+            child: Text(
           comment.user.firstname != null && comment.user.lastname != null
               ? '${comment.user.firstname} ${comment.user.lastname}'
               : comment.user.username,
           style: const TextStyle(),
-        ),
+        )),
         subtitle: Text(comment.content),
       ),
     );
   }
 
-  Widget buildCommentChild(WidgetRef ref, ActivityItemViewModel provider,
-      List<ActivityComment> comments, bool displayPreviousComments) {
+  Widget buildCommentChild(
+      WidgetRef ref,
+      AppLocalizations appLocalizations,
+      ActivityItemViewModel provider,
+      List<ActivityComment> comments,
+      bool displayPreviousComments) {
     final lastComment = comments.isNotEmpty ? comments.last : null;
 
     return Column(
@@ -111,7 +117,9 @@ class ActivityComments extends HookConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'View ${comments.length - 1} previous comments',
+                appLocalizations.view_previous_comments(
+                  comments.length - 1,
+                ),
                 style: TextStyle(
                   color: Colors.teal.shade700,
                   fontWeight: FontWeight.bold,
@@ -134,6 +142,8 @@ class ActivityComments extends HookConsumerWidget {
         ref.read(activityItemViewModelProvider(currentActivity.id).notifier);
     final state = ref.read(activityItemViewModelProvider(currentActivity.id));
 
+    final appLocalizations = AppLocalizations.of(context)!;
+
     return Container(
       height: currentActivity.comments.isNotEmpty ? 210 : 80,
       child: CommentBox(
@@ -155,7 +165,7 @@ class ActivityComments extends HookConsumerWidget {
         textColor: Colors.teal.shade700,
         sendWidget:
             Icon(Icons.send_sharp, size: 30, color: Colors.teal.shade800),
-        child: buildCommentChild(ref, provider,
+        child: buildCommentChild(ref, appLocalizations, provider,
             currentActivity.comments.toList(), state.displayPreviousComments),
       ),
     );
