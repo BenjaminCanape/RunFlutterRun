@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/presentation/common/core/utils/color_utils.dart';
 
 import '../../common/location/view_model/location_view_model.dart';
 import '../../community/screens/community_screen.dart';
@@ -38,14 +39,14 @@ class HomeScreen extends HookConsumerWidget {
     return Scaffold(
         body: SafeArea(child: tabs[currentIndex]),
         bottomNavigationBar: Container(
-            color: Colors.teal.shade700,
+            color: ColorUtils.mainMedium,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
               child: GNav(
-                backgroundColor: Colors.teal.shade700,
-                color: Colors.white,
-                activeColor: Colors.white,
-                tabBackgroundColor: Colors.teal.shade900,
+                backgroundColor: ColorUtils.mainMedium,
+                color: ColorUtils.white,
+                activeColor: ColorUtils.white,
+                tabBackgroundColor: ColorUtils.mainDarker,
                 padding: const EdgeInsets.all(16),
                 selectedIndex: currentIndex,
                 onTabChange: (value) {

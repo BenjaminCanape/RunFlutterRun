@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../common/core/utils/color_utils.dart';
 import '../../common/core/utils/form_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
 import '../../common/core/validators/login_validators.dart';
@@ -19,7 +20,7 @@ class EditPasswordScreen extends HookConsumerWidget {
 
     return Scaffold(
       body: state.isEditing
-          ? const Center(child: UIUtils.loader)
+          ? Center(child: UIUtils.loader)
           : SafeArea(
               child: Column(
                 children: [
@@ -27,8 +28,8 @@ class EditPasswordScreen extends HookConsumerWidget {
                     padding: const EdgeInsets.only(left: 0, top: 12),
                     child: Text(
                       AppLocalizations.of(context)!.edit_password,
-                      style: const TextStyle(
-                          color: Colors.blueGrey,
+                      style: TextStyle(
+                          color: ColorUtils.blueGrey,
                           fontSize: 28,
                           fontWeight: FontWeight.bold),
                     ),
@@ -46,8 +47,8 @@ class EditPasswordScreen extends HookConsumerWidget {
                                   Text(
                                     AppLocalizations.of(context)!
                                         .edit_password_error,
-                                    style: const TextStyle(
-                                        color: Colors.red, fontSize: 18),
+                                    style: TextStyle(
+                                        color: ColorUtils.red, fontSize: 18),
                                   ),
                                   const SizedBox(height: 20)
                                 ])
@@ -114,11 +115,11 @@ class EditPasswordScreen extends HookConsumerWidget {
             bottom: 16,
             right: 80,
             child: FloatingActionButton(
-              backgroundColor: Colors.teal.shade800,
+              backgroundColor: ColorUtils.main,
               elevation: 4.0,
-              child: const Icon(
+              child: Icon(
                 Icons.save,
-                color: Colors.white,
+                color: ColorUtils.white,
               ),
               onPressed: () {
                 provider.submitForm(context, formKey);
@@ -129,11 +130,11 @@ class EditPasswordScreen extends HookConsumerWidget {
             bottom: 16,
             left: 80,
             child: FloatingActionButton(
-              backgroundColor: Colors.teal.shade800,
+              backgroundColor: ColorUtils.main,
               elevation: 4.0,
-              child: const Icon(
+              child: Icon(
                 Icons.arrow_back,
-                color: Colors.white,
+                color: ColorUtils.white,
               ),
               onPressed: () {
                 Navigator.pop(context);

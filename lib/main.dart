@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/presentation/common/core/utils/color_utils.dart';
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
 import 'core/utils/storage_utils.dart';
@@ -85,13 +86,13 @@ class MyApp extends HookConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textSelectionTheme: TextSelectionThemeData(
-          cursorColor: Colors.teal.shade800,
-          selectionColor: Colors.teal.shade800,
-          selectionHandleColor: Colors.teal.shade800,
+          cursorColor: ColorUtils.main,
+          selectionColor: ColorUtils.main,
+          selectionHandleColor: ColorUtils.main,
         ),
-        primaryColor: Colors.teal.shade800,
+        primaryColor: ColorUtils.main,
         bottomSheetTheme:
-            const BottomSheetThemeData(backgroundColor: Colors.transparent),
+            BottomSheetThemeData(backgroundColor: ColorUtils.transparent),
       ),
       localizationsDelegates: const [
         AppLocalizations.delegate,

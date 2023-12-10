@@ -7,6 +7,7 @@ import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 import '../../../domain/entities/activity.dart';
 import '../../common/core/utils/activity_utils.dart';
+import '../../common/core/utils/color_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
 import '../view_model/activity_details_view_model.dart';
 import '../widgets/details_tab.dart';
@@ -29,7 +30,7 @@ class ActivityDetailsScreen extends HookConsumerWidget {
 
     return Scaffold(
       body: state.isLoading
-          ? const Center(child: UIUtils.loader)
+          ? Center(child: UIUtils.loader)
           : SafeArea(
               child: Column(
                 children: [
@@ -41,26 +42,26 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                           AppLocalizations.of(context)!,
                           displayedActivity.type,
                         ),
-                        style: const TextStyle(
-                            color: Colors.blueGrey,
+                        style: TextStyle(
+                            color: ColorUtils.blueGrey,
                             fontSize: 28,
                             fontWeight: FontWeight.bold),
                       ),
                       const Spacer(),
                       IconButton(
-                        color: Colors.black,
+                        color: ColorUtils.black,
                         tooltip: 'Edit',
                         onPressed: () {
                           tabController.animateTo(0);
                           provider.editType();
                         },
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.edit,
-                          color: Colors.blueGrey,
+                          color: ColorUtils.blueGrey,
                         ),
                       ),
                       IconButton(
-                        color: Colors.black,
+                        color: ColorUtils.black,
                         tooltip: 'Remove',
                         onPressed: () {
                           QuickAlert.show(
@@ -71,15 +72,15 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                             confirmBtnText:
                                 AppLocalizations.of(context)!.delete,
                             cancelBtnText: AppLocalizations.of(context)!.cancel,
-                            confirmBtnColor: Colors.red,
+                            confirmBtnColor: ColorUtils.red,
                             onCancelBtnTap: () => Navigator.of(context).pop(),
                             onConfirmBtnTap: () =>
                                 provider.removeActivity(displayedActivity),
                           );
                         },
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.delete,
-                          color: Colors.red,
+                          color: ColorUtils.red,
                         ),
                       )
                     ]),
@@ -90,9 +91,9 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                           child: Scaffold(
                               appBar: TabBar(
                                   controller: tabController,
-                                  labelColor: Colors.blueGrey,
-                                  dividerColor: Colors.blueGrey,
-                                  indicatorColor: Colors.blueGrey,
+                                  labelColor: ColorUtils.blueGrey,
+                                  dividerColor: ColorUtils.blueGrey,
+                                  indicatorColor: ColorUtils.blueGrey,
                                   tabs: const [
                                     Tab(
                                       icon: Icon(Icons.short_text),

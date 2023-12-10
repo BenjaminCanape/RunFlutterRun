@@ -8,6 +8,7 @@ import '../../../../domain/entities/activity.dart';
 import '../../../../main.dart';
 import '../../timer/viewmodel/timer_view_model.dart';
 import '../utils/activity_utils.dart';
+import '../utils/color_utils.dart';
 import '../utils/image_utils.dart';
 import '../utils/share_utils.dart';
 
@@ -60,11 +61,11 @@ class ShareMapButton extends HookConsumerWidget {
           ShareUtils.showShareFailureSnackBar(context);
         }
       },
-      backgroundColor: Colors.teal.shade800,
+      backgroundColor: ColorUtils.main,
       elevation: 4.0,
-      child: const Icon(
+      child: Icon(
         Icons.share,
-        color: Colors.white,
+        color: ColorUtils.white,
       ),
     );
   }

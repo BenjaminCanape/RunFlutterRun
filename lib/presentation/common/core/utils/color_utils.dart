@@ -2,6 +2,29 @@ import 'package:flutter/material.dart';
 
 /// Utility class for color-related operations.
 class ColorUtils {
+  static Color main = Colors.teal.shade800;
+  static Color mainDarker = Colors.teal.shade900;
+  static Color mainMedium = Colors.teal.shade700;
+  static Color mainLight = Colors.teal.shade100;
+
+  static Color error = Colors.red.shade600;
+  static Color errorDarker = Colors.red.shade800;
+  static Color errorLight = Colors.red.shade100;
+
+  static Color warning = Colors.orange;
+
+  static Color white = Colors.white;
+  static Color black = Colors.black;
+  static Color red = Colors.red;
+  static Color green = Colors.green;
+  static Color greenDarker = Colors.green.shade700;
+  static Color transparent = Colors.transparent;
+  static Color grey = Colors.grey.shade600;
+  static Color greyDarker = Colors.grey.shade700;
+  static Color greyLight = Colors.grey.shade300;
+  static Color blueGrey = Colors.blueGrey;
+  static Color blueGreyDarker = Colors.blueGrey.shade900;
+
   /// List of colors used for generating color tuples.
   static List<Color> colorList = [
     Colors.teal,

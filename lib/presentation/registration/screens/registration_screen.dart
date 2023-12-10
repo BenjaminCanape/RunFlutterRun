@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../common/core/utils/color_utils.dart';
 import '../../common/core/utils/form_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
 import '../../common/core/validators/login_validators.dart';
@@ -18,9 +19,9 @@ class RegistrationScreen extends HookConsumerWidget {
     final provider = ref.watch(registrationViewModelProvider.notifier);
 
     return Scaffold(
-      backgroundColor: Colors.blueGrey.shade900,
+      backgroundColor: ColorUtils.blueGreyDarker,
       body: state.isLogging
-          ? const Center(child: UIUtils.loader)
+          ? Center(child: UIUtils.loader)
           : SingleChildScrollView(
               child: Column(
                 children: [
@@ -32,8 +33,8 @@ class RegistrationScreen extends HookConsumerWidget {
                         alignment: AlignmentDirectional.topStart,
                         child: Text(
                           '${AppLocalizations.of(context)!.welcome},',
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color: ColorUtils.white,
                             fontSize: 33,
                           ),
                         ),
@@ -133,9 +134,9 @@ class RegistrationScreen extends HookConsumerWidget {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons.check,
-                                  color: Colors.white,
+                                  color: ColorUtils.white,
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
@@ -155,9 +156,9 @@ class RegistrationScreen extends HookConsumerWidget {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons.arrow_back,
-                                  color: Colors.white,
+                                  color: ColorUtils.white,
                                 ),
                                 const SizedBox(width: 8),
                                 Text(

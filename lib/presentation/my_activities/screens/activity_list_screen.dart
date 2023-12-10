@@ -16,7 +16,7 @@ class ActivityListScreen extends HookConsumerWidget {
 
     return Scaffold(
       body: isLoading
-          ? const Center(child: UIUtils.loader)
+          ? Center(child: UIUtils.loader)
           : SafeArea(
               child: Column(
                 children: [ActivityList(activities: activities)],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/utils/color_utils.dart';
+
 /// A widget that displays a accept and refuse buttons
 class AcceptRefuseWidget extends StatelessWidget {
   final String userId;
@@ -20,14 +22,14 @@ class AcceptRefuseWidget extends StatelessWidget {
       children: [
         IconButton(
           icon: const Icon(Icons.check),
-          color: Colors.green,
+          color: ColorUtils.green,
           onPressed: () {
             onAccept(userId);
           },
         ),
         IconButton(
           icon: const Icon(Icons.close),
-          color: Colors.red,
+          color: ColorUtils.red,
           onPressed: () {
             onReject(userId);
           },

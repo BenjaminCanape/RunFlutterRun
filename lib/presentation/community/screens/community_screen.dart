@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../domain/entities/activity.dart';
 import '../../common/activity/widgets/activity_list.dart';
+import '../../common/core/utils/color_utils.dart';
 import '../../common/core/utils/form_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
 import '../view_model/community_view_model.dart';
@@ -78,17 +79,17 @@ class CommunityScreen extends HookConsumerWidget {
                               child: Badge.count(
                                   count: pendingRequestsState
                                       .pendingRequests.length,
-                                  textColor: Colors.black,
-                                  backgroundColor: Colors.white,
+                                  textColor: ColorUtils.black,
+                                  backgroundColor: ColorUtils.white,
                                   child: Padding(
                                       padding: const EdgeInsets.fromLTRB(
                                           0, 0, 16, 0),
                                       child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            const Icon(
+                                            Icon(
                                               Icons.people,
-                                              color: Colors.white,
+                                              color: ColorUtils.white,
                                             ),
                                             const SizedBox(width: 8),
                                             Text(
@@ -102,7 +103,7 @@ class CommunityScreen extends HookConsumerWidget {
                   : Container();
             },
             loading: () {
-              return const Center(child: UIUtils.loader);
+              return Center(child: UIUtils.loader);
             },
             error: (error, stackTrace) {
               return Text('$error');
@@ -117,7 +118,7 @@ class CommunityScreen extends HookConsumerWidget {
               );
             },
             loading: () {
-              return const Center(child: UIUtils.loader);
+              return Center(child: UIUtils.loader);
             },
             error: (error, stackTrace) {
               return Text('$error');

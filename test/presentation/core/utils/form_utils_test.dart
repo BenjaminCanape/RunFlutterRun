@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:run_flutter_run/presentation/common/core/utils/color_utils.dart';
 
 import 'package:run_flutter_run/presentation/common/core/utils/form_utils.dart';
 
@@ -7,7 +8,7 @@ void main() {
   test(
       'createButtonStyle should return a ButtonStyle with the given background color',
       () {
-    final backgroundColor = Colors.teal.shade800;
+    final backgroundColor = ColorUtils.main;
     final buttonStyle = FormUtils.createButtonStyle(backgroundColor);
     expect(buttonStyle, isInstanceOf<ButtonStyle>());
     expect(buttonStyle.backgroundColor?.resolve(<MaterialState>{}),

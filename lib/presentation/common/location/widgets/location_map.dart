@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../../core/utils/color_utils.dart';
 import '../../core/utils/map_utils.dart';
 import '../view_model/location_view_model.dart';
 
@@ -41,7 +42,7 @@ class LocationMap extends HookConsumerWidget {
             PolylineLayer(
               polylines: [
                 Polyline(
-                    points: points, strokeWidth: 4, color: Colors.blueGrey),
+                    points: points, strokeWidth: 4, color: ColorUtils.blueGrey),
               ],
             ),
             MarkerLayer(markers: markers),

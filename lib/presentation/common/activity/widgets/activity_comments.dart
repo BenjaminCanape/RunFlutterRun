@@ -7,6 +7,7 @@ import 'package:run_flutter_run/domain/entities/activity_comment.dart';
 
 import '../../../../core/utils/storage_utils.dart';
 import '../../../../domain/entities/user.dart';
+import '../../core/utils/color_utils.dart';
 import '../view_model/activity_item_view_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -55,33 +56,33 @@ class ActivityComments extends HookConsumerWidget {
           child: Container(
             height: 50.0,
             width: 50.0,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(50)),
+            decoration: BoxDecoration(
+              color: ColorUtils.white,
+              borderRadius: const BorderRadius.all(Radius.circular(50)),
             ),
             child: ref.watch(commentUserPictureDataProvider(comment.user)).when(
               data: (pic) {
                 return pic != null
                     ? CircleAvatar(
                         radius: 50, backgroundImage: MemoryImage(pic))
-                    : const Icon(
+                    : Icon(
                         Icons.person,
                         size: 50,
-                        color: Colors.black,
+                        color: ColorUtils.black,
                       );
               },
               loading: () {
-                return const Icon(
+                return Icon(
                   Icons.person,
                   size: 50,
-                  color: Colors.black,
+                  color: ColorUtils.black,
                 );
               },
               error: (error, stackTrace) {
-                return const Icon(
+                return Icon(
                   Icons.person,
                   size: 50,
-                  color: Colors.black,
+                  color: ColorUtils.black,
                 );
               },
             ),
@@ -121,7 +122,7 @@ class ActivityComments extends HookConsumerWidget {
                   comments.length - 1,
                 ),
                 style: TextStyle(
-                  color: Colors.teal.shade700,
+                  color: ColorUtils.mainMedium,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -144,7 +145,7 @@ class ActivityComments extends HookConsumerWidget {
 
     final appLocalizations = AppLocalizations.of(context)!;
 
-    return Container(
+    return SizedBox(
       height: currentActivity.comments.isNotEmpty ? 210 : 80,
       child: CommentBox(
         userImage: currentUserPictureProvider.when(
@@ -161,10 +162,9 @@ class ActivityComments extends HookConsumerWidget {
         sendButtonMethod: () => provider.comment(currentActivity),
         formKey: formKey,
         commentController: provider.commentController,
-        backgroundColor: Colors.white,
-        textColor: Colors.teal.shade700,
-        sendWidget:
-            Icon(Icons.send_sharp, size: 30, color: Colors.teal.shade800),
+        backgroundColor: ColorUtils.white,
+        textColor: ColorUtils.mainMedium,
+        sendWidget: Icon(Icons.send_sharp, size: 30, color: ColorUtils.main),
         child: buildCommentChild(ref, appLocalizations, provider,
             currentActivity.comments.toList(), state.displayPreviousComments),
       ),

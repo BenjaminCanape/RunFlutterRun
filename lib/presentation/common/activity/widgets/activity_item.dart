@@ -7,11 +7,10 @@ import 'package:intl/intl.dart';
 import 'package:run_flutter_run/presentation/common/activity/widgets/activty_like.dart';
 
 import '../../../../domain/entities/activity.dart';
-import '../../../../main.dart';
 import '../../core/utils/activity_utils.dart';
 import '../../core/utils/color_utils.dart';
 import '../../core/utils/ui_utils.dart';
-import '../../user/screens/profile_screen.dart';
+import '../../core/utils/user_utils.dart';
 import '../view_model/activity_item_view_model.dart';
 import 'activity_comments.dart';
 
@@ -99,7 +98,7 @@ class ActivityItem extends HookConsumerWidget {
                     child: Center(
                       child: Icon(
                         ActivityUtils.getActivityTypeIcon(activity.type),
-                        color: Colors.white,
+                        color: ColorUtils.white,
                         size: 40,
                       ),
                     ),
@@ -145,9 +144,9 @@ class ActivityItem extends HookConsumerWidget {
                   ),
                 ),
                 if (canOpenActivity)
-                  const Icon(
+                  Icon(
                     Icons.navigate_next,
-                    color: Colors.black,
+                    color: ColorUtils.black,
                     size: 30,
                   ),
               ],
@@ -169,26 +168,14 @@ class ActivityItem extends HookConsumerWidget {
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
-              color: Colors.grey.shade300,
+              color: ColorUtils.greyLight,
               width: 0.5,
             ),
           ),
         ),
         child: TextButton(
           onPressed: () {
-            navigatorKey.currentState?.push(
-              PageRouteBuilder(
-                transitionDuration: const Duration(milliseconds: 500),
-                pageBuilder: (context, animation, secondaryAnimation) =>
-                    SlideTransition(
-                  position: Tween<Offset>(
-                    begin: const Offset(1.0, 0.0),
-                    end: Offset.zero,
-                  ).animate(animation),
-                  child: ProfileScreen(user: activity.user),
-                ),
-              ),
-            );
+            UserUtils.goToProfile(activity.user);
           },
           child: Row(
             children: [
@@ -205,22 +192,22 @@ class ActivityItem extends HookConsumerWidget {
                               profilePicture,
                               fit: BoxFit.cover,
                             )
-                          : const Icon(
+                          : Icon(
                               Icons.person,
                               size: 50,
-                              color: Colors.black,
+                              color: ColorUtils.black,
                             ),
                     ),
                   );
                 },
                 loading: () {
-                  return const Center(child: UIUtils.loader);
+                  return Center(child: UIUtils.loader);
                 },
                 error: (error, stackTrace) {
-                  return const Icon(
+                  return Icon(
                     Icons.person,
                     size: 50,
-                    color: Colors.black,
+                    color: ColorUtils.black,
                   );
                 },
               ),
@@ -233,7 +220,7 @@ class ActivityItem extends HookConsumerWidget {
                           activity.user.lastname != null
                       ? '${activity.user.firstname} ${activity.user.lastname}'
                       : activity.user.username,
-                  style: const TextStyle(color: Colors.black),
+                  style: TextStyle(color: ColorUtils.black),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
@@ -257,7 +244,7 @@ class ActivityItem extends HookConsumerWidget {
         Text(
           '${appLocalizations.date_pronoun} $formattedDate ${appLocalizations.hours_pronoun} $formattedTime',
           style: TextStyle(
-            color: Colors.grey.shade700,
+            color: ColorUtils.greyDarker,
             fontFamily: 'Avenir',
           ),
         ),
@@ -266,14 +253,14 @@ class ActivityItem extends HookConsumerWidget {
           children: [
             Icon(
               Icons.location_on,
-              color: Colors.grey.shade600,
+              color: ColorUtils.grey,
               size: 16,
             ),
             const SizedBox(width: 8),
             Text(
               '${activity.distance.toStringAsFixed(2)} km',
               style: TextStyle(
-                color: Colors.grey.shade600,
+                color: ColorUtils.grey,
                 fontFamily: 'Avenir',
               ),
             ),
@@ -283,14 +270,14 @@ class ActivityItem extends HookConsumerWidget {
           children: [
             Icon(
               Icons.speed,
-              color: Colors.grey.shade600,
+              color: ColorUtils.grey,
               size: 16,
             ),
             const SizedBox(width: 8),
             Text(
               '${activity.speed.toStringAsFixed(2)} km/h',
               style: TextStyle(
-                color: Colors.grey.shade600,
+                color: ColorUtils.grey,
                 fontFamily: 'Avenir',
               ),
             ),
@@ -315,9 +302,9 @@ class ActivityItem extends HookConsumerWidget {
               children: [
                 Row(children: [
                   IconButton(
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.comment_outlined,
-                      color: Colors.black,
+                      color: ColorUtils.black,
                       size: 24,
                     ),
                     onPressed: () {

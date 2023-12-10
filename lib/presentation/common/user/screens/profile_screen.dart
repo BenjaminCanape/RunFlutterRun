@@ -4,6 +4,7 @@ import 'package:run_flutter_run/domain/entities/enum/friend_request_status.dart'
 
 import '../../../../domain/entities/user.dart';
 import '../../activity/widgets/activity_list.dart';
+import '../../core/utils/color_utils.dart';
 import '../../core/utils/ui_utils.dart';
 import '../view_model/profile_view_model.dart';
 import '../widgets/friend_request.dart';
@@ -27,7 +28,7 @@ class ProfileScreen extends HookConsumerWidget {
     final futureProvider = ref.watch(futureDataProvider(user));
 
     return state.isLoading
-        ? const Center(child: UIUtils.loader)
+        ? Center(child: UIUtils.loader)
         : Scaffold(
             body: SafeArea(
               child: Column(
@@ -75,7 +76,7 @@ class ProfileScreen extends HookConsumerWidget {
                                   return widget;
                                 },
                                 loading: () {
-                                  return const Center(child: UIUtils.loader);
+                                  return Center(child: UIUtils.loader);
                                 },
                                 error: (error, stackTrace) {
                                   return Text('$error');
@@ -97,11 +98,11 @@ class ProfileScreen extends HookConsumerWidget {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
             floatingActionButton: FloatingActionButton(
-              backgroundColor: Colors.teal.shade800,
+              backgroundColor: ColorUtils.main,
               elevation: 4.0,
-              child: const Icon(
+              child: Icon(
                 Icons.arrow_back,
-                color: Colors.white,
+                color: ColorUtils.white,
               ),
               onPressed: () {
                 Navigator.pop(context);

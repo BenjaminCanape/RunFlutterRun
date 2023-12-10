@@ -6,6 +6,7 @@ import 'package:latlong2/latlong.dart';
 
 import '../../../domain/entities/enum/activity_type.dart';
 import '../../common/core/utils/activity_utils.dart';
+import '../../common/core/utils/color_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
 import '../../common/core/widgets/share_map_button.dart';
 import '../../common/location/view_model/location_view_model.dart';
@@ -45,7 +46,7 @@ class SumUpScreen extends HookConsumerWidget {
             children: [
               IconButton(
                 icon: const Icon(Icons.location_on_rounded),
-                color: Colors.green.shade700,
+                color: ColorUtils.greenDarker,
                 iconSize: 35.0,
                 onPressed: () {},
               ),
@@ -67,7 +68,7 @@ class SumUpScreen extends HookConsumerWidget {
               children: [
                 IconButton(
                   icon: const Icon(Icons.location_on_rounded),
-                  color: Colors.red,
+                  color: ColorUtils.red,
                   iconSize: 35.0,
                   onPressed: () {},
                 ),
@@ -80,7 +81,7 @@ class SumUpScreen extends HookConsumerWidget {
 
     return Scaffold(
       body: state.isSaving
-          ? const Center(child: UIUtils.loader)
+          ? Center(child: UIUtils.loader)
           : SafeArea(
               child: Column(
                 children: [
@@ -88,8 +89,8 @@ class SumUpScreen extends HookConsumerWidget {
                     padding: const EdgeInsets.only(left: 0, top: 12),
                     child: Text(
                       AppLocalizations.of(context)!.activity_sumup,
-                      style: const TextStyle(
-                          color: Colors.blueGrey,
+                      style: TextStyle(
+                          color: ColorUtils.blueGrey,
                           fontSize: 28,
                           fontWeight: FontWeight.bold),
                     ),

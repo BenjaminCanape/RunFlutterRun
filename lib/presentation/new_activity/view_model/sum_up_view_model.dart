@@ -100,6 +100,6 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
                 longitude: l.longitude))
             .toList(),
         user: const User(id: '', username: '', firstname: '', lastname: ''),
-        comments: []);
+        comments: const []);
   }
 }

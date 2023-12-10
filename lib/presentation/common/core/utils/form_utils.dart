@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
+import 'color_utils.dart';
+
 /// Utility class for form-related operations.
 class FormUtils {
   /// Button style used for form buttons.
-  static final ButtonStyle buttonStyle =
-      createButtonStyle(Colors.teal.shade800);
+  static final ButtonStyle buttonStyle = createButtonStyle(ColorUtils.main);
 
   /// Default text style for form fields.
   static const TextStyle textFormFieldStyle = TextStyle(fontSize: 20);
 
   /// Dark text style for form fields.
-  static const TextStyle darkTextFormFieldStyle =
-      TextStyle(fontSize: 20, color: Colors.white);
+  static TextStyle darkTextFormFieldStyle = TextStyle(
+    fontSize: 20,
+    color: ColorUtils.white,
+  );
 
   /// Creates a button style with the given [backgroundColor].
   ///
@@ -19,8 +22,10 @@ class FormUtils {
   /// Returns the created button style.
   static ButtonStyle createButtonStyle(Color backgroundColor) {
     return ButtonStyle(
-      textStyle: MaterialStateProperty.all(
-          const TextStyle(fontSize: 20, color: Colors.white)),
+      textStyle: MaterialStateProperty.all(TextStyle(
+        fontSize: 20,
+        color: ColorUtils.white,
+      )),
       minimumSize: MaterialStateProperty.all(const Size(150, 50)),
       backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
       shape: MaterialStateProperty.all(
@@ -38,8 +43,8 @@ class FormUtils {
   static InputDecoration createInputDecorative(String text,
       {bool? dark, IconData? icon}) {
     dark ??= false;
-    final color = dark ? Colors.teal.shade200 : Colors.teal.shade800;
-    final errorColor = dark ? Colors.red.shade200 : Colors.red.shade600;
+    final color = dark ? ColorUtils.mainLight : ColorUtils.main;
+    final errorColor = dark ? ColorUtils.errorLight : ColorUtils.error;
 
     return InputDecoration(
       icon: icon != null ? Icon(icon) : null,

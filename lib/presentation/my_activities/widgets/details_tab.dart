@@ -6,6 +6,7 @@ import 'package:latlong2/latlong.dart';
 import '../../../domain/entities/activity.dart';
 import '../../../domain/entities/enum/activity_type.dart';
 import '../../common/core/utils/activity_utils.dart';
+import '../../common/core/utils/color_utils.dart';
 import '../../common/core/widgets/date.dart';
 import '../../common/core/widgets/share_map_button.dart';
 import '../../common/location/widgets/location_map.dart';
@@ -45,7 +46,7 @@ class DetailsTab extends HookConsumerWidget {
             children: [
               IconButton(
                 icon: const Icon(Icons.location_on_rounded),
-                color: Colors.green.shade700,
+                color: ColorUtils.greenDarker,
                 iconSize: 35.0,
                 onPressed: () {},
               ),
@@ -67,7 +68,7 @@ class DetailsTab extends HookConsumerWidget {
               children: [
                 IconButton(
                   icon: const Icon(Icons.location_on_rounded),
-                  color: Colors.red,
+                  color: ColorUtils.red,
                   iconSize: 35.0,
                   onPressed: () {},
                 ),
@@ -113,16 +114,16 @@ class DetailsTab extends HookConsumerWidget {
       ),
       floatingActionButton: state.isEditing || state.isLoading
           ? FloatingActionButton(
-              backgroundColor: Colors.teal.shade800,
+              backgroundColor: ColorUtils.main,
               elevation: 4.0,
               onPressed: state.isLoading
                   ? null
                   : () {
                       provider.save(displayedActivity);
                     },
-              child: const Icon(
+              child: Icon(
                 Icons.save,
-                color: Colors.white,
+                color: ColorUtils.white,
               ),
             )
           : Stack(
@@ -138,11 +139,11 @@ class DetailsTab extends HookConsumerWidget {
                   bottom: 16,
                   left: 80,
                   child: FloatingActionButton(
-                    backgroundColor: Colors.teal.shade800,
+                    backgroundColor: ColorUtils.main,
                     elevation: 4.0,
-                    child: const Icon(
+                    child: Icon(
                       Icons.arrow_back,
-                      color: Colors.white,
+                      color: ColorUtils.white,
                     ),
                     onPressed: () {
                       Navigator.pop(context);

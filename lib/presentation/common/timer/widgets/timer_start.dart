@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../core/utils/color_utils.dart';
 import '../viewmodel/timer_view_model.dart';
 
 /// A widget that displays the timer start button.
@@ -14,9 +15,8 @@ class TimerStart extends HookConsumerWidget {
     final timerViewModel = ref.watch(timerViewModelProvider.notifier);
 
     return FloatingActionButton(
-      backgroundColor: timerViewModel.hasTimerStarted()
-          ? Colors.red.shade700
-          : Colors.teal.shade800,
+      backgroundColor:
+          timerViewModel.hasTimerStarted() ? ColorUtils.red : ColorUtils.main,
       elevation: 4.0,
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
@@ -32,7 +32,7 @@ class TimerStart extends HookConsumerWidget {
         child: Icon(
           timerViewModel.hasTimerStarted() ? Icons.stop : Icons.play_arrow,
           key: ValueKey<bool>(timerViewModel.hasTimerStarted()),
-          color: Colors.white,
+          color: ColorUtils.white,
         ),
       ),
       onPressed: () {

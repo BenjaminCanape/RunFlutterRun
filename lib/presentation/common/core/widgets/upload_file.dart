@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../utils/color_utils.dart';
 
 /// A widget that allow to upload a file
 class UploadFileWidget extends HookConsumerWidget {
@@ -19,7 +20,8 @@ class UploadFileWidget extends HookConsumerWidget {
   /// Creates a [UploadFileWidget] widget.
   ///
   /// The [image] is the image to display.
-  UploadFileWidget({super.key, required this.image, required this.callbackFunc});
+  UploadFileWidget(
+      {super.key, required this.image, required this.callbackFunc});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,7 +32,7 @@ class UploadFileWidget extends HookConsumerWidget {
           alignment: Alignment.center,
           width: 200,
           height: 200,
-          color: Colors.grey[300],
+          color: ColorUtils.greyLight,
           child: image != null
               ? Image.memory(image!, fit: BoxFit.cover)
               : Text(
@@ -39,8 +41,7 @@ class UploadFileWidget extends HookConsumerWidget {
       ),
       ElevatedButton(
         style: ButtonStyle(
-          backgroundColor:
-              MaterialStateProperty.all<Color>(Colors.teal.shade800),
+          backgroundColor: MaterialStateProperty.all<Color>(ColorUtils.main),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           ),
@@ -56,7 +57,9 @@ class UploadFileWidget extends HookConsumerWidget {
           }
         },
         child: Text(AppLocalizations.of(context)!.profile_picture_select,
-            style: const TextStyle(color: Colors.white)),
+            style: TextStyle(
+              color: ColorUtils.white,
+            )),
       )
     ]);
   }

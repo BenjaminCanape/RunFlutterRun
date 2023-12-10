@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../domain/entities/enum/friend_request_status.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../core/utils/color_utils.dart';
 import '../view_model/profile_view_model.dart';
 
 class FriendRequestWidget extends HookConsumerWidget {
@@ -15,29 +16,24 @@ class FriendRequestWidget extends HookConsumerWidget {
     final state = ref.watch(profileViewModelProvider);
 
     if (state.friendshipStatus == FriendRequestStatus.pending) {
-      return _buildStatusWidget(
-        context,
-        Icons.access_time,
-        Colors.orange,
-        AppLocalizations.of(context)!.pending,
-        Colors.orange,
-      );
+      return _buildStatusWidget(context, Icons.access_time, ColorUtils.warning,
+          AppLocalizations.of(context)!.pending, ColorUtils.warning);
     } else if (state.friendshipStatus == FriendRequestStatus.accepted) {
       return ElevatedButton(
         onPressed: () {
           provider.unfollow(userId);
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.red.shade800,
+          backgroundColor: ColorUtils.red,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
         child: _buildStatusWidget(
           context,
           Icons.person_remove,
-          Colors.white,
+          ColorUtils.white,
           AppLocalizations.of(context)!.unfollow,
-          Colors.white,
+          ColorUtils.white,
         ),
       );
     } else {
@@ -46,16 +42,16 @@ class FriendRequestWidget extends HookConsumerWidget {
           provider.sendFriendRequest(userId);
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.teal.shade800,
+          backgroundColor: ColorUtils.main,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
         child: _buildStatusWidget(
           context,
           Icons.person_add,
-          Colors.white,
+          ColorUtils.white,
           AppLocalizations.of(context)!.follow,
-          Colors.white,
+          ColorUtils.white,
         ),
       );
     }
