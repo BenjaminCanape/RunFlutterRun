@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'color_utils.dart';
@@ -9,4 +10,21 @@ class UIUtils {
     color: ColorUtils.blueGrey, // The color of the bouncing balls
     size: 50.0, // The size of the loader widget
   );
+
+  /// A function that create the header for a specific title
+  static createHeader(title) {
+    return Column(children: [
+      Container(
+        padding: const EdgeInsets.only(left: 0, top: 12),
+        child: Text(
+          title,
+          style: TextStyle(
+              color: ColorUtils.blueGrey,
+              fontSize: 28,
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+      const Divider(),
+    ]);
+  }
 }

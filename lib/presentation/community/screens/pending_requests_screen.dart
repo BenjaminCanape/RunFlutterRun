@@ -21,17 +21,8 @@ class PendingRequestsScreen extends HookConsumerWidget {
         : Scaffold(
             body: SafeArea(
                 child: Column(children: [
-              Container(
-                padding: const EdgeInsets.only(left: 0, top: 12),
-                child: Text(
-                  AppLocalizations.of(context)!.pending_requests_title,
-                  style: TextStyle(
-                      color: ColorUtils.blueGrey,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              const Divider(),
+              UIUtils.createHeader(
+                  AppLocalizations.of(context)!.pending_requests_title),
               const SizedBox(height: 40),
               Expanded(
                   child: PendingRequestsListWidget(
