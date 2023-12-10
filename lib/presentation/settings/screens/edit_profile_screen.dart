@@ -43,18 +43,8 @@ class EditProfileScreen extends HookConsumerWidget {
                         children: [
                           Column(
                             children: [
-                              Container(
-                                padding:
-                                    const EdgeInsets.only(left: 0, top: 12),
-                                child: Text(
-                                  AppLocalizations.of(context)!.edit_profile,
-                                  style: TextStyle(
-                                      color: ColorUtils.blueGrey,
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              const Divider(),
+                              UIUtils.createHeader(
+                                  AppLocalizations.of(context)!.edit_profile),
                               const SizedBox(height: 10),
                               Padding(
                                 padding: const EdgeInsets.all(10),

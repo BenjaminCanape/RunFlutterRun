@@ -85,17 +85,8 @@ class SumUpScreen extends HookConsumerWidget {
           : SafeArea(
               child: Column(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.only(left: 0, top: 12),
-                    child: Text(
-                      AppLocalizations.of(context)!.activity_sumup,
-                      style: TextStyle(
-                          color: ColorUtils.blueGrey,
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const Divider(),
+                  UIUtils.createHeader(
+                      AppLocalizations.of(context)!.activity_sumup),
                   const SizedBox(height: 10),
                   ActivityUtils.buildActivityTypeDropdown(
                       context, selectedType, provider),

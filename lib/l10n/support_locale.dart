@@ -12,5 +12,9 @@ class L10n {
     Locale("ar"),
     Locale("ru"),
     Locale("zh"),
+    Locale("bn"),
+    Locale("hi"),
+    Locale("it"),
+    Locale("ur"),
   ];
 }
