@@ -8,6 +8,7 @@ import '../../../../domain/entities/activity_comment.dart';
 import '../../../../core/utils/storage_utils.dart';
 import '../../../../domain/entities/user.dart';
 import '../../core/utils/color_utils.dart';
+import '../../core/utils/user_utils.dart';
 import '../view_model/activity_item_view_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -65,25 +66,13 @@ class ActivityComments extends HookConsumerWidget {
                 return pic != null
                     ? CircleAvatar(
                         radius: 50, backgroundImage: MemoryImage(pic))
-                    : Icon(
-                        Icons.person,
-                        size: 50,
-                        color: ColorUtils.black,
-                      );
+                    : UserUtils.personIcon;
               },
               loading: () {
-                return Icon(
-                  Icons.person,
-                  size: 50,
-                  color: ColorUtils.black,
-                );
+                return UserUtils.personIcon;
               },
               error: (error, stackTrace) {
-                return Icon(
-                  Icons.person,
-                  size: 50,
-                  color: ColorUtils.black,
-                );
+                return UserUtils.personIcon;
               },
             ),
           ),
