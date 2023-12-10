@@ -110,7 +110,7 @@ class ImageUtils {
 
       // Create a paragraph with the given text
       final textStyle = ui.TextStyle(
-        color: ColorUtils.white,
+        color: ColorUtils.black,
         fontSize: 50,
         fontWeight: FontWeight.bold,
         shadows: [
