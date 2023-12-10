@@ -7,7 +7,7 @@ void main() {
   testWidgets('Loader widget should render correctly',
       (WidgetTester tester) async {
     await tester.pumpWidget(
-      const MaterialApp(
+      MaterialApp(
         home: Scaffold(
           body: UIUtils.loader,
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../common/core/utils/color_utils.dart';
 import '../view_model/sum_up_view_model.dart';
 
 /// Represents the Save button widget.
@@ -19,7 +20,7 @@ class SaveButton extends HookConsumerWidget {
       opacity: disabled ? 0.5 : 1.0,
       duration: animationDuration,
       child: FloatingActionButton(
-        backgroundColor: Colors.teal.shade800,
+        backgroundColor: ColorUtils.main,
         elevation: 4.0,
         onPressed: disabled
             ? null
@@ -29,9 +30,9 @@ class SaveButton extends HookConsumerWidget {
                   // Callback function to handle post-animation logic
                 });
               },
-        child: const Icon(
+        child: Icon(
           Icons.save,
-          color: Colors.white,
+          color: ColorUtils.white,
         ),
       ),
     );

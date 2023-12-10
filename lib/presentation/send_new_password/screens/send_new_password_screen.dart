@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../common/core/utils/color_utils.dart';
 
 import '../../common/core/utils/form_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
@@ -19,9 +20,9 @@ class SendNewPasswordScreen extends HookConsumerWidget {
     final provider = ref.watch(sendNewPasswordViewModelProvider.notifier);
 
     return Scaffold(
-      backgroundColor: Colors.blueGrey.shade900,
+      backgroundColor: ColorUtils.blueGreyDarker,
       body: state.isSending
-          ? const Center(child: UIUtils.loader)
+          ? Center(child: UIUtils.loader)
           : SingleChildScrollView(
               child: Column(
                 children: [
@@ -33,8 +34,8 @@ class SendNewPasswordScreen extends HookConsumerWidget {
                         alignment: AlignmentDirectional.topStart,
                         child: Text(
                           AppLocalizations.of(context)!.send_new_password,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 33),
+                          style:
+                              TextStyle(color: ColorUtils.white, fontSize: 33),
                         ),
                       ),
                     ),
@@ -51,7 +52,7 @@ class SendNewPasswordScreen extends HookConsumerWidget {
                             children: [
                               TextFormField(
                                 style: FormUtils.darkTextFormFieldStyle,
-                                cursorColor: Colors.teal.shade100,
+                                cursorColor: ColorUtils.mainLight,
                                 decoration: FormUtils.createInputDecorative(
                                     AppLocalizations.of(context)!.email,
                                     dark: true,
@@ -71,9 +72,9 @@ class SendNewPasswordScreen extends HookConsumerWidget {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       Icons.send,
-                                      color: Colors.white,
+                                      color: ColorUtils.white,
                                     ),
                                     const SizedBox(width: 8),
                                     Text(
@@ -93,9 +94,9 @@ class SendNewPasswordScreen extends HookConsumerWidget {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       Icons.arrow_back,
-                                      color: Colors.white,
+                                      color: ColorUtils.white,
                                     ),
                                     const SizedBox(width: 8),
                                     Text(

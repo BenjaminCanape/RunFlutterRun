@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image/image.dart' as img;
 
+import 'color_utils.dart';
+
 /// Utility class for image editing operations.
 ///
 class ImageUtils {
@@ -85,14 +87,15 @@ class ImageUtils {
 
       // Create a paragraph with the given title
       final titleStyle = ui.TextStyle(
-        color: Colors.black,
+        color: ColorUtils.black,
         fontSize: 100,
         fontWeight: FontWeight.bold,
         shadows: [
-          const Shadow(
+          Shadow(
             blurRadius: 2,
-            color: Colors.white, // Add a white shadow for better readability
-            offset: Offset(1, 1),
+            color:
+                ColorUtils.white, // Add a white shadow for better readability
+            offset: const Offset(1, 1),
           ),
         ],
       );
@@ -107,14 +110,15 @@ class ImageUtils {
 
       // Create a paragraph with the given text
       final textStyle = ui.TextStyle(
-        color: Colors.black,
+        color: ColorUtils.white,
         fontSize: 50,
         fontWeight: FontWeight.bold,
         shadows: [
-          const Shadow(
+          Shadow(
             blurRadius: 2,
-            color: Colors.white, // Add a white shadow for better readability
-            offset: Offset(1, 1),
+            color:
+                ColorUtils.white, // Add a white shadow for better readability
+            offset: const Offset(1, 1),
           ),
         ],
       );

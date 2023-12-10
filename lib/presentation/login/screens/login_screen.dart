@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../common/core/utils/color_utils.dart';
 
 import '../../common/core/utils/form_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
@@ -21,9 +22,9 @@ class LoginScreen extends HookConsumerWidget {
     final provider = ref.watch(loginViewModelProvider.notifier);
 
     return Scaffold(
-      backgroundColor: Colors.blueGrey.shade900,
+      backgroundColor: ColorUtils.blueGreyDarker,
       body: state.isLogging
-          ? const Center(child: UIUtils.loader)
+          ? Center(child: UIUtils.loader)
           : SingleChildScrollView(
               child: Column(
                 children: [
@@ -35,8 +36,8 @@ class LoginScreen extends HookConsumerWidget {
                         alignment: AlignmentDirectional.topStart,
                         child: Text(
                           '${AppLocalizations.of(context)!.hello},',
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 33),
+                          style:
+                              TextStyle(color: ColorUtils.white, fontSize: 33),
                         ),
                       ),
                     ),
@@ -53,7 +54,7 @@ class LoginScreen extends HookConsumerWidget {
                             children: [
                               TextFormField(
                                 style: FormUtils.darkTextFormFieldStyle,
-                                cursorColor: Colors.teal.shade100,
+                                cursorColor: ColorUtils.mainLight,
                                 decoration: FormUtils.createInputDecorative(
                                     AppLocalizations.of(context)!.email,
                                     dark: true,
@@ -86,9 +87,9 @@ class LoginScreen extends HookConsumerWidget {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       Icons.login,
-                                      color: Colors.white,
+                                      color: ColorUtils.white,
                                     ),
                                     const SizedBox(width: 8),
                                     Text(
@@ -122,9 +123,9 @@ class LoginScreen extends HookConsumerWidget {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       Icons.app_registration,
-                                      color: Colors.white,
+                                      color: ColorUtils.white,
                                     ),
                                     const SizedBox(width: 8),
                                     Text(
@@ -158,11 +159,11 @@ class LoginScreen extends HookConsumerWidget {
                                 child: Text(
                                   AppLocalizations.of(context)!
                                       .send_new_password,
-                                  style: const TextStyle(
-                                      color: Colors.white,
+                                  style: TextStyle(
+                                      color: ColorUtils.white,
                                       decorationStyle:
                                           TextDecorationStyle.solid,
-                                      decorationColor: Colors.white,
+                                      decorationColor: ColorUtils.white,
                                       decoration: TextDecoration.underline),
                                 ),
                               ),

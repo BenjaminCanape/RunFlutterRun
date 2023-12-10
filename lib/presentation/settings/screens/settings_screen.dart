@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
+import '../../common/core/utils/color_utils.dart';
 
 import '../../common/core/utils/form_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
@@ -53,9 +54,9 @@ class SettingsScreen extends HookConsumerWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.person,
-                              color: Colors.white,
+                              color: ColorUtils.white,
                             ),
                             const SizedBox(width: 8),
                             Text(
@@ -96,9 +97,9 @@ class SettingsScreen extends HookConsumerWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.edit,
-                              color: Colors.white,
+                              color: ColorUtils.white,
                             ),
                             const SizedBox(width: 8),
                             Text(
@@ -124,9 +125,9 @@ class SettingsScreen extends HookConsumerWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.logout,
-                              color: Colors.white,
+                              color: ColorUtils.white,
                             ),
                             const SizedBox(width: 8),
                             Text(
@@ -143,7 +144,7 @@ class SettingsScreen extends HookConsumerWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: ElevatedButton(
-                      style: FormUtils.createButtonStyle(Colors.red.shade600),
+                      style: FormUtils.createButtonStyle(ColorUtils.error),
                       onPressed: () => QuickAlert.show(
                         context: context,
                         type: QuickAlertType.confirm,
@@ -151,7 +152,7 @@ class SettingsScreen extends HookConsumerWidget {
                             AppLocalizations.of(context)!.ask_account_removal,
                         confirmBtnText: AppLocalizations.of(context)!.delete,
                         cancelBtnText: AppLocalizations.of(context)!.cancel,
-                        confirmBtnColor: Colors.red,
+                        confirmBtnColor: ColorUtils.red,
                         onCancelBtnTap: () => Navigator.of(context).pop(),
                         onConfirmBtnTap: () => provider.deleteUserAccount(),
                       ),
@@ -160,9 +161,9 @@ class SettingsScreen extends HookConsumerWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.delete,
-                              color: Colors.white,
+                              color: ColorUtils.white,
                             ),
                             const SizedBox(width: 8),
                             Text(

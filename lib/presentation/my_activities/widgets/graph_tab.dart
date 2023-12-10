@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import '../../../domain/entities/location.dart';
+import '../../common/core/utils/color_utils.dart';
 import '../../common/core/utils/map_utils.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../domain/entities/activity.dart';
@@ -161,10 +162,10 @@ class GraphTab extends StatelessWidget {
                                     getTooltipItems: (touchedSpots) {
                               return touchedSpots
                                   .map((LineBarSpot touchedSpot) {
-                                const textStyle = TextStyle(
+                                final textStyle = TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.w700,
-                                  color: Colors.white,
+                                  color: ColorUtils.white,
                                 );
                                 return LineTooltipItem(
                                   '${smoothedData[touchedSpot.spotIndex].y.toStringAsFixed(2)} km/h',
@@ -190,7 +191,7 @@ class GraphTab extends StatelessWidget {
                               horizontalLines: [
                                 HorizontalLine(
                                   y: activity.speed,
-                                  color: Colors.blueGrey,
+                                  color: ColorUtils.blueGrey,
                                   strokeWidth: 2,
                                   dashArray: [5, 5],
                                   label: HorizontalLineLabel(

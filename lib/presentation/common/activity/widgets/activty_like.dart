@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:run_flutter_run/domain/entities/activity.dart';
+import '../../../../domain/entities/activity.dart';
+import '../../core/utils/color_utils.dart';
 
 class ActivityLike extends StatelessWidget {
   final Activity currentActivity;
@@ -26,7 +27,8 @@ class ActivityLike extends StatelessWidget {
               IconButton(
                 icon: Icon(
                   hasCurrentUserLiked ? Icons.favorite : Icons.favorite_border,
-                  color: hasCurrentUserLiked ? Colors.red : Colors.black,
+                  color:
+                      hasCurrentUserLiked ? ColorUtils.red : ColorUtils.black,
                 ),
                 onPressed: () {
                   if (hasCurrentUserLiked) {
@@ -39,7 +41,7 @@ class ActivityLike extends StatelessWidget {
               Text(
                 '${currentActivity.likesCount.ceil()}',
                 style: TextStyle(
-                  color: Colors.grey.shade600,
+                  color: ColorUtils.grey,
                   fontFamily: 'Avenir',
                 ),
               ),

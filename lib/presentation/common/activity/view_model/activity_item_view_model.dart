@@ -2,14 +2,12 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/data/repositories/activity_repository_impl.dart';
-import 'package:run_flutter_run/domain/entities/activity.dart';
-import 'package:run_flutter_run/domain/entities/activity_comment.dart';
+import '../../../../data/repositories/activity_repository_impl.dart';
+import '../../../../domain/entities/activity.dart';
+import '../../../../domain/entities/activity_comment.dart';
 import '../../../../data/repositories/user_repository_impl.dart';
-import '../../../../domain/entities/user.dart';
 import '../../../../main.dart';
 import '../../../my_activities/screens/activity_details_screen.dart';
-import '../../user/screens/profile_screen.dart';
 import 'state/activity_item_state.dart';
 
 /// Provider for the activity item view model.
@@ -99,23 +97,6 @@ class ActivityItemViewModel extends StateNotifier<ActivityItemState> {
             end: Offset.zero,
           ).animate(animation),
           child: ActivityDetailsScreen(activity: activityDetails),
-        ),
-      ),
-    );
-  }
-
-  /// Go to user profile
-  void goToProfile(User user) {
-    navigatorKey.currentState?.push(
-      PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 500),
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            SlideTransition(
-          position: Tween<Offset>(
-            begin: const Offset(1.0, 0.0),
-            end: Offset.zero,
-          ).animate(animation),
-          child: ProfileScreen(user: user),
         ),
       ),
     );

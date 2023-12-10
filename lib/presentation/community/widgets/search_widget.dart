@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../common/core/utils/user_utils.dart';
 
 import '../../../domain/entities/user.dart';
-import '../view_model/community_view_model.dart';
+import '../../common/core/utils/color_utils.dart';
 
 class SearchWidget extends HookConsumerWidget implements PreferredSizeWidget {
   final TextEditingController searchController;
@@ -18,16 +19,15 @@ class SearchWidget extends HookConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var provider = ref.read(communityViewModelProvider.notifier);
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorUtils.white,
       title: TypeAheadField<User>(
         textFieldConfiguration: TextFieldConfiguration(
           controller: searchController,
           decoration: InputDecoration(
             hintText: '${AppLocalizations.of(context)!.search}...',
             border: InputBorder.none,
-            suffixIconColor: Colors.teal.shade800,
+            suffixIconColor: ColorUtils.main,
             suffixIcon: const Icon(Icons.search),
           ),
         ),
@@ -46,7 +46,7 @@ class SearchWidget extends HookConsumerWidget implements PreferredSizeWidget {
           ));
         },
         onSuggestionSelected: (User suggestion) =>
-            provider.goToUserProfile(suggestion),
+            UserUtils.goToProfile(suggestion),
       ),
     );
   }

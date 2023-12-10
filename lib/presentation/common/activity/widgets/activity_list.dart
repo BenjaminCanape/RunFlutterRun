@@ -3,8 +3,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:run_flutter_run/presentation/common/activity/view_model/activity_item_view_model.dart';
-import 'package:run_flutter_run/presentation/common/core/utils/type_utils.dart';
+import '../view_model/activity_item_view_model.dart';
+import '../../core/utils/color_utils.dart';
+import '../../core/utils/type_utils.dart';
 import '../../../../domain/entities/activity.dart';
 import 'activity_item.dart';
 
@@ -55,12 +56,12 @@ class ActivityList extends HookConsumerWidget {
             )
           : Theme(
               data: ThemeData(
-                expansionTileTheme: const ExpansionTileThemeData(
+                expansionTileTheme: ExpansionTileThemeData(
                   tilePadding: EdgeInsets.zero,
-                  iconColor: Colors.black,
-                  textColor: Colors.black87,
+                  iconColor: ColorUtils.black,
+                  textColor: ColorUtils.black,
                   childrenPadding: EdgeInsets.zero,
-                  shape: RoundedRectangleBorder(
+                  shape: const RoundedRectangleBorder(
                     side: BorderSide.none,
                     borderRadius: BorderRadius.zero,
                   ),

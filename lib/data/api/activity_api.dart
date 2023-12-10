@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:run_flutter_run/data/model/response/activity_comment_response.dart';
+import '../model/response/activity_comment_response.dart';
 
 import '../model/request/activity_request.dart';
 import '../model/response/activity_response.dart';

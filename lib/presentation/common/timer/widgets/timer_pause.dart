@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../core/utils/color_utils.dart';
 import '../viewmodel/timer_view_model.dart';
 
 /// A floating action button used to pause or resume the timer.
@@ -22,12 +23,12 @@ class TimerPause extends HookConsumerWidget {
           );
         },
         child: FloatingActionButton(
-          backgroundColor: Colors.teal.shade800,
+          backgroundColor: ColorUtils.main,
           key: ValueKey<bool>(isRunning),
           tooltip: timerViewModel.isTimerRunning() ? 'Pause' : 'Resume',
           child: Icon(
             isRunning ? Icons.pause : Icons.play_arrow,
-            color: Colors.white,
+            color: ColorUtils.white,
           ),
           onPressed: () {
             if (timerViewModel.isTimerRunning()) {

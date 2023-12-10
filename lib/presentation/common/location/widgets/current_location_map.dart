@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../../core/utils/color_utils.dart';
 import '../view_model/location_view_model.dart';
 import 'location_map.dart';
 
@@ -26,10 +27,10 @@ class CurrentLocationMap extends HookConsumerWidget {
         width: 80,
         height: 80,
         point: LatLng(currentLatitude, currentLongitude),
-        child: const Icon(
+        child: Icon(
           Icons.run_circle_sharp,
           size: 30,
-          color: Colors.red,
+          color: ColorUtils.red,
         ),
       ),
     ];
@@ -47,7 +48,7 @@ class CurrentLocationMap extends HookConsumerWidget {
             children: [
               IconButton(
                 icon: const Icon(Icons.location_on_rounded),
-                color: Colors.green.shade700,
+                color: ColorUtils.greenDarker,
                 iconSize: 35.0,
                 onPressed: () {},
               ),
