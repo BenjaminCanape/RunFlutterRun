@@ -192,11 +192,7 @@ class ActivityItem extends HookConsumerWidget {
                               profilePicture,
                               fit: BoxFit.cover,
                             )
-                          : Icon(
-                              Icons.person,
-                              size: 50,
-                              color: ColorUtils.black,
-                            ),
+                          : UserUtils.personIcon,
                     ),
                   );
                 },
@@ -204,11 +200,7 @@ class ActivityItem extends HookConsumerWidget {
                   return Center(child: UIUtils.loader);
                 },
                 error: (error, stackTrace) {
-                  return Icon(
-                    Icons.person,
-                    size: 50,
-                    color: ColorUtils.black,
-                  );
+                  return UserUtils.personIcon;
                 },
               ),
               const SizedBox(
