@@ -2,9 +2,9 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/data/repositories/activity_repository_impl.dart';
-import 'package:run_flutter_run/domain/entities/activity.dart';
-import 'package:run_flutter_run/domain/entities/activity_comment.dart';
+import '../../../../data/repositories/activity_repository_impl.dart';
+import '../../../../domain/entities/activity.dart';
+import '../../../../domain/entities/activity_comment.dart';
 import '../../../../data/repositories/user_repository_impl.dart';
 import '../../../../main.dart';
 import '../../../my_activities/screens/activity_details_screen.dart';

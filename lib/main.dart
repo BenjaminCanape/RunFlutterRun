@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/presentation/common/core/utils/color_utils.dart';
+import 'presentation/common/core/utils/color_utils.dart';
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
 import 'core/utils/storage_utils.dart';

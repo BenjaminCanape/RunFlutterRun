@@ -1,4 +1,4 @@
-import 'package:run_flutter_run/domain/entities/activity_comment.dart';
+import '../entities/activity_comment.dart';
 
 import '../../data/model/request/activity_request.dart';
 import '../entities/activity.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:run_flutter_run/domain/entities/activity.dart';
-import 'package:run_flutter_run/presentation/common/core/utils/color_utils.dart';
+import '../../../../domain/entities/activity.dart';
+import '../../core/utils/color_utils.dart';
 
 class ActivityLike extends StatelessWidget {
   final Activity currentActivity;

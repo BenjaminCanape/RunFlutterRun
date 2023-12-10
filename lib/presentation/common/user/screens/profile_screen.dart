@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/domain/entities/enum/friend_request_status.dart';
+import '../../../../domain/entities/enum/friend_request_status.dart';
 
 import '../../../../domain/entities/user.dart';
 import '../../activity/widgets/activity_list.dart';

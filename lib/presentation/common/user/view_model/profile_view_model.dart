@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/core/utils/storage_utils.dart';
+import '../../../../core/utils/storage_utils.dart';
 
 import '../../../../data/repositories/activity_repository_impl.dart';
 import '../../../../data/repositories/friend_request_repository_impl.dart';

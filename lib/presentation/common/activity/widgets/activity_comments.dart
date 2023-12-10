@@ -2,8 +2,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:comment_box/comment/comment.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/domain/entities/activity.dart';
-import 'package:run_flutter_run/domain/entities/activity_comment.dart';
+import '../../../../domain/entities/activity.dart';
+import '../../../../domain/entities/activity_comment.dart';
 
 import '../../../../core/utils/storage_utils.dart';
 import '../../../../domain/entities/user.dart';
