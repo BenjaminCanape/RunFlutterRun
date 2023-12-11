@@ -1,16 +1,17 @@
 import 'dart:typed_data';
-import 'package:flutter/material.dart';
+
 import 'package:comment_box/comment/comment.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../../../domain/entities/activity.dart';
-import '../../../../domain/entities/activity_comment.dart';
 
 import '../../../../core/utils/storage_utils.dart';
+import '../../../../domain/entities/activity.dart';
+import '../../../../domain/entities/activity_comment.dart';
 import '../../../../domain/entities/user.dart';
 import '../../core/utils/color_utils.dart';
 import '../../core/utils/user_utils.dart';
 import '../view_model/activity_item_view_model.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ActivityComments extends HookConsumerWidget {
   final Activity currentActivity;

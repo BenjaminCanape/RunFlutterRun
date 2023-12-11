@@ -3,10 +3,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import '../view_model/activity_item_view_model.dart';
+
+import '../../../../domain/entities/activity.dart';
 import '../../core/utils/color_utils.dart';
 import '../../core/utils/type_utils.dart';
-import '../../../../domain/entities/activity.dart';
+import '../view_model/activity_item_view_model.dart';
 import 'activity_item.dart';
 
 /// The screen that displays a list of activities grouped by months.

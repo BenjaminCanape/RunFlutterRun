@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:run_flutter_run/presentation/common/core/utils/ui_utils.dart';
+import '../../common/core/utils/ui_utils.dart';
 
 import '../../../domain/entities/activity.dart';
 import '../../../domain/entities/enum/activity_type.dart';

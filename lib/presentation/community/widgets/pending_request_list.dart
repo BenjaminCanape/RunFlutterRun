@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:run_flutter_run/presentation/common/core/utils/user_utils.dart';
+import '../../common/core/utils/user_utils.dart';
 import '../../../domain/entities/user.dart';
 import '../../common/friendship/widgets/accept_refuse.dart';
 

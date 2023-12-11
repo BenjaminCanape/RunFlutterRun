@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'activty_like.dart';
 
 import '../../../../domain/entities/activity.dart';
 import '../../core/utils/activity_utils.dart';
@@ -13,6 +12,7 @@ import '../../core/utils/ui_utils.dart';
 import '../../core/utils/user_utils.dart';
 import '../view_model/activity_item_view_model.dart';
 import 'activity_comments.dart';
+import 'activty_like.dart';
 
 class ActivityItem extends HookConsumerWidget {
   final int index;
