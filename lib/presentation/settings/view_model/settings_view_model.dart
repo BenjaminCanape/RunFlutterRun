@@ -1,8 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/repositories/user_repository_impl.dart';
 import '../../../main.dart';
+import '../../common/core/utils/color_utils.dart';
 import 'state/settings_state.dart';
 
 final settingsViewModelProvider =
@@ -40,6 +43,21 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
     } catch (error) {
       state = state.copyWith(isLoading: false);
     }
+  }
+
+  /// Display an alert to confirm or cancel the deletion of the account
+  void showDeleteAccountAlert(BuildContext context, String title,
+      String confirmBtnText, String cancelBtnText) {
+    QuickAlert.show(
+      context: context,
+      type: QuickAlertType.confirm,
+      title: title,
+      confirmBtnText: confirmBtnText,
+      cancelBtnText: cancelBtnText,
+      confirmBtnColor: ColorUtils.red,
+      onCancelBtnTap: () => Navigator.of(context).pop(),
+      onConfirmBtnTap: () => deleteUserAccount(),
+    );
   }
 
   /// Clears the local storage.

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:quickalert/models/quickalert_type.dart';
-import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 import '../../common/core/utils/color_utils.dart';
 import '../../common/core/utils/form_utils.dart';
@@ -106,20 +104,11 @@ class SettingsScreen extends HookConsumerWidget {
                         AppLocalizations.of(context)!.delete_account,
                         Icons.delete,
                         FormUtils.createButtonStyle(ColorUtils.error),
-                        () => QuickAlert.show(
-                              context: context,
-                              type: QuickAlertType.confirm,
-                              title: AppLocalizations.of(context)!
-                                  .ask_account_removal,
-                              confirmBtnText:
-                                  AppLocalizations.of(context)!.delete,
-                              cancelBtnText:
-                                  AppLocalizations.of(context)!.cancel,
-                              confirmBtnColor: ColorUtils.red,
-                              onCancelBtnTap: () => Navigator.of(context).pop(),
-                              onConfirmBtnTap: () =>
-                                  provider.deleteUserAccount(),
-                            )),
+                        () => provider.showDeleteAccountAlert(
+                            context,
+                            AppLocalizations.of(context)!.ask_account_removal,
+                            AppLocalizations.of(context)!.delete,
+                            AppLocalizations.of(context)!.cancel)),
                   ),
                 ],
               ),
