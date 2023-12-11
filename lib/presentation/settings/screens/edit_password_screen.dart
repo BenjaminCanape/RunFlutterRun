@@ -120,17 +120,7 @@ class EditPasswordScreen extends HookConsumerWidget {
           Positioned(
             bottom: 16,
             left: 80,
-            child: FloatingActionButton(
-              backgroundColor: ColorUtils.main,
-              elevation: 4.0,
-              child: Icon(
-                Icons.arrow_back,
-                color: ColorUtils.white,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
+            child: UIUtils.createBackButton(context),
           ),
         ],
       ),

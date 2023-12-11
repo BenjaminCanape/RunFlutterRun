@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../common/core/utils/color_utils.dart';
 import '../widgets/pending_request_list.dart';
 
 import '../../common/core/utils/ui_utils.dart';
@@ -33,17 +32,7 @@ class PendingRequestsScreen extends HookConsumerWidget {
             ])),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: ColorUtils.main,
-              elevation: 4.0,
-              child: Icon(
-                Icons.arrow_back,
-                color: ColorUtils.white,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
+            floatingActionButton: UIUtils.createBackButton(context),
           );
   }
 }

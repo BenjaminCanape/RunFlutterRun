@@ -13,6 +13,12 @@ class UserUtils {
     color: ColorUtils.black,
   );
 
+  static String getNameOrUsername(User user) {
+    return user.firstname != null && user.lastname != null
+        ? '${user.firstname} ${user.lastname}'
+        : user.username;
+  }
+
   /// Go to user profile
   static void goToProfile(User user) {
     navigatorKey.currentState?.push(

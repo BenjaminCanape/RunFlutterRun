@@ -12,7 +12,7 @@ class UIUtils {
   );
 
   /// A function that create the header for a specific title
-  static createHeader(title) {
+  static Column createHeader(title) {
     return Column(children: [
       Container(
         padding: const EdgeInsets.only(left: 0, top: 12),
@@ -26,5 +26,19 @@ class UIUtils {
       ),
       const Divider(),
     ]);
+  }
+
+  static FloatingActionButton createBackButton(BuildContext context) {
+    return FloatingActionButton(
+      backgroundColor: ColorUtils.main,
+      elevation: 4.0,
+      child: Icon(
+        Icons.arrow_back,
+        color: ColorUtils.white,
+      ),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
   }
 }

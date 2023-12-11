@@ -12,7 +12,7 @@ import '../../settings/screens/settings_screen.dart';
 import '../view_model/home_view_model.dart';
 
 /// An enumeration representing the available tabs in the home screen.
-enum Tabs { home, list, settings }
+enum Tabs { home, list, community, settings }
 
 /// The home screen widget.
 class HomeScreen extends HookConsumerWidget {
