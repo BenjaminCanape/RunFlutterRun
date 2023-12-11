@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import '../../common/core/utils/ui_utils.dart';
 
 import '../../../domain/entities/activity.dart';
 import '../../../domain/entities/enum/activity_type.dart';
@@ -138,17 +139,7 @@ class DetailsTab extends HookConsumerWidget {
                 Positioned(
                   bottom: 16,
                   left: 80,
-                  child: FloatingActionButton(
-                    backgroundColor: ColorUtils.main,
-                    elevation: 4.0,
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: ColorUtils.white,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
+                  child: UIUtils.createBackButton(context),
                 ),
               ],
             ),

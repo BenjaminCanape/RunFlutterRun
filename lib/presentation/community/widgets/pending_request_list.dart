@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../common/core/utils/user_utils.dart';
 import '../../../domain/entities/user.dart';
 import '../../common/friendship/widgets/accept_refuse.dart';
 
@@ -22,9 +23,7 @@ class PendingRequestsListWidget extends StatelessWidget {
         final user = users[index];
         return ListTile(
             title: Text(
-              user.firstname != null && user.lastname != null
-                  ? '${user.firstname} ${user.lastname}'
-                  : user.username,
+              UserUtils.getNameOrUsername(user),
             ),
             trailing: AcceptRefuseWidget(
                 userId: user.id, onAccept: onAccept, onReject: onReject));

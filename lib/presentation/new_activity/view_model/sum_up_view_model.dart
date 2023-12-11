@@ -68,7 +68,7 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
     });
   }
 
-  getActivity() {
+  Activity getActivity() {
     final startDatetime = ref.read(timerViewModelProvider).startDatetime;
     final endDatetime = startDatetime.add(Duration(
       hours: ref.read(timerViewModelProvider).hours,

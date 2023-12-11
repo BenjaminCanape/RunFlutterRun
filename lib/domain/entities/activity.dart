@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'activity_comment.dart';
 
+import 'activity_comment.dart';
 import 'enum/activity_type.dart';
 import 'location.dart';
 import 'user.dart';

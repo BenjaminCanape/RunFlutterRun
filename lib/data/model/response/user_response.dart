@@ -1,5 +1,5 @@
-
 import 'package:equatable/equatable.dart';
+
 import '../../../domain/entities/user.dart';
 
 /// Represents a response object for a user.

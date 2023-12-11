@@ -134,16 +134,7 @@ class EditProfileScreen extends HookConsumerWidget {
               Positioned(
                 bottom: 16,
                 left: 80,
-                child: FloatingActionButton(
-                  backgroundColor: ColorUtils.main,
-                  child: Icon(
-                    Icons.arrow_back,
-                    color: ColorUtils.white,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
+                child: UIUtils.createBackButton(context),
               ),
             ],
           ),

@@ -1,7 +1,6 @@
-import '../entities/activity_comment.dart';
-
 import '../../data/model/request/activity_request.dart';
 import '../entities/activity.dart';
+import '../entities/activity_comment.dart';
 
 /// Abstract class representing the activity repository.
 abstract class ActivityRepository {
