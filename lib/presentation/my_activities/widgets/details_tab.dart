@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import '../../common/core/utils/ui_utils.dart';
 
 import '../../../domain/entities/activity.dart';
 import '../../../domain/entities/enum/activity_type.dart';
 import '../../common/core/utils/activity_utils.dart';
 import '../../common/core/utils/color_utils.dart';
+import '../../common/core/utils/ui_utils.dart';
 import '../../common/core/widgets/date.dart';
 import '../../common/core/widgets/share_map_button.dart';
 import '../../common/location/widgets/location_map.dart';

@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../domain/entities/activity_comment.dart';
 
 import '../../domain/entities/activity.dart';
+import '../../domain/entities/activity_comment.dart';
 import '../../domain/repositories/activity_repository.dart';
 import '../api/activity_api.dart';
 import '../model/request/activity_request.dart';

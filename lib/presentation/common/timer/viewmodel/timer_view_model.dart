@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/presentation/common/core/utils/type_utils.dart';
+import '../../core/utils/type_utils.dart';
 import 'package:wakelock/wakelock.dart';
 
 import '../../../../../main.dart';
