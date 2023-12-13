@@ -28,6 +28,7 @@ class UIUtils {
     ]);
   }
 
+  /// A function that create the back button
   static FloatingActionButton createBackButton(BuildContext context) {
     return FloatingActionButton(
       backgroundColor: ColorUtils.main,

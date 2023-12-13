@@ -1,18 +1,12 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
-
 import '../../../../domain/entities/activity.dart';
+import 'activity_item_details.dart';
 import '../../core/utils/activity_utils.dart';
 import '../../core/utils/color_utils.dart';
-import '../../core/utils/ui_utils.dart';
-import '../../core/utils/user_utils.dart';
 import '../view_model/activity_item_view_model.dart';
-import 'activity_comments.dart';
-import 'activty_like.dart';
+import 'activity_item_user_informations.dart';
+import 'activity_item_interaction.dart';
 
 class ActivityItem extends HookConsumerWidget {
   final int index;
@@ -20,9 +14,7 @@ class ActivityItem extends HookConsumerWidget {
   final bool displayUserName;
   final bool canOpenActivity;
 
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  ActivityItem({
+  const ActivityItem({
     super.key,
     required this.activity,
     required this.index,
@@ -30,24 +22,11 @@ class ActivityItem extends HookConsumerWidget {
     this.canOpenActivity = true,
   });
 
-  final futureDataProvider =
-      FutureProvider.family<Uint8List?, Activity>((ref, activity) async {
-    final provider =
-        ref.read(activityItemViewModelProvider(activity.id).notifier);
-    String userId = activity.user.id;
-    return provider.getProfilePicture(userId);
-  });
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider =
         ref.read(activityItemViewModelProvider(activity.id).notifier);
     final state = ref.watch(activityItemViewModelProvider(activity.id));
-    final futureProvider = ref.watch(futureDataProvider(activity));
-    final appLocalizations = AppLocalizations.of(context)!;
-    final formattedDate =
-        DateFormat('dd/MM/yyyy').format(activity.startDatetime);
-    final formattedTime = DateFormat('HH:mm').format(activity.startDatetime);
 
     final List<Color> colors = ColorUtils.generateColorTupleFromIndex(index);
     final startColor = colors.first;
@@ -109,37 +88,11 @@ class ActivityItem extends HookConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (displayUserName)
-                        _buildUserInformation(context, futureProvider),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(left: displayUserName ? 30 : 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                ActivityUtils.translateActivityTypeValue(
-                                  appLocalizations,
-                                  activity.type,
-                                ).toUpperCase(),
-                                style: TextStyle(
-                                  color: startColor,
-                                  fontFamily: 'Avenir',
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: displayUserName ? 30 : 0,
-                          bottom: displayUserName ? 30 : 0,
-                        ),
-                        child: _buildActivityDetails(context, appLocalizations,
-                            formattedDate, formattedTime),
-                      ),
+                        ActivityItemUserInformation(activity: activity),
+                      ActivityItemDetails(
+                          displayUserName: displayUserName,
+                          activity: activity,
+                          color: startColor),
                     ],
                   ),
                 ),
@@ -152,171 +105,13 @@ class ActivityItem extends HookConsumerWidget {
               ],
             ),
             if (displayUserName)
-              _buildLikeAndCommentsSection(
-                  ref, provider, currentActivity, state.displayComments),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildUserInformation(
-      BuildContext context, AsyncValue<Uint8List?> futureProvider) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: ColorUtils.greyLight,
-              width: 0.5,
-            ),
-          ),
-        ),
-        child: TextButton(
-          onPressed: () {
-            UserUtils.goToProfile(activity.user);
-          },
-          child: Row(
-            children: [
-              futureProvider.when(
-                data: (profilePicture) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 50,
-                      height: 50,
-                      child: profilePicture != null
-                          ? Image.memory(
-                              profilePicture,
-                              fit: BoxFit.cover,
-                            )
-                          : UserUtils.personIcon,
-                    ),
-                  );
-                },
-                loading: () {
-                  return Center(child: UIUtils.loader);
-                },
-                error: (error, stackTrace) {
-                  return UserUtils.personIcon;
-                },
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              Flexible(
-                child: Text(
-                  activity.user.firstname != null &&
-                          activity.user.lastname != null
-                      ? '${activity.user.firstname} ${activity.user.lastname}'
-                      : activity.user.username,
-                  style: TextStyle(color: ColorUtils.black),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildActivityDetails(
-    BuildContext context,
-    AppLocalizations appLocalizations,
-    String formattedDate,
-    String formattedTime,
-  ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          '${appLocalizations.date_pronoun} $formattedDate ${appLocalizations.hours_pronoun} $formattedTime',
-          style: TextStyle(
-            color: ColorUtils.greyDarker,
-            fontFamily: 'Avenir',
-          ),
-        ),
-        const SizedBox(height: 8),
-        Row(
-          children: [
-            Icon(
-              Icons.location_on,
-              color: ColorUtils.grey,
-              size: 16,
-            ),
-            const SizedBox(width: 8),
-            Text(
-              '${activity.distance.toStringAsFixed(2)} km',
-              style: TextStyle(
-                color: ColorUtils.grey,
-                fontFamily: 'Avenir',
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Icon(
-              Icons.speed,
-              color: ColorUtils.grey,
-              size: 16,
-            ),
-            const SizedBox(width: 8),
-            Text(
-              '${activity.speed.toStringAsFixed(2)} km/h',
-              style: TextStyle(
-                color: ColorUtils.grey,
-                fontFamily: 'Avenir',
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildLikeAndCommentsSection(
-      WidgetRef ref,
-      ActivityItemViewModel provider,
-      Activity currentActivity,
-      bool displayComments) {
-    return Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.comment_outlined,
-                      color: ColorUtils.black,
-                      size: 24,
-                    ),
-                    onPressed: () {
-                      provider.toggleComments();
-                    },
-                  ),
-                  Text(currentActivity.comments.length.toString()),
-                ]),
-                ActivityLike(
-                    currentActivity: currentActivity,
-                    likeFunction: provider.like,
-                    dislikeFunction: provider.dislike)
-              ],
-            ),
-            if (displayComments)
-              ActivityComments(
+              ActivityItemInteraction(
                 currentActivity: currentActivity,
-                formKey: formKey,
+                displayComments: state.displayComments,
               ),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

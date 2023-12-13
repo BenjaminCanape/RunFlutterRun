@@ -78,10 +78,9 @@ class ActivityItemViewModel extends StateNotifier<ActivityItemState> {
     ActivityComment? activityComment = await ref
         .read(activityRepositoryProvider)
         .createComment(activity.id, commentController.text);
-    Activity currentActivity = state.activity ?? activity;
-    List<ActivityComment> comments = List.from(currentActivity.comments);
-    comments.add(activityComment!);
-    setActivity(activity.copy(comments: comments));
+    List<ActivityComment> updatedComments = List.from(activity.comments)
+      ..add(activityComment!);
+    setActivity(activity.copy(comments: updatedComments));
     commentController.text = '';
   }
 
