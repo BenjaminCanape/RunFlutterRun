@@ -4,8 +4,8 @@ import '../../../../domain/entities/enum/friend_request_status.dart';
 
 import '../../../../domain/entities/user.dart';
 import '../../activity/widgets/activity_list.dart';
-import '../../core/utils/color_utils.dart';
 import '../../core/utils/ui_utils.dart';
+import '../../core/utils/user_utils.dart';
 import '../view_model/profile_view_model.dart';
 import '../widgets/friend_request.dart';
 
@@ -56,9 +56,7 @@ class ProfileScreen extends HookConsumerWidget {
                           Flexible(
                             child: Column(children: [
                               Text(
-                                user.firstname != null && user.lastname != null
-                                    ? '${user.firstname} ${user.lastname}'
-                                    : user.username,
+                                UserUtils.getNameOrUsername(user),
                                 style: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                                 overflow: TextOverflow.ellipsis,
@@ -97,17 +95,7 @@ class ProfileScreen extends HookConsumerWidget {
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: ColorUtils.main,
-              elevation: 4.0,
-              child: Icon(
-                Icons.arrow_back,
-                color: ColorUtils.white,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
+            floatingActionButton: UIUtils.createBackButton(context),
           );
   }
 }

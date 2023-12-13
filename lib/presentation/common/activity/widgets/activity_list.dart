@@ -23,6 +23,35 @@ class ActivityList extends HookConsumerWidget {
     required this.activities,
   });
 
+  List<List<Activity>> groupActivitiesByMonth(List<Activity> activities) {
+    final groupedActivities = <List<Activity>>[];
+
+    if (activities.isNotEmpty) {
+      activities.sort((a, b) => b.startDatetime.compareTo(a.startDatetime));
+
+      for (var activity in activities) {
+        if (groupedActivities.isEmpty ||
+            groupedActivities.last.first.startDatetime.month !=
+                activity.startDatetime.month) {
+          groupedActivities.add([activity]);
+        } else {
+          groupedActivities.last.add(activity);
+        }
+      }
+    }
+    return groupedActivities;
+  }
+
+  String _getMonthName(DateTime dateTime, String locale) {
+    final monthNameFormat = DateFormat('MMMM', locale);
+
+    try {
+      return monthNameFormat.format(dateTime).capitalize();
+    } catch (e) {
+      return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final groupedActivities = groupActivitiesByMonth(activities);
@@ -95,34 +124,5 @@ class ActivityList extends HookConsumerWidget {
               ),
             ),
     );
-  }
-
-  List<List<Activity>> groupActivitiesByMonth(List<Activity> activities) {
-    final groupedActivities = <List<Activity>>[];
-
-    if (activities.isNotEmpty) {
-      activities.sort((a, b) => b.startDatetime.compareTo(a.startDatetime));
-
-      for (var activity in activities) {
-        if (groupedActivities.isEmpty ||
-            groupedActivities.last.first.startDatetime.month !=
-                activity.startDatetime.month) {
-          groupedActivities.add([activity]);
-        } else {
-          groupedActivities.last.add(activity);
-        }
-      }
-    }
-    return groupedActivities;
-  }
-
-  String _getMonthName(DateTime dateTime, String locale) {
-    final monthNameFormat = DateFormat('MMMM', locale);
-
-    try {
-      return monthNameFormat.format(dateTime).capitalize();
-    } catch (e) {
-      return '';
-    }
   }
 }

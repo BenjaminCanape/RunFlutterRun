@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/presentation/common/core/utils/type_utils.dart';
 import 'package:wakelock/wakelock.dart';
 
 import '../../../../../main.dart';
@@ -16,8 +17,9 @@ final timerViewModelProvider =
 
 class TimerViewModel extends StateNotifier<TimerState> {
   final Ref ref;
-  Timer? timer;
-  Stopwatch stopwatch = Stopwatch();
+  late Timer? timer;
+  late final Stopwatch stopwatch = Stopwatch();
+  final Duration _timerDuration = const Duration(seconds: 1);
 
   /// Represents the view model for a timer.
   TimerViewModel(this.ref) : super(TimerState.initial());
@@ -27,7 +29,7 @@ class TimerViewModel extends StateNotifier<TimerState> {
     bool isRunning = hasTimerStarted();
     stopwatch.start();
     state = state.copyWith(startDatetime: DateTime.now(), isRunning: true);
-    timer = Timer.periodic(const Duration(seconds: 1), updateTime);
+    timer = Timer.periodic(_timerDuration, updateTime);
     if (!isRunning) {
       ref.read(textToSpeechService).sayGoodLuck();
       Wakelock.enable();
@@ -55,7 +57,12 @@ class TimerViewModel extends StateNotifier<TimerState> {
   /// Stops the timer.
   void stopTimer() async {
     stopwatch.stop();
+    await announceResults();
+    resetTimerState();
+    navigateToSummaryScreen();
+  }
 
+  Future<void> announceResults() async {
     final appProvider = ref.read(myAppProvider);
     final l10nConf = await appProvider.getLocalizedConf();
     final metricsProvider = ref.read(metricsViewModelProvider);
@@ -66,7 +73,7 @@ class TimerViewModel extends StateNotifier<TimerState> {
 
     textToSay.write('${l10nConf.congrats}.');
 
-    String distanceStr = distance.toStringAsFixed(2);
+    String distanceStr = distance.formatAsFixed(2);
     String kmStr = distanceStr.split('.')[0];
     String metersStr = distanceStr.split('.')[1];
 
@@ -91,7 +98,7 @@ class TimerViewModel extends StateNotifier<TimerState> {
 
     textToSay.write('${l10nConf.duration}: $duration.');
 
-    String speedStr = globalSpeed.toStringAsFixed(2);
+    String speedStr = globalSpeed.formatAsFixed(2);
     String km = speedStr.split('.')[0];
     String meters = speedStr.split('.')[1];
 
@@ -106,12 +113,16 @@ class TimerViewModel extends StateNotifier<TimerState> {
     await ref.read(textToSpeechService).say(textToSay.toString());
 
     ref.read(locationViewModelProvider.notifier).cancelLocationStream();
+  }
 
+  void resetTimerState() {
     stopwatch.reset();
     timer?.cancel();
     state = state.copyWith(isRunning: false);
-
     Wakelock.disable();
+  }
+
+  void navigateToSummaryScreen() {
     navigatorKey.currentState?.pushNamed('/sumup');
   }
 
