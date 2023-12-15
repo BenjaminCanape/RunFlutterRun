@@ -62,7 +62,7 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
           hasCurrentUserLiked: activity.hasCurrentUserLiked,
           locations: const [],
           user: activity.user,
-          comments: const []);
+          comments: activity.comments);
 
       ref
           .read(activityListViewModelProvider)
