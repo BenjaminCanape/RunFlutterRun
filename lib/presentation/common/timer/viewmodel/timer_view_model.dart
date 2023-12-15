@@ -77,13 +77,8 @@ class TimerViewModel extends StateNotifier<TimerState> {
     String kmStr = distanceStr.split('.')[0];
     String metersStr = distanceStr.split('.')[1];
 
-    if (metersStr.startsWith('0')) {
-      textToSay
-          .write("${l10nConf.distance}: $distanceStr ${l10nConf.kilometers}.");
-    } else {
-      textToSay.write(
-          "${l10nConf.distance}: $kmStr,$metersStr ${l10nConf.kilometers}.");
-    }
+    textToSay.write(
+        "${l10nConf.distance}: $kmStr,$metersStr ${l10nConf.kilometers}.");
 
     var duration = StringBuffer();
     if (state.hours != 0) {
@@ -102,13 +97,8 @@ class TimerViewModel extends StateNotifier<TimerState> {
     String km = speedStr.split('.')[0];
     String meters = speedStr.split('.')[1];
 
-    if (meters.startsWith('0')) {
-      textToSay.write(
-          "${l10nConf.speed}: $speedStr ${l10nConf.kilometers} ${l10nConf.per} ${l10nConf.hours}");
-    } else {
-      textToSay.write(
-          "${l10nConf.speed}: $km,$meters ${l10nConf.kilometers} ${l10nConf.per} ${l10nConf.hours}");
-    }
+    textToSay.write(
+        "${l10nConf.speed}: $km,$meters ${l10nConf.kilometers} ${l10nConf.per} ${l10nConf.hours}");
 
     await ref.read(textToSpeechService).say(textToSay.toString());
 

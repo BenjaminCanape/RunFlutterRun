@@ -70,16 +70,8 @@ class MetricsViewModel extends StateNotifier<MetricsState> {
       String km = speedStr.split('.')[0];
       String meters = speedStr.split('.')[1];
 
-      if (meters.startsWith('0')) {
-        textToSay
-            .write("${l10nConf.distance}: $speedStr ${l10nConf.kilometers}.");
-      } else {
-        textToSay
-            .write("${l10nConf.distance}: $km,$meters ${l10nConf.kilometers}.");
-      }
-
       textToSay.write(
-          "${l10nConf.speed}: $km,$meters ${l10nConf.kilometers} ${l10nConf.per} ${l10nConf.hours}");
+          "${l10nConf.speed}: $km,$meters ${l10nConf.kilometers} ${l10nConf.per} ${l10nConf.hours}.");
 
       await textToSpeech.say(textToSay.toString());
     }
