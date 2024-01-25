@@ -2,25 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../domain/entities/activity.dart';
 import '../../core/utils/color_utils.dart';
-import '../view_model/activity_item_view_model.dart';
+import '../view_model/activity_item_comments_view_model.dart';
+import '../view_model/activity_item_interaction_view_model.dart';
 import 'activity_comments.dart';
 import 'activty_like.dart';
 
 class ActivityItemInteraction extends HookConsumerWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final Activity currentActivity;
-  final bool displayComments;
 
   ActivityItemInteraction({
     super.key,
     required this.currentActivity,
-    required this.displayComments,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider =
-        ref.read(activityItemViewModelProvider(currentActivity.id).notifier);
+    final provider = ref.read(
+        activityItemInteractionViewModelProvider(currentActivity.id).notifier);
+
+    final state =
+        ref.watch(activityItemInteractionViewModelProvider(currentActivity.id));
+    final commentsState =
+        ref.watch(activityItemCommentsViewModelProvider(currentActivity.id));
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16),
       child: Column(
@@ -36,17 +40,13 @@ class ActivityItemInteraction extends HookConsumerWidget {
                         color: ColorUtils.black, size: 24),
                     onPressed: () => provider.toggleComments(),
                   ),
-                  Text(currentActivity.comments.length.toString()),
+                  Text(commentsState.comments.length.toString()),
                 ],
               ),
-              ActivityLike(
-                currentActivity: currentActivity,
-                likeFunction: provider.like,
-                dislikeFunction: provider.dislike,
-              ),
+              ActivityLike(currentActivity: currentActivity),
             ],
           ),
-          if (displayComments)
+          if (state.displayComments)
             ActivityComments(
                 currentActivity: currentActivity, formKey: formKey),
         ],

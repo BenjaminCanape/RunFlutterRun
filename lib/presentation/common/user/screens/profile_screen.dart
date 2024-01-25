@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../../../domain/entities/page.dart';
+import '../../../../domain/entities/activity.dart';
 import '../../../../domain/entities/enum/friend_request_status.dart';
 
 import '../../../../domain/entities/user.dart';
@@ -17,15 +19,25 @@ class ProfileScreen extends HookConsumerWidget {
   final futureDataProvider =
       FutureProvider.family<void, User>((ref, user) async {
     String userId = user.id;
-    final profileProvider = ref.read(profileViewModelProvider.notifier);
+    final profileProvider = ref.read(profileViewModelProvider(userId).notifier);
     profileProvider.getFriendshipStatus(userId);
     profileProvider.getProfilePicture(userId);
   });
 
+  final activitiesDataFutureProvider =
+      FutureProvider.family<EntityPage<Activity>, User>((ref, user) async {
+    String userId = user.id;
+    final provider = ref.read(profileViewModelProvider(userId).notifier);
+    return await provider.fetchActivities();
+  });
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var state = ref.watch(profileViewModelProvider);
+    var state = ref.watch(profileViewModelProvider(user.id));
+    var provider = ref.watch(profileViewModelProvider(user.id).notifier);
     final futureProvider = ref.watch(futureDataProvider(user));
+
+    var activitiesStateProvider = ref.watch(activitiesDataFutureProvider(user));
 
     return state.isLoading
         ? Center(child: UIUtils.loader)
@@ -86,9 +98,21 @@ class ProfileScreen extends HookConsumerWidget {
                       )),
                   const Divider(),
                   const SizedBox(height: 20),
-                  ActivityList(
-                    activities: state.activities,
-                    canOpenActivity: false,
+                  activitiesStateProvider.when(
+                    data: (initialData) {
+                      return ActivityList(
+                          id: 'PROFILE_${user.id}',
+                          activities: initialData.list,
+                          total: initialData.total,
+                          canOpenActivity: false,
+                          bottomListScrollFct: provider.fetchActivities);
+                    },
+                    loading: () {
+                      return Center(child: UIUtils.loader);
+                    },
+                    error: (error, stackTrace) {
+                      return Text('$error');
+                    },
                   )
                 ],
               ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../../../domain/entities/enum/friend_request_status.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../../../domain/entities/enum/friend_request_status.dart';
 import '../../core/utils/color_utils.dart';
 import '../view_model/profile_view_model.dart';
 
@@ -12,8 +13,8 @@ class FriendRequestWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.read(profileViewModelProvider.notifier);
-    final state = ref.watch(profileViewModelProvider);
+    final provider = ref.read(profileViewModelProvider(userId).notifier);
+    final state = ref.watch(profileViewModelProvider(userId));
 
     if (state.friendshipStatus == FriendRequestStatus.pending) {
       return _buildStatusWidget(context, Icons.access_time, ColorUtils.warning,

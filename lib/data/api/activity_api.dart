@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import '../model/request/activity_request.dart';
 import '../model/response/activity_comment_response.dart';
 import '../model/response/activity_response.dart';
+import '../model/response/page_response.dart';
 import 'helpers/api_helper.dart';
 
 /// API methods for managing activities.
@@ -12,32 +13,47 @@ class ActivityApi {
   /// Retrieves a list of activities.
   ///
   /// Returns a list of [ActivityResponse] objects.
-  static Future<List<ActivityResponse>> getActivities() async {
-    Response? response =
-        await ApiHelper.makeRequest('${ActivityApi.url}all', 'GET');
-    final data = List<Map<String, dynamic>>.from(response?.data);
-    return data.map((e) => ActivityResponse.fromMap(e)).toList();
+  static Future<PageResponse<ActivityResponse>> getActivities(
+      int pageNumber) async {
+    Response? response = await ApiHelper.makeRequest(
+        '${ActivityApi.url}all', 'GET',
+        queryParams: {'page': pageNumber, 'size': 5});
+
+    PageResponse pageResponse = PageResponse.fromMap(response?.data);
+    final data = List<Map<String, dynamic>>.from(pageResponse.list);
+    List<ActivityResponse> activities =
+        data.map((e) => ActivityResponse.fromMap(e)).toList();
+    return PageResponse(list: activities, total: pageResponse.total);
   }
 
   /// Retrieves a list of my activities and my friends.
   ///
   /// Returns a list of [ActivityResponse] objects.
-  static Future<List<ActivityResponse>> getMyAndMyFriendsActivities() async {
+  static Future<PageResponse<ActivityResponse>> getMyAndMyFriendsActivities(
+      int pageNumber) async {
     Response? response = await ApiHelper.makeRequest(
         '${ActivityApi.url}friends', 'GET',
-        noCache: true);
-    final data = List<Map<String, dynamic>>.from(response?.data);
-    return data.map((e) => ActivityResponse.fromMap(e)).toList();
+        queryParams: {'page': pageNumber, 'size': 3}, noCache: true);
+    PageResponse pageResponse = PageResponse.fromMap(response?.data);
+    final data = List<Map<String, dynamic>>.from(pageResponse.list);
+    List<ActivityResponse> activities =
+        data.map((e) => ActivityResponse.fromMap(e)).toList();
+    return PageResponse(list: activities, total: pageResponse.total);
   }
 
   /// Retrieves a list of a user activities.
   ///
   /// Returns a list of [ActivityResponse] objects.
-  static Future<List<ActivityResponse>> getUserActivities(String userId) async {
-    Response? response =
-        await ApiHelper.makeRequest('${ActivityApi.url}user/$userId', 'GET');
-    final data = List<Map<String, dynamic>>.from(response?.data);
-    return data.map((e) => ActivityResponse.fromMap(e)).toList();
+  static Future<PageResponse<ActivityResponse>> getUserActivities(
+      String userId, int pageNumber) async {
+    Response? response = await ApiHelper.makeRequest(
+        '${ActivityApi.url}user/$userId', 'GET',
+        queryParams: {'page': pageNumber, 'size': 5});
+    PageResponse pageResponse = PageResponse.fromMap(response?.data);
+    final data = List<Map<String, dynamic>>.from(pageResponse.list);
+    List<ActivityResponse> activities =
+        data.map((e) => ActivityResponse.fromMap(e)).toList();
+    return PageResponse(list: activities, total: pageResponse.total);
   }
 
   /// Retrieves an activity by its ID.

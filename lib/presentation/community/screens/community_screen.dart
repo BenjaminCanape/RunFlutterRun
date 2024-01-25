@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import '../../../domain/entities/activity.dart';
+import '../../../domain/entities/page.dart';
+import '../../../domain/entities/user.dart';
+
 import '../../common/activity/widgets/activity_list.dart';
 import '../../common/core/utils/color_utils.dart';
 import '../../common/core/utils/form_utils.dart';
@@ -18,17 +20,18 @@ class CommunityScreen extends HookConsumerWidget {
 
   CommunityScreen({super.key});
 
-  final pendingRequestsDataFutureProvider = FutureProvider<void>((ref) async {
+  final pendingRequestsDataFutureProvider = FutureProvider<int>((ref) async {
     final pendingRequestsProvider =
         ref.watch(pendingRequestsViewModelProvider.notifier);
-    pendingRequestsProvider.getPendingRequests();
+    EntityPage<User> users =
+        await pendingRequestsProvider.fetchPendingRequests();
+    return users.total;
   });
 
   final communityDataFutureProvider =
-      FutureProvider<List<Activity>>((ref) async {
+      FutureProvider<EntityPage<Activity>>((ref) async {
     final communityProvider = ref.read(communityViewModelProvider.notifier);
-    final activities = await communityProvider.getMyAndMyFriendsActivities();
-    return activities;
+    return await communityProvider.getInitialMyAndMyFriendsActivities();
   });
 
   @override
@@ -48,8 +51,8 @@ class CommunityScreen extends HookConsumerWidget {
         ),
         body: Column(children: [
           pendingRequestsStateProvider.when(
-            data: (_) {
-              return pendingRequestsState.pendingRequests.isNotEmpty
+            data: (total) {
+              return total > 0
                   ? Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(
@@ -69,7 +72,7 @@ class CommunityScreen extends HookConsumerWidget {
                                     begin: const Offset(1.0, 0.0),
                                     end: Offset.zero,
                                   ).animate(animation),
-                                  child: const PendingRequestsScreen(),
+                                  child: PendingRequestsScreen(),
                                 ),
                               ),
                             );
@@ -77,8 +80,7 @@ class CommunityScreen extends HookConsumerWidget {
                           child: Align(
                               alignment: Alignment.center,
                               child: Badge.count(
-                                  count: pendingRequestsState
-                                      .pendingRequests.length,
+                                  count: total,
                                   textColor: ColorUtils.black,
                                   backgroundColor: ColorUtils.white,
                                   child: Padding(
@@ -110,11 +112,15 @@ class CommunityScreen extends HookConsumerWidget {
             },
           ),
           communityStateProvider.when(
-            data: (activities) {
+            data: (initialData) {
               return ActivityList(
-                activities: activities,
+                id: 'COMMUNITY_LIST',
+                activities: initialData.list,
+                total: initialData.total,
                 displayUserName: true,
                 canOpenActivity: false,
+                bottomListScrollFct:
+                    provider.getInitialMyAndMyFriendsActivities,
               );
             },
             loading: () {

@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../common/activity/view_model/activity_list_view_model.dart';
 
 import '../../../data/model/request/activity_request.dart';
 import '../../../data/repositories/activity_repository_impl.dart';
@@ -62,6 +63,12 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
       ref.read(locationViewModelProvider.notifier).resetSavedPositions();
       ref.read(metricsViewModelProvider.notifier).reset();
       ref.read(locationViewModelProvider.notifier).startGettingLocation();
+      ref
+          .read(activityListWidgetViewModelProvider('MY_ACTIVITIES').notifier)
+          .reset();
+      ref
+          .read(activityListWidgetViewModelProvider('COMMUNITY_LIST').notifier)
+          .reset();
 
       state = state.copyWith(isSaving: false);
       navigatorKey.currentState?.pop();

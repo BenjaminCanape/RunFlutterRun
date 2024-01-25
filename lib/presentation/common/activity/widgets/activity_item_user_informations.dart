@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../../domain/entities/activity.dart';
 import '../../core/utils/color_utils.dart';
 import '../../core/utils/ui_utils.dart';

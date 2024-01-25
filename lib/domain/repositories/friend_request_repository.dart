@@ -1,11 +1,12 @@
 import '../entities/enum/friend_request_status.dart';
 import '../entities/friend_request.dart';
+import '../entities/page.dart';
 import '../entities/user.dart';
 
 /// Abstract class representing the friend request repository.
 abstract class FriendRequestRepository {
   /// Get the users for whom I have a pending friend request
-  Future<List<User>> getPendingRequestUsers();
+  Future<EntityPage<User>> getPendingRequestUsers({int pageNumber});
 
   /// Get the status of the friend request I have with the user
   Future<FriendRequestStatus?> getStatus(String userId);

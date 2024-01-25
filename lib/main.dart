@@ -79,7 +79,7 @@ class MyApp extends HookConsumerWidget {
         '/register': (context) => RegistrationScreen(),
         '/login': (context) => LoginScreen(),
         '/sumup': (context) => const SumUpScreen(),
-        '/activity_list': (context) => const ActivityListScreen()
+        '/activity_list': (context) => ActivityListScreen()
       },
       navigatorKey: navigatorKey,
       title: 'Run Flutter Run',
