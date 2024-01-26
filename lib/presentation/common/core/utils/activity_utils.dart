@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../domain/entities/activity.dart';
 import '../../../../domain/entities/enum/activity_type.dart';
 import '../../../my_activities/view_model/activity_details_view_model.dart';
 import '../../../new_activity/view_model/sum_up_view_model.dart';
@@ -67,5 +68,18 @@ class ActivityUtils {
         }
       },
     );
+  }
+
+  static List<List<Activity>> replaceActivity(
+      List<List<Activity>> activities, Activity updatedActivity) {
+    return activities.map((innerList) {
+      return innerList.map((activity) {
+        if (activity.id == updatedActivity.id) {
+          return updatedActivity;
+        } else {
+          return activity;
+        }
+      }).toList();
+    }).toList();
   }
 }

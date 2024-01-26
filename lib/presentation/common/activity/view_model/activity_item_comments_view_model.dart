@@ -3,6 +3,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../data/repositories/activity_repository_impl.dart';
 import '../../../../domain/entities/activity.dart';
 import '../../../../domain/entities/activity_comment.dart';
+import '../../core/enums/infinite_scroll_list.enum.dart';
+import '../../core/utils/activity_utils.dart';
+import '../../core/widgets/view_model/infinite_scroll_list_view_model.dart';
 import 'state/activity_item_comments_state.dart';
 
 /// Provider for the activity item interaction view model.
@@ -40,5 +43,20 @@ class ActivityItemCommentsViewModel
       ..add(activityComment!);
     setComments(updatedComments);
     commentController.text = '';
+
+    List<List<Activity>> activities = ref
+        .read(infiniteScrollListViewModelProvider(
+          InfiniteScrollListEnum.community.toString(),
+        ))
+        .data as List<List<Activity>>;
+
+    var updatedActivities = ActivityUtils.replaceActivity(
+        activities, activity.copy(comments: updatedComments));
+
+    ref
+        .read(infiniteScrollListViewModelProvider(
+          InfiniteScrollListEnum.community.toString(),
+        ).notifier)
+        .replaceData(updatedActivities);
   }
 }

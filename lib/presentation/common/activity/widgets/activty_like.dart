@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../view_model/activity_item_like_view_model.dart';
+
 import '../../../../domain/entities/activity.dart';
 import '../../core/utils/color_utils.dart';
+import '../view_model/activity_item_like_view_model.dart';
 
 class ActivityLike extends HookConsumerWidget {
   final Activity currentActivity;

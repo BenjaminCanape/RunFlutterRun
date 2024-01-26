@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../core/enums/infinite_scroll_list.enum.dart';
 import '../../../../domain/entities/page.dart';
 import '../../../../domain/entities/activity.dart';
 import '../../../../domain/entities/enum/friend_request_status.dart';
@@ -101,7 +102,7 @@ class ProfileScreen extends HookConsumerWidget {
                   activitiesStateProvider.when(
                     data: (initialData) {
                       return ActivityList(
-                          id: 'PROFILE_${user.id}',
+                          id: '${InfiniteScrollListEnum.profile}_${user.id}',
                           activities: initialData.list,
                           total: initialData.total,
                           canOpenActivity: false,

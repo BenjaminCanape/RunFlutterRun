@@ -32,6 +32,11 @@ class InfiniteScrollListViewModel
         data: data, pageNumber: state.pageNumber + 1, position: pos);
   }
 
+  /// Replace data in the state
+  void replaceData(List<dynamic> data) {
+    state = state.copyWith(data: data);
+  }
+
   /// Add data in the state
   void addData(List<dynamic> data, double pos) {
     var currentData = state.data;

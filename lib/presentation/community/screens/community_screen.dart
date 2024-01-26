@@ -6,6 +6,7 @@ import '../../../domain/entities/page.dart';
 import '../../../domain/entities/user.dart';
 
 import '../../common/activity/widgets/activity_list.dart';
+import '../../common/core/enums/infinite_scroll_list.enum.dart';
 import '../../common/core/utils/color_utils.dart';
 import '../../common/core/utils/form_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
@@ -114,7 +115,7 @@ class CommunityScreen extends HookConsumerWidget {
           communityStateProvider.when(
             data: (initialData) {
               return ActivityList(
-                id: 'COMMUNITY_LIST',
+                id: InfiniteScrollListEnum.community.toString(),
                 activities: initialData.list,
                 total: initialData.total,
                 displayUserName: true,

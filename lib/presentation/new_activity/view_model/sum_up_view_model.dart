@@ -1,5 +1,4 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../common/activity/view_model/activity_list_view_model.dart';
 
 import '../../../data/model/request/activity_request.dart';
 import '../../../data/repositories/activity_repository_impl.dart';
@@ -8,6 +7,8 @@ import '../../../domain/entities/enum/activity_type.dart';
 import '../../../domain/entities/location.dart';
 import '../../../domain/entities/user.dart';
 import '../../../main.dart';
+import '../../common/activity/view_model/activity_list_view_model.dart';
+import '../../common/core/enums/infinite_scroll_list.enum.dart';
 import '../../common/location/view_model/location_view_model.dart';
 import '../../common/metrics/view_model/metrics_view_model.dart';
 import '../../common/timer/viewmodel/timer_view_model.dart';
@@ -64,10 +65,14 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
       ref.read(metricsViewModelProvider.notifier).reset();
       ref.read(locationViewModelProvider.notifier).startGettingLocation();
       ref
-          .read(activityListWidgetViewModelProvider('MY_ACTIVITIES').notifier)
+          .read(activityListWidgetViewModelProvider(
+            InfiniteScrollListEnum.myActivities.toString(),
+          ).notifier)
           .reset();
       ref
-          .read(activityListWidgetViewModelProvider('COMMUNITY_LIST').notifier)
+          .read(activityListWidgetViewModelProvider(
+            InfiniteScrollListEnum.community.toString(),
+          ).notifier)
           .reset();
 
       state = state.copyWith(isSaving: false);
