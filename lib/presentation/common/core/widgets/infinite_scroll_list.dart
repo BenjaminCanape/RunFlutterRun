@@ -20,9 +20,9 @@ class InfiniteScrollList extends HookConsumerWidget {
   final Widget Function(BuildContext context, List<dynamic> list, int item)
       itemBuildFunction;
   final bool Function(List<dynamic> data, int total) hasMoreData;
-  final debouncer =
-      Debouncer(const Duration(milliseconds: 1000), milliseconds: 1000);
+  final debouncer = Debouncer(milliseconds: 1000);
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
+  final ScrollController scrollController = ScrollController();
 
   InfiniteScrollList(
       {super.key,
@@ -40,7 +40,7 @@ class InfiniteScrollList extends HookConsumerWidget {
 
       try {
         final newData = await loadData(state.pageNumber);
-        double newPos = provider.scrollController.offset;
+        double newPos = scrollController.position.pixels;
 
         if (state.data is List<List<dynamic>>) {
           provider.setData(
@@ -50,12 +50,10 @@ class InfiniteScrollList extends HookConsumerWidget {
         } else {
           provider.addData(newData.list, newPos);
         }
-        /*int totalElements =
-            state.data.fold(0, (sum, list) => sum + list.length as int);
-        _listKey.currentState?.insertItem(totalElements);*/
-        provider.scrollController.jumpTo(newPos);
-        //provider.setPosition(
-        //   provider.scrollController.offset + ui.window.physicalSize.height);
+
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          scrollController.jumpTo(newPos);
+        });
       } finally {
         provider.setIsLoading(false);
       }
@@ -91,9 +89,9 @@ class InfiniteScrollList extends HookConsumerWidget {
     final provider =
         ref.watch(infiniteScrollListViewModelProvider(listId).notifier);
 
-    provider.scrollController.addListener(() => debouncer.run(() {
-          if (provider.scrollController.position.pixels >=
-                  provider.scrollController.position.maxScrollExtent &&
+    scrollController.addListener(() => debouncer.run(() {
+          if (scrollController.position.pixels >=
+                  scrollController.position.maxScrollExtent &&
               !state.isLoading & hasMoreData(state.data, total)) {
             loadMoreData(state, provider);
           }
@@ -106,7 +104,7 @@ class InfiniteScrollList extends HookConsumerWidget {
 
     return ListView.builder(
       key: _listKey,
-      controller: provider.scrollController,
+      controller: scrollController,
       itemCount: state.data.length + (hasMoreData(state.data, total) ? 1 : 0),
       itemBuilder: (context, index) {
         if (index < state.data.length) {

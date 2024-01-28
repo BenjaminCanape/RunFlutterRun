@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'state/infinite_scroll_list_state.dart';
@@ -16,7 +15,6 @@ class InfiniteScrollListViewModel
     extends StateNotifier<InfiniteScrollListState> {
   final String listId;
   final Ref ref;
-  final ScrollController scrollController = ScrollController();
 
   InfiniteScrollListViewModel(this.ref, this.listId)
       : super(InfiniteScrollListState.initial());
