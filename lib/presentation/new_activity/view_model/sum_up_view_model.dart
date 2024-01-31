@@ -1,5 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:run_flutter_run/presentation/common/core/widgets/view_model/infinite_scroll_list_view_model.dart';
 
+import '../../../core/utils/storage_utils.dart';
 import '../../../data/model/request/activity_request.dart';
 import '../../../data/repositories/activity_repository_impl.dart';
 import '../../../domain/entities/activity.dart';
@@ -7,7 +9,6 @@ import '../../../domain/entities/enum/activity_type.dart';
 import '../../../domain/entities/location.dart';
 import '../../../domain/entities/user.dart';
 import '../../../main.dart';
-import '../../common/activity/view_model/activity_list_view_model.dart';
 import '../../common/core/enums/infinite_scroll_list.enum.dart';
 import '../../common/location/view_model/location_view_model.dart';
 import '../../common/metrics/view_model/metrics_view_model.dart';
@@ -38,7 +39,7 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
   }
 
   /// Saves the activity.
-  void save() {
+  void save() async {
     state = state.copyWith(isSaving: true);
 
     final startDatetime = ref.read(timerViewModelProvider).startDatetime;
@@ -59,21 +60,30 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
           distance: ref.read(metricsViewModelProvider).distance,
           locations: locations,
         ))
-        .then((value) {
+        .then((value) async {
       ref.read(timerViewModelProvider.notifier).resetTimer();
       ref.read(locationViewModelProvider.notifier).resetSavedPositions();
       ref.read(metricsViewModelProvider.notifier).reset();
       ref.read(locationViewModelProvider.notifier).startGettingLocation();
       ref
-          .read(activityListWidgetViewModelProvider(
+          .read(infiniteScrollListViewModelProvider(
             InfiniteScrollListEnum.myActivities.toString(),
           ).notifier)
           .reset();
       ref
-          .read(activityListWidgetViewModelProvider(
+          .read(infiniteScrollListViewModelProvider(
             InfiniteScrollListEnum.community.toString(),
           ).notifier)
           .reset();
+
+      User? currentUser = await StorageUtils.getUser();
+      if (currentUser != null) {
+        ref
+            .read(infiniteScrollListViewModelProvider(
+              '${InfiniteScrollListEnum.profile}_${currentUser.id}',
+            ).notifier)
+            .reset();
+      }
 
       state = state.copyWith(isSaving: false);
       navigatorKey.currentState?.pop();
