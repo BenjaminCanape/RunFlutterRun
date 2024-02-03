@@ -90,7 +90,13 @@ class ActivityUtils {
 
   static List<List<Activity>> deleteActivity(
       List<List<Activity>> activities, Activity activityToDelete) {
-    return activities
+    var newData = activities.map((innerList) {
+      return innerList
+          .where((activity) => activity.id != activityToDelete.id)
+          .toList();
+    }).toList();
+
+    return newData
         .where((innerList) =>
             innerList.any((activity) => activity.id != activityToDelete.id))
         .toList();
