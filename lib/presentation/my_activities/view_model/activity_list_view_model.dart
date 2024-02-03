@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../data/repositories/activity_repository_impl.dart';
 import '../../../domain/entities/activity.dart';
+import '../../../domain/entities/page.dart';
 import '../../../main.dart';
 import '../screens/activity_details_screen.dart';
 import 'state/activity_list_state.dart';
@@ -16,21 +17,17 @@ final activityListViewModelProvider =
 class ActivityListViewModel extends StateNotifier<ActivityListState> {
   late final Ref ref;
 
-  ActivityListViewModel(this.ref) : super(ActivityListState.initial()) {
-    fetchActivities();
-  }
+  ActivityListViewModel(this.ref) : super(ActivityListState.initial());
 
   /// Fetches the list of activities.
-  Future<void> fetchActivities() async {
-    state = state.copyWith(isLoading: true);
-
+  Future<EntityPage<Activity>> fetchActivities({int pageNumber = 0}) async {
     try {
-      final activities =
-          await ref.read(activityRepositoryProvider).getActivities();
-      state = state.copyWith(activities: activities, isLoading: false);
+      final newActivities = await ref
+          .read(activityRepositoryProvider)
+          .getActivities(pageNumber: pageNumber);
+      return newActivities;
     } catch (error) {
-      // Handle error
-      state = state.copyWith(isLoading: false);
+      return EntityPage(list: List.empty(), total: 0);
     }
   }
 

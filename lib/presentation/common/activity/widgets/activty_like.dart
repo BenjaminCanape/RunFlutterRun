@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../../domain/entities/activity.dart';
 import '../../core/utils/color_utils.dart';
+import '../view_model/activity_item_like_view_model.dart';
 
-class ActivityLike extends StatelessWidget {
+class ActivityLike extends HookConsumerWidget {
   final Activity currentActivity;
-  final Function likeFunction;
-  final Function dislikeFunction;
 
-  const ActivityLike(
-      {super.key,
-      required this.currentActivity,
-      required this.likeFunction,
-      required this.dislikeFunction});
+  const ActivityLike({super.key, required this.currentActivity});
 
   @override
-  Widget build(BuildContext buildContext) {
-    bool hasCurrentUserLiked = currentActivity.hasCurrentUserLiked;
+  Widget build(BuildContext buildContext, WidgetRef ref) {
+    bool hasCurrentUserLiked = ref
+        .watch(activityItemLikeViewModelProvider(currentActivity.id))
+        .hasUserLiked;
+
+    double likesCount =
+        ref.watch(activityItemLikeViewModelProvider(currentActivity.id)).likes;
+
+    final provider = ref
+        .read(activityItemLikeViewModelProvider(currentActivity.id).notifier);
 
     return Padding(
       padding: const EdgeInsets.only(left: 16),
@@ -32,14 +37,14 @@ class ActivityLike extends StatelessWidget {
                 ),
                 onPressed: () {
                   if (hasCurrentUserLiked) {
-                    dislikeFunction(currentActivity);
+                    provider.dislike(currentActivity);
                   } else {
-                    likeFunction(currentActivity);
+                    provider.like(currentActivity);
                   }
                 },
               ),
               Text(
-                '${currentActivity.likesCount.ceil()}',
+                '${likesCount.ceil()}',
                 style: TextStyle(
                   color: ColorUtils.grey,
                   fontFamily: 'Avenir',

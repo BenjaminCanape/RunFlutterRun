@@ -2,6 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/entities/activity.dart';
 import '../../domain/entities/activity_comment.dart';
+import '../../domain/entities/page.dart';
 import '../../domain/repositories/activity_repository.dart';
 import '../api/activity_api.dart';
 import '../model/request/activity_request.dart';
@@ -15,21 +16,32 @@ class ActivityRepositoryImpl extends ActivityRepository {
   ActivityRepositoryImpl();
 
   @override
-  Future<List<Activity>> getActivities() async {
-    final activityResponses = await ActivityApi.getActivities();
-    return activityResponses.map((response) => response.toEntity()).toList();
+  Future<EntityPage<Activity>> getActivities({int pageNumber = 0}) async {
+    final activityResponses = await ActivityApi.getActivities(pageNumber);
+    List<Activity> activities =
+        activityResponses.list.map((response) => response.toEntity()).toList();
+    return EntityPage(list: activities, total: activityResponses.total);
   }
 
   @override
-  Future<List<Activity>> getMyAndMyFriendsActivities() async {
-    final activityResponses = await ActivityApi.getMyAndMyFriendsActivities();
-    return activityResponses.map((response) => response.toEntity()).toList();
+  Future<EntityPage<Activity>> getMyAndMyFriendsActivities(
+      {int pageNumber = 0}) async {
+    final activityResponses =
+        await ActivityApi.getMyAndMyFriendsActivities(pageNumber);
+
+    List<Activity> activities =
+        activityResponses.list.map((response) => response.toEntity()).toList();
+    return EntityPage(list: activities, total: activityResponses.total);
   }
 
   @override
-  Future<List<Activity>> getUserActivities(String userId) async {
-    final activityResponses = await ActivityApi.getUserActivities(userId);
-    return activityResponses.map((response) => response.toEntity()).toList();
+  Future<EntityPage<Activity>> getUserActivities(String userId,
+      {int pageNumber = 0}) async {
+    final activityResponses =
+        await ActivityApi.getUserActivities(userId, pageNumber);
+    List<Activity> activities =
+        activityResponses.list.map((response) => response.toEntity()).toList();
+    return EntityPage(list: activities, total: activityResponses.total);
   }
 
   @override

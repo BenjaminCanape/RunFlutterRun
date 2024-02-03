@@ -11,9 +11,9 @@ import '../../../data/repositories/activity_repository_impl.dart';
 import '../../../domain/entities/activity.dart';
 import '../../../domain/entities/enum/activity_type.dart';
 import '../../../main.dart';
+import '../../common/core/utils/activity_utils.dart';
 import '../../home/screens/home_screen.dart';
 import '../../home/view_model/home_view_model.dart';
-import 'activity_list_view_model.dart';
 import 'state/activitie_details_state.dart';
 
 /// Provider for the activity details view model.
@@ -63,11 +63,7 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
           locations: const [],
           user: activity.user,
           comments: activity.comments);
-
-      ref
-          .read(activityListViewModelProvider)
-          .activities
-          .remove(activityWithoutLocations);
+      ActivityUtils.updateActivity(ref, activityWithoutLocations, 'remove');
 
       navigatorKey.currentState?.pop();
       navigatorKey.currentState?.pop();
@@ -112,17 +108,7 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
       StorageUtils.removeCachedDataFromUrl(
           '${ActivityApi.url}${activityEdited.id}');
       state = state.copyWith(activity: activityEdited);
-
-      final activityListViewModel =
-          ref.read(activityListViewModelProvider.notifier);
-      final activities = [...activityListViewModel.state.activities];
-
-      final index =
-          activities.indexWhere((element) => element.id == activityEdited.id);
-      if (index != -1) {
-        activities[index] = activityEdited;
-        activityListViewModel.reloadActivities(activities);
-      }
+      ActivityUtils.updateActivity(ref, activityEdited, 'edit');
     }).whenComplete(() {
       state = state.copyWith(isLoading: false);
     });

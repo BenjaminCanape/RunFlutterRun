@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
+import '../../common/core/utils/activity_utils.dart';
 import '../../../data/model/request/activity_request.dart';
 import '../../../data/repositories/activity_repository_impl.dart';
 import '../../../domain/entities/activity.dart';
@@ -36,7 +36,7 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
   }
 
   /// Saves the activity.
-  void save() {
+  void save() async {
     state = state.copyWith(isSaving: true);
 
     final startDatetime = ref.read(timerViewModelProvider).startDatetime;
@@ -57,7 +57,8 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
           distance: ref.read(metricsViewModelProvider).distance,
           locations: locations,
         ))
-        .then((value) {
+        .then((value) async {
+      if (value != null) ActivityUtils.updateActivity(ref, value, 'add');
       ref.read(timerViewModelProvider.notifier).resetTimer();
       ref.read(locationViewModelProvider.notifier).resetSavedPositions();
       ref.read(metricsViewModelProvider.notifier).reset();

@@ -11,6 +11,7 @@ import '../../../../domain/entities/activity_comment.dart';
 import '../../../../domain/entities/user.dart';
 import '../../core/utils/color_utils.dart';
 import '../../core/utils/user_utils.dart';
+import '../view_model/activity_item_comments_view_model.dart';
 import '../view_model/activity_item_view_model.dart';
 
 class ActivityComments extends HookConsumerWidget {
@@ -63,7 +64,7 @@ class ActivityComments extends HookConsumerWidget {
     );
   }
 
-  Widget buildViewPreviousComments(ActivityItemViewModel provider,
+  Widget buildViewPreviousComments(ActivityItemCommentsViewModel provider,
       AppLocalizations appLocalizations, List<ActivityComment> comments) {
     return GestureDetector(
       onTap: () => provider.togglePreviousComments(),
@@ -83,7 +84,7 @@ class ActivityComments extends HookConsumerWidget {
   Widget buildCommentChild(
     WidgetRef ref,
     AppLocalizations appLocalizations,
-    ActivityItemViewModel provider,
+    ActivityItemCommentsViewModel provider,
     List<ActivityComment> comments,
     bool displayPreviousComments,
   ) {
@@ -124,30 +125,31 @@ class ActivityComments extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentUserPictureProvider =
         ref.watch(currentUserPictureDataProvider(currentActivity));
-    final provider =
-        ref.read(activityItemViewModelProvider(currentActivity.id).notifier);
-    final state = ref.read(activityItemViewModelProvider(currentActivity.id));
+    final commentsProvider = ref.read(
+        activityItemCommentsViewModelProvider(currentActivity.id).notifier);
+    final state =
+        ref.watch(activityItemCommentsViewModelProvider(currentActivity.id));
     final appLocalizations = AppLocalizations.of(context)!;
 
     return SizedBox(
-      height: currentActivity.comments.isNotEmpty ? 210 : 80,
+      height: state.comments.isNotEmpty ? 210 : 80,
       child: CommentBox(
         userImage: currentUserPictureProvider.when(
           data: (pic) => pic != null ? MemoryImage(pic) : null,
           loading: () => null,
           error: (_, __) => null,
         ),
-        sendButtonMethod: () => provider.comment(currentActivity),
+        sendButtonMethod: () => commentsProvider.comment(currentActivity),
         formKey: formKey,
-        commentController: provider.commentController,
+        commentController: commentsProvider.commentController,
         backgroundColor: ColorUtils.white,
         textColor: ColorUtils.mainMedium,
         sendWidget: Icon(Icons.send_sharp, size: 30, color: ColorUtils.main),
         child: buildCommentChild(
           ref,
           appLocalizations,
-          provider,
-          currentActivity.comments.toList(),
+          commentsProvider,
+          state.comments,
           state.displayPreviousComments,
         ),
       ),

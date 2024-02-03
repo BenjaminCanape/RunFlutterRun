@@ -1,5 +1,5 @@
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../domain/entities/page.dart';
 import '../api/friend_request_api.dart';
 import '../../domain/entities/enum/friend_request_status.dart';
 import '../../domain/repositories/friend_request_repository.dart';
@@ -16,12 +16,14 @@ class FriendRequestRepositoryImpl extends FriendRequestRepository {
   FriendRequestRepositoryImpl();
 
   @override
-  Future<List<User>> getPendingRequestUsers() async {
+  Future<EntityPage<User>> getPendingRequestUsers({int pageNumber = 0}) async {
     final pendingUsersResponses =
-        await FriendRequestApi.getPendindRequestUsers();
-    return pendingUsersResponses
+        await FriendRequestApi.getPendindRequestUsers(pageNumber);
+
+    List<User> users = pendingUsersResponses.list
         .map((response) => response.toEntity())
         .toList();
+    return EntityPage(list: users, total: pendingUsersResponses.total);
   }
 
   @override

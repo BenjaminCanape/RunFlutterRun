@@ -31,7 +31,7 @@ class HomeScreen extends HookConsumerWidget {
 
     final tabs = [
       const NewActivityScreen(),
-      const ActivityListScreen(),
+      ActivityListScreen(),
       CommunityScreen(),
       const SettingsScreen(),
     ];

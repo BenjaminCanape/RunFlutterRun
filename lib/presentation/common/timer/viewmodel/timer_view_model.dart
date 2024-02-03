@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../core/utils/type_utils.dart';
 import 'package:wakelock/wakelock.dart';
 
 import '../../../../../main.dart';
 import '../../core/services/text_to_speech_service.dart';
+import '../../core/utils/type_utils.dart';
 import '../../location/view_model/location_view_model.dart';
 import '../../metrics/view_model/metrics_view_model.dart';
 import 'state/timer_state.dart';

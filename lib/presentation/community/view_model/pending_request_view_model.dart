@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../data/repositories/friend_request_repository_impl.dart';
+import '../../../domain/entities/page.dart';
 import '../../../domain/entities/user.dart';
 import 'state/pending_requests_state.dart';
 
@@ -15,11 +16,16 @@ class PendingRequestsViewModel extends StateNotifier<PendingRequestsState> {
 
   PendingRequestsViewModel(this.ref) : super(PendingRequestsState.initial());
 
-  void getPendingRequests() async {
-    return await ref
-        .read(friendRequestRepositoryProvider)
-        .getPendingRequestUsers()
-        .then((value) => state = state.copyWith(pendingRequests: value));
+  /// Fetches the list of activities.
+  Future<EntityPage<User>> fetchPendingRequests({int pageNumber = 0}) async {
+    try {
+      final newPendingRequests = await ref
+          .read(friendRequestRepositoryProvider)
+          .getPendingRequestUsers(pageNumber: pageNumber);
+      return newPendingRequests;
+    } catch (error) {
+      return EntityPage(list: List.empty(), total: 0);
+    }
   }
 
   void setPendingRequest(List<User> users) {

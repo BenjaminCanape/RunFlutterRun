@@ -1,27 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../domain/entities/activity.dart';
+import '../../../../domain/entities/page.dart';
 import '../../core/utils/color_utils.dart';
 import '../../core/utils/type_utils.dart';
-import '../view_model/activity_item_view_model.dart';
+import '../../core/widgets/infinite_scroll_list.dart';
+import '../view_model/activity_list_view_model.dart';
 import 'activity_item.dart';
 
-/// The screen that displays a list of activities grouped by months.
 class ActivityList extends HookConsumerWidget {
+  final String id;
   final List<Activity> activities;
+  final int total;
   final bool displayUserName;
   final bool canOpenActivity;
+  final Future<EntityPage<Activity>> Function({int pageNumber})
+      bottomListScrollFct;
 
-  const ActivityList({
-    super.key,
-    this.displayUserName = false,
-    this.canOpenActivity = true,
-    required this.activities,
-  });
+  const ActivityList(
+      {super.key,
+      this.displayUserName = false,
+      this.canOpenActivity = true,
+      required this.id,
+      required this.activities,
+      required this.bottomListScrollFct,
+      required this.total});
 
   List<List<Activity>> groupActivitiesByMonth(List<Activity> activities) {
     final groupedActivities = <List<Activity>>[];
@@ -54,55 +60,70 @@ class ActivityList extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final groupedActivities = groupActivitiesByMonth(activities);
-
-    useEffect(() {
-      return () {
-        activities.map((a) =>
-            ref.read(activityItemViewModelProvider(a.id).notifier).dispose());
-      };
-    }, const []);
+    final provider =
+        ref.watch(activityListWidgetViewModelProvider(id).notifier);
+    final state = ref.watch(activityListWidgetViewModelProvider(id));
+    var groupedActivities = state.groupedActivities.isNotEmpty
+        ? state.groupedActivities
+        : groupActivitiesByMonth(activities);
 
     return Expanded(
-      child: groupedActivities.isEmpty
-          ? Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Icon(Icons.info, size: 48),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    AppLocalizations.of(context)!.no_data,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+        child: InfiniteScrollList(
+      listId: id,
+      initialData: groupedActivities,
+      total: total,
+      loadData: (int pageNumber) async {
+        final newPage = await bottomListScrollFct(pageNumber: pageNumber);
+
+        final newGrouped = groupActivitiesByMonth(newPage.list);
+
+        for (var newGroup in newGrouped) {
+          final newGroupMonth = newGroup.first.startDatetime.month;
+
+          final existingGroupIndex = groupedActivities.indexWhere(
+            (existingGroup) =>
+                existingGroup.first.startDatetime.month == newGroupMonth,
+          );
+
+          if (existingGroupIndex != -1) {
+            groupedActivities[existingGroupIndex].removeWhere(
+              (existingActivity) => newGroup
+                  .any((newActivity) => existingActivity.id == newActivity.id),
+            );
+            groupedActivities[existingGroupIndex].addAll(newGroup);
+          } else {
+            groupedActivities.add(newGroup);
+          }
+        }
+
+        return EntityPage<List<Activity>>(
+          list: groupedActivities,
+          total: newPage.total,
+        );
+      },
+      hasMoreData: provider.hasMoreData,
+      itemBuildFunction: (context, groupedActivities, monthIndex) {
+        final monthActivities = groupedActivities[monthIndex];
+        int previousMonthsTotal = 0;
+        for (int i = 0; i < monthIndex; i++) {
+          previousMonthsTotal += groupedActivities[i].length as int;
+        }
+
+        return Expanded(
+            child: Theme(
+                data: ThemeData(
+                  expansionTileTheme: ExpansionTileThemeData(
+                    tilePadding: EdgeInsets.zero,
+                    iconColor: ColorUtils.black,
+                    textColor: ColorUtils.black,
+                    childrenPadding: EdgeInsets.zero,
+                    shape: const RoundedRectangleBorder(
+                      side: BorderSide.none,
+                      borderRadius: BorderRadius.zero,
                     ),
                   ),
-                ],
-              ),
-            )
-          : Theme(
-              data: ThemeData(
-                expansionTileTheme: ExpansionTileThemeData(
-                  tilePadding: EdgeInsets.zero,
-                  iconColor: ColorUtils.black,
-                  textColor: ColorUtils.black,
-                  childrenPadding: EdgeInsets.zero,
-                  shape: const RoundedRectangleBorder(
-                    side: BorderSide.none,
-                    borderRadius: BorderRadius.zero,
-                  ),
                 ),
-              ),
-              child: ListView.builder(
-                itemCount: groupedActivities.length,
-                itemBuilder: (context, monthIndex) {
-                  final monthActivities = groupedActivities[monthIndex];
-
-                  return ExpansionTile(
+                child: ExpansionTile(
                     tilePadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                     title: Text(
                       '${_getMonthName(monthActivities.first.startDatetime, AppLocalizations.of(context)!.localeName)} ${monthActivities.first.startDatetime.year}',
@@ -111,18 +132,18 @@ class ActivityList extends HookConsumerWidget {
                       ),
                     ),
                     initiallyExpanded: true,
-                    children: monthActivities.map((activity) {
+                    children:
+                        monthActivities.asMap().entries.map<Widget>((entry) {
+                      final index = previousMonthsTotal + entry.key;
+                      final activity = entry.value;
                       return ActivityItem(
-                        index: activities.indexOf(activity),
+                        index: index as int,
                         activity: activity,
                         displayUserName: displayUserName,
                         canOpenActivity: canOpenActivity,
                       );
-                    }).toList(),
-                  );
-                },
-              ),
-            ),
-    );
+                    }).toList())));
+      },
+    ));
   }
 }

@@ -1,8 +1,8 @@
-
 import 'package:dio/dio.dart';
 
 import '../../domain/entities/enum/friend_request_status.dart';
 import '../model/response/friend_request_response.dart';
+import '../model/response/page_response.dart';
 import '../model/response/user_response.dart';
 import 'helpers/api_helper.dart';
 
@@ -13,12 +13,16 @@ class FriendRequestApi {
   /// Retrieves a list of users for whom I have a pending request.
   ///
   /// Returns a list of [UserResponse] objects.
-  static Future<List<UserResponse>> getPendindRequestUsers() async {
+  static Future<PageResponse<UserResponse>> getPendindRequestUsers(
+      int pageNumber) async {
     Response? response = await ApiHelper.makeRequest(
         '${FriendRequestApi.url}pending', 'GET',
-        noCache: true);
-    final data = List<Map<String, dynamic>>.from(response?.data);
-    return data.map((e) => UserResponse.fromMap(e)).toList();
+        queryParams: {'page': pageNumber, 'size': 20}, noCache: true);
+    PageResponse pageResponse = PageResponse.fromMap(response?.data);
+    final data = List<Map<String, dynamic>>.from(pageResponse.list);
+    List<UserResponse> users =
+        data.map((e) => UserResponse.fromMap(e)).toList();
+    return PageResponse(list: users, total: pageResponse.total);
   }
 
   /// Retrieves the status of the friend request I have with the user
