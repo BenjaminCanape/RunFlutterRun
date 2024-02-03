@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:run_flutter_run/presentation/common/core/utils/activity_utils.dart';
+import '../../common/core/utils/activity_utils.dart';
 import '../../../data/model/request/activity_request.dart';
 import '../../../data/repositories/activity_repository_impl.dart';
 import '../../../domain/entities/activity.dart';

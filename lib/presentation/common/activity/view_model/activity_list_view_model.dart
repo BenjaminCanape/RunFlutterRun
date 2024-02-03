@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../../domain/entities/activity.dart';
 import 'state/activity_list_state.dart';
 

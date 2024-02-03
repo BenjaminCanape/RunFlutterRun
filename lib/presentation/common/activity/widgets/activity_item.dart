@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../../domain/entities/activity.dart';
+import '../../core/utils/activity_utils.dart';
+import '../../core/utils/color_utils.dart';
 import '../../core/utils/ui_utils.dart';
 import '../view_model/activity_item_comments_view_model.dart';
 import '../view_model/activity_item_like_view_model.dart';
-import 'activity_item_details.dart';
-import '../../core/utils/activity_utils.dart';
-import '../../core/utils/color_utils.dart';
 import '../view_model/activity_item_view_model.dart';
-import 'activity_item_user_informations.dart';
+import 'activity_item_details.dart';
 import 'activity_item_interaction.dart';
+import 'activity_item_user_informations.dart';
 
 class ActivityItem extends HookConsumerWidget {
   final int index;
