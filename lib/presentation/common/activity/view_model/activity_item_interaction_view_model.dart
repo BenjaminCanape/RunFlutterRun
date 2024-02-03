@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'state/activity_item_interaction_state.dart';
 
 /// Provider for the activity item interaction view model.

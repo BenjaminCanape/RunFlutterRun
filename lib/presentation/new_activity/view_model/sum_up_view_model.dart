@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../common/core/utils/activity_utils.dart';
+
 import '../../../data/model/request/activity_request.dart';
 import '../../../data/repositories/activity_repository_impl.dart';
 import '../../../domain/entities/activity.dart';
@@ -7,6 +7,7 @@ import '../../../domain/entities/enum/activity_type.dart';
 import '../../../domain/entities/location.dart';
 import '../../../domain/entities/user.dart';
 import '../../../main.dart';
+import '../../common/core/utils/activity_utils.dart';
 import '../../common/location/view_model/location_view_model.dart';
 import '../../common/metrics/view_model/metrics_view_model.dart';
 import '../../common/timer/viewmodel/timer_view_model.dart';

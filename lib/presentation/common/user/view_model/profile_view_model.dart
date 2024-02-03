@@ -24,8 +24,6 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
   /// Retrieves the friendship status.
   Future<void> getFriendshipStatus(String userId) async {
     final friendRequestRepository = ref.read(friendRequestRepositoryProvider);
-    //final activityRepository = ref.read(activityRepositoryProvider);
-
     final currentUser = await StorageUtils.getUser();
 
     if (userId != currentUser?.id) {
@@ -34,16 +32,6 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     } else {
       state = state.copyWith(status: FriendRequestStatus.noDisplay);
     }
-/*
-    if (state.friendshipStatus != null &&
-        state.friendshipStatus == FriendRequestStatus.accepted) {
-      final activities = await activityRepository.getUserActivities(userId);
-      state =
-          state.copyWith(activities: activities.list, total: activities.total);
-    } else if (userId == currentUser?.id) {
-      final activities = await activityRepository.getActivities();
-      state = state.copyWith(activities: activities.list);
-    }*/
   }
 
   Future<EntityPage<Activity>> fetchActivities({int pageNumber = 0}) async {

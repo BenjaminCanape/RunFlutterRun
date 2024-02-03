@@ -1,11 +1,11 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../domain/entities/page.dart';
-import '../api/friend_request_api.dart';
-import '../../domain/entities/enum/friend_request_status.dart';
-import '../../domain/repositories/friend_request_repository.dart';
 
+import '../../domain/entities/enum/friend_request_status.dart';
 import '../../domain/entities/friend_request.dart';
+import '../../domain/entities/page.dart';
 import '../../domain/entities/user.dart';
+import '../../domain/repositories/friend_request_repository.dart';
+import '../api/friend_request_api.dart';
 
 /// Provider for the FriendRequestRepository implementation.
 final friendRequestRepositoryProvider =
