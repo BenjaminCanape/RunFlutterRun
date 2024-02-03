@@ -58,7 +58,7 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
           locations: locations,
         ))
         .then((value) async {
-      if (value != null) ActivityUtils.addActivity(ref, value);
+      if (value != null) ActivityUtils.updateActivity(ref, value, 'add');
       ref.read(timerViewModelProvider.notifier).resetTimer();
       ref.read(locationViewModelProvider.notifier).resetSavedPositions();
       ref.read(metricsViewModelProvider.notifier).reset();

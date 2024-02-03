@@ -63,7 +63,7 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
           locations: const [],
           user: activity.user,
           comments: activity.comments);
-      ActivityUtils.removeActivity(ref, activityWithoutLocations);
+      ActivityUtils.updateActivity(ref, activityWithoutLocations, 'remove');
 
       navigatorKey.currentState?.pop();
       navigatorKey.currentState?.pop();
@@ -108,7 +108,7 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
       StorageUtils.removeCachedDataFromUrl(
           '${ActivityApi.url}${activityEdited.id}');
       state = state.copyWith(activity: activityEdited);
-      ActivityUtils.editActivity(ref, activityEdited);
+      ActivityUtils.updateActivity(ref, activityEdited, 'edit');
     }).whenComplete(() {
       state = state.copyWith(isLoading: false);
     });

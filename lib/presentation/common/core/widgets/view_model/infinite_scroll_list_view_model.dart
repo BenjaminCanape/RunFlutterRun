@@ -52,4 +52,9 @@ class InfiniteScrollListViewModel
   void setPosition(double position) {
     state = state.copyWith(position: position);
   }
+
+  /// reset state
+  void reset() {
+    state = InfiniteScrollListState.initial();
+  }
 }
