@@ -46,8 +46,4 @@ class ActivityListWidgetViewModel
   bool hasMoreData(List<dynamic> list, int total) {
     return calculateTotalElements(list) < total;
   }
-
-  void reset() {
-    state = ActivityListWidgetState.initial();
-  }
 }

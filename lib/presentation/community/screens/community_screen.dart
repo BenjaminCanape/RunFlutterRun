@@ -40,7 +40,7 @@ class CommunityScreen extends HookConsumerWidget {
     var provider = ref.read(communityViewModelProvider.notifier);
     var pendingRequestsStateProvider =
         ref.watch(pendingRequestsDataFutureProvider);
-    var pendingRequestsState = ref.watch(pendingRequestsViewModelProvider);
+    //var pendingRequestsState = ref.watch(pendingRequestsViewModelProvider);
     var communityStateProvider = ref.watch(communityDataFutureProvider);
 
     return Scaffold(
