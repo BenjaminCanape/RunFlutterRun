@@ -21,6 +21,8 @@ class CommunityScreen extends HookConsumerWidget {
 
   CommunityScreen({super.key});
 
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey();
+
   final pendingRequestsDataFutureProvider = FutureProvider<int>((ref) async {
     final pendingRequestsProvider =
         ref.watch(pendingRequestsViewModelProvider.notifier);
@@ -40,7 +42,6 @@ class CommunityScreen extends HookConsumerWidget {
     var provider = ref.read(communityViewModelProvider.notifier);
     var pendingRequestsStateProvider =
         ref.watch(pendingRequestsDataFutureProvider);
-    //var pendingRequestsState = ref.watch(pendingRequestsViewModelProvider);
     var communityStateProvider = ref.watch(communityDataFutureProvider);
 
     return Scaffold(
@@ -112,25 +113,35 @@ class CommunityScreen extends HookConsumerWidget {
               return Text('$error');
             },
           ),
-          communityStateProvider.when(
-            data: (initialData) {
-              return ActivityList(
-                id: InfiniteScrollListEnum.community.toString(),
-                activities: initialData.list,
-                total: initialData.total,
-                displayUserName: true,
-                canOpenActivity: false,
-                bottomListScrollFct:
-                    provider.getInitialMyAndMyFriendsActivities,
-              );
-            },
-            loading: () {
-              return Center(child: UIUtils.loader);
-            },
-            error: (error, stackTrace) {
-              return Text('$error');
-            },
-          )
+          Expanded(
+            child: RefreshIndicator(
+                key: _refreshIndicatorKey,
+                onRefresh: () async {
+                  provider.refreshList();
+                  return ref.refresh(communityDataFutureProvider);
+                },
+                child: Column(children: [
+                  communityStateProvider.when(
+                    data: (initialData) {
+                      return ActivityList(
+                        id: InfiniteScrollListEnum.community.toString(),
+                        activities: initialData.list,
+                        total: initialData.total,
+                        displayUserName: true,
+                        canOpenActivity: false,
+                        bottomListScrollFct:
+                            provider.getInitialMyAndMyFriendsActivities,
+                      );
+                    },
+                    loading: () {
+                      return Center(child: UIUtils.loader);
+                    },
+                    error: (error, stackTrace) {
+                      return Text('$error');
+                    },
+                  )
+                ])),
+          ),
         ]));
   }
 }

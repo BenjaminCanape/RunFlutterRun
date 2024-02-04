@@ -11,6 +11,8 @@ import '../../../new_activity/view_model/sum_up_view_model.dart';
 import '../enums/infinite_scroll_list.enum.dart';
 import '../widgets/view_model/infinite_scroll_list_view_model.dart';
 
+enum ActivityUpdateActionEnum { add, edit, remove }
+
 /// Utility class for activity-related operations.
 class ActivityUtils {
   /// Returns the icon associated with the given activity type.
@@ -118,8 +120,8 @@ class ActivityUtils {
     return activities;
   }
 
-  static Future<void> updateActivity(
-      Ref<Object?> ref, Activity updatedActivity, String action) async {
+  static Future<void> updateActivity(Ref<Object?> ref, Activity updatedActivity,
+      ActivityUpdateActionEnum action) async {
     await _updateActivityList(
         ref,
         InfiniteScrollListEnum.myActivities.toString(),
@@ -139,18 +141,18 @@ class ActivityUtils {
   }
 
   static Future<void> _updateActivityList(Ref<Object?> ref, String listType,
-      Activity updatedActivity, String action) async {
+      Activity updatedActivity, ActivityUpdateActionEnum action) async {
     var data = ref.read(infiniteScrollListViewModelProvider(listType)).data;
 
     List<List<Activity>> newData = [];
 
-    if (action == 'edit') {
+    if (action == ActivityUpdateActionEnum.edit) {
       newData = ActivityUtils.replaceActivity(
           data as List<List<Activity>>, updatedActivity);
-    } else if (action == 'remove') {
+    } else if (action == ActivityUpdateActionEnum.remove) {
       newData = ActivityUtils.deleteActivity(
           data as List<List<Activity>>, updatedActivity);
-    } else if (action == 'add') {
+    } else if (action == ActivityUpdateActionEnum.add) {
       newData = ActivityUtils.prependActivity(
           data as List<List<Activity>>, updatedActivity);
     }
