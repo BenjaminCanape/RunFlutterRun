@@ -1,12 +1,14 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../../../domain/entities/activity.dart';
-import '../../../../core/utils/storage_utils.dart';
 
+import '../../../../core/utils/storage_utils.dart';
 import '../../../../data/repositories/activity_repository_impl.dart';
 import '../../../../data/repositories/friend_request_repository_impl.dart';
 import '../../../../data/repositories/user_repository_impl.dart';
+import '../../../../domain/entities/activity.dart';
 import '../../../../domain/entities/enum/friend_request_status.dart';
 import '../../../../domain/entities/page.dart';
+import '../../core/enums/infinite_scroll_list.enum.dart';
+import '../../core/widgets/view_model/infinite_scroll_list_view_model.dart';
 import 'state/profile_state.dart';
 
 /// Provider for the profile view model.
@@ -68,5 +70,13 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
         .read(userRepositoryProvider)
         .downloadProfilePicture(userId)
         .then((value) => state = state.copyWith(profilePicture: value));
+  }
+
+  void refreshList() {
+    ref
+        .read(infiniteScrollListViewModelProvider(
+          '${InfiniteScrollListEnum.profile}_$userId',
+        ).notifier)
+        .reset();
   }
 }

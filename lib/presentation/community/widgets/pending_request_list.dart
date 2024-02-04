@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../domain/entities/page.dart';
-import '../../common/core/utils/user_utils.dart';
 import '../../../domain/entities/user.dart';
+import '../../common/core/utils/user_utils.dart';
 import '../../common/core/widgets/infinite_scroll_list.dart';
 import '../../common/friendship/widgets/accept_refuse.dart';
 

@@ -15,6 +15,8 @@ import '../widgets/friend_request.dart';
 class ProfileScreen extends HookConsumerWidget {
   final User user;
 
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey();
+
   ProfileScreen({super.key, required this.user});
 
   final futureDataProvider =
@@ -99,21 +101,34 @@ class ProfileScreen extends HookConsumerWidget {
                       )),
                   const Divider(),
                   const SizedBox(height: 20),
-                  activitiesStateProvider.when(
-                    data: (initialData) {
-                      return ActivityList(
-                          id: '${InfiniteScrollListEnum.profile}_${user.id}',
-                          activities: initialData.list,
-                          total: initialData.total,
-                          canOpenActivity: false,
-                          bottomListScrollFct: provider.fetchActivities);
-                    },
-                    loading: () {
-                      return Center(child: UIUtils.loader);
-                    },
-                    error: (error, stackTrace) {
-                      return Text('$error');
-                    },
+                  Expanded(
+                    child: RefreshIndicator(
+                        key: _refreshIndicatorKey,
+                        onRefresh: () async {
+                          provider.refreshList();
+                          return ref
+                              .refresh(activitiesDataFutureProvider(user));
+                        },
+                        child: Column(children: [
+                          activitiesStateProvider.when(
+                            data: (initialData) {
+                              return ActivityList(
+                                  id:
+                                      '${InfiniteScrollListEnum.profile}_${user.id}',
+                                  activities: initialData.list,
+                                  total: initialData.total,
+                                  canOpenActivity: false,
+                                  bottomListScrollFct:
+                                      provider.fetchActivities);
+                            },
+                            loading: () {
+                              return Center(child: UIUtils.loader);
+                            },
+                            error: (error, stackTrace) {
+                              return Text('$error');
+                            },
+                          )
+                        ])),
                   )
                 ],
               ),
