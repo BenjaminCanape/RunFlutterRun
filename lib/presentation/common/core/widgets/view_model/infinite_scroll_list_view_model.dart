@@ -25,9 +25,8 @@ class InfiniteScrollListViewModel
   }
 
   /// Set data in the state
-  void setData(List<dynamic> data, double pos) {
-    state = state.copyWith(
-        data: data, pageNumber: state.pageNumber + 1, position: pos);
+  void setData(List<dynamic> data) {
+    state = state.copyWith(data: data, pageNumber: state.pageNumber + 1);
   }
 
   /// Replace data in the state
@@ -36,21 +35,15 @@ class InfiniteScrollListViewModel
   }
 
   /// Add data in the state
-  void addData(List<dynamic> data, double pos) {
+  void addData(List<dynamic> data) {
     var currentData = state.data;
     currentData.addAll(data);
-    state = state.copyWith(
-        data: currentData, pageNumber: state.pageNumber + 1, position: pos);
+    state = state.copyWith(data: currentData, pageNumber: state.pageNumber + 1);
   }
 
   /// Set pageNumber in the state
   void setPageNumber(int pageNumber) {
     state = state.copyWith(pageNumber: pageNumber);
-  }
-
-  /// Set position in the state
-  void setPosition(double position) {
-    state = state.copyWith(position: position);
   }
 
   /// reset state

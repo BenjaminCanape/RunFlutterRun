@@ -9,6 +9,7 @@ import '../../../data/model/response/user_response.dart';
 import '../../../data/repositories/user_repository_impl.dart';
 import '../../../domain/entities/user.dart';
 import '../../../main.dart';
+import '../../common/user/view_model/profile_picture_view_model.dart';
 import 'state/edit_profile_state.dart';
 
 final editProfileViewModelProvider =
@@ -31,28 +32,35 @@ class EditProfileViewModel extends StateNotifier<EditProfileState> {
     state = state.copyWith(lastname: lastname);
   }
 
-  Future<void> getCurrentUser() async {
+  Future<User?> getCurrentUser() async {
     User? user = await StorageUtils.getUser();
     if (user != null) {
       state =
           state.copyWith(firstname: user.firstname, lastname: user.lastname);
     }
+    return user;
   }
 
   Future<void> chooseNewProfilePicture(Uint8List image) async {
     ref
         .read(userRepositoryProvider)
         .uploadProfilePicture(image)
-        .then((_) => state = state.copyWith(profilePicture: image));
+        .then((_) async {
+      User? currentUser = await StorageUtils.getUser();
+      if (currentUser != null) {
+        ref
+            .watch(profilePictureViewModelProvider(currentUser.id).notifier)
+            .editProfilePicture(image);
+      }
+    });
   }
 
-  Future<void> getProfilePicture() async {
+  Future<void> getProfilePicture(FutureProviderRef<void> ref) async {
     User? currentUser = await StorageUtils.getUser();
     if (currentUser != null) {
       ref
-          .read(userRepositoryProvider)
-          .downloadProfilePicture(currentUser.id)
-          .then((value) => {state = state.copyWith(profilePicture: value)});
+          .read(profilePictureViewModelProvider(currentUser.id).notifier)
+          .getProfilePicture(currentUser.id);
     }
   }
 

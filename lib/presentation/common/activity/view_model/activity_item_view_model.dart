@@ -1,10 +1,8 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../user/view_model/profile_picture_view_model.dart';
 import '../../../../data/repositories/activity_repository_impl.dart';
 import '../../../../domain/entities/activity.dart';
-import '../../../../data/repositories/user_repository_impl.dart';
 import '../../../../main.dart';
 import '../../../my_activities/screens/activity_details_screen.dart';
 import 'state/activity_item_state.dart';
@@ -30,8 +28,10 @@ class ActivityItemViewModel extends StateNotifier<ActivityItemState> {
   }
 
   /// Get the profile picture of the user
-  Future<Uint8List?> getProfilePicture(String userId) async {
-    return ref.read(userRepositoryProvider).downloadProfilePicture(userId);
+  void getProfilePicture(String userId) async {
+    ref
+        .read(profilePictureViewModelProvider(userId).notifier)
+        .getProfilePicture(userId);
   }
 
   /// Retrieves the details of an activity.

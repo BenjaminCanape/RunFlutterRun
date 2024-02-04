@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../view_model/profile_picture_view_model.dart';
 
 import '../../../../domain/entities/activity.dart';
 import '../../../../domain/entities/enum/friend_request_status.dart';
@@ -40,6 +41,9 @@ class ProfileScreen extends HookConsumerWidget {
     var provider = ref.watch(profileViewModelProvider(user.id).notifier);
     final futureProvider = ref.watch(futureDataProvider(user));
 
+    var profilePicture =
+        ref.watch(profilePictureViewModelProvider(user.id)).profilePicture;
+
     var activitiesStateProvider = ref.watch(activitiesDataFutureProvider(user));
 
     return state.isLoading
@@ -60,9 +64,9 @@ class ProfileScreen extends HookConsumerWidget {
                               alignment: Alignment.center,
                               width: 150,
                               height: 150,
-                              child: state.profilePicture != null
+                              child: profilePicture != null
                                   ? Image.memory(
-                                      state.profilePicture!,
+                                      profilePicture,
                                       fit: BoxFit.cover,
                                     )
                                   : const Icon(Icons.person, size: 100),

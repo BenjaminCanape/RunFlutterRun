@@ -4,6 +4,7 @@ import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../user/view_model/profile_picture_view_model.dart';
 
 import '../../../../core/utils/storage_utils.dart';
 import '../../../../domain/entities/activity.dart';
@@ -19,18 +20,19 @@ class ActivityComments extends HookConsumerWidget {
   final GlobalKey<FormState> formKey;
 
   final currentUserPictureDataProvider =
-      FutureProvider.family<Uint8List?, Activity>((ref, activity) async {
+      FutureProvider.family<String?, Activity>((ref, activity) async {
     final user = await StorageUtils.getUser();
     final provider =
         ref.read(activityItemViewModelProvider(activity.id).notifier);
 
-    return user != null ? provider.getProfilePicture(user.id) : null;
+    user != null ? provider.getProfilePicture(user.id) : null;
+    return user?.id;
   });
 
   final commentUserPictureDataProvider =
-      FutureProvider.family<Uint8List?, User>((ref, user) async {
+      FutureProvider.family<void, User>((ref, user) async {
     final provider = ref.read(activityItemViewModelProvider(user.id).notifier);
-    return provider.getProfilePicture(user.id);
+    provider.getProfilePicture(user.id);
   });
 
   ActivityComments({
@@ -39,7 +41,10 @@ class ActivityComments extends HookConsumerWidget {
     required this.formKey,
   });
 
-  Widget buildCommentList(WidgetRef ref, List<ActivityComment> comments) {
+  Widget buildCommentList(
+    WidgetRef ref,
+    List<ActivityComment> comments,
+  ) {
     return Expanded(
       child: ListView.builder(
         itemCount: comments.length,
@@ -49,10 +54,13 @@ class ActivityComments extends HookConsumerWidget {
   }
 
   Widget buildCommentItem(WidgetRef ref, ActivityComment comment) {
+    final profilePicture = ref
+        .watch(profilePictureViewModelProvider(comment.user.id))
+        .profilePicture;
     return Padding(
       padding: const EdgeInsets.fromLTRB(2.0, 8.0, 2.0, 0.0),
       child: ListTile(
-        leading: buildUserAvatar(ref, comment.user),
+        leading: buildUserAvatar(ref, comment.user, profilePicture),
         title: GestureDetector(
           child: Text(
             UserUtils.getNameOrUsername(comment.user),
@@ -82,12 +90,11 @@ class ActivityComments extends HookConsumerWidget {
   }
 
   Widget buildCommentChild(
-    WidgetRef ref,
-    AppLocalizations appLocalizations,
-    ActivityItemCommentsViewModel provider,
-    List<ActivityComment> comments,
-    bool displayPreviousComments,
-  ) {
+      WidgetRef ref,
+      AppLocalizations appLocalizations,
+      ActivityItemCommentsViewModel provider,
+      List<ActivityComment> comments,
+      bool displayPreviousComments) {
     final lastComment = comments.isNotEmpty ? comments.last : null;
 
     return Column(
@@ -101,7 +108,7 @@ class ActivityComments extends HookConsumerWidget {
     );
   }
 
-  Widget buildUserAvatar(WidgetRef ref, User user) {
+  Widget buildUserAvatar(WidgetRef ref, User user, Uint8List? profilePicture) {
     return GestureDetector(
       child: Container(
         height: 50.0,
@@ -111,8 +118,9 @@ class ActivityComments extends HookConsumerWidget {
           borderRadius: const BorderRadius.all(Radius.circular(50)),
         ),
         child: ref.watch(commentUserPictureDataProvider(user)).when(
-              data: (pic) => pic != null
-                  ? CircleAvatar(radius: 50, backgroundImage: MemoryImage(pic))
+              data: (_) => profilePicture != null
+                  ? CircleAvatar(
+                      radius: 50, backgroundImage: MemoryImage(profilePicture))
                   : UserUtils.personIcon,
               loading: () => UserUtils.personIcon,
               error: (_, __) => UserUtils.personIcon,
@@ -135,7 +143,17 @@ class ActivityComments extends HookConsumerWidget {
       height: state.comments.isNotEmpty ? 210 : 80,
       child: CommentBox(
         userImage: currentUserPictureProvider.when(
-          data: (pic) => pic != null ? MemoryImage(pic) : null,
+          data: (userId) {
+            if (userId != null) {
+              final profilePicture = ref
+                  .watch(profilePictureViewModelProvider(userId))
+                  .profilePicture;
+              return profilePicture != null
+                  ? MemoryImage(profilePicture)
+                  : null;
+            }
+            return null;
+          },
           loading: () => null,
           error: (_, __) => null,
         ),
@@ -145,13 +163,8 @@ class ActivityComments extends HookConsumerWidget {
         backgroundColor: ColorUtils.white,
         textColor: ColorUtils.mainMedium,
         sendWidget: Icon(Icons.send_sharp, size: 30, color: ColorUtils.main),
-        child: buildCommentChild(
-          ref,
-          appLocalizations,
-          commentsProvider,
-          state.comments,
-          state.displayPreviousComments,
-        ),
+        child: buildCommentChild(ref, appLocalizations, commentsProvider,
+            state.comments, state.displayPreviousComments),
       ),
     );
   }
