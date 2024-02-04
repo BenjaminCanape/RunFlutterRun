@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../user/view_model/profile_picture_view_model.dart';
 
 import '../../../../domain/entities/activity.dart';
 import '../../core/utils/color_utils.dart';
@@ -13,18 +14,19 @@ class ActivityItemUserInformation extends HookConsumerWidget {
   final Activity activity;
 
   final futureDataProvider =
-      FutureProvider.family<Uint8List?, Activity>((ref, activity) async {
+      FutureProvider.family<void, Activity>((ref, activity) async {
     final provider =
         ref.read(activityItemViewModelProvider(activity.id).notifier);
     String userId = activity.user.id;
-    return provider.getProfilePicture(userId);
+    provider.getProfilePicture(userId);
   });
 
   ActivityItemUserInformation({super.key, required this.activity});
 
-  Widget buildProfilePicture(AsyncValue<Uint8List?> futureProvider) {
+  Widget buildProfilePicture(
+      AsyncValue<void> futureProvider, Uint8List? profilePicture) {
     return futureProvider.when(
-      data: (profilePicture) {
+      data: (_) {
         return ClipRRect(
           borderRadius: BorderRadius.circular(50),
           child: Container(
@@ -45,6 +47,9 @@ class ActivityItemUserInformation extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final futureProvider = ref.watch(futureDataProvider(activity));
+    final profilePicture = ref
+        .watch(profilePictureViewModelProvider(activity.user.id))
+        .profilePicture;
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
       child: Container(
@@ -60,7 +65,7 @@ class ActivityItemUserInformation extends HookConsumerWidget {
           onPressed: () => UserUtils.goToProfile(activity.user),
           child: Row(
             children: [
-              buildProfilePicture(futureProvider),
+              buildProfilePicture(futureProvider, profilePicture),
               const SizedBox(width: 20),
               Flexible(
                 child: Text(

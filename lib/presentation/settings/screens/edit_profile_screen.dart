@@ -1,7 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../common/user/view_model/profile_picture_view_model.dart';
 
+import '../../../domain/entities/user.dart';
 import '../../common/core/utils/color_utils.dart';
 import '../../common/core/utils/form_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
@@ -14,11 +18,13 @@ class EditProfileScreen extends HookConsumerWidget {
 
   EditProfileScreen({super.key});
 
-  final editProfileFutureProvider = FutureProvider<void>((ref) async {
+  final editProfileFutureProvider = FutureProvider<User?>((ref) async {
     final editProfileProvider =
         ref.watch(editProfileViewModelProvider.notifier);
-    editProfileProvider.getCurrentUser();
-    editProfileProvider.getProfilePicture();
+    User? user = await editProfileProvider.getCurrentUser();
+    editProfileProvider.getProfilePicture(ref);
+
+    return user;
   });
 
   @override
@@ -29,7 +35,13 @@ class EditProfileScreen extends HookConsumerWidget {
     var editProfileStateProvider = ref.watch(editProfileFutureProvider);
 
     return editProfileStateProvider.when(
-      data: (_) {
+      data: (user) {
+        Uint8List? profilePicture;
+        user != null
+            ? profilePicture = ref
+                .watch(profilePictureViewModelProvider(user.id))
+                .profilePicture
+            : profilePicture = null;
         return Scaffold(
           resizeToAvoidBottomInset: true,
           body: state.isEditing
@@ -66,7 +78,7 @@ class EditProfileScreen extends HookConsumerWidget {
                                           : Container(),
                                       const SizedBox(height: 10),
                                       UploadFileWidget(
-                                          image: state.profilePicture,
+                                          image: profilePicture,
                                           callbackFunc:
                                               provider.chooseNewProfilePicture),
                                       // Firstname TextFormField

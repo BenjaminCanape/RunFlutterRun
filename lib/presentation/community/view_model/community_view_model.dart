@@ -1,12 +1,12 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../common/core/enums/infinite_scroll_list.enum.dart';
-import '../../common/core/widgets/view_model/infinite_scroll_list_view_model.dart';
 
 import '../../../data/repositories/activity_repository_impl.dart';
 import '../../../data/repositories/user_repository_impl.dart';
 import '../../../domain/entities/activity.dart';
 import '../../../domain/entities/page.dart';
 import '../../../domain/entities/user.dart';
+import '../../common/core/enums/infinite_scroll_list.enum.dart';
+import '../../common/core/widgets/view_model/infinite_scroll_list_view_model.dart';
 import 'state/community_state.dart';
 
 /// Provider for the community view model.

@@ -35,9 +35,9 @@ class InfiniteScrollList extends HookConsumerWidget {
 
   Future<void> loadMoreData(InfiniteScrollListState state,
       InfiniteScrollListViewModel provider) async {
-    double newPos = scrollController.position.pixels;
     var editData = false;
     if (!state.isLoading && hasMoreData(state.data, total)) {
+      double position = scrollController.position.pixels;
       provider.setIsLoading(true);
       editData = true;
 
@@ -45,19 +45,16 @@ class InfiniteScrollList extends HookConsumerWidget {
         final newData = await loadData(state.pageNumber);
 
         if (state.data is List<List<dynamic>>) {
-          provider.setData(
-            newData.list,
-            newPos,
-          );
+          provider.setData(newData.list);
         } else {
-          provider.addData(newData.list, newPos);
+          provider.addData(newData.list);
         }
       } finally {
         provider.setIsLoading(false);
 
         if (editData) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            scrollController.jumpTo(newPos);
+            scrollController.jumpTo(position);
           });
         }
       }
@@ -102,7 +99,7 @@ class InfiniteScrollList extends HookConsumerWidget {
         }));
 
     Future.delayed(const Duration(milliseconds: 10), () {
-      state.data.isNotEmpty ? '' : provider.setData(initialData, 0);
+      state.data.isNotEmpty ? '' : provider.setData(initialData);
     });
 
     return state.isLoading
