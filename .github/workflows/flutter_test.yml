@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    name: Flutter Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.9'
+          channel: 'stable'
+      - name: Flutter doctor
+        run: flutter doctor
+      - name: Get dependencies
+        run:  flutter pub get
+      - name: Run l10n generation
+        run: flutter gen-l10n
+      - name: Run tests
+        run: flutter test
