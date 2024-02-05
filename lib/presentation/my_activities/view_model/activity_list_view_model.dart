@@ -69,4 +69,8 @@ class ActivityListViewModel extends StateNotifier<ActivityListState> {
       ),
     );
   }
+
+  void setIsLoading(bool isLoading) {
+    state = state.copyWith(isLoading: isLoading);
+  }
 }

@@ -67,7 +67,6 @@ class ActivityDetailsViewModel extends StateNotifier<ActivityDetailsState> {
           ref, activityWithoutLocations, ActivityUpdateActionEnum.remove);
 
       navigatorKey.currentState?.pop();
-      navigatorKey.currentState?.pop();
       ref.read(homeViewModelProvider.notifier).setCurrentIndex(Tabs.list.index);
       navigatorKey.currentState?.pushReplacement(
           MaterialPageRoute(builder: (context) => const HomeScreen()));

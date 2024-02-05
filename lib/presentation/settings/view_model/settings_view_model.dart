@@ -55,15 +55,17 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
   void showDeleteAccountAlert(BuildContext context, String title,
       String confirmBtnText, String cancelBtnText) {
     QuickAlert.show(
-      context: context,
-      type: QuickAlertType.confirm,
-      title: title,
-      confirmBtnText: confirmBtnText,
-      cancelBtnText: cancelBtnText,
-      confirmBtnColor: ColorUtils.red,
-      onCancelBtnTap: () => Navigator.of(context).pop(),
-      onConfirmBtnTap: () => deleteUserAccount(),
-    );
+        context: context,
+        type: QuickAlertType.confirm,
+        title: title,
+        confirmBtnText: confirmBtnText,
+        cancelBtnText: cancelBtnText,
+        confirmBtnColor: ColorUtils.red,
+        onCancelBtnTap: () => Navigator.of(context).pop(),
+        onConfirmBtnTap: () {
+          Navigator.of(context).pop();
+          deleteUserAccount();
+        });
   }
 
   /// Clears the local storage.

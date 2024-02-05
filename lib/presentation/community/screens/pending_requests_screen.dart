@@ -27,7 +27,7 @@ class PendingRequestsScreen extends HookConsumerWidget {
         ref.watch(pendingRequestsDataFutureProvider);
 
     return state.isLoading
-        ? Center(child: UIUtils.loader)
+        ? Expanded(child: Center(child: UIUtils.loader))
         : Scaffold(
             body: SafeArea(
                 child: Column(children: [
@@ -46,7 +46,7 @@ class PendingRequestsScreen extends HookConsumerWidget {
                   );
                 },
                 loading: () {
-                  return Center(child: UIUtils.loader);
+                  return Expanded(child: Center(child: UIUtils.loader));
                 },
                 error: (error, stackTrace) {
                   return Text('$error');

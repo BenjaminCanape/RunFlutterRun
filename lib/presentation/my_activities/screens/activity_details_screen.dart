@@ -65,18 +65,20 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                         tooltip: 'Remove',
                         onPressed: () {
                           QuickAlert.show(
-                            context: context,
-                            type: QuickAlertType.confirm,
-                            title: AppLocalizations.of(context)!
-                                .ask_activity_removal,
-                            confirmBtnText:
-                                AppLocalizations.of(context)!.delete,
-                            cancelBtnText: AppLocalizations.of(context)!.cancel,
-                            confirmBtnColor: ColorUtils.red,
-                            onCancelBtnTap: () => Navigator.of(context).pop(),
-                            onConfirmBtnTap: () =>
-                                provider.removeActivity(displayedActivity),
-                          );
+                              context: context,
+                              type: QuickAlertType.confirm,
+                              title: AppLocalizations.of(context)!
+                                  .ask_activity_removal,
+                              confirmBtnText:
+                                  AppLocalizations.of(context)!.delete,
+                              cancelBtnText:
+                                  AppLocalizations.of(context)!.cancel,
+                              confirmBtnColor: ColorUtils.red,
+                              onCancelBtnTap: () => Navigator.of(context).pop(),
+                              onConfirmBtnTap: () {
+                                Navigator.of(context).pop();
+                                provider.removeActivity(displayedActivity);
+                              });
                         },
                         icon: Icon(
                           Icons.delete,

@@ -100,30 +100,32 @@ class EditPasswordScreen extends HookConsumerWidget {
                 ],
               ),
             ),
-      floatingActionButton: Stack(
-        children: [
-          Positioned(
-            bottom: 16,
-            right: 80,
-            child: FloatingActionButton(
-              backgroundColor: ColorUtils.main,
-              elevation: 4.0,
-              child: Icon(
-                Icons.save,
-                color: ColorUtils.white,
-              ),
-              onPressed: () {
-                provider.submitForm(context, formKey);
-              },
+      floatingActionButton: state.isEditing
+          ? Container()
+          : Stack(
+              children: [
+                Positioned(
+                  bottom: 16,
+                  right: 80,
+                  child: FloatingActionButton(
+                    backgroundColor: ColorUtils.main,
+                    elevation: 4.0,
+                    child: Icon(
+                      Icons.save,
+                      color: ColorUtils.white,
+                    ),
+                    onPressed: () {
+                      provider.submitForm(context, formKey);
+                    },
+                  ),
+                ),
+                Positioned(
+                  bottom: 16,
+                  left: 80,
+                  child: UIUtils.createBackButton(context),
+                ),
+              ],
             ),
-          ),
-          Positioned(
-            bottom: 16,
-            left: 80,
-            child: UIUtils.createBackButton(context),
-          ),
-        ],
-      ),
     );
   }
 }

@@ -62,7 +62,7 @@ class SettingsScreen extends HookConsumerWidget {
     return Scaffold(
       body: Center(
         child: state.isLoading
-            ? UIUtils.loader
+            ? Center(child: UIUtils.loader)
             : Column(
                 children: [
                   const SizedBox(height: 40),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../view_model/profile_picture_view_model.dart';
 
 import '../../../../domain/entities/activity.dart';
 import '../../../../domain/entities/enum/friend_request_status.dart';
@@ -10,6 +9,7 @@ import '../../activity/widgets/activity_list.dart';
 import '../../core/enums/infinite_scroll_list.enum.dart';
 import '../../core/utils/ui_utils.dart';
 import '../../core/utils/user_utils.dart';
+import '../view_model/profile_picture_view_model.dart';
 import '../view_model/profile_view_model.dart';
 import '../widgets/friend_request.dart';
 
@@ -47,7 +47,7 @@ class ProfileScreen extends HookConsumerWidget {
     var activitiesStateProvider = ref.watch(activitiesDataFutureProvider(user));
 
     return state.isLoading
-        ? Center(child: UIUtils.loader)
+        ? Expanded(child: Center(child: UIUtils.loader))
         : Scaffold(
             body: SafeArea(
               child: Column(
@@ -93,7 +93,8 @@ class ProfileScreen extends HookConsumerWidget {
                                   return widget;
                                 },
                                 loading: () {
-                                  return Center(child: UIUtils.loader);
+                                  return Expanded(
+                                      child: Center(child: UIUtils.loader));
                                 },
                                 error: (error, stackTrace) {
                                   return Text('$error');
@@ -126,7 +127,8 @@ class ProfileScreen extends HookConsumerWidget {
                                       provider.fetchActivities);
                             },
                             loading: () {
-                              return Center(child: UIUtils.loader);
+                              return Expanded(
+                                  child: Center(child: UIUtils.loader));
                             },
                             error: (error, stackTrace) {
                               return Text('$error');
