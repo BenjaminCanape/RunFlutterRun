@@ -107,7 +107,7 @@ class CommunityScreen extends HookConsumerWidget {
                   : Container();
             },
             loading: () {
-              return Center(child: UIUtils.loader);
+              return Expanded(child: Center(child: UIUtils.loader));
             },
             error: (error, stackTrace) {
               return Text('$error');
@@ -134,7 +134,7 @@ class CommunityScreen extends HookConsumerWidget {
                       );
                     },
                     loading: () {
-                      return Center(child: UIUtils.loader);
+                      return Expanded(child: Center(child: UIUtils.loader));
                     },
                     error: (error, stackTrace) {
                       return Text('$error');

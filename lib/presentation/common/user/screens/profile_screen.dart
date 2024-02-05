@@ -47,7 +47,7 @@ class ProfileScreen extends HookConsumerWidget {
     var activitiesStateProvider = ref.watch(activitiesDataFutureProvider(user));
 
     return state.isLoading
-        ? Center(child: UIUtils.loader)
+        ? Expanded(child: Center(child: UIUtils.loader))
         : Scaffold(
             body: SafeArea(
               child: Column(
@@ -93,7 +93,8 @@ class ProfileScreen extends HookConsumerWidget {
                                   return widget;
                                 },
                                 loading: () {
-                                  return Center(child: UIUtils.loader);
+                                  return Expanded(
+                                      child: Center(child: UIUtils.loader));
                                 },
                                 error: (error, stackTrace) {
                                   return Text('$error');
@@ -126,7 +127,8 @@ class ProfileScreen extends HookConsumerWidget {
                                       provider.fetchActivities);
                             },
                             loading: () {
-                              return Center(child: UIUtils.loader);
+                              return Expanded(
+                                  child: Center(child: UIUtils.loader));
                             },
                             error: (error, stackTrace) {
                               return Text('$error');
