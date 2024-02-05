@@ -34,130 +34,142 @@ class EditProfileScreen extends HookConsumerWidget {
 
     var editProfileStateProvider = ref.watch(editProfileFutureProvider);
 
-    return editProfileStateProvider.when(
-      data: (user) {
-        Uint8List? profilePicture;
-        user != null
-            ? profilePicture = ref
-                .watch(profilePictureViewModelProvider(user.id))
-                .profilePicture
-            : profilePicture = null;
-        return Scaffold(
-          resizeToAvoidBottomInset: true,
-          body: state.isEditing
-              ? Center(child: UIUtils.loader)
-              : SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 100.0),
-                    child: ListView(
-                        keyboardDismissBehavior:
-                            ScrollViewKeyboardDismissBehavior.onDrag,
-                        children: [
-                          Column(
-                            children: [
-                              UIUtils.createHeader(
-                                  AppLocalizations.of(context)!.edit_profile),
-                              const SizedBox(height: 10),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Form(
-                                  key: formKey,
-                                  child: Column(
-                                    children: [
-                                      state.errorOnRequest
-                                          ? Column(children: [
-                                              Text(
-                                                AppLocalizations.of(context)!
-                                                    .edit_profile_error,
-                                                style: TextStyle(
-                                                    color: ColorUtils.red,
-                                                    fontSize: 18),
-                                              ),
-                                              const SizedBox(height: 20)
-                                            ])
-                                          : Container(),
-                                      const SizedBox(height: 10),
-                                      UploadFileWidget(
-                                          image: profilePicture,
-                                          callbackFunc:
-                                              provider.chooseNewProfilePicture),
-                                      // Firstname TextFormField
-                                      TextFormField(
-                                        style: FormUtils.textFormFieldStyle,
-                                        decoration:
-                                            FormUtils.createInputDecorative(
-                                          AppLocalizations.of(context)!
-                                              .firstname,
-                                          dark: false,
-                                          icon: Icons.person,
+    return Scaffold(
+        body: state.isEditing
+            ? Center(child: UIUtils.loader)
+            : editProfileStateProvider.when(
+                data: (user) {
+                  Uint8List? profilePicture;
+                  user != null
+                      ? profilePicture = ref
+                          .watch(profilePictureViewModelProvider(user.id))
+                          .profilePicture
+                      : profilePicture = null;
+                  return Scaffold(
+                    resizeToAvoidBottomInset: true,
+                    body: state.isEditing
+                        ? Center(child: UIUtils.loader)
+                        : SafeArea(
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 100.0),
+                              child: ListView(
+                                  keyboardDismissBehavior:
+                                      ScrollViewKeyboardDismissBehavior.onDrag,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        UIUtils.createHeader(
+                                            AppLocalizations.of(context)!
+                                                .edit_profile),
+                                        const SizedBox(height: 10),
+                                        Padding(
+                                          padding: const EdgeInsets.all(10),
+                                          child: Form(
+                                            key: formKey,
+                                            child: Column(
+                                              children: [
+                                                state.errorOnRequest
+                                                    ? Column(children: [
+                                                        Text(
+                                                          AppLocalizations.of(
+                                                                  context)!
+                                                              .edit_profile_error,
+                                                          style: TextStyle(
+                                                              color: ColorUtils
+                                                                  .red,
+                                                              fontSize: 18),
+                                                        ),
+                                                        const SizedBox(
+                                                            height: 20)
+                                                      ])
+                                                    : Container(),
+                                                const SizedBox(height: 10),
+                                                UploadFileWidget(
+                                                    image: profilePicture,
+                                                    callbackFunc: provider
+                                                        .chooseNewProfilePicture),
+                                                // Firstname TextFormField
+                                                TextFormField(
+                                                  style: FormUtils
+                                                      .textFormFieldStyle,
+                                                  decoration: FormUtils
+                                                      .createInputDecorative(
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .firstname,
+                                                    dark: false,
+                                                    icon: Icons.person,
+                                                  ),
+                                                  validator: (value) =>
+                                                      LoginValidators.name(
+                                                          context, value),
+                                                  onSaved: (value) {
+                                                    provider
+                                                        .setFirstname(value);
+                                                  },
+                                                  initialValue: state.firstname,
+                                                ),
+                                                // Lastname TextFormField
+                                                TextFormField(
+                                                  style: FormUtils
+                                                      .textFormFieldStyle,
+                                                  decoration: FormUtils
+                                                      .createInputDecorative(
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .lastname,
+                                                    dark: false,
+                                                    icon: Icons.person,
+                                                  ),
+                                                  validator: (value) =>
+                                                      LoginValidators.name(
+                                                          context, value),
+                                                  onChanged: (value) {
+                                                    provider.setLastname(value);
+                                                  },
+                                                  initialValue: state.lastname,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                         ),
-                                        validator: (value) =>
-                                            LoginValidators.name(
-                                                context, value),
-                                        onSaved: (value) {
-                                          provider.setFirstname(value);
-                                        },
-                                        initialValue: state.firstname,
-                                      ),
-                                      // Lastname TextFormField
-                                      TextFormField(
-                                        style: FormUtils.textFormFieldStyle,
-                                        decoration:
-                                            FormUtils.createInputDecorative(
-                                          AppLocalizations.of(context)!
-                                              .lastname,
-                                          dark: false,
-                                          icon: Icons.person,
-                                        ),
-                                        validator: (value) =>
-                                            LoginValidators.name(
-                                                context, value),
-                                        onChanged: (value) {
-                                          provider.setLastname(value);
-                                        },
-                                        initialValue: state.lastname,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
+                                      ],
+                                    ),
+                                  ]),
+                            ),
                           ),
-                        ]),
-                  ),
-                ),
-          floatingActionButton: Stack(
-            children: [
-              Positioned(
-                bottom: 16,
-                right: 80,
-                child: FloatingActionButton(
-                  backgroundColor: ColorUtils.main,
-                  elevation: 4.0,
-                  child: Icon(
-                    Icons.save,
-                    color: ColorUtils.white,
-                  ),
-                  onPressed: () {
-                    provider.submitForm(context, formKey);
-                  },
-                ),
-              ),
-              Positioned(
-                bottom: 16,
-                left: 80,
-                child: UIUtils.createBackButton(context),
-              ),
-            ],
-          ),
-        );
-      },
-      loading: () {
-        return Center(child: UIUtils.loader);
-      },
-      error: (error, stackTrace) {
-        return Text('$error');
-      },
-    );
+                    floatingActionButton: Stack(
+                      children: [
+                        Positioned(
+                          bottom: 16,
+                          right: 80,
+                          child: FloatingActionButton(
+                            backgroundColor: ColorUtils.main,
+                            elevation: 4.0,
+                            child: Icon(
+                              Icons.save,
+                              color: ColorUtils.white,
+                            ),
+                            onPressed: () {
+                              provider.submitForm(context, formKey);
+                            },
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 16,
+                          left: 80,
+                          child: UIUtils.createBackButton(context),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                loading: () {
+                  return Center(child: UIUtils.loader);
+                },
+                error: (error, stackTrace) {
+                  return Text('$error');
+                },
+              ));
   }
 }

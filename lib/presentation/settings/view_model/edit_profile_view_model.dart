@@ -70,7 +70,7 @@ class EditProfileViewModel extends StateNotifier<EditProfileState> {
     state = state.copyWith(errorOnRequest: false);
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
-      state.copyWith(isEditing: true);
+      state = state.copyWith(isEditing: true);
 
       final userRepository = ref.read(userRepositoryProvider);
       final editProfileRequest = EditProfileRequest(
