@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../user/view_model/profile_picture_view_model.dart';
+import '../../../my_activities/view_model/activity_list_view_model.dart';
 import '../../../../data/repositories/activity_repository_impl.dart';
 import '../../../../domain/entities/activity.dart';
 import '../../../../main.dart';
@@ -37,6 +38,7 @@ class ActivityItemViewModel extends StateNotifier<ActivityItemState> {
   /// Retrieves the details of an activity.
   Future<Activity> getActivityDetails(Activity activity) async {
     try {
+      ref.read(activityListViewModelProvider.notifier).setIsLoading(true);
       final activityDetails = await ref
           .read(activityRepositoryProvider)
           .getActivityById(id: activity.id);
@@ -49,6 +51,10 @@ class ActivityItemViewModel extends StateNotifier<ActivityItemState> {
 
   /// Navigates to the activity details screen.
   void goToActivity(Activity activityDetails) {
+    Future.delayed(const Duration(milliseconds: 500), () {
+      ref.read(activityListViewModelProvider.notifier).setIsLoading(false);
+    });
+
     navigatorKey.currentState?.push(
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 500),
