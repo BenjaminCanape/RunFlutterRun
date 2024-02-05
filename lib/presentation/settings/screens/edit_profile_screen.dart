@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../common/user/view_model/profile_picture_view_model.dart';
 
 import '../../../domain/entities/user.dart';
 import '../../common/core/utils/color_utils.dart';
@@ -11,6 +10,7 @@ import '../../common/core/utils/form_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
 import '../../common/core/validators/login_validators.dart';
 import '../../common/core/widgets/upload_file.dart';
+import '../../common/user/view_model/profile_picture_view_model.dart';
 import '../view_model/edit_profile_view_model.dart';
 
 class EditProfileScreen extends HookConsumerWidget {

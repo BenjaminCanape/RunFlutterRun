@@ -2,12 +2,12 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../user/view_model/profile_picture_view_model.dart';
 
 import '../../../../domain/entities/activity.dart';
 import '../../core/utils/color_utils.dart';
 import '../../core/utils/ui_utils.dart';
 import '../../core/utils/user_utils.dart';
+import '../../user/view_model/profile_picture_view_model.dart';
 import '../view_model/activity_item_view_model.dart';
 
 class ActivityItemUserInformation extends HookConsumerWidget {

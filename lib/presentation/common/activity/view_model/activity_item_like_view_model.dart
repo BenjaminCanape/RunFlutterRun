@@ -1,9 +1,10 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../core/widgets/view_model/infinite_scroll_list_view_model.dart';
+
 import '../../../../data/repositories/activity_repository_impl.dart';
 import '../../../../domain/entities/activity.dart';
 import '../../core/enums/infinite_scroll_list.enum.dart';
 import '../../core/utils/activity_utils.dart';
+import '../../core/widgets/view_model/infinite_scroll_list_view_model.dart';
 import 'state/activity_item_like_state.dart';
 
 /// Provider for the activity item like view model.
