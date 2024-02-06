@@ -31,6 +31,7 @@ class UIUtils {
   /// A function that create the back button
   static FloatingActionButton createBackButton(BuildContext context) {
     return FloatingActionButton(
+      heroTag: 'back_button',
       backgroundColor: ColorUtils.main,
       elevation: 4.0,
       child: Icon(
