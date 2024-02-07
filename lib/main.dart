@@ -115,7 +115,7 @@ class MyApp extends HookConsumerWidget {
       future: provider.getJwt(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return UIUtils.loader;
+          return buildMaterialApp(Center(child: UIUtils.loader));
         } else if (snapshot.hasData && snapshot.data != null) {
           return buildMaterialApp(const HomeScreen());
         } else {

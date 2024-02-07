@@ -144,6 +144,7 @@ class EditProfileScreen extends HookConsumerWidget {
                           bottom: 16,
                           right: 80,
                           child: FloatingActionButton(
+                            heroTag: 'save_button',
                             backgroundColor: ColorUtils.main,
                             elevation: 4.0,
                             child: Icon(
