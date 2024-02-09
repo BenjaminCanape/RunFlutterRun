@@ -102,22 +102,23 @@ class InfiniteScrollList extends HookConsumerWidget {
       state.data.isNotEmpty ? '' : provider.setData(initialData);
     });
 
-    return state.isLoading
-        ? buildLoadingIndicator()
-        : ListView.builder(
-            key: _listKey,
-            controller: scrollController,
-            itemCount:
-                state.data.length + (hasMoreData(state.data, total) ? 1 : 0),
-            itemBuilder: (context, index) {
-              if (index < state.data.length) {
-                return itemBuildFunction(context, state.data, index);
-              } else {
-                return state.isLoading
-                    ? buildLoadingIndicator()
-                    : buildLoadMoreButton(context, state, provider);
-              }
-            },
-          );
+    return Expanded(
+        child: state.isLoading
+            ? buildLoadingIndicator()
+            : ListView.builder(
+                key: _listKey,
+                controller: scrollController,
+                itemCount: state.data.length +
+                    (hasMoreData(state.data, total) ? 1 : 0),
+                itemBuilder: (context, index) {
+                  if (index < state.data.length) {
+                    return itemBuildFunction(context, state.data, index);
+                  } else {
+                    return state.isLoading
+                        ? buildLoadingIndicator()
+                        : buildLoadMoreButton(context, state, provider);
+                  }
+                },
+              ));
   }
 }

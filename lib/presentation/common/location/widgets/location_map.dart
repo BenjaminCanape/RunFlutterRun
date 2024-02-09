@@ -28,13 +28,12 @@ class LocationMap extends HookConsumerWidget {
         child: FlutterMap(
           mapController: provider.mapController,
           options: MapOptions(
-            center: points.isNotEmpty
+            initialCenter: points.isNotEmpty
                 ? center
                 : LatLng(state.currentPosition?.latitude ?? 0,
                     state.currentPosition?.longitude ?? 0),
-            zoom: zoomLevel,
+            initialZoom: zoomLevel,
           ),
-          nonRotatedChildren: const [],
           children: [
             TileLayer(
               urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
