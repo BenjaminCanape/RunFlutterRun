@@ -34,8 +34,7 @@ class PendingRequestsScreen extends HookConsumerWidget {
               UIUtils.createHeader(
                   AppLocalizations.of(context)!.pending_requests_title),
               const SizedBox(height: 40),
-              Expanded(
-                  child: pendingRequestsStateProvider.when(
+              pendingRequestsStateProvider.when(
                 data: (initialData) {
                   return PendingRequestsListWidget(
                     users: initialData.list,
@@ -51,7 +50,7 @@ class PendingRequestsScreen extends HookConsumerWidget {
                 error: (error, stackTrace) {
                   return Text('$error');
                 },
-              ))
+              )
             ])),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,

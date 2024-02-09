@@ -107,10 +107,8 @@ class ActivityDetailsScreen extends HookConsumerWidget {
                               body: TabBarView(
                                   controller: tabController,
                                   children: [
-                                    Expanded(
-                                        child: DetailsTab(activity: activity)),
-                                    Expanded(
-                                        child: GraphTab(activity: activity))
+                                    DetailsTab(activity: activity),
+                                    GraphTab(activity: activity)
                                   ]))))
                 ],
               ),
