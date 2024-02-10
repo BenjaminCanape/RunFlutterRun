@@ -80,9 +80,7 @@ class ActivityItemDetails extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(
-                left: displayUserName ? 30 : 0,
-                bottom: displayUserName ? 30 : 0),
+            padding: EdgeInsets.only(left: 0, bottom: displayUserName ? 30 : 0),
             child: buildActivityDetails(
                 context, appLocalizations, formattedDate, formattedTime),
           ),
