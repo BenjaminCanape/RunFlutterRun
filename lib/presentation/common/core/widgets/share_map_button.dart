@@ -51,6 +51,7 @@ class ShareMapButton extends HookConsumerWidget {
     }
 
     return FloatingActionButton(
+      heroTag: 'share_button',
       onPressed: () async {
         try {
           Uint8List? image = await ImageUtils.captureWidgetToImage(boundaryKey);

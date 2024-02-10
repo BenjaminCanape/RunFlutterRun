@@ -69,6 +69,8 @@ class TimerViewModel extends StateNotifier<TimerState> {
     final distance = metricsProvider.distance;
     final globalSpeed = metricsProvider.globalSpeed;
 
+    ref.read(locationViewModelProvider.notifier).cancelLocationStream();
+
     var textToSay = StringBuffer();
 
     textToSay.write('${l10nConf.congrats}.');
@@ -101,8 +103,6 @@ class TimerViewModel extends StateNotifier<TimerState> {
         "${l10nConf.speed}: $km,$meters ${l10nConf.kilometers} ${l10nConf.per} ${l10nConf.hours}");
 
     await ref.read(textToSpeechService).say(textToSay.toString());
-
-    ref.read(locationViewModelProvider.notifier).cancelLocationStream();
   }
 
   void resetTimerState() {

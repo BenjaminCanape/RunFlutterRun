@@ -22,31 +22,29 @@ class LocationMap extends HookConsumerWidget {
     final center = MapUtils.getCenterOfMap(points);
     final zoomLevel = MapUtils.getZoomLevel(points, center);
 
-    return Expanded(
-      child: SizedBox(
-        height: 500,
-        child: FlutterMap(
-          mapController: provider.mapController,
-          options: MapOptions(
-            initialCenter: points.isNotEmpty
-                ? center
-                : LatLng(state.currentPosition?.latitude ?? 0,
-                    state.currentPosition?.longitude ?? 0),
-            initialZoom: zoomLevel,
-          ),
-          children: [
-            TileLayer(
-              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-            ),
-            PolylineLayer(
-              polylines: [
-                Polyline(
-                    points: points, strokeWidth: 4, color: ColorUtils.blueGrey),
-              ],
-            ),
-            MarkerLayer(markers: markers),
-          ],
+    return SizedBox(
+      height: 500,
+      child: FlutterMap(
+        mapController: provider.mapController,
+        options: MapOptions(
+          initialCenter: points.isNotEmpty
+              ? center
+              : LatLng(state.currentPosition?.latitude ?? 0,
+                  state.currentPosition?.longitude ?? 0),
+          initialZoom: zoomLevel,
         ),
+        children: [
+          TileLayer(
+            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          ),
+          PolylineLayer(
+            polylines: [
+              Polyline(
+                  points: points, strokeWidth: 4, color: ColorUtils.blueGrey),
+            ],
+          ),
+          MarkerLayer(markers: markers),
+        ],
       ),
     );
   }

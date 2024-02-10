@@ -46,34 +46,35 @@ class ProfileScreen extends HookConsumerWidget {
 
     var activitiesStateProvider = ref.watch(activitiesDataFutureProvider(user));
 
-    return state.isLoading
-        ? Expanded(child: Center(child: UIUtils.loader))
-        : Scaffold(
-            body: SafeArea(
-              child: Column(
+    return Scaffold(
+      body: SafeArea(
+        child: state.isLoading
+            ? Expanded(child: Center(child: UIUtils.loader))
+            : Column(
                 children: [
                   Container(
-                      padding:
-                          const EdgeInsets.only(left: 16, top: 16, right: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(150),
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: 150,
-                              height: 150,
-                              child: profilePicture != null
-                                  ? Image.memory(
-                                      profilePicture,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : const Icon(Icons.person, size: 100),
-                            ),
+                    padding:
+                        const EdgeInsets.only(left: 16, top: 16, right: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(150),
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 150,
+                            height: 150,
+                            child: profilePicture != null
+                                ? Image.memory(
+                                    profilePicture,
+                                    fit: BoxFit.cover,
+                                  )
+                                : const Icon(Icons.person, size: 100),
                           ),
-                          Flexible(
-                            child: Column(children: [
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
                               Text(
                                 UserUtils.getNameOrUsername(user),
                                 style: const TextStyle(
@@ -93,38 +94,37 @@ class ProfileScreen extends HookConsumerWidget {
                                   return widget;
                                 },
                                 loading: () {
-                                  return Expanded(
-                                      child: Center(child: UIUtils.loader));
+                                  return Center(child: UIUtils.loader);
                                 },
                                 error: (error, stackTrace) {
                                   return Text('$error');
                                 },
                               )
-                            ]),
+                            ],
                           ),
-                        ],
-                      )),
+                        ),
+                      ],
+                    ),
+                  ),
                   const Divider(),
-                  const SizedBox(height: 20),
                   Expanded(
                     child: RefreshIndicator(
-                        key: _refreshIndicatorKey,
-                        onRefresh: () async {
-                          provider.refreshList();
-                          return ref
-                              .refresh(activitiesDataFutureProvider(user));
-                        },
-                        child: Column(children: [
+                      key: _refreshIndicatorKey,
+                      onRefresh: () async {
+                        provider.refreshList();
+                        return ref.refresh(activitiesDataFutureProvider(user));
+                      },
+                      child: Column(
+                        children: [
                           activitiesStateProvider.when(
                             data: (initialData) {
                               return ActivityList(
-                                  id:
-                                      '${InfiniteScrollListEnum.profile}_${user.id}',
-                                  activities: initialData.list,
-                                  total: initialData.total,
-                                  canOpenActivity: false,
-                                  bottomListScrollFct:
-                                      provider.fetchActivities);
+                                id: '${InfiniteScrollListEnum.profile}_${user.id}',
+                                activities: initialData.list,
+                                total: initialData.total,
+                                canOpenActivity: false,
+                                bottomListScrollFct: provider.fetchActivities,
+                              );
                             },
                             loading: () {
                               return Expanded(
@@ -133,15 +133,16 @@ class ProfileScreen extends HookConsumerWidget {
                             error: (error, stackTrace) {
                               return Text('$error');
                             },
-                          )
-                        ])),
-                  )
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: UIUtils.createBackButton(context),
-          );
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: UIUtils.createBackButton(context),
+    );
   }
 }

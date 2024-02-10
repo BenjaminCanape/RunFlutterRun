@@ -20,6 +20,7 @@ class SaveButton extends HookConsumerWidget {
       opacity: disabled ? 0.5 : 1.0,
       duration: animationDuration,
       child: FloatingActionButton(
+        heroTag: 'save_button',
         backgroundColor: ColorUtils.main,
         elevation: 4.0,
         onPressed: disabled

@@ -58,6 +58,6 @@ class CurrentLocationMap extends HookConsumerWidget {
       );
     }
 
-    return LocationMap(points: points, markers: markers);
+    return Expanded(child: LocationMap(points: points, markers: markers));
   }
 }

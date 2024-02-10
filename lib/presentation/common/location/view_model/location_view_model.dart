@@ -12,8 +12,13 @@ import '../../timer/viewmodel/timer_view_model.dart';
 import 'state/location_state.dart';
 
 /// Provider for the [LocationViewModel].
-final locationViewModelProvider =
+/*final locationViewModelProvider =
     StateNotifierProvider.autoDispose<LocationViewModel, LocationState>(
+  (ref) => LocationViewModel(ref),
+);*/
+
+final locationViewModelProvider =
+    StateNotifierProvider<LocationViewModel, LocationState>(
   (ref) => LocationViewModel(ref),
 );
 
