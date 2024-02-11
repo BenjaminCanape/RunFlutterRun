@@ -29,90 +29,87 @@ class ActivityDetailsScreen extends HookConsumerWidget {
     final displayedActivity = state.activity ?? activity;
 
     return Scaffold(
-      body: state.isLoading
-          ? Center(child: UIUtils.loader)
-          : SafeArea(
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(left: 25, top: 12),
-                    child: Row(children: [
-                      Text(
-                        ActivityUtils.translateActivityTypeValue(
-                          AppLocalizations.of(context)!,
-                          displayedActivity.type,
+        body: SafeArea(
+            child: state.isLoading
+                ? Center(child: UIUtils.loader)
+                : Column(children: [
+                    Container(
+                      padding: const EdgeInsets.only(left: 25, top: 12),
+                      child: Row(children: [
+                        Text(
+                          ActivityUtils.translateActivityTypeValue(
+                            AppLocalizations.of(context)!,
+                            displayedActivity.type,
+                          ),
+                          style: TextStyle(
+                              color: ColorUtils.blueGrey,
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold),
                         ),
-                        style: TextStyle(
+                        const Spacer(),
+                        IconButton(
+                          color: ColorUtils.black,
+                          tooltip: 'Edit',
+                          onPressed: () {
+                            tabController.animateTo(0);
+                            provider.editType();
+                          },
+                          icon: Icon(
+                            Icons.edit,
                             color: ColorUtils.blueGrey,
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      const Spacer(),
-                      IconButton(
-                        color: ColorUtils.black,
-                        tooltip: 'Edit',
-                        onPressed: () {
-                          tabController.animateTo(0);
-                          provider.editType();
-                        },
-                        icon: Icon(
-                          Icons.edit,
-                          color: ColorUtils.blueGrey,
+                          ),
                         ),
-                      ),
-                      IconButton(
-                        color: ColorUtils.black,
-                        tooltip: 'Remove',
-                        onPressed: () {
-                          QuickAlert.show(
-                              context: context,
-                              type: QuickAlertType.confirm,
-                              title: AppLocalizations.of(context)!
-                                  .ask_activity_removal,
-                              confirmBtnText:
-                                  AppLocalizations.of(context)!.delete,
-                              cancelBtnText:
-                                  AppLocalizations.of(context)!.cancel,
-                              confirmBtnColor: ColorUtils.red,
-                              onCancelBtnTap: () => Navigator.of(context).pop(),
-                              onConfirmBtnTap: () {
-                                Navigator.of(context).pop();
-                                provider.removeActivity(displayedActivity);
-                              });
-                        },
-                        icon: Icon(
-                          Icons.delete,
-                          color: ColorUtils.red,
-                        ),
-                      )
-                    ]),
-                  ),
-                  Expanded(
-                      child: DefaultTabController(
-                          length: 2,
-                          child: Scaffold(
-                              appBar: TabBar(
-                                  controller: tabController,
-                                  labelColor: ColorUtils.blueGrey,
-                                  dividerColor: ColorUtils.blueGrey,
-                                  indicatorColor: ColorUtils.blueGrey,
-                                  tabs: const [
-                                    Tab(
-                                      icon: Icon(Icons.short_text),
-                                    ),
-                                    Tab(
-                                      icon: Icon(Icons.graphic_eq_outlined),
-                                    ),
-                                  ]),
-                              body: TabBarView(
-                                  controller: tabController,
-                                  children: [
-                                    DetailsTab(activity: activity),
-                                    GraphTab(activity: activity)
-                                  ]))))
-                ],
-              ),
-            ),
-    );
+                        IconButton(
+                          color: ColorUtils.black,
+                          tooltip: 'Remove',
+                          onPressed: () {
+                            QuickAlert.show(
+                                context: context,
+                                type: QuickAlertType.confirm,
+                                title: AppLocalizations.of(context)!
+                                    .ask_activity_removal,
+                                confirmBtnText:
+                                    AppLocalizations.of(context)!.delete,
+                                cancelBtnText:
+                                    AppLocalizations.of(context)!.cancel,
+                                confirmBtnColor: ColorUtils.red,
+                                onCancelBtnTap: () =>
+                                    Navigator.of(context).pop(),
+                                onConfirmBtnTap: () {
+                                  Navigator.of(context).pop();
+                                  provider.removeActivity(displayedActivity);
+                                });
+                          },
+                          icon: Icon(
+                            Icons.delete,
+                            color: ColorUtils.red,
+                          ),
+                        )
+                      ]),
+                    ),
+                    Expanded(
+                        child: DefaultTabController(
+                            length: 2,
+                            child: Scaffold(
+                                appBar: TabBar(
+                                    controller: tabController,
+                                    labelColor: ColorUtils.blueGrey,
+                                    dividerColor: ColorUtils.blueGrey,
+                                    indicatorColor: ColorUtils.blueGrey,
+                                    tabs: const [
+                                      Tab(
+                                        icon: Icon(Icons.short_text),
+                                      ),
+                                      Tab(
+                                        icon: Icon(Icons.graphic_eq_outlined),
+                                      ),
+                                    ]),
+                                body: TabBarView(
+                                    controller: tabController,
+                                    children: [
+                                      DetailsTab(activity: activity),
+                                      GraphTab(activity: activity)
+                                    ]))))
+                  ])));
   }
 }

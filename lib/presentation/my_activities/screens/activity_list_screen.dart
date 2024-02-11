@@ -27,7 +27,7 @@ class ActivityListScreen extends HookConsumerWidget {
 
     return Scaffold(
       body: isLoading
-          ? Expanded(child: Center(child: UIUtils.loader))
+          ? Center(child: UIUtils.loader)
           : SafeArea(
               child: Column(
                 children: [

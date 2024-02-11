@@ -81,35 +81,33 @@ class DetailsTab extends HookConsumerWidget {
     }
 
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            const SizedBox(height: 10),
-            state.isEditing
-                ? Column(children: [
-                    ActivityUtils.buildActivityTypeDropdown(
-                        context, selectedType, provider),
-                    const SizedBox(height: 20)
-                  ])
-                : Container(),
-            Date(date: displayedActivity.startDatetime),
-            const SizedBox(height: 30),
-            Center(
-              child: TimerText(timeInMs: displayedActivity.time.toInt()),
+      body: Column(
+        children: [
+          const SizedBox(height: 10),
+          state.isEditing
+              ? Column(children: [
+                  ActivityUtils.buildActivityTypeDropdown(
+                      context, selectedType, provider),
+                  const SizedBox(height: 20)
+                ])
+              : Container(),
+          Date(date: displayedActivity.startDatetime),
+          const SizedBox(height: 30),
+          Center(
+            child: TimerText(timeInMs: displayedActivity.time.toInt()),
+          ),
+          const SizedBox(height: 15),
+          Metrics(
+            distance: displayedActivity.distance,
+            speed: displayedActivity.speed,
+          ),
+          Expanded(
+            child: RepaintBoundary(
+              key: state.boundaryKey,
+              child: LocationMap(points: points, markers: markers),
             ),
-            const SizedBox(height: 15),
-            Metrics(
-              distance: displayedActivity.distance,
-              speed: displayedActivity.speed,
-            ),
-            Expanded(
-              child: RepaintBoundary(
-                key: state.boundaryKey,
-                child: LocationMap(points: points, markers: markers),
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
       floatingActionButton: state.isEditing || state.isLoading
           ? FloatingActionButton(
