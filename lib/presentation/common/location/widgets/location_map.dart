@@ -5,32 +5,30 @@ import 'package:latlong2/latlong.dart';
 
 import '../../core/utils/color_utils.dart';
 import '../../core/utils/map_utils.dart';
-import '../view_model/location_view_model.dart';
 
 /// Widget that displays a map with markers and polylines representing locations.
 class LocationMap extends HookConsumerWidget {
   final List<LatLng> points;
   final List<Marker> markers;
+  final MapController mapController;
 
-  const LocationMap({super.key, required this.points, required this.markers});
+  const LocationMap(
+      {super.key,
+      required this.points,
+      required this.markers,
+      required this.mapController});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.read(locationViewModelProvider.notifier);
-    final state = ref.watch(locationViewModelProvider);
-
     final center = MapUtils.getCenterOfMap(points);
     final zoomLevel = MapUtils.getZoomLevel(points, center);
 
     return SizedBox(
       height: 500,
       child: FlutterMap(
-        mapController: provider.mapController,
+        mapController: mapController,
         options: MapOptions(
-          initialCenter: points.isNotEmpty
-              ? center
-              : LatLng(state.currentPosition?.latitude ?? 0,
-                  state.currentPosition?.longitude ?? 0),
+          initialCenter: points.isNotEmpty ? center : const LatLng(0, 0),
           initialZoom: zoomLevel,
         ),
         children: [

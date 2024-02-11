@@ -65,7 +65,7 @@ class SumUpViewModel extends StateNotifier<SumUpState> {
       ref.read(timerViewModelProvider.notifier).resetTimer();
       ref.read(locationViewModelProvider.notifier).resetSavedPositions();
       ref.read(metricsViewModelProvider.notifier).reset();
-      ref.read(locationViewModelProvider.notifier).startGettingLocation();
+      await ref.read(locationViewModelProvider.notifier).startGettingLocation();
 
       state = state.copyWith(isSaving: false);
       navigatorKey.currentState?.pop();

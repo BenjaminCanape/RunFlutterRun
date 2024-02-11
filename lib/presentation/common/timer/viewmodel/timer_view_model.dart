@@ -69,7 +69,7 @@ class TimerViewModel extends StateNotifier<TimerState> {
     final distance = metricsProvider.distance;
     final globalSpeed = metricsProvider.globalSpeed;
 
-    ref.read(locationViewModelProvider.notifier).cancelLocationStream();
+    //await ref.read(locationViewModelProvider.notifier).cancelLocationStream();
 
     var textToSay = StringBuffer();
 

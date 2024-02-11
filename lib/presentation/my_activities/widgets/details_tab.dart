@@ -104,7 +104,11 @@ class DetailsTab extends HookConsumerWidget {
           Expanded(
             child: RepaintBoundary(
               key: state.boundaryKey,
-              child: LocationMap(points: points, markers: markers),
+              child: LocationMap(
+                points: points,
+                markers: markers,
+                mapController: MapController(),
+              ),
             ),
           )
         ],

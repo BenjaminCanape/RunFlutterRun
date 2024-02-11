@@ -22,7 +22,7 @@ class SumUpScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(sumUpViewModelProvider);
-    final provider = ref.watch(sumUpViewModelProvider.notifier);
+    final provider = ref.read(sumUpViewModelProvider.notifier);
     ActivityType selectedType = state.type;
 
     final locations = ref.read(locationViewModelProvider).savedPositions;
@@ -96,7 +96,11 @@ class SumUpScreen extends HookConsumerWidget {
                   Expanded(
                     child: RepaintBoundary(
                       key: state.boundaryKey,
-                      child: LocationMap(points: points, markers: markers),
+                      child: LocationMap(
+                        points: points,
+                        markers: markers,
+                        mapController: MapController(),
+                      ),
                     ),
                   ),
                 ],
