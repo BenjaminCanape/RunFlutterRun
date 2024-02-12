@@ -78,6 +78,7 @@ class CurrentLocationMap extends HookConsumerWidget {
           child: LocationMap(
         points: points,
         markers: markers,
+        currentPosition: LatLng(currentLatitude, currentLongitude),
         mapController: provider.mapController ?? MapController(),
       ));
     }, loading: () {
