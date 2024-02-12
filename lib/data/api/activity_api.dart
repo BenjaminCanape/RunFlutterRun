@@ -17,7 +17,7 @@ class ActivityApi {
       int pageNumber) async {
     Response? response = await ApiHelper.makeRequest(
         '${ActivityApi.url}all', 'GET',
-        queryParams: {'page': pageNumber, 'size': 5});
+        queryParams: {'page': pageNumber, 'size': 20});
 
     PageResponse pageResponse = PageResponse.fromMap(response?.data);
     final data = List<Map<String, dynamic>>.from(pageResponse.list);
@@ -33,7 +33,7 @@ class ActivityApi {
       int pageNumber) async {
     Response? response = await ApiHelper.makeRequest(
         '${ActivityApi.url}friends', 'GET',
-        queryParams: {'page': pageNumber, 'size': 3}, noCache: true);
+        queryParams: {'page': pageNumber, 'size': 10}, noCache: true);
     PageResponse pageResponse = PageResponse.fromMap(response?.data);
     final data = List<Map<String, dynamic>>.from(pageResponse.list);
     List<ActivityResponse> activities =
@@ -48,7 +48,7 @@ class ActivityApi {
       String userId, int pageNumber) async {
     Response? response = await ApiHelper.makeRequest(
         '${ActivityApi.url}user/$userId', 'GET',
-        queryParams: {'page': pageNumber, 'size': 5}, noCache: true);
+        queryParams: {'page': pageNumber, 'size': 20}, noCache: true);
     PageResponse pageResponse = PageResponse.fromMap(response?.data);
     final data = List<Map<String, dynamic>>.from(pageResponse.list);
     List<ActivityResponse> activities =

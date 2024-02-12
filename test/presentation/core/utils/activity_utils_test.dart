@@ -8,11 +8,11 @@ void main() {
   group('ActivityUtils', () {
     test('getActivityTypeIcon should return correct icons', () {
       expect(ActivityUtils.getActivityTypeIcon(ActivityType.running),
-          Icons.run_circle_outlined);
+          Icons.directions_run);
       expect(ActivityUtils.getActivityTypeIcon(ActivityType.walking),
-          Icons.nordic_walking);
+          Icons.directions_walk);
       expect(ActivityUtils.getActivityTypeIcon(ActivityType.cycling),
-          Icons.pedal_bike);
+          Icons.directions_bike);
     });
   });
 }

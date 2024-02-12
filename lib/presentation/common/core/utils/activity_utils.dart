@@ -24,13 +24,13 @@ class ActivityUtils {
   static IconData getActivityTypeIcon(ActivityType type) {
     switch (type) {
       case ActivityType.running:
-        return Icons.run_circle_outlined;
+        return Icons.directions_run;
       case ActivityType.walking:
-        return Icons.nordic_walking;
+        return Icons.directions_walk;
       case ActivityType.cycling:
-        return Icons.pedal_bike;
+        return Icons.directions_bike;
       default:
-        return Icons.run_circle_rounded;
+        return Icons.directions_run;
     }
   }
 
