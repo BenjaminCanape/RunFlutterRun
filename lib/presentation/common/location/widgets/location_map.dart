@@ -10,7 +10,7 @@ import '../../core/utils/map_utils.dart';
 class LocationMap extends HookConsumerWidget {
   final List<LatLng> points;
   final List<Marker> markers;
-  final MapController mapController;
+  final MapController? mapController;
 
   const LocationMap(
       {super.key,
@@ -26,6 +26,7 @@ class LocationMap extends HookConsumerWidget {
     return SizedBox(
       height: 500,
       child: FlutterMap(
+        key: ValueKey(MediaQuery.of(context).orientation),
         mapController: mapController,
         options: MapOptions(
           initialCenter: points.isNotEmpty ? center : const LatLng(0, 0),

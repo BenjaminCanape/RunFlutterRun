@@ -20,8 +20,9 @@ class CurrentLocationMap extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(locationViewModelProvider);
     final provider = ref.read(locationViewModelProvider.notifier);
+    final state = ref.watch(locationViewModelProvider);
+
     var futureProvider = ref.watch(dataFutureProvider);
 
     final points = provider.savedPositionsLatLng();
@@ -77,7 +78,7 @@ class CurrentLocationMap extends HookConsumerWidget {
           child: LocationMap(
         points: points,
         markers: markers,
-        mapController: provider.mapController,
+        mapController: provider.mapController ?? MapController(),
       ));
     }, loading: () {
       return Expanded(child: Center(child: UIUtils.loader));

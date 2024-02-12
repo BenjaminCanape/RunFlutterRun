@@ -18,15 +18,13 @@ final locationViewModelProvider =
 /// View model for managing location-related functionality.
 class LocationViewModel extends StateNotifier<LocationState> {
   final Ref ref;
-  late MapController mapController;
+  MapController? mapController = MapController();
   StreamSubscription<Position>? _positionStream;
 
   /// Creates a [LocationViewModel] instance.
   ///
   /// The [ref] is a reference to the current provider reference.
-  LocationViewModel(this.ref) : super(LocationState.initial()) {
-    mapController = MapController();
-  }
+  LocationViewModel(this.ref) : super(LocationState.initial());
 
   @override
   Future<void> dispose() async {
@@ -48,11 +46,13 @@ class LocationViewModel extends StateNotifier<LocationState> {
     }
     _positionStream ??=
         Geolocator.getPositionStream().listen((Position position) {
-      if (mounted) {
-        mapController.move(
-          LatLng(position.latitude, position.longitude),
-          17,
-        );
+      if (mounted && _positionStream != null && mapController != null) {
+        if (mounted && _positionStream != null && mapController != null) {
+          mapController?.move(
+            LatLng(position.latitude, position.longitude),
+            17,
+          );
+        }
 
         final timerProvider = ref.read(timerViewModelProvider.notifier);
         if (timerProvider.isTimerRunning() && timerProvider.hasTimerStarted()) {
