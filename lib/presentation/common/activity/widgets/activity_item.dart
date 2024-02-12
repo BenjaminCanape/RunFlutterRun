@@ -72,7 +72,7 @@ class ActivityItem extends HookConsumerWidget {
                 Row(
                   children: [
                     if (!displayUserName)
-                      Container(
+                      SizedBox(
                         width: 120,
                         height: 150,
                         child: Center(
