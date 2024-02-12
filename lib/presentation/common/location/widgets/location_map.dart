@@ -5,50 +5,55 @@ import 'package:latlong2/latlong.dart';
 
 import '../../core/utils/color_utils.dart';
 import '../../core/utils/map_utils.dart';
-import '../view_model/location_view_model.dart';
+import '../../core/utils/ui_utils.dart';
 
 /// Widget that displays a map with markers and polylines representing locations.
 class LocationMap extends HookConsumerWidget {
   final List<LatLng> points;
   final List<Marker> markers;
+  final MapController? mapController;
+  final LatLng? currentPosition;
 
-  const LocationMap({super.key, required this.points, required this.markers});
+  const LocationMap(
+      {super.key,
+      required this.points,
+      required this.markers,
+      required this.mapController,
+      this.currentPosition});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.read(locationViewModelProvider.notifier);
-    final state = ref.watch(locationViewModelProvider);
-
     final center = MapUtils.getCenterOfMap(points);
     final zoomLevel = MapUtils.getZoomLevel(points, center);
 
-    return Expanded(
-      child: SizedBox(
-        height: 500,
-        child: FlutterMap(
-          mapController: provider.mapController,
-          options: MapOptions(
-            center: points.isNotEmpty
-                ? center
-                : LatLng(state.currentPosition?.latitude ?? 0,
-                    state.currentPosition?.longitude ?? 0),
-            zoom: zoomLevel,
-          ),
-          nonRotatedChildren: const [],
-          children: [
-            TileLayer(
-              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-            ),
-            PolylineLayer(
-              polylines: [
-                Polyline(
-                    points: points, strokeWidth: 4, color: ColorUtils.blueGrey),
+    return points.isNotEmpty || currentPosition != null
+        ? SizedBox(
+            height: 500,
+            child: FlutterMap(
+              key: ValueKey(MediaQuery.of(context).orientation),
+              mapController: mapController,
+              options: MapOptions(
+                initialCenter: points.isNotEmpty
+                    ? center
+                    : currentPosition ?? const LatLng(0, 0),
+                initialZoom: zoomLevel,
+              ),
+              children: [
+                TileLayer(
+                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                ),
+                PolylineLayer(
+                  polylines: [
+                    Polyline(
+                        points: points,
+                        strokeWidth: 4,
+                        color: ColorUtils.blueGrey),
+                  ],
+                ),
+                MarkerLayer(markers: markers),
               ],
             ),
-            MarkerLayer(markers: markers),
-          ],
-        ),
-      ),
-    );
+          )
+        : Center(child: UIUtils.loader);
   }
 }

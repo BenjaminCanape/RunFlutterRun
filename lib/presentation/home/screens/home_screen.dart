@@ -4,7 +4,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../common/core/utils/color_utils.dart';
-import '../../common/location/view_model/location_view_model.dart';
 import '../../community/screens/community_screen.dart';
 import '../../my_activities/screens/activity_list_screen.dart';
 import '../../new_activity/screens/new_activity_screen.dart';
@@ -22,12 +21,7 @@ class HomeScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(homeViewModelProvider);
     final homeViewModel = ref.watch(homeViewModelProvider.notifier);
-    final locationViewModel = ref.read(locationViewModelProvider.notifier);
     final currentIndex = state.currentIndex;
-
-    if (currentIndex == 0) {
-      locationViewModel.startGettingLocation();
-    }
 
     final tabs = [
       const NewActivityScreen(),
@@ -50,7 +44,7 @@ class HomeScreen extends HookConsumerWidget {
                 padding: const EdgeInsets.all(16),
                 selectedIndex: currentIndex,
                 onTabChange: (value) {
-                  locationViewModel.cancelLocationStream();
+                  //locationViewModel.cancelLocationStream();
                   homeViewModel.setCurrentIndex(value);
                 },
                 gap: 8,

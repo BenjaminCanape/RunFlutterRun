@@ -142,23 +142,25 @@ class ActivityUtils {
 
   static Future<void> _updateActivityList(Ref<Object?> ref, String listType,
       Activity updatedActivity, ActivityUpdateActionEnum action) async {
-    var data = ref.read(infiniteScrollListViewModelProvider(listType)).data;
+    var data = ref
+        .read(infiniteScrollListViewModelProvider(listType))
+        .data
+        .cast<List<Activity>>();
 
-    List<List<Activity>> newData = [];
+    if (data.isNotEmpty) {
+      List<List<Activity>> newData = [];
 
-    if (action == ActivityUpdateActionEnum.edit) {
-      newData = ActivityUtils.replaceActivity(
-          data as List<List<Activity>>, updatedActivity);
-    } else if (action == ActivityUpdateActionEnum.remove) {
-      newData = ActivityUtils.deleteActivity(
-          data as List<List<Activity>>, updatedActivity);
-    } else if (action == ActivityUpdateActionEnum.add) {
-      newData = ActivityUtils.prependActivity(
-          data as List<List<Activity>>, updatedActivity);
+      if (action == ActivityUpdateActionEnum.edit) {
+        newData = ActivityUtils.replaceActivity(data, updatedActivity);
+      } else if (action == ActivityUpdateActionEnum.remove) {
+        newData = ActivityUtils.deleteActivity(data, updatedActivity);
+      } else if (action == ActivityUpdateActionEnum.add) {
+        newData = ActivityUtils.prependActivity(data, updatedActivity);
+      }
+
+      ref
+          .read(infiniteScrollListViewModelProvider(listType).notifier)
+          .replaceData(newData);
     }
-
-    ref
-        .read(infiniteScrollListViewModelProvider(listType).notifier)
-        .replaceData(newData);
   }
 }

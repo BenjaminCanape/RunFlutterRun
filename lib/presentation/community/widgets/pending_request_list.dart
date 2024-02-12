@@ -14,9 +14,7 @@ class PendingRequestsListWidget extends HookConsumerWidget {
   final Function(String) onReject;
   final Future<EntityPage<User>> Function({int pageNumber}) bottomListScrollFct;
 
-  final ScrollController _scrollController = ScrollController();
-
-  PendingRequestsListWidget(
+  const PendingRequestsListWidget(
       {super.key,
       required this.users,
       required this.total,
@@ -24,33 +22,9 @@ class PendingRequestsListWidget extends HookConsumerWidget {
       required this.onReject,
       required this.bottomListScrollFct});
 
-  void onScroll() {
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {}
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    _scrollController.addListener(onScroll);
-    /*return ListView.builder(
-      controller: _scrollController,
-      itemCount: users.length,
-      itemBuilder: (context, index) {
-        final user = users[index];
-        return ListTile(
-          title: Text(
-            UserUtils.getNameOrUsername(user),
-          ),
-          trailing: AcceptRefuseWidget(
-            userId: user.id,
-            onAccept: onAccept,
-            onReject: onReject,
-          ),
-        );
-      },
-    );*/
-    return Expanded(
-        child: InfiniteScrollList(
+    return InfiniteScrollList(
       listId: 'PENDING_REQUESTS',
       initialData: users,
       total: total,
@@ -72,6 +46,6 @@ class PendingRequestsListWidget extends HookConsumerWidget {
           ),
         );
       },
-    ));
+    );
   }
 }

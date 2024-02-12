@@ -67,8 +67,7 @@ class ActivityList extends HookConsumerWidget {
         ? state.groupedActivities
         : groupActivitiesByMonth(activities);
 
-    return Expanded(
-        child: InfiniteScrollList(
+    return InfiniteScrollList(
       listId: id,
       initialData: groupedActivities,
       total: total,
@@ -109,41 +108,39 @@ class ActivityList extends HookConsumerWidget {
           previousMonthsTotal += groupedActivities[i].length as int;
         }
 
-        return Expanded(
-            child: Theme(
-                data: ThemeData(
-                  expansionTileTheme: ExpansionTileThemeData(
-                    tilePadding: EdgeInsets.zero,
-                    iconColor: ColorUtils.black,
-                    textColor: ColorUtils.black,
-                    childrenPadding: EdgeInsets.zero,
-                    shape: const RoundedRectangleBorder(
-                      side: BorderSide.none,
-                      borderRadius: BorderRadius.zero,
-                    ),
+        return Theme(
+            data: ThemeData(
+              expansionTileTheme: ExpansionTileThemeData(
+                tilePadding: EdgeInsets.zero,
+                iconColor: ColorUtils.black,
+                textColor: ColorUtils.black,
+                childrenPadding: EdgeInsets.zero,
+                shape: const RoundedRectangleBorder(
+                  side: BorderSide.none,
+                  borderRadius: BorderRadius.zero,
+                ),
+              ),
+            ),
+            child: ExpansionTile(
+                tilePadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                title: Text(
+                  '${_getMonthName(monthActivities.first.startDatetime, AppLocalizations.of(context)!.localeName)} ${monthActivities.first.startDatetime.year}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                child: ExpansionTile(
-                    tilePadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    title: Text(
-                      '${_getMonthName(monthActivities.first.startDatetime, AppLocalizations.of(context)!.localeName)} ${monthActivities.first.startDatetime.year}',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    initiallyExpanded: true,
-                    children:
-                        monthActivities.asMap().entries.map<Widget>((entry) {
-                      final index = previousMonthsTotal + entry.key;
-                      final activity = entry.value;
-                      return ActivityItem(
-                        index: index as int,
-                        activity: activity,
-                        displayUserName: displayUserName,
-                        canOpenActivity: canOpenActivity,
-                      );
-                    }).toList())));
+                initiallyExpanded: true,
+                children: monthActivities.asMap().entries.map<Widget>((entry) {
+                  final index = previousMonthsTotal + entry.key;
+                  final activity = entry.value;
+                  return ActivityItem(
+                    index: index as int,
+                    activity: activity,
+                    displayUserName: displayUserName,
+                    canOpenActivity: canOpenActivity,
+                  );
+                }).toList()));
       },
-    ));
+    );
   }
 }

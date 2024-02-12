@@ -13,6 +13,7 @@ class BackToHomeButton extends HookConsumerWidget {
     final provider = ref.watch(activityListViewModelProvider.notifier);
 
     return FloatingActionButton(
+      heroTag: 'back_button',
       backgroundColor: ColorUtils.main,
       elevation: 4.0,
       child: Icon(

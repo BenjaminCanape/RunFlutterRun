@@ -92,29 +92,30 @@ class DetailsTab extends HookConsumerWidget {
                 ])
               : Container(),
           Date(date: displayedActivity.startDatetime),
-          Column(
-            children: [
-              const SizedBox(height: 30),
-              Center(
-                child: TimerText(timeInMs: displayedActivity.time.toInt()),
-              ),
-              const SizedBox(height: 15),
-              Metrics(
-                distance: displayedActivity.distance,
-                speed: displayedActivity.speed,
-              ),
-            ],
+          const SizedBox(height: 30),
+          Center(
+            child: TimerText(timeInMs: displayedActivity.time.toInt()),
+          ),
+          const SizedBox(height: 15),
+          Metrics(
+            distance: displayedActivity.distance,
+            speed: displayedActivity.speed,
           ),
           Expanded(
             child: RepaintBoundary(
               key: state.boundaryKey,
-              child: LocationMap(points: points, markers: markers),
+              child: LocationMap(
+                points: points,
+                markers: markers,
+                mapController: MapController(),
+              ),
             ),
           )
         ],
       ),
       floatingActionButton: state.isEditing || state.isLoading
           ? FloatingActionButton(
+              heroTag: 'save_button',
               backgroundColor: ColorUtils.main,
               elevation: 4.0,
               onPressed: state.isLoading

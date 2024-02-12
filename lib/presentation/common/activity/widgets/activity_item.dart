@@ -33,6 +33,8 @@ class ActivityItem extends HookConsumerWidget {
     final state = ref.watch(activityItemViewModelProvider(activity.id));
 
     final List<Color> colors = ColorUtils.generateColorTupleFromIndex(index);
+    final titleColor = colors.first;
+
     final startColor = colors.first;
     final endColor = colors.last;
     const double borderRadius = 24;
@@ -111,7 +113,7 @@ class ActivityItem extends HookConsumerWidget {
                           ActivityItemDetails(
                               displayUserName: displayUserName,
                               activity: activity,
-                              color: startColor),
+                              color: titleColor),
                         ],
                       ),
                     ),

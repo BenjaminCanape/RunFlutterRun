@@ -23,6 +23,7 @@ class TimerPause extends HookConsumerWidget {
           );
         },
         child: FloatingActionButton(
+          heroTag: 'pause_resume_button',
           backgroundColor: ColorUtils.main,
           key: ValueKey<bool>(isRunning),
           tooltip: timerViewModel.isTimerRunning() ? 'Pause' : 'Resume',

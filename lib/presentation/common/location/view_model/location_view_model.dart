@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,16 +10,15 @@ import '../../metrics/view_model/metrics_view_model.dart';
 import '../../timer/viewmodel/timer_view_model.dart';
 import 'state/location_state.dart';
 
-/// Provider for the [LocationViewModel].
 final locationViewModelProvider =
-    StateNotifierProvider.autoDispose<LocationViewModel, LocationState>(
+    StateNotifierProvider<LocationViewModel, LocationState>(
   (ref) => LocationViewModel(ref),
 );
 
 /// View model for managing location-related functionality.
 class LocationViewModel extends StateNotifier<LocationState> {
   final Ref ref;
-  final MapController mapController = MapController();
+  MapController? mapController = MapController();
   StreamSubscription<Position>? _positionStream;
 
   /// Creates a [LocationViewModel] instance.
@@ -29,9 +27,9 @@ class LocationViewModel extends StateNotifier<LocationState> {
   LocationViewModel(this.ref) : super(LocationState.initial());
 
   @override
-  void dispose() {
+  Future<void> dispose() async {
+    await cancelLocationStream();
     super.dispose();
-    cancelLocationStream();
   }
 
   /// Starts getting the user's location updates.
@@ -48,13 +46,13 @@ class LocationViewModel extends StateNotifier<LocationState> {
     }
     _positionStream ??=
         Geolocator.getPositionStream().listen((Position position) {
-      if (mounted) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          mapController.move(
+      if (mounted && _positionStream != null && mapController != null) {
+        if (mounted && _positionStream != null && mapController != null) {
+          mapController?.move(
             LatLng(position.latitude, position.longitude),
             17,
           );
-        });
+        }
 
         final timerProvider = ref.read(timerViewModelProvider.notifier);
         if (timerProvider.isTimerRunning() && timerProvider.hasTimerStarted()) {
@@ -102,11 +100,10 @@ class LocationViewModel extends StateNotifier<LocationState> {
   }
 
   /// Cancels the location stream and cleans up resources.
-  void cancelLocationStream() async {
-    await _positionStream?.cancel().whenComplete(() {
-      _positionStream = null;
-      state = state.copyWith(currentPosition: null);
-    });
+  Future<void> cancelLocationStream() async {
+    await _positionStream?.cancel();
+    _positionStream = null;
+    state = state.copyWith(currentPosition: null);
   }
 
   /// Checks if the location stream is currently paused.

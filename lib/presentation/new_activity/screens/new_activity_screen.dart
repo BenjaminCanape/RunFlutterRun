@@ -20,12 +20,12 @@ class NewActivityScreen extends HookConsumerWidget {
         ref.watch(timerViewModelProvider.select((value) => value.isRunning));
 
     return Scaffold(
-      body: const SafeArea(
+      body: SafeArea(
         child: Column(
           children: [
-            TimerTextSized(),
-            Metrics(),
-            SizedBox(height: 10),
+            const TimerTextSized(),
+            const Metrics(),
+            const SizedBox(height: 10),
             CurrentLocationMap(),
           ],
         ),
