@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quickalert/quickalert.dart';
-import 'package:run_flutter_run/presentation/common/core/utils/ui_utils.dart';
+import '../../core/utils/ui_utils.dart';
 
 import '../../../../core/utils/storage_utils.dart';
 import '../../../../domain/entities/activity.dart';
