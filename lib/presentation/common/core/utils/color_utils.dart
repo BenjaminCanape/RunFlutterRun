@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 
 /// Utility class for color-related operations.
@@ -65,6 +67,22 @@ class ColorUtils {
     final darkColor = generateDarkColor(baseColor);
     final lightColor = generateLightColor(baseColor);
     return [darkColor, lightColor];
+  }
+
+  static Future<ImageProvider<Object>?> colorToImageProvider(Color color,
+      {double width = 32.0, double height = 32.0}) async {
+    final recorder = ui.PictureRecorder();
+    final canvas = Canvas(recorder);
+    final paint = Paint()..color = color;
+    canvas.drawRect(Rect.fromLTRB(0, 0, width, height), paint);
+    final picture = recorder.endRecording();
+    final img = await picture.toImage(width.toInt(), height.toInt());
+    final byteData = await img.toByteData(format: ui.ImageByteFormat.png);
+    if (byteData != null) {
+      return MemoryImage(byteData.buffer.asUint8List());
+    } else {
+      return null;
+    }
   }
 }
 
