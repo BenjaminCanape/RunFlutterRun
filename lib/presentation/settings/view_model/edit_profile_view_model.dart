@@ -42,6 +42,7 @@ class EditProfileViewModel extends StateNotifier<EditProfileState> {
   }
 
   Future<void> chooseNewProfilePicture(Uint8List image) async {
+    state = state.copyWith(isUploading: true);
     ref
         .read(userRepositoryProvider)
         .uploadProfilePicture(image)
@@ -52,6 +53,7 @@ class EditProfileViewModel extends StateNotifier<EditProfileState> {
             .watch(profilePictureViewModelProvider(currentUser.id).notifier)
             .editProfilePicture(image);
       }
+      state = state.copyWith(isUploading: false);
     });
   }
 

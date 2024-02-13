@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import '../utils/ui_utils.dart';
 
 import '../utils/color_utils.dart';
 
@@ -15,13 +16,18 @@ class UploadFileWidget extends HookConsumerWidget {
   /// The function to call after we chose the picture
   final Function callbackFunc;
 
+  final bool isUploading;
+
   final _picker = ImagePicker();
 
   /// Creates a [UploadFileWidget] widget.
   ///
   /// The [image] is the image to display.
   UploadFileWidget(
-      {super.key, required this.image, required this.callbackFunc});
+      {super.key,
+      required this.image,
+      required this.callbackFunc,
+      required this.isUploading});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,10 +39,14 @@ class UploadFileWidget extends HookConsumerWidget {
           width: 200,
           height: 200,
           color: ColorUtils.greyLight,
-          child: image != null
-              ? Image.memory(image!, fit: BoxFit.cover)
-              : Text(
-                  AppLocalizations.of(context)!.profile_picture_select_please),
+          child: isUploading
+              ? Center(
+                  child: UIUtils.loader,
+                )
+              : image != null
+                  ? Image.memory(image!, fit: BoxFit.cover)
+                  : Text(AppLocalizations.of(context)!
+                      .profile_picture_select_please),
         ),
       ),
       ElevatedButton(
