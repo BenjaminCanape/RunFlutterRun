@@ -217,7 +217,6 @@ class ActivityComments extends HookConsumerWidget {
               sendButtonMethod: () => commentsProvider.comment(currentActivity),
               formKey: formKey,
               commentController: commentsProvider.commentController,
-              backgroundColor: ColorUtils.white,
               textColor: ColorUtils.mainMedium,
               sendWidget:
                   Icon(Icons.send_sharp, size: 30, color: ColorUtils.main),
