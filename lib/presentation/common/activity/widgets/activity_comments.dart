@@ -22,13 +22,21 @@ class ActivityComments extends HookConsumerWidget {
   final GlobalKey<FormState> formKey;
 
   final currentUserPictureDataProvider =
-      FutureProvider.family<String?, Activity>((ref, activity) async {
+      FutureProvider.family<ImageProvider?, Activity>((ref, activity) async {
     final user = await StorageUtils.getUser();
     final provider =
         ref.read(activityItemViewModelProvider(activity.id).notifier);
 
     user != null ? provider.getProfilePicture(user.id) : null;
-    return user?.id;
+
+    if (user?.id != null) {
+      final profilePicture =
+          ref.watch(profilePictureViewModelProvider(user!.id)).profilePicture;
+      return profilePicture != null
+          ? MemoryImage(profilePicture)
+          : await ColorUtils.colorToImageProvider((Colors.white70));
+    }
+    return await ColorUtils.colorToImageProvider(Colors.white70);
   });
 
   final commentUserPictureDataProvider =
@@ -200,20 +208,11 @@ class ActivityComments extends HookConsumerWidget {
             height: state.comments.isNotEmpty ? 210 : 80,
             child: CommentBox(
               userImage: currentUserPictureProvider.when(
-                data: (userId) {
-                  if (userId != null) {
-                    final profilePicture = ref
-                        .watch(profilePictureViewModelProvider(userId))
-                        .profilePicture;
-                    return profilePicture != null
-                        ? MemoryImage(profilePicture)
-                        : null;
-                  }
-                  return null;
-                },
-                loading: () => null,
-                error: (_, __) => null,
-              ),
+                  data: (picture) {
+                    return picture;
+                  },
+                  loading: () => null,
+                  error: (_, __) => null),
               sendButtonMethod: () => commentsProvider.comment(currentActivity),
               formKey: formKey,
               commentController: commentsProvider.commentController,
