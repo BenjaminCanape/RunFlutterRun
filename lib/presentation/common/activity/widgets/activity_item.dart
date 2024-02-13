@@ -35,8 +35,6 @@ class ActivityItem extends HookConsumerWidget {
     final List<Color> colors = ColorUtils.generateColorTupleFromIndex(index);
     final titleColor = colors.first;
 
-    final startColor = colors.first;
-    final endColor = colors.last;
     const double borderRadius = 24;
 
     Activity currentActivity = state.activity ?? activity;
@@ -74,33 +72,25 @@ class ActivityItem extends HookConsumerWidget {
                 Row(
                   children: [
                     if (!displayUserName)
-                      Container(
+                      SizedBox(
                         width: 120,
                         height: 150,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(borderRadius),
-                            bottomLeft: Radius.circular(borderRadius),
-                          ),
-                          gradient: LinearGradient(
-                            colors: [startColor, endColor],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: endColor,
-                              blurRadius: 12,
-                              offset: const Offset(0, 6),
-                            ),
-                          ],
-                        ),
                         child: Center(
                           child: Icon(
                             ActivityUtils.getActivityTypeIcon(activity.type),
-                            color: ColorUtils.white,
-                            size: 40,
+                            color: Colors.blueGrey.shade700,
+                            size: 60,
                           ),
+                        ),
+                      ),
+                    if (!displayUserName)
+                      SizedBox(
+                        height: 84,
+                        child: VerticalDivider(
+                          key: Key(activity.id.toString()),
+                          color: Colors.blueGrey.shade400,
+                          thickness: 4,
+                          width: 4,
                         ),
                       ),
                     if (!displayUserName) const SizedBox(width: 16),
