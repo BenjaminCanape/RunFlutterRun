@@ -86,6 +86,8 @@ class EditProfileScreen extends HookConsumerWidget {
                                                 const SizedBox(height: 10),
                                                 UploadFileWidget(
                                                     image: profilePicture,
+                                                    isUploading:
+                                                        state.isUploading,
                                                     callbackFunc: provider
                                                         .chooseNewProfilePicture),
                                                 // Firstname TextFormField

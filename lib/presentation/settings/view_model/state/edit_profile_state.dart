@@ -7,6 +7,7 @@ class EditProfileState {
   final Uint8List? profilePicture;
   final bool isEditing;
   final bool errorOnRequest;
+  final bool isUploading;
 
   /// Creates a new instance of [EditProfileState].
   const EditProfileState(
@@ -14,7 +15,8 @@ class EditProfileState {
       required this.lastname,
       required this.profilePicture,
       required this.isEditing,
-      required this.errorOnRequest});
+      required this.errorOnRequest,
+      required this.isUploading});
 
   /// Creates the initial state for the edit profile screen.
   factory EditProfileState.initial() {
@@ -23,7 +25,8 @@ class EditProfileState {
         lastname: '',
         profilePicture: null,
         isEditing: false,
-        errorOnRequest: false);
+        errorOnRequest: false,
+        isUploading: false);
   }
 
   /// Creates a copy of this state object with the specified changes.
@@ -32,12 +35,14 @@ class EditProfileState {
       String? lastname,
       Uint8List? profilePicture,
       bool? isEditing,
-      bool? errorOnRequest}) {
+      bool? errorOnRequest,
+      bool? isUploading}) {
     return EditProfileState(
         firstname: firstname ?? this.firstname,
         lastname: lastname ?? this.lastname,
         profilePicture: profilePicture ?? this.profilePicture,
         isEditing: isEditing ?? this.isEditing,
-        errorOnRequest: errorOnRequest ?? this.errorOnRequest);
+        errorOnRequest: errorOnRequest ?? this.errorOnRequest,
+        isUploading: isUploading ?? this.isUploading);
   }
 }
