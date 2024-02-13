@@ -84,11 +84,12 @@ class ActivityComments extends HookConsumerWidget {
               ),
               subtitle: Row(
                 children: [
-                  Text(
-                    comment.content,
-                    overflow: TextOverflow.visible,
+                  Expanded(
+                    child: Text(
+                      comment.content,
+                      overflow: TextOverflow.visible,
+                    ),
                   ),
-                  const Spacer(),
                   if (currentUser.id == comment.user.id)
                     IconButton(
                       color: ColorUtils.black,
