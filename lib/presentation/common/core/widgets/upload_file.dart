@@ -3,10 +3,11 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import '../utils/ui_utils.dart';
 
 import '../utils/color_utils.dart';
+import '../utils/ui_utils.dart';
 
 /// A widget that allow to upload a file
 class UploadFileWidget extends HookConsumerWidget {
@@ -61,9 +62,32 @@ class UploadFileWidget extends HookConsumerWidget {
               await _picker.pickImage(source: ImageSource.gallery);
 
           if (pickedImage != null) {
-            Uint8List file = await pickedImage.readAsBytes();
+            CroppedFile? croppedFile = await ImageCropper().cropImage(
+              sourcePath: pickedImage.path,
+              aspectRatioPresets: [
+                CropAspectRatioPreset.square,
+                CropAspectRatioPreset.ratio3x2,
+                CropAspectRatioPreset.original,
+                CropAspectRatioPreset.ratio4x3,
+                CropAspectRatioPreset.ratio16x9
+              ],
+              uiSettings: [
+                AndroidUiSettings(
+                    toolbarTitle: 'Cropper',
+                    toolbarColor: ColorUtils.main,
+                    toolbarWidgetColor: Colors.white,
+                    initAspectRatio: CropAspectRatioPreset.square,
+                    lockAspectRatio: false),
+                IOSUiSettings(
+                  title: 'Cropper',
+                ),
+              ],
+            );
 
-            callbackFunc(file);
+            if (croppedFile != null) {
+              Uint8List file = await croppedFile.readAsBytes();
+              callbackFunc(file);
+            }
           }
         },
         child: Text(AppLocalizations.of(context)!.profile_picture_select,

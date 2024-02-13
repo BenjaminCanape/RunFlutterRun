@@ -69,6 +69,7 @@ dependencies:
   image_picker: ^1.0.4
   share_plus: ^6.3.4
   comment_box: ^0.0.18
+  image_cropper: ^5.0.1
 
 dev_dependencies:
   flutter_test:

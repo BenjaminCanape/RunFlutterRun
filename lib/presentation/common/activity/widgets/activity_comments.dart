@@ -84,11 +84,9 @@ class ActivityComments extends HookConsumerWidget {
               ),
               subtitle: Row(
                 children: [
-                  Expanded(
-                    child: Text(
-                      comment.content,
-                      overflow: TextOverflow.visible,
-                    ),
+                  Text(
+                    comment.content,
+                    overflow: TextOverflow.visible,
                   ),
                   const Spacer(),
                   if (currentUser.id == comment.user.id)
