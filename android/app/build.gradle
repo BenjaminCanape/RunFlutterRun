@@ -65,5 +65,6 @@ flutter {
 }
 
 dependencies {
+    ext.kotlin_version = '1.9.20'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
