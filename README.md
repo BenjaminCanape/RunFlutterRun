@@ -1,8 +1,8 @@
-<img src="banner.png" >
+<img src="banner.png" style="border-radius: 10px;">
 
 # Run Flutter Run
 
-A clone of the Runtastic mobile app
+A clone of the Runtastic or Strava mobile app
 
 ## Functionalities
 
@@ -14,7 +14,7 @@ Users can also view their previous sessions and follow other users to see, like 
 
 ### Prerequisites
 
-You need flutter (The best is to use the version 3.16 and above)
+You need flutter (The best is to use the version 3.19 and above)
 
 ### How to run
 
@@ -28,20 +28,20 @@ flutter run
 
 ### New Activity
 
-<img src="screenshots/new_activity/home.png" alt="Description de l'image" width="282px"> <img src="screenshots/new_activity/current_activity.png" alt="Description de l'image" width="280px"> 
+<img src="screenshots/new_activity/home.png" alt="Description de l'image" width="230px"> <img src="screenshots/new_activity/current_activity.png" alt="Description de l'image" width="230px"> 
 
 ### Activity list
 
-<img src="screenshots/activity_list/activity_list.png" alt="Description de l'image" width="280px"> <img src="screenshots/activity_list/activity_details.png" alt="Description de l'image" width="280px"> <img src="screenshots/activity_list/activity_graph.png" alt="Description de l'image" width="280px"> 
+<img src="screenshots/activity_list/activity_list.png" alt="Description de l'image" width="230px"> <img src="screenshots/activity_list/activity_details.png" alt="Description de l'image" width="230px"> <img src="screenshots/activity_list/activity_graph.png" alt="Description de l'image" width="230px"> 
 
 ### Community
 
-<img src="screenshots/community/all_activities.png" alt="Description de l'image" width="280px"> <img src="screenshots/community/pending_requests.png" alt="Description de l'image" width="280px"> <img src="screenshots/community/user_profile.png" alt="Description de l'image" width="280px">
+<img src="screenshots/community/all_activities.png" alt="Description de l'image" width="230px"> <img src="screenshots/community/pending_requests.png" alt="Description de l'image" width="230px"> <img src="screenshots/community/user_profile.png" alt="Description de l'image" width="230px">
 
 ### Settings
 
-<img src="screenshots/settings/settings.png" alt="Description de l'image" width="280px"> <img src="screenshots/settings/edit_profile.png" alt="Description de l'image" width="280px">
+<img src="screenshots/settings/settings.png" alt="Description de l'image" width="230px"> <img src="screenshots/settings/edit_profile.png" alt="Description de l'image" width="230px">
 
 ### Login and registration
 
-<img src="screenshots/login_registration/login.png" alt="Description de l'image" width="280px"> <img src="screenshots/login_registration/registration.png" alt="Description de l'image" width="282px">
+<img src="screenshots/login_registration/login.png" alt="Description de l'image" width="230px"> <img src="screenshots/login_registration/registration.png" alt="Description de l'image" width="232px">
