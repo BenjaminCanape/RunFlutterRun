@@ -52,67 +52,6 @@ class CommunityScreen extends HookConsumerWidget {
           },
         ),
         body: Column(children: [
-          pendingRequestsStateProvider.when(
-            data: (total) {
-              return total > 0
-                  ? Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0, vertical: 16.0),
-                      child: ElevatedButton(
-                          style: FormUtils.buttonStyle,
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                transitionDuration:
-                                    const Duration(milliseconds: 500),
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) =>
-                                        SlideTransition(
-                                  position: Tween<Offset>(
-                                    begin: const Offset(1.0, 0.0),
-                                    end: Offset.zero,
-                                  ).animate(animation),
-                                  child: PendingRequestsScreen(),
-                                ),
-                              ),
-                            );
-                          },
-                          child: Align(
-                              alignment: Alignment.center,
-                              child: Badge.count(
-                                  count: total,
-                                  textColor: ColorUtils.black,
-                                  backgroundColor: ColorUtils.white,
-                                  child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 0, 16, 0),
-                                      child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Icon(
-                                              Icons.people,
-                                              color: ColorUtils.white,
-                                            ),
-                                            const SizedBox(width: 8),
-                                            Text(
-                                              AppLocalizations.of(context)!
-                                                  .see_pending_requests,
-                                              style: FormUtils
-                                                  .darkTextFormFieldStyle,
-                                            ),
-                                          ]))))),
-                    )
-                  : Container();
-            },
-            loading: () {
-              return Expanded(child: Center(child: UIUtils.loader));
-            },
-            error: (error, stackTrace) {
-              return Text('$error');
-            },
-          ),
           Expanded(
             child: RefreshIndicator(
                 key: _refreshIndicatorKey,
@@ -142,6 +81,69 @@ class CommunityScreen extends HookConsumerWidget {
                   )
                 ])),
           ),
-        ]));
+        ]),
+        floatingActionButton: pendingRequestsStateProvider.when(
+          data: (total) {
+            return total > 0
+                ? FloatingActionButton(
+                    backgroundColor: ColorUtils.main,
+                    elevation: 4.0,
+                    child: Badge.count(
+                      count: total,
+                      textColor: ColorUtils.black,
+                      backgroundColor: ColorUtils.white,
+                      child: Icon(
+                        Icons.people,
+                        color: ColorUtils.white,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          transitionDuration: const Duration(milliseconds: 500),
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  SlideTransition(
+                            position: Tween<Offset>(
+                              begin: const Offset(1.0, 0.0),
+                              end: Offset.zero,
+                            ).animate(animation),
+                            child: PendingRequestsScreen(),
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                : Align(
+                    alignment: Alignment.center,
+                    child: Badge.count(
+                        count: total,
+                        textColor: ColorUtils.black,
+                        backgroundColor: ColorUtils.white,
+                        child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
+                            child:
+                                Row(mainAxisSize: MainAxisSize.min, children: [
+                              Icon(
+                                Icons.people,
+                                color: ColorUtils.white,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .see_pending_requests,
+                                style: FormUtils.darkTextFormFieldStyle,
+                              ),
+                            ]))));
+          },
+          loading: () {
+            return Container();
+          },
+          error: (error, stackTrace) {
+            return Container();
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat);
   }
 }
