@@ -44,7 +44,6 @@ class HomeScreen extends HookConsumerWidget {
                 padding: const EdgeInsets.all(16),
                 selectedIndex: currentIndex,
                 onTabChange: (value) {
-                  //locationViewModel.cancelLocationStream();
                   homeViewModel.setCurrentIndex(value);
                 },
                 gap: 8,

@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -91,6 +92,7 @@ class MyApp extends HookConsumerWidget {
           selectionHandleColor: ColorUtils.main,
         ),
         primaryColor: ColorUtils.main,
+        splashColor: ColorUtils.blueGreyDarker,
         bottomSheetTheme:
             BottomSheetThemeData(backgroundColor: ColorUtils.transparent),
       ),

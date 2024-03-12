@@ -16,6 +16,7 @@ class ImageUtils {
     try {
       RenderRepaintBoundary boundary = boundaryKey.currentContext!
           .findRenderObject() as RenderRepaintBoundary;
+
       ui.Image image = await boundary.toImage();
       ByteData? byteData =
           await image.toByteData(format: ui.ImageByteFormat.png);

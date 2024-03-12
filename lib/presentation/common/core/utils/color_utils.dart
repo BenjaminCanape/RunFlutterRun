@@ -26,6 +26,7 @@ class ColorUtils {
   static Color greyLight = Colors.grey.shade300;
   static Color blueGrey = Colors.blueGrey;
   static Color blueGreyDarker = Colors.blueGrey.shade900;
+  static Color backgroundLight = Colors.white;
 
   /// List of colors used for generating color tuples.
   static List<Color> colorList = [

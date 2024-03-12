@@ -16,8 +16,9 @@ class TimerStart extends HookConsumerWidget {
 
     return FloatingActionButton(
       heroTag: 'start_button',
-      backgroundColor:
-          timerViewModel.hasTimerStarted() ? ColorUtils.red : ColorUtils.main,
+      backgroundColor: timerViewModel.hasTimerStarted()
+          ? ColorUtils.errorDarker
+          : ColorUtils.main,
       elevation: 4.0,
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),

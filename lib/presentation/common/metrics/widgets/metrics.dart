@@ -14,7 +14,7 @@ class Metrics extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(metricsViewModelProvider);
-    const textStyle = TextStyle(fontSize: 30.0);
+    const textStyle = TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold);
 
     double speedToDisplay = state.globalSpeed;
     double distanceToDisplay = state.distance;
@@ -28,22 +28,36 @@ class Metrics extends HookConsumerWidget {
 
     return Center(
       child: Row(
-        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const Icon(Icons.location_on),
-          const SizedBox(width: 8),
-          Text(
-            '${distanceToDisplay.toStringAsFixed(2)} km',
-            style: textStyle,
-          ),
-          const SizedBox(width: 40),
-          const Icon(Icons.speed),
-          const SizedBox(width: 8),
-          Text(
-            '${speedToDisplay.toStringAsFixed(2)} km/h',
-            style: textStyle,
-          ),
+          Row(children: [
+            const Icon(
+              Icons.location_on,
+              size: 45,
+            ),
+            const SizedBox(width: 8),
+            Column(children: [
+              Text(
+                distanceToDisplay.toStringAsFixed(2),
+                style: textStyle,
+              ),
+              const Text('km'),
+            ])
+          ]),
+          Row(children: [
+            Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Text(
+                speedToDisplay.toStringAsFixed(2),
+                style: textStyle,
+              ),
+              const Text('km/h'),
+            ]),
+            const SizedBox(width: 8),
+            const Icon(
+              Icons.speed,
+              size: 45,
+            ),
+          ])
         ],
       ),
     );
