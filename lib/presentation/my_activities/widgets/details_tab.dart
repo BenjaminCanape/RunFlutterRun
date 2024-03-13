@@ -102,14 +102,22 @@ class DetailsTab extends HookConsumerWidget {
             speed: displayedActivity.speed,
           ),
           Expanded(
-            child: RepaintBoundary(
-              key: state.boundaryKey,
-              child: LocationMap(
-                points: points,
-                markers: markers,
-                mapController: MapController(),
-              ),
-            ),
+            child: SizedBox(
+                height: 500,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(150),
+                    topRight: Radius.circular(150),
+                  ),
+                  child: RepaintBoundary(
+                    key: state.boundaryKey,
+                    child: LocationMap(
+                      points: points,
+                      markers: markers,
+                      mapController: MapController(),
+                    ),
+                  ),
+                )),
           )
         ],
       ),

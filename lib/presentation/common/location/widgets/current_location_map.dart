@@ -37,9 +37,9 @@ class CurrentLocationMap extends HookConsumerWidget {
         height: 80,
         point: LatLng(currentLatitude, currentLongitude),
         child: Icon(
-          Icons.run_circle_sharp,
-          size: 30,
-          color: ColorUtils.red,
+          Icons.circle,
+          size: 20,
+          color: ColorUtils.errorDarker,
         ),
       ),
     ];
@@ -75,12 +75,19 @@ class CurrentLocationMap extends HookConsumerWidget {
 
     return futureProvider.when(data: (total) {
       return Expanded(
-          child: LocationMap(
-        points: points,
-        markers: markers,
-        currentPosition: LatLng(currentLatitude, currentLongitude),
-        mapController: provider.mapController ?? MapController(),
-      ));
+          child: SizedBox(
+              height: 500,
+              child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(150),
+                    topRight: Radius.circular(150),
+                  ),
+                  child: LocationMap(
+                    points: points,
+                    markers: markers,
+                    currentPosition: LatLng(currentLatitude, currentLongitude),
+                    mapController: provider.mapController ?? MapController(),
+                  ))));
     }, loading: () {
       return Expanded(child: Center(child: UIUtils.loader));
     }, error: (error, stackTrace) {

@@ -27,32 +27,29 @@ class LocationMap extends HookConsumerWidget {
     final zoomLevel = MapUtils.getZoomLevel(points, center);
 
     return points.isNotEmpty || currentPosition != null
-        ? SizedBox(
-            height: 500,
-            child: FlutterMap(
-              key: ValueKey(MediaQuery.of(context).orientation),
-              mapController: mapController,
-              options: MapOptions(
-                initialCenter: points.isNotEmpty
-                    ? center
-                    : currentPosition ?? const LatLng(0, 0),
-                initialZoom: zoomLevel,
-              ),
-              children: [
-                TileLayer(
-                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                ),
-                PolylineLayer(
-                  polylines: [
-                    Polyline(
-                        points: points,
-                        strokeWidth: 4,
-                        color: ColorUtils.blueGrey),
-                  ],
-                ),
-                MarkerLayer(markers: markers),
-              ],
+        ? FlutterMap(
+            key: ValueKey(MediaQuery.of(context).orientation),
+            mapController: mapController,
+            options: MapOptions(
+              initialCenter: points.isNotEmpty
+                  ? center
+                  : currentPosition ?? const LatLng(0, 0),
+              initialZoom: zoomLevel,
             ),
+            children: [
+              TileLayer(
+                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+              ),
+              PolylineLayer(
+                polylines: [
+                  Polyline(
+                      points: points,
+                      strokeWidth: 4,
+                      color: ColorUtils.blueGrey),
+                ],
+              ),
+              MarkerLayer(markers: markers),
+            ],
           )
         : Center(child: UIUtils.loader);
   }

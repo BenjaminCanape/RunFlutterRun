@@ -91,6 +91,7 @@ class MyApp extends HookConsumerWidget {
           selectionHandleColor: ColorUtils.main,
         ),
         primaryColor: ColorUtils.main,
+        splashColor: ColorUtils.blueGreyDarker,
         bottomSheetTheme:
             BottomSheetThemeData(backgroundColor: ColorUtils.transparent),
       ),
