@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../domain/entities/activity.dart';
@@ -8,7 +7,6 @@ import '../../../domain/entities/user.dart';
 import '../../common/activity/widgets/activity_list.dart';
 import '../../common/core/enums/infinite_scroll_list.enum.dart';
 import '../../common/core/utils/color_utils.dart';
-import '../../common/core/utils/form_utils.dart';
 import '../../common/core/utils/ui_utils.dart';
 import '../view_model/community_view_model.dart';
 import '../view_model/pending_request_view_model.dart';
@@ -115,27 +113,7 @@ class CommunityScreen extends HookConsumerWidget {
                       );
                     },
                   )
-                : Align(
-                    alignment: Alignment.center,
-                    child: Badge.count(
-                        count: total,
-                        textColor: ColorUtils.black,
-                        backgroundColor: ColorUtils.white,
-                        child: Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
-                            child:
-                                Row(mainAxisSize: MainAxisSize.min, children: [
-                              Icon(
-                                Icons.people,
-                                color: ColorUtils.white,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                AppLocalizations.of(context)!
-                                    .see_pending_requests,
-                                style: FormUtils.darkTextFormFieldStyle,
-                              ),
-                            ]))));
+                : Container();
           },
           loading: () {
             return Container();
