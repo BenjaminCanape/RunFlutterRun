@@ -45,6 +45,8 @@ class SearchWidget extends HookConsumerWidget implements PreferredSizeWidget {
         },
         onSuggestionSelected: (User suggestion) =>
             UserUtils.goToProfile(suggestion),
+        noItemsFoundBuilder: (context) =>
+            Text(AppLocalizations.of(context)!.no_data),
       ),
     );
   }
