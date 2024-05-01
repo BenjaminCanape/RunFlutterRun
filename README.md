@@ -4,6 +4,11 @@
 
 A clone of the Runtastic or Strava mobile app
 
+## License
+
+You can use this app the way you want (MIT License) but if the code helped you and you want to thank me for this, you can buy me a coffee: </br>
+<a href="https://buymeacoffee.com/benjamincanape" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
 ## Functionalities
 
 Record your running, walking, and cycling sessions with session tracking through voice synthesis and a map updated with real-time location.
