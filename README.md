@@ -4,9 +4,14 @@
 
 A clone of the Runtastic or Strava mobile app
 
-## License
+## Fork it, add new functionnalities, please don't hesitate
 
-You can use this app the way you want (MIT License) but if the code helped you and you want to thank me for this, you can buy me a coffee: </br>
+If you want to play with the project or add new functionnalities, you can fork this current repository and the backend one (https://github.com/BenjaminCanape/RunBackEndRun) and do what you want with it, and if it's awesome maybe propose it in a Pull request here. 
+
+I would be happy to see all your ideas and improvments.
+
+And if the code helped you and you want to thank me for this, you can buy me a coffee: </br>
+
 <a href="https://buymeacoffee.com/benjamincanape" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
 ## Functionalities
