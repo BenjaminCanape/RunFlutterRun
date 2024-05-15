@@ -22,13 +22,13 @@ class FormUtils {
   /// Returns the created button style.
   static ButtonStyle createButtonStyle(Color backgroundColor) {
     return ButtonStyle(
-      textStyle: MaterialStateProperty.all(TextStyle(
+      textStyle: WidgetStateProperty.all(TextStyle(
         fontSize: 20,
         color: ColorUtils.white,
       )),
-      minimumSize: MaterialStateProperty.all(const Size(150, 50)),
-      backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
-      shape: MaterialStateProperty.all(
+      minimumSize: WidgetStateProperty.all(const Size(150, 50)),
+      backgroundColor: WidgetStateProperty.all<Color>(backgroundColor),
+      shape: WidgetStateProperty.all(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );

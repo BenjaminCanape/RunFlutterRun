@@ -52,8 +52,8 @@ class UploadFileWidget extends HookConsumerWidget {
       ),
       ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(ColorUtils.main),
-          shape: MaterialStateProperty.all(
+          backgroundColor: WidgetStateProperty.all<Color>(ColorUtils.main),
+          shape: WidgetStateProperty.all(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           ),
         ),
