@@ -24,7 +24,7 @@ Users can also view their previous sessions and follow other users to see, like 
 
 ### Prerequisites
 
-You need flutter (The best is to use the version 3.19 and above)
+You need flutter (The best is to use the version 3.22 and above)
 
 ### How to run
 

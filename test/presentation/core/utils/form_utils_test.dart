@@ -11,7 +11,7 @@ void main() {
     final backgroundColor = ColorUtils.main;
     final buttonStyle = FormUtils.createButtonStyle(backgroundColor);
     expect(buttonStyle, isInstanceOf<ButtonStyle>());
-    expect(buttonStyle.backgroundColor?.resolve(<MaterialState>{}),
+    expect(buttonStyle.backgroundColor?.resolve(<WidgetState>{}),
         equals(backgroundColor));
   });
 
