@@ -60,7 +60,6 @@ dependencies:
   coverage: ^1.6.3
   mockito: ^5.4.2
   screenshot: ^2.1.0
-  image_gallery_saver: ^2.0.3
   path_provider: ^2.0.15
   image: ^4.0.17
   fl_chart: ^0.64.0
