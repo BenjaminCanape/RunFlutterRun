@@ -52,7 +52,7 @@ dependencies:
   flutter_riverpod: ^2.3.6
   dio_smart_retry: ^6.0.0
   shared_preferences: ^2.1.2
-  wakelock: ^0.6.2
+  wakelock_plus: ^1.2.7
   flutter_secure_storage: ^8.0.0
   email_validator: ^2.1.17
   quickalert: ^1.0.1
@@ -67,7 +67,7 @@ dependencies:
   google_nav_bar: ^5.0.6
   flutter_typeahead: ^4.8.0
   image_picker: ^1.0.4
-  share_plus: ^6.3.4
+  share_plus: ^9.0.0
   comment_box: ^0.0.18
   image_cropper: ^5.0.1
 dev_dependencies:

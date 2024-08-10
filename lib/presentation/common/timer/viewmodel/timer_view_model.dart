@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../../../../main.dart';
 import '../../core/services/text_to_speech_service.dart';
@@ -32,7 +32,7 @@ class TimerViewModel extends StateNotifier<TimerState> {
     timer = Timer.periodic(_timerDuration, updateTime);
     if (!isRunning) {
       ref.read(textToSpeechService).sayGoodLuck();
-      Wakelock.enable();
+      WakelockPlus.enable();
     } else {
       ref.read(textToSpeechService).sayResume();
       ref.read(locationViewModelProvider.notifier).resumeLocationStream();
@@ -109,7 +109,7 @@ class TimerViewModel extends StateNotifier<TimerState> {
     stopwatch.reset();
     timer?.cancel();
     state = state.copyWith(isRunning: false);
-    Wakelock.disable();
+    WakelockPlus.disable();
   }
 
   void navigateToSummaryScreen() {
