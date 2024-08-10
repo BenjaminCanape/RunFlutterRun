@@ -16,3 +16,10 @@ subprojects {
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
+
+configurations.all {
+   resolutionStrategy {
+     force 'androidx.core:core:2.0.10'
+     force 'androidx.core:core-ktx:2.0.10'
+   }
+ }

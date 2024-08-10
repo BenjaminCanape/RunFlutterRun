@@ -16,10 +16,14 @@ jobs:
     - uses: actions/setup-java@v2
       with:
         distribution: 'zulu'
-        java-version: '11'
+        java-version: '17'
     - uses: subosito/flutter-action@v2
       with: 
-        flutter-version: '3.22.0'
+        flutter-version: '3.24.0'
+    - name: Clean Gradle cache
+      run: rm -rf ~/.gradle/caches/
+    - name: Flutter clean
+      run: flutter clean
     - name: Install dependencies
       run: flutter pub get
     - name: Generate l10n
@@ -54,7 +58,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.0'
+          flutter-version: '3.24.0'
           channel: 'stable'
       - name: Flutter doctor
         run: flutter doctor
