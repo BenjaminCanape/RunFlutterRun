@@ -19,7 +19,7 @@ jobs:
         java-version: '17'
     - uses: subosito/flutter-action@v2
       with: 
-        flutter-version: '3.24.0'
+        flutter-version: '3.28.0'
     - name: Clean Gradle cache
       run: rm -rf ~/.gradle/caches/
     - name: Flutter clean
@@ -58,7 +58,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.0'
+          flutter-version: '3.28.0'
           channel: 'stable'
       - name: Flutter doctor
         run: flutter doctor
