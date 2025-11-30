@@ -63,7 +63,7 @@ dependencies:
   image: ^4.0.17
   fl_chart: ^0.64.0
   google_nav_bar: ^5.0.6
-  flutter_typeahead: ^5.2.0
+  flutter_typeahead: 5.2.0
   image_picker: ^1.0.4
   share_plus: ^9.0.0
   comment_box: ^0.0.18

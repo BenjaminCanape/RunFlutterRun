@@ -22,30 +22,35 @@ class SearchWidget extends HookConsumerWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: ColorUtils.white,
       title: TypeAheadField<User>(
-        textFieldConfiguration: TextFieldConfiguration(
-          controller: searchController,
-          decoration: InputDecoration(
-            hintText: '${AppLocalizations.of(context)!.search}...',
-            border: InputBorder.none,
-            suffixIconColor: ColorUtils.main,
-            suffixIcon: const Icon(Icons.search),
-          ),
-        ),
+        controller: searchController,
         suggestionsCallback: (String query) async {
           if (query.isNotEmpty) {
             return await onSearchChanged(query);
           }
           return [];
         },
+        builder: (context, controller, focusNode) {
+          return TextField(
+            controller: controller,
+            focusNode: focusNode,
+            decoration: InputDecoration(
+              hintText: '${AppLocalizations.of(context)!.search}...',
+              border: InputBorder.none,
+              suffixIconColor: ColorUtils.main,
+              suffixIcon: const Icon(Icons.search),
+            ),
+          );
+        },
         itemBuilder: (BuildContext context, User suggestion) {
           return ListTile(
-              title: Text(
-            UserUtils.getNameOrUsername(suggestion),
-          ));
+            title: Text(
+              UserUtils.getNameOrUsername(suggestion),
+            ),
+          );
         },
-        onSuggestionSelected: (User suggestion) =>
+        onSelected: (User suggestion) =>
             UserUtils.goToProfile(suggestion),
-        noItemsFoundBuilder: (context) =>
+        emptyBuilder: (context) =>
             Text(AppLocalizations.of(context)!.no_data),
       ),
     );
